@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Accountability Ledger. Who Owned the Mess? (2014 onward)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Who owned the mess? 12 years on the record</span></div>
+    <div class="hero">
+      <div class="eyebrow">A charge sheet against a decade of impunity</div>
+      <h1 class="title">The Buck Stopped<br><span class="thin">Nowhere.</span></h1>
+      <p class="standfirst">
+        Twelve years. Scandals, disasters and failures beyond counting. One thing never changed: almost no one in power was ever made to answer for any of it. This ledger sets down what happened, who was in charge, what it cost in lives and in money, and how accountability was buried each time. Scroll it. Sit with it. Then decide, with clear eyes, who you are voting for.
+      </p>
+    </div>
+    <div class="docket">
+      <div class="cell"><div class="num" id="stat-total">--</div><div class="lbl">Cases on file</div></div>
+      <div class="cell"><div class="num" id="stat-cats">--</div><div class="lbl">Domains of failure</div></div>
+      <div class="cell"><div class="num red">≈0</div><div class="lbl">Union ministers who<br>resigned owning a failure</div></div>
+      <div class="cell"><div class="num">2014&#8202;+</div><div class="lbl">Years under<br>audit</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="method">
+  <details>
+    <summary><span class="plus">+</span> How to read this ledger. Method, figures and limits</summary>
+    <div class="body">
+      <p>This is an <strong>opinion and analysis resource that makes the accountability case</strong>. Holding the ruling party to account is the right of every citizen of a democracy, and this document exercises that right without apology. Read it as an indictment, not as a neutral encyclopedia.</p>
+      <p><strong>Its force is its accuracy, so fact and allegation are kept strictly apart.</strong> Court verdicts, official audits, government admissions and documented death tolls are stated as fact. Where a scam or personal wrongdoing is <em>alleged</em>, it sits in a marked "Contested / alleged" field, attributed to the opposition, to reporting, or to a court process, and never asserted here as proven. Some matters remain in court. Each case also records the government's own defence, because an indictment that survives the counter-argument is the one that cannot be waved away.</p>
+      <p><strong>"Ministers responsible" names who held the portfolio</strong>. That is a matter of record, not by itself a charge of personal guilt. Several failures belong to <em>state</em> BJP governments and are labelled as such rather than pinned on the Union.</p>
+      <p><strong>Every number tagged <span class="est">EST</span> is an estimate</strong>, often a disputed range. Treat it as order of magnitude and verify before quoting.</p>
+      <p><strong>Sources:</strong> most cases carry verified links; a few are marked "add link" for you to fill and check. Nothing is invented. This is a large catalogue, not a complete one. The data lives in one list in the page's script, built for you to keep adding.</p>
+      <div class="legendrow">
+        <div class="legenditem"><span class="swatch red"></span> No accountability / denied / struck down</div>
+        <div class="legenditem"><span class="swatch amber"></span> Reversed / partial / alleged / unresolved</div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<div class="controls">
+  <div class="wrap">
+    <label class="search">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="search" placeholder="Search the ledger" aria-label="Search">
+    </label>
+    <div class="chips" id="catchips"></div>
+    <select class="sort" id="sort" aria-label="Sort order">
+      <option value="desc">Newest incident first</option>
+      <option value="asc">Oldest incident first</option>
+    </select>
+  </div>
+</div>
+
+<div class="resultline"><div class="wrap"><span id="count"></span></div></div>
+
+<main>
+  <div class="wrap" id="timeline"></div>
+  <div class="wrap"><div class="empty" id="empty" hidden>No cases match that filter.</div></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <h4>What this is</h4>
+        <p>A citizen's instrument of oversight in the world's largest democracy. It measures the government against one test that power hates: was anyone ever made to answer? It is deliberately critical, and deliberately open about being so, so that readers judge for themselves.</p>
+        <p>Extend it. Every case is one block in the DATA list at the top of the script. Copy a block, name the ministers, add verified links. The largest democracy on earth deserves a permanent, open accountability ledger. This is a beginning, not the whole of it.</p>
+      </div>
+      <div>
+        <h4>Before you publish</h4>
+        <p>Replace every "add link" with a checked source. Treat all <span class="est">EST</span> figures as approximate. Keep allegations attributed. Confirm the current legal status of anything still in court, since several cases here are still moving.</p>
+        <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Some sources pending verification.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/js/app.js" defer></script>
+</body>
+</html>

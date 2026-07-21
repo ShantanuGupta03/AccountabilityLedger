@@ -1,0 +1,1737 @@
+[
+  {
+    "no": 1,
+    "sk": 20130701,
+    "year": 2013,
+    "date": "2013 to 2015 (surfaced)",
+    "cat": "Exam integrity",
+    "sev": "amber",
+    "title": "Vyapam. The exam-and-jobs racket with a body count",
+    "stamp": "Deaths unexplained. State shielded.",
+    "human": {
+      "v": "Thousands of rigged medical seats and government jobs; <b>40+</b> accused and witnesses reportedly dead in suspicious circumstances",
+      "est": true
+    },
+    "cost": {
+      "v": "A decade of poisoned admissions and recruitment in Madhya Pradesh",
+      "est": true
+    },
+    "what": "A vast racket in Madhya Pradesh's professional examinations board rigged medical-college admissions and government recruitment through impersonation and bribery, on an industrial scale.",
+    "dodge": "As the net widened, an unusually long list of accused and witnesses turned up dead. The state government fought a CBI probe until the High Court forced one in 2015. Not one senior political figure was held to account for a fraud that ran for years under the state's own board, and the deaths were quietly filed away.",
+    "ministers": [
+      {
+        "n": "Shivraj Singh Chouhan",
+        "r": "MP Chief Minister (BJP)"
+      }
+    ],
+    "pos": "The state said the arrests and the later CBI probe proved the system worked, and denied any cover-up.",
+    "alleg": "The count and cause of the associated deaths are <em>contested and largely unproven</em>; several were officially recorded as natural causes or accidents.",
+    "alt": "An independent probe from the first day, real protection for witnesses, and political ownership of a scam that festered for years.",
+    "sources": [
+      {
+        "label": "CBI probe order",
+        "todo": true
+      },
+      {
+        "label": "Witness-death reporting",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 2,
+    "sk": 20161108,
+    "year": 2016,
+    "date": "08 Nov 2016",
+    "cat": "Economic shock",
+    "sev": "red",
+    "title": "Demonetisation. Savings voided overnight",
+    "stamp": "No one answered for it",
+    "human": {
+      "v": "Cash-wage workers, farmers and traders across the country; <b>100+</b> deaths reported in queues and in the distress that followed",
+      "est": true
+    },
+    "cost": {
+      "v": "~<b>₹1.5 to 2 lakh cr</b> est. output loss; <b>99.3%</b> of the banned notes came back to the RBI",
+      "est": true
+    },
+    "what": "₹500 and ₹1,000 notes, about 86 percent of cash in circulation, were voided with four hours of notice to kill black money, counterfeits and terror funding.",
+    "dodge": "The RBI later reported almost all the cash returned, so almost no unaccounted wealth was destroyed. No one resigned. No review admitted error. The stated aim simply shifted from black money to digitisation once the first claim collapsed. The suffering was inflicted on the cash-poor; the reckoning was inflicted on nobody.",
+    "ministers": [
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister"
+      },
+      {
+        "n": "Arun Jaitley",
+        "r": "Finance Minister"
+      }
+    ],
+    "pos": "The government maintains it widened the tax base and accelerated digital payments.",
+    "alt": "An honest cost-benefit review against the original goals, and a hunt for black money where it actually sits, in benami property, shell firms and opaque political funding, not in a daily-wager's pocket.",
+    "sources": [
+      {
+        "label": "RBI note-return data",
+        "todo": true
+      },
+      {
+        "label": "8 Nov 2016 address",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 3,
+    "sk": 20170701,
+    "year": 2017,
+    "date": "01 Jul 2017",
+    "cat": "Economic shock",
+    "sev": "amber",
+    "title": "GST. Compliance chaos loaded onto the small",
+    "stamp": "Patched, never owned",
+    "human": {
+      "v": "Millions of small firms and traders squeezed by filing burden and blocked cash flow",
+      "est": true
+    },
+    "cost": {
+      "v": "Delayed state compensation ran into <b>tens of thousands of crore</b>",
+      "est": true
+    },
+    "what": "A single indirect tax replaced a tangle of central and state levies. A genuine reform, launched with too many slabs, endless rule changes and a portal that buckled.",
+    "dodge": "The cost of a rushed launch was dumped on small businesses, and the states' promised compensation arrived late and grudgingly. The rules were patched again and again, but the disruption was never once owned as a failure of preparation.",
+    "ministers": [
+      {
+        "n": "Arun Jaitley",
+        "r": "Finance Minister and GST Council chair"
+      }
+    ],
+    "pos": "The government credits GST with ending tax-on-tax and building one national market.",
+    "alt": "Fewer slabs, a stable rulebook, a tested IT backbone before launch, a real small-business threshold, and compensation paid on time.",
+    "sources": [
+      {
+        "label": "GST Council record",
+        "todo": true
+      },
+      {
+        "label": "Compensation-delay reporting",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 4,
+    "sk": 20180102,
+    "year": 2018,
+    "date": "Scheme Jan 2018. Struck down Feb 2024",
+    "cat": "Fund opacity",
+    "sev": "red",
+    "title": "Electoral bonds. The anonymous money machine",
+    "stamp": "Struck down as unconstitutional",
+    "human": {
+      "v": "Every voter, stripped of the right to know who funds power",
+      "est": false
+    },
+    "cost": {
+      "v": "<b>₹12,146 cr</b> encashed in total; the ruling BJP took <b>~₹6,000 cr+</b>, more than the next six parties combined",
+      "est": false
+    },
+    "what": "A scheme that let donors hand unlimited, publicly anonymous sums to parties through the state-owned SBI, while scrapping the cap on corporate donations.",
+    "dodge": "Sold as transparency, it delivered secrecy for the public and visibility for whoever controlled the state bank. When the Supreme Court forced disclosure, the numbers confirmed the ruling party as the runaway top beneficiary. The Court struck the scheme down as unconstitutional in 2024. For the years of lopsided, hidden money it enabled, nobody was ever held to account.",
+    "ministers": [
+      {
+        "n": "Arun Jaitley",
+        "r": "Finance Minister who introduced it"
+      }
+    ],
+    "pos": "The government argued the scheme moved donations into banking channels and protected donor privacy.",
+    "alleg": "Reporting and the opposition alleged patterns linking bond purchases to contracts and to the timing of agency raids on donors. These are <em>contested allegations</em>; the Court ruled on constitutionality, not on any specific quid pro quo.",
+    "alt": "Full public disclosure of every donor, a firm corporate cap, a bar on shell and loss-making donors, and a move to capped small-donor or state funding.",
+    "sources": [
+      {
+        "label": "BJP got more than next 6 combined",
+        "url": "https://www.business-standard.com/elections/lok-sabha-election/electoral-bonds-bjp-received-more-funds-than-the-next-6-parties-combined-124031500434_1.html"
+      },
+      {
+        "label": "Top donors and beneficiaries",
+        "url": "https://www.business-standard.com/elections/lok-sabha-election/electoral-bonds-data-here-s-a-list-of-the-biggest-donors-and-beneficiaries-124032200461_1.html"
+      }
+    ]
+  },
+  {
+    "no": 5,
+    "sk": 20180201,
+    "year": 2018,
+    "date": "Deal 2016. Row 2018 to 2019",
+    "cat": "Crony capital (alleged)",
+    "sev": "amber",
+    "title": "Rafale. The pricing and offset row",
+    "stamp": "Alleged. Courts declined a probe.",
+    "human": {
+      "v": "No direct death toll. The stake is public trust in defence spending.",
+      "est": false
+    },
+    "cost": {
+      "v": "Opposition alleged a far higher per-jet price than the earlier negotiation (<b>contested</b>)",
+      "est": true
+    },
+    "what": "India agreed to buy 36 Rafale fighter jets from France in a government-to-government deal, dropping an earlier plan to buy more jets with local manufacture.",
+    "dodge": "When the opposition alleged the per-jet price was inflated and questioned an offset contract routed to a newly formed private firm, the government withheld the pricing on security grounds and refused a Joint Parliamentary Committee. The absence of any independent scrutiny, not a proven crime, is the accountability gap.",
+    "ministers": [
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister"
+      },
+      {
+        "n": "Nirmala Sitharaman",
+        "r": "Defence Minister from 2017"
+      }
+    ],
+    "pos": "The government denied any irregularity; the Supreme Court declined to order an investigation and dismissed review petitions.",
+    "alleg": "The price and offset claims are <em>opposition allegations the courts did not uphold</em>. No wrongdoing was established; the criticism is of secrecy and the refusal of a JPC.",
+    "alt": "An independent audit trail and parliamentary oversight of pricing on mega defence deals, protecting real secrets without shielding the whole deal from scrutiny.",
+    "sources": [
+      {
+        "label": "SC ruling on pleas",
+        "todo": true
+      },
+      {
+        "label": "CAG report on pricing",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 6,
+    "sk": 20190214,
+    "year": 2019,
+    "date": "14 Feb 2019",
+    "cat": "National security",
+    "sev": "red",
+    "title": "Pulwama. 40 troopers dead, the questions buried",
+    "stamp": "No public inquiry",
+    "human": {
+      "v": "<b>40</b> CRPF personnel killed when a suicide bomber rammed their convoy",
+      "est": false
+    },
+    "cost": {
+      "v": "A catastrophic intelligence and security failure on a known-sensitive highway",
+      "est": true
+    },
+    "what": "A vehicle packed with explosives struck a CRPF convoy in Pulwama, Kashmir, killing 40 personnel in the deadliest attack on Indian forces in the region in decades.",
+    "dodge": "No findings on the security lapse were ever made public. The then Governor of J&amp;K, Satya Pal Malik, later stated openly that there had been grave lapses, including a denied request to airlift the convoy, and said he was told at the highest level to keep quiet because the blame would be placed on Pakistan. Those claims were never independently examined. Forty dead troopers got a war of rhetoric, not an inquiry.",
+    "ministers": [
+      {
+        "n": "Rajnath Singh",
+        "r": "Defence Minister"
+      },
+      {
+        "n": "Amit Shah / Rajnath Singh",
+        "r": "Home Ministry (CRPF)"
+      }
+    ],
+    "pos": "The government treated it as terrorism and answered with the Balakot airstrikes; it did not act on Malik's later claims.",
+    "alleg": "The lapse claims are those of <em>former Governor Satya Pal Malik</em> and remain unexamined by any public inquiry.",
+    "alt": "An independent, published inquiry into the intelligence and logistics failure. The least owed to 40 dead men and their families.",
+    "sources": [
+      {
+        "label": "Malik's lapse claims",
+        "todo": true
+      },
+      {
+        "label": "Convoy-movement reporting",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 7,
+    "sk": 20200325,
+    "year": 2020,
+    "date": "25 Mar 2020 onward",
+    "cat": "Data denial",
+    "sev": "red",
+    "title": "The lockdown migrant exodus. 'No data' on the dead",
+    "stamp": "Denied. Uncounted. Unpaid.",
+    "human": {
+      "v": "<b>10 million+</b> displaced; hundreds to <b>1,000+</b> estimated deaths on roads and rails; tens of millions of jobs lost",
+      "est": true
+    },
+    "cost": {
+      "v": "Not a rupee in compensation, because the state said it had no data on which to base any",
+      "est": false
+    },
+    "what": "A nationwide lockdown announced with four hours of notice stranded migrant workers with no transport, no work and no income, forcing millions to walk home. Many died of exhaustion, accidents and hunger.",
+    "dodge": "Asked in Parliament how many migrants died and what compensation was owed, the Labour Ministry answered that no such data was maintained, so the question of compensation did not arise. Refusing to count the dead became the very device for owing nothing to the living. It is hard to imagine a colder abdication.",
+    "ministers": [
+      {
+        "n": "Santosh Gangwar",
+        "r": "Labour and Employment Minister"
+      },
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister who announced the lockdown"
+      }
+    ],
+    "pos": "The government said it provided food, ration and Shramik trains to ease migrants' hardship.",
+    "alt": "Count every death, publish the toll, compensate the families. Build in humane transition time before shutting a nation down.",
+    "sources": [
+      {
+        "label": "'No data', so no compensation",
+        "url": "https://www.thenewsminute.com/article/no-data-migrant-worker-deaths-says-govt-some-news-reports-they-should-read-133096"
+      },
+      {
+        "label": "Centre tells Parliament",
+        "url": "https://www.businesstoday.in/latest/economy-politics/story/migrant-deaths-no-data-available-so-no-compensation-centre-informs-parliament-273047-2020-09-15"
+      }
+    ]
+  },
+  {
+    "no": 8,
+    "sk": 20200328,
+    "year": 2020,
+    "date": "28 Mar 2020 onward",
+    "cat": "Fund opacity",
+    "sev": "red",
+    "title": "PM CARES. A public fund that hides from the public",
+    "stamp": "No RTI. No CAG audit.",
+    "human": {
+      "v": "Every taxpayer and donor with a stake in how relief money is spent",
+      "est": false
+    },
+    "cost": {
+      "v": "<b>Thousands of crore</b> in donations, including from state-owned firms; donors and spending undisclosed",
+      "est": true
+    },
+    "what": "A trust set up days into the pandemic to collect COVID-relief donations, using the Prime Minister's name, the national emblem and a gov.in domain.",
+    "dodge": "For all the trappings of the state, the government insists PM CARES is a private trust, so it is not a public authority under RTI and is not audited by the CAG. No citizen can learn who gave, or where the money went. A fund that borrows the state's face while dodging the state's accountability is opacity by design.",
+    "ministers": [
+      {
+        "n": "Narendra Modi",
+        "r": "Ex-officio Chairman"
+      },
+      {
+        "n": "Amit Shah, Rajnath Singh, Nirmala Sitharaman",
+        "r": "Ex-officio Trustees"
+      }
+    ],
+    "pos": "The government says the fund is independently audited and its expenditure summaries are published.",
+    "alt": "Bring it under RTI and CAG audit and disclose donors and disbursements, the standard for any fund that trades on the nation's name and symbols.",
+    "sources": [
+      {
+        "label": "Centre: not a public authority",
+        "url": "https://scroll.in/latest/1006011/pm-cares-is-not-a-public-authority-under-the-rti-act-centre-tells-delhi-high-court"
+      },
+      {
+        "label": "On gov.in, still 'not public'",
+        "url": "https://www.deccanherald.com/india/pm-cares-now-under-govin-domain-centre-still-says-it-is-not-public-authority-932943.html"
+      }
+    ]
+  },
+  {
+    "no": 9,
+    "sk": 20200615,
+    "year": 2020,
+    "date": "15 Jun 2020",
+    "cat": "National security",
+    "sev": "red",
+    "title": "Galwan. 20 soldiers dead, and 'no one entered'",
+    "stamp": "Incursion publicly denied",
+    "human": {
+      "v": "<b>20</b> Indian soldiers killed, 70+ injured, the first LAC combat deaths in 45 years",
+      "est": false
+    },
+    "cost": {
+      "v": "Reported loss of patrolling access at several points along the Ladakh LAC",
+      "est": true
+    },
+    "what": "Indian and Chinese troops fought hand to hand in the Galwan Valley in Ladakh. Twenty Indian soldiers were killed in the deadliest border clash with China since 1962.",
+    "dodge": "Days later, the Prime Minister told an all-party meeting that nobody had entered Indian territory and no post had been captured. Critics said it handed Beijing a propaganda gift and contradicted his own government's earlier account. If no one intruded, they asked, where did 20 soldiers die? No accountability followed for the intelligence failure or the lost ground.",
+    "ministers": [
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister"
+      },
+      {
+        "n": "Rajnath Singh",
+        "r": "Defence Minister"
+      }
+    ],
+    "pos": "The PMO said the remark referred to the situation after the army repelled the transgression, and pointed to disengagement talks.",
+    "alt": "A straight account to Parliament of what territory was lost and why, an intelligence-failure review, and honesty owed to the dead.",
+    "sources": [
+      {
+        "label": "Modi denies incursion (Al Jazeera)",
+        "url": "https://www.aljazeera.com/news/2020/6/19/modi-denies-chinese-incursion-into-india-before-deadly-clash"
+      },
+      {
+        "label": "How territory was lost (Caravan)",
+        "url": "https://caravanmagazine.in/security/india-china-ladakh"
+      }
+    ]
+  },
+  {
+    "no": 10,
+    "sk": 20200528,
+    "year": 2020,
+    "date": "Approved 2020. New House opened May 2023",
+    "cat": "Economic shock",
+    "sev": "amber",
+    "title": "Central Vista. A vanity rebuild in a plague year",
+    "stamp": "Priorities never justified",
+    "human": {
+      "v": "A pandemic-era spend while oxygen and vaccines ran short",
+      "est": true
+    },
+    "cost": {
+      "v": "~<b>₹20,000 cr</b> redevelopment, including a new Parliament (~₹970 cr)",
+      "est": true
+    },
+    "what": "The government pressed ahead with a sweeping redevelopment of the capital's central avenue and a new Parliament building through the pandemic, declaring it an essential project.",
+    "dodge": "As citizens queued for oxygen and hospitals ran dry, thousands of crore went into remaking the seat of power, with the heritage and cost concerns brushed aside and the courts asked to treat it as untouchable. The priorities were never honestly defended to a grieving public.",
+    "ministers": [
+      {
+        "n": "Hardeep Singh Puri",
+        "r": "Housing and Urban Affairs Minister"
+      },
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister"
+      }
+    ],
+    "pos": "The government said the old buildings were unfit and outdated and the project would save money over time.",
+    "alt": "Sequence the spending behind the emergency, publish the full cost and rationale, and let heritage and Parliament oversight run their course.",
+    "sources": [
+      {
+        "label": "Project cost details",
+        "todo": true
+      },
+      {
+        "label": "Pandemic-timing criticism",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 11,
+    "sk": 20200927,
+    "year": 2020,
+    "date": "Sep 2020. Repealed Nov 2021",
+    "cat": "Policy misfire",
+    "sev": "amber",
+    "title": "Farm laws. Rammed through, then repealed",
+    "stamp": "Reversed after a year of protest",
+    "human": {
+      "v": "~<b>700</b> protesting farmers reported dead over the year-long agitation",
+      "est": true
+    },
+    "cost": {
+      "v": "A year of blockades and lost trade; the dead long unacknowledged",
+      "est": true
+    },
+    "what": "Three laws to deregulate farm markets were passed by a contested voice vote amid uproar, with no real consultation of the states (agriculture is largely a state subject) or of farmers.",
+    "dodge": "Farmers protested for a year over fears for assured procurement, and hundreds died at the protest sites. The government finally repealed all three laws, then framed the retreat as a failure to explain the reform, never as an error of substance or process, and was slow even to acknowledge the dead.",
+    "ministers": [
+      {
+        "n": "Narendra Singh Tomar",
+        "r": "Agriculture Minister"
+      }
+    ],
+    "pos": "The government said the laws would have let farmers sell anywhere and drawn in investment.",
+    "alleg": "Farm unions alleged the laws favoured large agri-corporates, a <em>contested political allegation</em>; the repeal followed the protests, not any adjudicated finding.",
+    "alt": "Legislate farm reform with the states and farmers at the table, put MSP on firmer footing, and pilot changes that can be tested and trusted.",
+    "sources": [
+      {
+        "label": "Repeal Act 2021",
+        "todo": true
+      },
+      {
+        "label": "Protest death tally",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 12,
+    "sk": 20200928,
+    "year": 2020,
+    "date": "Sep 2020",
+    "cat": "Policy misfire",
+    "sev": "amber",
+    "title": "Labour codes. Worker protections gutted in silence",
+    "stamp": "Passed amid opposition boycott",
+    "human": {
+      "v": "A rising share of the workforce pushed into insecure, easily-terminated contracts",
+      "est": true
+    },
+    "cost": {
+      "v": "Weakened job security and collective bargaining for millions",
+      "est": true
+    },
+    "what": "Twenty-nine labour laws were folded into four codes, raising the threshold for firing workers without permission, expanding fixed-term contracts and tightening the rules for legal strikes.",
+    "dodge": "The codes were passed while much of the opposition was absent or suspended, with almost no debate on provisions that hand bargaining power decisively to employers, and then left in years of limbo through stalled implementation.",
+    "ministers": [
+      {
+        "n": "Santosh Gangwar / Bhupender Yadav",
+        "r": "Labour Ministers"
+      }
+    ],
+    "pos": "The government says the codes simplify compliance, ease business and formalise jobs.",
+    "alt": "Match any hiring flexibility with portable social security and real unemployment support, agreed through genuine tripartite consultation.",
+    "sources": [
+      {
+        "label": "Four Codes text",
+        "todo": true
+      },
+      {
+        "label": "Trade-union objections",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 13,
+    "sk": 20210501,
+    "year": 2021,
+    "date": "Apr to Jul 2021",
+    "cat": "Public safety",
+    "sev": "red",
+    "title": "COVID second wave. The denial of the oxygen dead",
+    "stamp": "Deaths denied and undercounted",
+    "human": {
+      "v": "<b>3.4 to 4.7 million</b> excess deaths estimated (WHO) against ~<b>0.5 million</b> official, and zero oxygen deaths admitted",
+      "est": true
+    },
+    "cost": {
+      "v": "Families left uncompensated for deaths the state refused to record",
+      "est": false
+    },
+    "what": "As the Delta wave overran hospitals, patients died gasping in acute oxygen shortages while families begged for cylinders in the street.",
+    "dodge": "The government told Parliament that no deaths due to lack of oxygen had been specifically reported by any state, a claim contradicted by hospitals, courts and the media. A parliamentary committee rebuked the ministry for its denial. When the WHO put India's real toll at up to ten times the official count, the government attacked the methodology rather than face the gap. The dead were disowned twice: once in the wards, once in the record.",
+    "ministers": [
+      {
+        "n": "Harsh Vardhan / Mansukh Mandaviya",
+        "r": "Health Ministers (2021)"
+      },
+      {
+        "n": "Bharati Pravin Pawar",
+        "r": "MoS Health who made the statement"
+      }
+    ],
+    "pos": "The government said health is a state subject, that states had not reported oxygen-specific deaths, and it disputed the WHO estimate.",
+    "alt": "Audit the oxygen deaths, publish an honest excess-mortality count, and compensate the families, exactly as the parliamentary committee recommended.",
+    "sources": [
+      {
+        "label": "'No oxygen deaths' outrage (BBC)",
+        "url": "https://feeds.bbci.co.uk/news/world-asia-india-57911638"
+      },
+      {
+        "label": "Panel: audit the deaths",
+        "url": "https://www.deccanherald.com/india/covid-19-parliamentary-panel-recommends-audit-of-deaths-due-to-oxygen-shortage-1144652.html"
+      }
+    ]
+  },
+  {
+    "no": 14,
+    "sk": 20210705,
+    "year": 2021,
+    "date": "05 Jul 2021",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Stan Swamy. An 84-year-old dies an undertrial",
+    "stamp": "Custodial death. Bail refused to the end.",
+    "human": {
+      "v": "An <b>84-year-old</b> priest and tribal-rights activist, dead in custody, never tried, never convicted",
+      "est": false
+    },
+    "cost": {
+      "v": "A chilling message to every ageing or ailing activist facing the UAPA",
+      "est": true
+    },
+    "what": "Father Stan Swamy, jailed in the Bhima Koregaon case under the anti-terror UAPA, was denied bail and, at first, even a straw and sipper cup to drink with, and died in custody as an undertrial.",
+    "dodge": "The state opposed his bail even as his body gave out. No one answered for the death of an octogenarian held for months without trial under a law whose bail bar is almost impossible to clear. This was punishment by process, with the process itself as the sentence.",
+    "ministers": [
+      {
+        "n": "Amit Shah",
+        "r": "Home Minister (NIA)"
+      }
+    ],
+    "pos": "Agencies maintained the case was a grave national-security matter that followed due legal process.",
+    "alt": "Humane bail for the old and the sick, a workable UAPA bail standard, and accountability for deaths of undertrials in state custody.",
+    "sources": [
+      {
+        "label": "Custodial-death reporting",
+        "todo": true
+      },
+      {
+        "label": "Bhima Koregaon case status",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 15,
+    "sk": 20210718,
+    "year": 2021,
+    "date": "18 Jul 2021",
+    "cat": "Rights and dissent",
+    "sev": "amber",
+    "title": "Pegasus. Spyware, and a refusal to answer",
+    "stamp": "Neither confirmed nor denied",
+    "human": {
+      "v": "Journalists, activists, opposition figures and officials on the alleged target list",
+      "est": true
+    },
+    "cost": {
+      "v": "Not quantified. The damage is to a free press and a fair opposition.",
+      "est": false
+    },
+    "what": "A global investigation reported that military-grade Pegasus spyware may have targeted the phones of Indian journalists, activists and opposition politicians.",
+    "dodge": "Rather than say plainly whether the state had bought or used the spyware, the government neither confirmed nor denied it, and then withheld cooperation from the Supreme Court's own technical committee, which reported it could not get the government to engage. A clean denial was never offered. The question was simply left to rot.",
+    "ministers": [
+      {
+        "n": "Union Home and IT Ministries",
+        "r": "Oversight of surveillance"
+      }
+    ],
+    "pos": "The government dismissed the reporting as an attempt to malign Indian democracy and cited national security.",
+    "alleg": "Whether the government itself deployed Pegasus remains <em>unconfirmed</em>; the SC panel found malware on some devices but could not conclusively attribute it, partly because of non-cooperation.",
+    "alt": "Answer under oath, place surveillance under judicial and parliamentary oversight, and legislate warrants and review.",
+    "sources": [
+      {
+        "label": "SC committee report",
+        "todo": true
+      },
+      {
+        "label": "Pegasus Project findings",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 16,
+    "sk": 20200805,
+    "year": 2019,
+    "date": "Aug 2019 onward",
+    "cat": "Rights and dissent",
+    "sev": "amber",
+    "title": "Internet shutdowns. Democracy switched off",
+    "stamp": "World leader in blackouts",
+    "human": {
+      "v": "Millions cut off from information, income and help during shutdowns; Kashmir endured one of the world's longest",
+      "est": true
+    },
+    "cost": {
+      "v": "Billions of dollars in estimated economic losses over the years",
+      "est": true
+    },
+    "what": "India has repeatedly imposed more internet shutdowns than any other country, from the record-length blackout in Jammu and Kashmir after 2019 to routine shutdowns during protests and exams.",
+    "dodge": "The blackouts are ordered with little transparency and no independent test of necessity, cutting citizens off from banking, medicine, schooling and news, and the human and economic cost is never accounted for or owned.",
+    "ministers": [
+      {
+        "n": "Union Home Ministry / state governments",
+        "r": "Order the shutdowns"
+      }
+    ],
+    "pos": "Authorities cite law and order and the prevention of rumour and violence.",
+    "alt": "Narrow, time-bound, judicially reviewable shutdowns as a genuine last resort, with published justification and cost.",
+    "sources": [
+      {
+        "label": "Global shutdown tracker",
+        "todo": true
+      },
+      {
+        "label": "Kashmir blackout duration",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 17,
+    "sk": 20200224,
+    "year": 2020,
+    "date": "Feb 2020",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Delhi riots. The dead, and the selective dock",
+    "stamp": "Instigators free, dissenters jailed",
+    "human": {
+      "v": "~<b>53</b> killed, most of them Muslim; hundreds injured, thousands displaced",
+      "est": true
+    },
+    "cost": {
+      "v": "Homes, shops and mosques gutted across north-east Delhi",
+      "est": true
+    },
+    "what": "Communal violence tore through north-east Delhi over several days in February 2020, killing around 53 people, the majority of them Muslim.",
+    "dodge": "Rights groups documented police inaction and, in places, complicity, while the state built a sweeping conspiracy case that jailed students and activists under the UAPA for years without trial. Several figures who had made openly inflammatory speeches faced no such action. The prosecution's aim looked less like justice than a message.",
+    "ministers": [
+      {
+        "n": "Amit Shah",
+        "r": "Home Minister (Delhi Police)"
+      }
+    ],
+    "pos": "Police deny bias and say the investigation followed the evidence of an organised conspiracy.",
+    "alleg": "The claims of police complicity and one-sided prosecution are <em>contested</em>, advanced by rights groups and the accused and denied by the police; several cases remain in court.",
+    "alt": "An independent inquiry into the policing, bail and fair trials for undertrials, and even-handed prosecution of incitement whoever spoke it.",
+    "sources": [
+      {
+        "label": "Rights-group findings",
+        "todo": true
+      },
+      {
+        "label": "UAPA conspiracy-case status",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 18,
+    "sk": 20200929,
+    "year": 2020,
+    "date": "29 Sep 2020",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Hathras. A victim, and a cremation at 2am",
+    "stamp": "No senior official answered",
+    "human": {
+      "v": "A young Dalit woman dead after an alleged gang rape; her body burned without the family's consent",
+      "est": false
+    },
+    "cost": {
+      "v": "A community's trust in the state, set alight in the dark",
+      "est": true
+    },
+    "what": "A 19-year-old Dalit woman died after an alleged gang rape in Hathras, UP. Police cremated her body in the dead of night, without her family present or willing, and officials at first disputed that a rape had occurred.",
+    "dodge": "A forced night cremation and an official denial are the marks of a cover-up, not a reckoning. Journalists heading to report the case were arrested. No senior figure in the state government answered for any of it.",
+    "ministers": [
+      {
+        "n": "Yogi Adityanath",
+        "r": "UP Chief Minister (BJP)"
+      }
+    ],
+    "pos": "The state said the cremation respected the family's wishes and law-and-order needs, and ordered a probe.",
+    "alt": "Dignity and consent for the family, an independent investigation, and consequences for officials who burned a body in secret.",
+    "sources": [
+      {
+        "label": "Cremation and probe reporting",
+        "todo": true
+      },
+      {
+        "label": "Journalist arrests",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 19,
+    "sk": 20211003,
+    "year": 2021,
+    "date": "03 Oct 2021",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Lakhimpur Kheri. A minister's son, farmers dead, no sacking",
+    "stamp": "Minister kept post and re-nominated",
+    "human": {
+      "v": "<b>8</b> killed, four of them farmers, one a journalist, and in the reprisal two BJP workers and a driver",
+      "est": false
+    },
+    "cost": {
+      "v": "A Union minister's family accused of running down protesters, with no political consequence",
+      "est": true
+    },
+    "what": "An SUV ploughed into farmers protesting the farm laws in Lakhimpur Kheri, UP. The vehicle was tied to the convoy of the family of Union Minister of State for Home Ajay Mishra Teni, and his son Ashish Mishra was named prime accused.",
+    "dodge": "With an FIR naming the minister's son, the Prime Minister still did not ask Ajay Mishra to go, and he stayed on in the Home Ministry, only to be re-nominated by the BJP for the 2024 election. It took the Supreme Court to get the accused arrested and his bail cancelled. Power closed ranks around its own.",
+    "ministers": [
+      {
+        "n": "Ajay Mishra Teni",
+        "r": "MoS Home, not sacked"
+      },
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister who declined to act"
+      }
+    ],
+    "pos": "The minister and his son denied the son was present; the case is before the courts.",
+    "alleg": "Ashish Mishra's role is <em>before the courts</em>. The accountability failure is that the minister paid no political price while the case ran.",
+    "alt": "Step a minister aside pending a credible probe when his family is accused of killing protesters. That is the floor of ministerial responsibility.",
+    "sources": [
+      {
+        "label": "SIT chargesheets minister's son",
+        "url": "https://www.india.com/news/india/lakhimpur-kheri-violence-case-sit-files-5000-page-chargesheet-against-ministers-son-ashish-mishra-ajay-kumar-mishra-teni-anti-farm-law-protest-5168097/"
+      },
+      {
+        "label": "Demand for Teni's dismissal",
+        "url": "https://www.deccanherald.com/amp/story/india%2Ffarmers-workers-to-mark-black-day-on-tuesday-to-seek-ajay-mishra-tenis-dismissal-over-lakhimpur-kheri-killings-2709235"
+      }
+    ]
+  },
+  {
+    "no": 20,
+    "sk": 20210901,
+    "year": 2021,
+    "date": "2021 onward",
+    "cat": "Data denial",
+    "sev": "amber",
+    "title": "The missing Census and the suppressed data",
+    "stamp": "Unresolved. Data withheld.",
+    "human": {
+      "v": "<b>1.4 billion</b> citizens governed on a 2011 population base; welfare rolls frozen on stale numbers",
+      "est": true
+    },
+    "cost": {
+      "v": "Crores potentially cut out of entitlements pegged to outdated data",
+      "est": true
+    },
+    "what": "The decennial Census, due in 2021, was postponed for years, the first such delay in 150 years, even as awkward datasets on jobs and consumption were delayed or held back.",
+    "dodge": "Governing without current numbers is itself a way of dodging accountability, because it hides how many are poor, jobless or excluded. When surveys threw up inconvenient findings, they were buried or rubbished rather than released, so the government could never be measured against its own claims.",
+    "ministers": [
+      {
+        "n": "Amit Shah",
+        "r": "Home Minister (Census / RGI)"
+      },
+      {
+        "n": "Union Statistics Ministry",
+        "r": "Official data"
+      }
+    ],
+    "pos": "The government cited the pandemic and administrative reasons for the delay.",
+    "alt": "Run the Census, release datasets on a fixed public calendar, and wall the statistical system off from political convenience.",
+    "sources": [
+      {
+        "label": "Census delay reporting",
+        "todo": true
+      },
+      {
+        "label": "Withheld NSSO data",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 21,
+    "sk": 20220614,
+    "year": 2022,
+    "date": "14 Jun 2022",
+    "cat": "Policy misfire",
+    "sev": "amber",
+    "title": "Agnipath. Recruitment overhaul over youth objections",
+    "stamp": "Pushed through amid protests",
+    "human": {
+      "v": "Lakhs of aspirants affected; only ~<b>25%</b> of 'Agniveers' to be kept on after four years",
+      "est": true
+    },
+    "cost": {
+      "v": "Public property torched in nationwide protests; trains burned",
+      "est": true
+    },
+    "what": "A scheme that replaced permanent military recruitment with four-year 'Agniveer' contracts, most of whom leave with no pension.",
+    "dodge": "Announced with no real consultation and forced through despite violent protests, the core grievances of job security and veteran status were met with cosmetic tweaks, not a rethink or a pause to build consent.",
+    "ministers": [
+      {
+        "n": "Rajnath Singh",
+        "r": "Defence Minister"
+      }
+    ],
+    "pos": "The government says Agnipath builds a younger force and gives youth skills and a stipend.",
+    "alt": "Consult veterans and aspirants, pilot before a national rollout, and confront pension and post-service security head-on.",
+    "sources": [
+      {
+        "label": "Scheme details",
+        "todo": true
+      },
+      {
+        "label": "Protest coverage",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 22,
+    "sk": 20220727,
+    "year": 2022,
+    "date": "2022 onward",
+    "cat": "Democratic institutions",
+    "sev": "amber",
+    "title": "The ED as a political weapon (alleged)",
+    "stamp": "Alleged misuse. Bail near impossible.",
+    "human": {
+      "v": "Opposition leaders arrested and jailed for long spells before any conviction",
+      "est": true
+    },
+    "cost": {
+      "v": "A watchdog widely accused of working to a political calendar",
+      "est": true
+    },
+    "what": "The Enforcement Directorate's powers under the money-laundering law were widened and, after a 2022 Supreme Court ruling, hardened, with a near-impossible bail bar and sweeping arrest and attachment powers.",
+    "dodge": "Reporting and opposition tallies point to the overwhelming share of high-profile cases falling on opposition figures, often clustering around elections, while conviction rates stay strikingly low. Arrests and asset freezes land long before, and often without, any conviction, so the process itself becomes the punishment and the deterrent.",
+    "ministers": [
+      {
+        "n": "Union Finance Ministry / Home Ministry",
+        "r": "Oversight of the agencies"
+      }
+    ],
+    "pos": "The government insists the agencies act only on evidence and that courts have upheld the law.",
+    "alleg": "The claim of election-timed, opposition-targeted misuse is a <em>contested allegation</em> from the opposition and some reporting; courts have upheld parts of the regime while flagging concerns in specific cases.",
+    "alt": "Restore proportionate bail, require prior judicial sign-off for arrest and attachment, publish case data, and put an independent check on the agency.",
+    "sources": [
+      {
+        "label": "Vijay Madanlal judgment",
+        "todo": true
+      },
+      {
+        "label": "Case-distribution analyses",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 23,
+    "sk": 20220815,
+    "year": 2022,
+    "date": "15 Aug 2022. SC quashed Jan 2024",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Bilkis Bano. Gang-rape convicts freed, then sent back",
+    "stamp": "Remission quashed by Supreme Court",
+    "human": {
+      "v": "11 men convicted of gang rape and 7 murders, set free early, then ordered back to prison",
+      "est": false
+    },
+    "cost": {
+      "v": "A survivor forced to fight the very state that released her attackers",
+      "est": true
+    },
+    "what": "On Independence Day 2022, the Gujarat government granted remission to 11 men serving life for the 2002 gang rape of Bilkis Bano and the murder of seven of her family, including a three-year-old. The freed men were garlanded.",
+    "dodge": "The remission panel reportedly included ruling-party office-bearers, and the release cut against a 2014 central policy barring remission for rape and murder. In 2024 the Supreme Court quashed it, finding Gujarat had usurped jurisdiction and acted in tandem with the convicts. A court, not a conscience, restored the sentence.",
+    "ministers": [
+      {
+        "n": "Gujarat state government (BJP)",
+        "r": "Granted the remission"
+      }
+    ],
+    "pos": "The state said it applied its 1992 remission policy after the men had served over 15 years.",
+    "alt": "No early release for gang rape and murder, no political hands on remission panels, and respect for the survivor's right to be heard.",
+    "sources": [
+      {
+        "label": "SC quashes remission",
+        "url": "https://www.scobserver.in/journal/supreme-court-quashes-the-remission-of-11-convicts-in-bilkis-bano-case/"
+      },
+      {
+        "label": "SC cancels release",
+        "url": "https://www.deccanherald.com/amp/story/india%2Fsupreme-court-cancels-release-of-11-convicts-in-bilkis-bano-gangrape-case-2839974"
+      }
+    ]
+  },
+  {
+    "no": 24,
+    "sk": 20221030,
+    "year": 2022,
+    "date": "30 Oct 2022",
+    "cat": "Public safety",
+    "sev": "red",
+    "title": "Morbi bridge collapse. 135+ dead, no political head rolled",
+    "stamp": "Only the contractor charged",
+    "human": {
+      "v": "<b>135 to 141</b> killed, including <b>47</b> children; 50+ injured",
+      "est": true
+    },
+    "cost": {
+      "v": "A <b>₹2 cr</b> maintenance contract on which barely <b>₹12 lakh</b> was reportedly spent before reopening",
+      "est": true
+    },
+    "what": "A colonial-era suspension bridge, reopened after repairs with no fitness certificate and no load test, snapped over the Machchhu river days later and dropped a festival crowd into the water.",
+    "dodge": "An SIT held the private operator and municipal officials responsible; the operator's MD was arrested and an official suspended. But not one BJP minister in the state government that oversaw the civic body resigned or was held to account, and victims were still fighting for compensation years later.",
+    "ministers": [
+      {
+        "n": "Gujarat state government (BJP)",
+        "r": "Municipal oversight; no resignation"
+      }
+    ],
+    "pos": "The state pointed to the operator's negligence and to the SIT and court process.",
+    "alt": "Political accountability alongside criminal, a clear chain of responsibility from contractor to civic body to minister, and fast, guaranteed compensation.",
+    "sources": [
+      {
+        "label": "SIT holds Oreva responsible",
+        "url": "https://www.indiatvnews.com/gujarat/morbi-bridge-collapse-sit-report-holds-oreva-group-md-managers-fully-responsible-for-tragedy-2023-10-10-897190"
+      },
+      {
+        "label": "2 years on, no compensation",
+        "url": "https://thefederal.com/category/states/west/gujarat/morbi-tragedy-2-years-later-no-closure-no-compensation-for-victims-159325"
+      }
+    ]
+  },
+  {
+    "no": 25,
+    "sk": 20230102,
+    "year": 2023,
+    "date": "Jan 2023",
+    "cat": "Environment",
+    "sev": "amber",
+    "title": "Joshimath. A Himalayan town sinking",
+    "stamp": "Warnings ignored for decades",
+    "human": {
+      "v": "Hundreds of families evacuated as homes cracked and streets buckled",
+      "est": true
+    },
+    "cost": {
+      "v": "A whole town destabilised, linked to hydro and highway projects",
+      "est": true
+    },
+    "what": "The pilgrimage town of Joshimath in Uttarakhand began sinking in early 2023, with cracks tearing through hundreds of buildings and residents forced out.",
+    "dodge": "Experts had warned for decades that the fragile slope could not carry heavy construction, and pointed to hydro-power tunnelling and the Char Dham road widening. Those warnings were overridden in the rush to build, and when the town cracked, the state managed the optics more than the causes.",
+    "ministers": [
+      {
+        "n": "Uttarakhand state government (BJP)",
+        "r": "Clearances and disaster response"
+      },
+      {
+        "n": "Union environment / power ministries",
+        "r": "Project approvals"
+      }
+    ],
+    "pos": "The government said it was rehabilitating residents and studying the causes.",
+    "alt": "Heed the geology, halt reckless Himalayan construction, and hold accountable those who cleared projects against expert advice.",
+    "sources": [
+      {
+        "label": "Subsidence reporting",
+        "todo": true
+      },
+      {
+        "label": "Expert warnings",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 26,
+    "sk": 20230503,
+    "year": 2023,
+    "date": "03 May 2023 onward",
+    "cat": "Public safety",
+    "sev": "red",
+    "title": "Manipur. A state on fire, and months of silence",
+    "stamp": "20 months to a resignation",
+    "human": {
+      "v": "~<b>258</b> killed, <b>60,000+</b> displaced, 1,000+ injured, thousands of homes and religious sites burned",
+      "est": true
+    },
+    "cost": {
+      "v": "A state cleaved in two by ethnicity; long internet blackouts and economic collapse",
+      "est": true
+    },
+    "what": "Ethnic violence between Meitei and Kuki-Zo communities erupted in May 2023 and ground on for nearly two years, with reports of state complicity and horrific gender-based violence.",
+    "dodge": "The Prime Minister stayed publicly silent for around three months and stayed away far longer. The BJP Chief Minister clung on through some 20 months of continuous killing, resigning only in 2025 under a looming no-confidence motion, after which rights groups noted that accountability for the violence still had not come. A burning state was treated as an inconvenience to be managed.",
+    "ministers": [
+      {
+        "n": "N. Biren Singh",
+        "r": "Manipur CM (BJP), resigned Feb 2025"
+      },
+      {
+        "n": "Amit Shah",
+        "r": "Home Minister"
+      },
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister"
+      }
+    ],
+    "pos": "The government cited security operations, central forces and later President's Rule, and blamed cross-border factors.",
+    "alleg": "Allegations of state complicity, including an audio clip attributed to the CM, went to the Supreme Court for forensic examination and remain <em>contested and under process</em>.",
+    "alt": "Swift accountability at the top, an independent inquiry into complicity, protection and return of the displaced, and justice for gender-based crimes.",
+    "sources": [
+      {
+        "label": "Amnesty on the impunity",
+        "url": "https://www.amnesty.org/en/latest/news/2025/02/india-authorities-must-uphold-human-rights-and-end-violence-in-manipur-following-biren-singhs-resignation/"
+      },
+      {
+        "label": "CM resigns after ~2 years (Reuters)",
+        "url": "https://www.yahoo.com/news/chief-violence-hit-indian-state-152727365.html"
+      }
+    ]
+  },
+  {
+    "no": 27,
+    "sk": 20230519,
+    "year": 2023,
+    "date": "19 May 2023",
+    "cat": "Economic shock",
+    "sev": "amber",
+    "title": "₹2,000 note withdrawn. A quiet admission",
+    "stamp": "Reversed without a reckoning",
+    "human": {
+      "v": "Ordinary cash users sent back to bank queues to exchange the note",
+      "est": true
+    },
+    "cost": {
+      "v": "The note introduced in the 2016 note-ban, quietly withdrawn seven years on",
+      "est": false
+    },
+    "what": "The RBI announced the withdrawal of the ₹2,000 note, the very denomination introduced during the 2016 demonetisation as its supposed replacement currency.",
+    "dodge": "Pulling the note was a tacit confession that a centrepiece of the 2016 upheaval had not worked as promised. It came with no acknowledgement of that failure and no account of the disruption both exercises caused.",
+    "ministers": [
+      {
+        "n": "Nirmala Sitharaman",
+        "r": "Finance Minister"
+      },
+      {
+        "n": "Reserve Bank of India",
+        "r": "Implementing authority"
+      }
+    ],
+    "pos": "The government and RBI called it routine currency management under a clean-note policy.",
+    "alt": "Level with the public about what the 2016 note-ban did and did not achieve, instead of unwinding it in silence.",
+    "sources": [
+      {
+        "label": "RBI withdrawal notice",
+        "todo": true
+      },
+      {
+        "label": "2016 note-ban link",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 28,
+    "sk": 20230602,
+    "year": 2023,
+    "date": "02 Jun 2023",
+    "cat": "Public safety",
+    "sev": "amber",
+    "title": "Balasore train disaster. The resignation that never came",
+    "stamp": "No resignation",
+    "human": {
+      "v": "~<b>290+</b> killed and <b>1,000+</b> injured in one of India's worst rail crashes",
+      "est": true
+    },
+    "cost": {
+      "v": "Hard questions over safety-fund use and vacancies in safety-critical posts",
+      "est": true
+    },
+    "what": "A signalling failure caused a three-train collision near Balasore, Odisha, the deadliest Indian rail accident in decades.",
+    "dodge": "With scrutiny falling on deferred safety spending and unfilled safety-critical vacancies, the Railways Minister offered words of accountability but did not resign, and the systemic questions were folded into a technical inquiry rather than a political reckoning.",
+    "ministers": [
+      {
+        "n": "Ashwini Vaishnaw",
+        "r": "Railways Minister"
+      }
+    ],
+    "pos": "The government pointed to the inquiry and to record investment in rail safety and modernisation.",
+    "alt": "Publish safety-fund use and vacancy data, close the signalling-integrity gaps, and treat the deadliest crash in decades as a matter of ministerial responsibility.",
+    "sources": [
+      {
+        "label": "Crash inquiry report",
+        "todo": true
+      },
+      {
+        "label": "Rail safety spending data",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 29,
+    "sk": 20231112,
+    "year": 2023,
+    "date": "12 Nov 2023",
+    "cat": "Public safety",
+    "sev": "amber",
+    "title": "Silkyara tunnel. 41 men trapped by a rushed project",
+    "stamp": "Safety questions unanswered",
+    "human": {
+      "v": "<b>41</b> workers trapped for 17 days inside a collapsed Char Dham tunnel; all rescued",
+      "est": false
+    },
+    "cost": {
+      "v": "A marquee project with no working escape passage when it caved",
+      "est": true
+    },
+    "what": "Part of the Silkyara tunnel on the flagship Char Dham highway in Uttarakhand collapsed, trapping 41 workers for 17 days until a dramatic manual rescue freed them.",
+    "dodge": "The tunnel had no completed escape passage despite the requirement, and the wider Char Dham project had long faced warnings about cutting fragile Himalayan slopes and thin environmental scrutiny. The near-tragedy was celebrated as a rescue, while the questions of why it happened went unanswered.",
+    "ministers": [
+      {
+        "n": "Nitin Gadkari",
+        "r": "Road Transport and Highways Minister"
+      },
+      {
+        "n": "Union environment ministry",
+        "r": "Clearances"
+      }
+    ],
+    "pos": "The government hailed the rescue and ordered a safety audit of tunnels under construction.",
+    "alt": "Build the mandated escape routes first, respect Himalayan geology and environmental review, and hold the project accountable for the near-disaster, not just praised for the rescue.",
+    "sources": [
+      {
+        "label": "Rescue and cause reporting",
+        "todo": true
+      },
+      {
+        "label": "Char Dham clearance concerns",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 30,
+    "sk": 20231228,
+    "year": 2023,
+    "date": "Dec 2023",
+    "cat": "Democratic institutions",
+    "sev": "amber",
+    "title": "Election Commission law. The Chief Justice written out",
+    "stamp": "Watchdog's independence diluted",
+    "human": {
+      "v": "Every voter relying on a neutral referee for the vote",
+      "est": false
+    },
+    "cost": {
+      "v": "A selection panel re-tilted toward the government of the day",
+      "est": true
+    },
+    "what": "A new law fixed the panel that appoints the Chief Election Commissioner and Election Commissioners as the Prime Minister, a Union minister and the Leader of the Opposition, removing the Chief Justice of India, whom the Supreme Court had just placed on it.",
+    "dodge": "Months after the Court tried to insulate the poll body by adding the Chief Justice, Parliament legislated the Chief Justice back out, handing the ruling side a built-in majority in choosing the referee of its own elections. The umpire's independence was diluted by law, and the government's convenience was the obvious winner.",
+    "ministers": [
+      {
+        "n": "Arjun Ram Meghwal",
+        "r": "Law and Justice Minister"
+      }
+    ],
+    "pos": "The government said Parliament, not the judiciary, is entitled to design the appointment process.",
+    "alt": "A genuinely independent selection panel, including the judiciary or another non-partisan check, so the referee does not answer to one team.",
+    "sources": [
+      {
+        "label": "CEC Appointment Act 2023",
+        "todo": true
+      },
+      {
+        "label": "SC Anoop Baranwal ruling",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 31,
+    "sk": 20240130,
+    "year": 2024,
+    "date": "30 Jan 2024",
+    "cat": "Democratic institutions",
+    "sev": "red",
+    "title": "Chandigarh mayor poll. Ballots defaced on camera",
+    "stamp": "'Murder of democracy'. Supreme Court.",
+    "human": {
+      "v": "An entire electorate's verdict, nearly stolen by one official",
+      "est": false
+    },
+    "cost": {
+      "v": "8 opposition votes wrongly voided to hand the seat to the ruling party",
+      "est": false
+    },
+    "what": "In the Chandigarh mayoral election the returning officer declared eight votes of the opposition INDIA bloc invalid, handing the seat to the BJP candidate, while a video showed him defacing ballots and glancing at the camera.",
+    "dodge": "Caught on tape, the officer's conduct was defended in court by the government's own law officer. The Supreme Court called it a murder of democracy, said the officer should be prosecuted, and took the rare step of counting the voided votes itself to declare the rightful winner, delivering the accountability the system had refused.",
+    "ministers": [
+      {
+        "n": "Returning Officer / local BJP",
+        "r": "Conduct of the poll"
+      }
+    ],
+    "pos": "The officer first claimed the ballots were already defaced; the Supreme Court rejected this after watching the video.",
+    "alt": "Independent, videographed election administration with instant consequences for tampering, not a top court forced to referee a rigged municipal vote.",
+    "sources": [
+      {
+        "label": "'The Supreme Court is watching'",
+        "url": "https://www.scobserver.in/journal/the-supreme-court-is-watching-cji-warns-presiding-officer-allegedly-caught-vote-tampering-in-chandigarh-mayoral-elections/"
+      },
+      {
+        "label": "RO to be prosecuted (Bar and Bench)",
+        "url": "https://www.barandbench.com/news/murder-of-democracy-chandigarh-mayor-polls-returning-officer-prosecuted-supreme-court"
+      }
+    ]
+  },
+  {
+    "no": 32,
+    "sk": 20240505,
+    "year": 2024,
+    "date": "05 May 2024",
+    "cat": "Exam integrity",
+    "sev": "red",
+    "title": "NEET / NTA 2024. The paper-leak collapse",
+    "stamp": "DG sacked. Minister untouched.",
+    "human": {
+      "v": "~<b>2.4 million</b> (24 lakh) NEET candidates thrown into chaos; careers and a year on the line",
+      "est": true
+    },
+    "cost": {
+      "v": "Re-tests, coaching costs and lost time across a multi-thousand-crore exam economy",
+      "est": true
+    },
+    "what": "India's medical entrance exam was hit by a paper leak traced to Bihar and a grace-marks fiasco that produced an impossible cluster of perfect scores, with the CBI arresting a leak network.",
+    "dodge": "The NTA first branded the leak reports baseless, then the government sacked the agency's chief, formed a committee and passed an anti-cheating law, while the Education Minister carried no personal accountability at all. The fix did not hold, as 2026 would prove.",
+    "ministers": [
+      {
+        "n": "Dharmendra Pradhan",
+        "r": "Education Minister"
+      }
+    ],
+    "pos": "The government cites the CBI probe, the sacked chief, a reform committee and a new anti-cheating Act.",
+    "alt": "Own it at the top and rebuild the testing agency end to end, so 2.4 million futures do not hinge on a leaky trunk.",
+    "sources": [
+      {
+        "label": "The hole that wasn't plugged (ThePrint)",
+        "url": "https://theprint.in/opinion/newsmaker-of-the-week/neet-paper-leak-came-from-a-hole-that-wasnt-plugged-in-2024-nta-is-ignoring-its-problems/2932680/"
+      },
+      {
+        "label": "Probe so far (Outlook)",
+        "url": "https://www.outlookindia.com/national/neet-ug-exam-2024-paper-leak-sanjeev-lutan-mukhiya-gang-bihar-jharkhand-oasis-school-cbi-probe"
+      }
+    ]
+  },
+  {
+    "no": 33,
+    "sk": 20240622,
+    "year": 2024,
+    "date": "Jan to Jun 2024",
+    "cat": "Public safety",
+    "sev": "red",
+    "title": "Showcase infrastructure that failed on schedule",
+    "stamp": "Blamed on rain, never owned",
+    "human": {
+      "v": "A death at a collapsing airport canopy; countless citizens on unsafe new-built roads and bridges",
+      "est": true
+    },
+    "cost": {
+      "v": "Crores in flagship projects, such as a ~<b>₹1,800 cr</b> temple complex, leaking or caving within months",
+      "est": true
+    },
+    "what": "A run of prestige projects failed soon after grand inaugurations. New Ayodhya roads caved and the temple sanctum leaked in the first rains, a Delhi airport canopy collapsed and killed a man, and newly built bridges and airport roofs failed across states.",
+    "dodge": "Each failure was blamed on unprecedented rain or a nameless contractor and quietly patched. Inaugurate with fanfare, fail within months, hold no one to account. It is the signature of a state that rewards the ribbon-cutting and ignores the engineering.",
+    "ministers": [
+      {
+        "n": "Nitin Gadkari",
+        "r": "Road Transport (highways)"
+      },
+      {
+        "n": "Civil Aviation Ministry",
+        "r": "Airport infrastructure"
+      },
+      {
+        "n": "Yogi Adityanath",
+        "r": "UP CM (Ayodhya works)"
+      }
+    ],
+    "pos": "Authorities blamed exceptional weather and promised swift repairs and inquiries.",
+    "alt": "Publish quality audits and third-party structural certification before inauguration, and hold agencies, not the weather, to account when showcase projects fail.",
+    "sources": [
+      {
+        "label": "Ayodhya temple roof leaks",
+        "url": "https://www.business-standard.com/india-news/ayodhya-ram-temple-chief-priest-reports-a-leaky-roof-all-you-need-to-know-124062500173_1.html"
+      },
+      {
+        "label": "New roads caving in Ayodhya",
+        "url": "https://www.deccanherald.com/amp/story/india%2Futtar-pradesh%2Fayodhya-ram-temples-roof-leaking-after-heavy-showers-on-saturday-night-priest-blames-lack-of-drainage-3079201"
+      }
+    ]
+  },
+  {
+    "no": 34,
+    "sk": 20241225,
+    "year": 2024,
+    "date": "Approved 2021. Launched Dec 2024.",
+    "cat": "Environment",
+    "sev": "amber",
+    "title": "Ken-Betwa river link. A tiger reserve for a headline",
+    "stamp": "Warnings overridden",
+    "human": {
+      "v": "~<b>7,000</b> mostly tribal families across 21 to 22 villages to lose land and homes",
+      "est": true
+    },
+    "cost": {
+      "v": "<b>₹44,605 cr</b>; up to <b>2 to 4 million</b> trees felled; core Panna Tiger Reserve submerged",
+      "est": true
+    },
+    "what": "The Ken-Betwa river-linking project, approved in 2021 and launched by the Prime Minister in December 2024, will dam the Ken to send water to the Betwa, submerging around 9,000 hectares, including roughly 5,800 hectares of the core of the Panna Tiger Reserve.",
+    "dodge": "The Supreme Court's own Central Empowered Committee warned of irreversible damage, and experts called it a designed disaster, yet it was pushed through as a showpiece for river-linking. Madhya Pradesh bears the ecological and human cost, thousands of tribal families lose ancestral land, and the environmental warnings were simply overruled.",
+    "ministers": [
+      {
+        "n": "Union Jal Shakti Ministry",
+        "r": "Project lead"
+      },
+      {
+        "n": "Bhupender Yadav",
+        "r": "Environment Minister (clearances)"
+      },
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister (launch)"
+      }
+    ],
+    "pos": "The government says the project will bring water to drought-hit Bundelkhand and irrigate lakhs of hectares.",
+    "alt": "Weigh irreversible tiger-habitat and forest loss honestly, exhaust local water options first, and secure genuine, informed consent from displaced tribal communities.",
+    "sources": [
+      {
+        "label": "Panna core to be submerged",
+        "url": "https://www.downtoearth.org.in/environment/ken-betwa-river-interlinking-core-forest-area-of-panna-tiger-reserve-will-come-under-water-warns-study-80885"
+      },
+      {
+        "label": "'Politically motivated', say experts",
+        "url": "https://thekashmirimages.com/2025/02/21/ken-betwa-link-project-politically-motivated-shouldve-never-been-approved-experts/"
+      }
+    ]
+  },
+  {
+    "no": 35,
+    "sk": 20250401,
+    "year": 2025,
+    "date": "Apr 2025 onward",
+    "cat": "Consumer harm",
+    "sev": "amber",
+    "title": "E20 petrol. No fuel choice, no compensation",
+    "stamp": "Consumers left to absorb the cost",
+    "human": {
+      "v": "Millions of pre-2023 vehicle owners; ~<b>28%</b> report unusual wear, ~<b>2 in 3</b> report lower mileage",
+      "est": true
+    },
+    "cost": {
+      "v": "<b>2 to 5%</b> mileage loss nationwide, plus repair bills and rejected insurance claims",
+      "est": true
+    },
+    "what": "India completed a nationwide switch to 20 percent ethanol-blended petrol six years ahead of target, making E20 effectively the only fuel at pumps, with no unblended option and no price difference.",
+    "dodge": "Owners of older vehicles never designed for E20 report falling mileage, corrosion and repair costs, yet were given no choice, no labelling and no compensation. The government's answer was that the fuel is safe, and the Supreme Court declined to step in, so consumers were left to swallow a cost the state imposed on them.",
+    "ministers": [
+      {
+        "n": "Hardeep Singh Puri",
+        "r": "Petroleum and Natural Gas Minister"
+      }
+    ],
+    "pos": "The ministry says E20 cuts crude imports and emissions, helps farmers, and passed extensive compatibility testing.",
+    "alt": "Offer a labelled, unblended choice at the pump as the US and EU do, and compensate or grandfather owners of vehicles never built for E20.",
+    "sources": [
+      {
+        "label": "Owner anger, questions for govt (Al Jazeera)",
+        "url": "https://www.aljazeera.com/news/2026/7/15/indias-ethanol-rush-prompts-anger-among-vehicle-owners-questions-for-govt"
+      },
+      {
+        "label": "SC dismisses challenge",
+        "url": "https://www.deccanherald.com/india/sc-throws-out-pil-against-centre-allowing-20-ethanol-blended-petrol-3707355"
+      }
+    ]
+  },
+  {
+    "no": 36,
+    "sk": 20260503,
+    "year": 2026,
+    "date": "03 May 2026",
+    "cat": "Exam integrity",
+    "sev": "red",
+    "title": "NEET 2026. The 'fixed' exam leaks all over again",
+    "stamp": "Reforms failed. Cancelled anew.",
+    "human": {
+      "v": "~<b>2.27 million</b> aspirants; the exam cancelled nine days after it was held",
+      "est": false
+    },
+    "cost": {
+      "v": "Another lost year for a generation of medical hopefuls; a nation of parents back on edge",
+      "est": true
+    },
+    "what": "Two years after the 2024 debacle and a fanfare of reforms, GPS-tracked papers, jammers and a new anti-cheating law, NEET-UG 2026 was cancelled on 12 May after a circulating guess paper was found to overlap heavily with the real exam. The CBI moved in and arrests followed.",
+    "dodge": "The repeat laid the 2024 fixes bare as theatre. The same agency, the same leak, the same script of a sacked official and a fresh committee. No minister has owned the second collapse, even as it fed a nationwide youth protest movement over exam integrity and jobs. The message to 2.27 million young people was that their futures are expendable.",
+    "ministers": [
+      {
+        "n": "Dharmendra Pradhan",
+        "r": "Education Minister"
+      }
+    ],
+    "pos": "The government again pointed to the CBI probe, the arrests and a scheduled re-examination.",
+    "alt": "Treat a second collapse as a resignation-level failure and rebuild exam security under genuinely independent oversight, not another in-house committee.",
+    "sources": [
+      {
+        "label": "2026 NEET controversy (overview)",
+        "url": "https://en.wikipedia.org/wiki/2026_NEET_controversy"
+      }
+    ]
+  },
+  {
+    "no": 37,
+    "sk": 20260601,
+    "year": 2026,
+    "date": "2021 to 2026 (crisis peak 2026)",
+    "cat": "Exam integrity",
+    "sev": "red",
+    "title": "The children the exam system killed",
+    "stamp": "'No data', says the government",
+    "human": {
+      "v": "~<b>12 to 14</b> student deaths reported around the 2026 NEET leak and forced re-exam; scores more in prior years",
+      "est": true
+    },
+    "cost": {
+      "v": "A generation taught that a rigged system holds their lives cheap",
+      "est": true
+    },
+    "what": "After the 2026 NEET leak, cancellation and a stressful forced re-examination, around a dozen students were reported to have died by suicide amid the anguish, part of a documented pattern of exam-linked student deaths over several years.",
+    "dodge": "Asked in Parliament about student suicides in the coaching-and-exam pipeline, the government replied that it maintains no such data, the same refusal to count that it deployed on migrants and on the oxygen dead. A system that leaks papers, cancels exams and then cannot even be bothered to count the young lives lost is a system that has stopped caring who it breaks.",
+    "ministers": [
+      {
+        "n": "Dharmendra Pradhan",
+        "r": "Education Minister"
+      },
+      {
+        "n": "Union Education Ministry",
+        "r": "NTA and exam policy"
+      }
+    ],
+    "pos": "The government says education is largely a state subject and that it has moved to ease exam pressure and add counselling.",
+    "alt": "Count and publish the deaths, fix exam integrity and scheduling, fund real student mental-health support, and treat each loss as a failure of the state, not a statistic to avoid.",
+    "sources": [
+      {
+        "label": "13 reported deaths after leak (Outlook)",
+        "url": "https://www.outlookindia.com/amp/story/national/13-reported-suicides-after-neet-paper-leak"
+      },
+      {
+        "label": "Govt: 'no data' on student suicides",
+        "url": "https://news.careers360.com/no-data-on-student-suicides-in-neet-coaching-centres-government-tells-lok-sabha/amp"
+      }
+    ]
+  },
+  {
+    "no": 38,
+    "sk": 20260520,
+    "year": 2026,
+    "date": "2014 to 2026",
+    "cat": "Economic shock",
+    "sev": "amber",
+    "title": "The falling rupee. The yardstick they buried",
+    "stamp": "Own metric, quietly abandoned",
+    "human": {
+      "v": "Costlier fuel, imports, foreign study and medicine for every household",
+      "est": true
+    },
+    "cost": {
+      "v": "From ~<b>₹59</b> per dollar in May 2014 to a record ~<b>₹96.8</b> in May 2026",
+      "est": false
+    },
+    "what": "The rupee slid to a series of record lows through 2026, touching around 96.8 to the US dollar, having stood near 59 when this government took office in 2014.",
+    "dodge": "The party that once brandished a falling rupee as proof of the previous government's weakness has presided over a far steeper slide, and now waves it away as the work of global forces alone. Whatever the mix of causes, the silence on its own former yardstick is its own small act of unaccountability.",
+    "ministers": [
+      {
+        "n": "Nirmala Sitharaman",
+        "r": "Finance Minister"
+      },
+      {
+        "n": "Reserve Bank of India",
+        "r": "Currency management"
+      }
+    ],
+    "pos": "The government points, with some justification, to a strong dollar, high oil prices, US tariffs and global capital flows.",
+    "alt": "Apply one honest standard over time, name the real causes without spin, and stop treating a currency as a scoreboard only when it suits.",
+    "sources": [
+      {
+        "label": "Rupee at record low 2026",
+        "url": "https://www.indianewsnetwork.com/en/indian-rupee-reaches-record-low-95-80-against-u-dollar-20260514"
+      },
+      {
+        "label": "USD-INR record 96.8",
+        "url": "https://naga.com/en/news-and-analysis/articles/usd-to-inr-forecast"
+      }
+    ]
+  },
+  {
+    "no": 39,
+    "sk": 20260607,
+    "year": 2026,
+    "date": "Jun 2026 onward",
+    "cat": "Fund opacity",
+    "sev": "amber",
+    "title": "Ram Mandir donation theft. Faith, cash and deleted tape",
+    "stamp": "Cosmetic resignations, no real inquiry",
+    "human": {
+      "v": "Crores in offerings from ordinary devotees, allegedly siphoned by insiders",
+      "est": true
+    },
+    "cost": {
+      "v": "Claims ranged from <b>₹5 to 7.5 cr</b> to media estimates topping <b>₹200 cr</b> missing",
+      "est": true
+    },
+    "what": "An alleged racket saw daily cash offerings at the Ayodhya Ram temple siphoned off by insiders. A state SIT found suspicious pilferage on camera, staff appointed on the recommendation of trust officials, and CCTV footage allegedly deleted despite audit warnings to keep long backups.",
+    "dodge": "A trust the government itself says is not answerable to it, stuffed with figures from the ruling ecosystem, presided over faith money vanishing while cameras were wiped and warnings ignored. The response was cosmetic. Key office-bearers resigned on moral grounds yet stayed on as trust members, in what critics bluntly called an eyewash, with no wider independent inquiry.",
+    "ministers": [
+      {
+        "n": "Shri Ram Janmabhoomi Teerth Kshetra Trust",
+        "r": "A trust, not a govt body, but tied to the ruling ecosystem"
+      },
+      {
+        "n": "UP state administration",
+        "r": "Policing and oversight"
+      }
+    ],
+    "pos": "Trust officials said they themselves sought the SIT probe and were unaware of the alleged theft.",
+    "alleg": "The theft and the scale of missing funds are <em>under SIT investigation</em> and not yet proven; figures are contested media and official estimates.",
+    "alt": "An independent audit and inquiry, full public accounts for a trust built on public devotion, real accountability rather than resignations that change nothing, and transparency the government cannot disclaim.",
+    "sources": [
+      {
+        "label": "SIT report, lack of accountability",
+        "url": "https://www.opindia.com/2026/07/ayodhya-donation-theft-sit-report-lack-of-accountability-gross-mismanagement-ignored-warnings/"
+      },
+      {
+        "label": "Who is responsible (The Week)",
+        "url": "https://www.theweek.in/magazine/theweek/statescan/2026/07/04/faith-and-fraud-who-is-responsible-for-ayodhyas-ram-temple-donation-theft.html"
+      }
+    ]
+  },
+  {
+    "no": 40,
+    "sk": 20260701,
+    "year": 2026,
+    "date": "Jul 2026",
+    "cat": "Public safety",
+    "sev": "amber",
+    "title": "Delhi-Dehradun Expressway. Potholes in ten weeks",
+    "stamp": "Officials suspended, quality doubted",
+    "human": {
+      "v": "Motorists on a flagship expressway hit by tyre damage on a caved stretch",
+      "est": true
+    },
+    "cost": {
+      "v": "A marquee highway degrading within roughly 10 weeks of its opening",
+      "est": true
+    },
+    "what": "About two and a half months after its high-profile opening, a stretch of the new Delhi-Dehradun Expressway near Shamli developed deep potholes after heavy rain, with motorists reportedly suffering tyre damage.",
+    "dodge": "The highways authority blamed a blocked culvert and local land issues, suspended some officials and ordered an inquiry, the now-familiar loop of blame the rain, patch the hole, move on. Opposition demands for accountability on construction quality met the usual reassurance that prompt action had been taken.",
+    "ministers": [
+      {
+        "n": "Nitin Gadkari",
+        "r": "Road Transport and Highways Minister"
+      },
+      {
+        "n": "NHAI",
+        "r": "Executing authority"
+      }
+    ],
+    "pos": "The authority said the damage was from waterlogging due to a blocked culvert, was fixed quickly, and officials were suspended pending inquiry.",
+    "alt": "Independent quality audits and enforceable contractor warranties for flagship highways, with the findings published, not another inquiry that quietly closes.",
+    "sources": [
+      {
+        "label": "Expressway pothole row (roundup)",
+        "url": "https://www.oneworldnews.com/desh-ki-baat/political-update-3-july-2026/"
+      }
+    ]
+  },
+  {
+    "no": 41,
+    "sk": 20230124,
+    "year": 2023,
+    "date": "24 Jan 2023",
+    "cat": "Crony capital (alleged)",
+    "sev": "amber",
+    "title": "Adani-Hindenburg. And the JPC that was refused",
+    "stamp": "Alleged. JPC probe refused.",
+    "human": {
+      "v": "Retail investors and LIC and SBI stakeholders exposed to the 2023 market rout",
+      "est": true
+    },
+    "cost": {
+      "v": "Tens of billions of dollars in market value wiped out in the 2023 sell-off (<b>contested</b> cause)",
+      "est": true
+    },
+    "what": "A short-seller's report accused the Adani Group, a conglomerate widely seen as close to the government, of stock manipulation and accounting fraud, triggering a huge sell-off.",
+    "dodge": "With public-sector LIC and SBI exposed, the opposition demanded a Joint Parliamentary Committee to examine the ties between political power and corporate rise. The government refused, leaving the proximity questions to a narrow regulatory process rather than open parliamentary scrutiny.",
+    "ministers": [
+      {
+        "n": "Union Finance Ministry",
+        "r": "Oversight of markets and PSU exposure"
+      }
+    ],
+    "pos": "The government denied favouritism; an SC-appointed panel found no conclusive regulatory failure, and SEBI continued its probe.",
+    "alleg": "The manipulation and crony-capitalism claims are <em>allegations</em>, denied by the group and not established by courts. The accountability point is the refusal of independent parliamentary scrutiny.",
+    "alt": "Grant a JPC or an equivalent independent probe, and ring-fence public financial institutions from politically sensitive exposures.",
+    "sources": [
+      {
+        "label": "Hindenburg report and response",
+        "todo": true
+      },
+      {
+        "label": "SC panel and SEBI status",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 42,
+    "sk": 20230118,
+    "year": 2023,
+    "date": "Jan to May 2023",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Wrestlers' protest. A ruling-party MP shielded",
+    "stamp": "Accusers policed, accused protected",
+    "human": {
+      "v": "Olympic medallists among the complainants; a minor among the original accusers",
+      "est": false
+    },
+    "cost": {
+      "v": "India's most decorated wrestlers dragged from a protest and booked",
+      "est": true
+    },
+    "what": "Top wrestlers, including Olympic medallists, sat in at Jantar Mantar accusing the Wrestling Federation chief and six-time BJP MP Brij Bhushan Sharan Singh of sexually harassing female athletes.",
+    "dodge": "Police registered cases only after the Supreme Court intervened. As the new Parliament was inaugurated, the protesting wrestlers were detained, dragged away and later booked. The accused MP was never arrested. The state policed the accusers and protected the accused, and the Prime Minister said nothing.",
+    "ministers": [
+      {
+        "n": "Brij Bhushan Sharan Singh",
+        "r": "BJP MP and WFI chief (accused)"
+      },
+      {
+        "n": "Amit Shah",
+        "r": "Home Ministry (Delhi Police)"
+      }
+    ],
+    "pos": "Singh denied all allegations; the government said the law was taking its course and a chargesheet was filed.",
+    "alleg": "The harassment allegations are <em>before the courts</em>. The accountability failure is the delay in registering cases and the policing of the complainants.",
+    "alt": "Prompt, unbiased investigation of complaints against the powerful, protection for complainants, and no shielding of an accused because he holds a party seat.",
+    "sources": [
+      {
+        "label": "Wrestling chief charged (CNN)",
+        "url": "https://www.cnn.com/2023/06/15/india/india-brij-bhushan-singh-charged-wrestlers-intl-hnk"
+      },
+      {
+        "label": "Case only after SC (BBC)",
+        "url": "https://feeds.bbci.co.uk/news/world-asia-india-65421389"
+      }
+    ]
+  },
+  {
+    "no": 43,
+    "sk": 20241113,
+    "year": 2024,
+    "date": "Practice 2022 to 2024. SC ruling Nov 2024.",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "'Bulldozer justice'. Punishment by demolition",
+    "stamp": "Ruled unconstitutional by SC",
+    "human": {
+      "v": "Homes and shops of the merely accused, often Muslim, often poor, flattened without a trial",
+      "est": true
+    },
+    "cost": {
+      "v": "SC later ordered <b>₹60 lakh</b> restitution for six wrongly-demolished Prayagraj families",
+      "est": true
+    },
+    "what": "Several BJP-run states demolished the homes of people merely accused of crimes or of joining protests, staging the bulldozer as instant justice.",
+    "dodge": "For years the practice ran as a spectacle of power, punishing whole families before any court had ruled. Only in November 2024 did the Supreme Court declare punitive demolitions unconstitutional, the executive cannot become a judge, and make officials personally liable. Accountability came from the bench, never from the governments that drove the bulldozer.",
+    "ministers": [
+      {
+        "n": "BJP state governments (UP, MP, Rajasthan and others)",
+        "r": "Ordered the demolitions"
+      }
+    ],
+    "pos": "States said they demolished only illegal structures under municipal law, not as punishment.",
+    "alt": "Due process for every demolition, notice, hearing and appeal, and personal liability for officials who bulldoze homes as punishment.",
+    "sources": [
+      {
+        "label": "SC bans 'bulldozer justice' (BBC)",
+        "url": "https://feeds.bbci.co.uk/news/articles/c0k8d3ynvzxo"
+      },
+      {
+        "label": "Court denounces demolitions (NBC)",
+        "url": "https://www.nbcnews.com/news/world/india-top-court-denounces-bulldozer-justice-demolitions-rcna180094"
+      }
+    ]
+  }
+]
