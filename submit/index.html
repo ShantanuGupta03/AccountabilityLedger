@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit an incident · Accountability Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="masthead compact-masthead">
+    <div class="wrap">
+      <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Submission desk</span></div>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../">Ledger</a>
+        <a href="../dashboard/">Minister dashboard</a>
+        <a href="./" aria-current="page">Submit an incident</a>
+      </nav>
+      <div class="hero">
+        <div class="eyebrow">Evidence first</div>
+        <h1 class="title">Submit an<br><span class="thin">incident.</span></h1>
+        <p class="standfirst">Every submission is private, screened for evidence and legal risk, then reviewed by an editor. Submission does not guarantee publication.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap form-page">
+    <section class="submission-guidance" aria-labelledby="submission-guidance-title">
+      <h2 id="submission-guidance-title">Before submitting</h2>
+      <ul>
+        <li>Describe a specific incident, policy failure, or public-accountability concern.</li>
+        <li>Provide at least one credible public source. Do not submit private personal data.</li>
+        <li>Separate established facts from allegations and identify the source of each allegation.</li>
+      </ul>
+    </section>
+
+    <form id="submission-form" class="submission-form" novalidate>
+      <div class="form-grid">
+        <label>Incident title<input name="title" maxlength="240" required></label>
+        <label>Incident date<input name="incidentDate" type="date" required></label>
+        <label>Category<input name="category" maxlength="100" placeholder="For example: Public safety" required></label>
+        <label>Office-holders involved <span class="optional">(optional, one per line)</span><textarea name="officeHolders" rows="3" maxlength="1900"></textarea></label>
+      </div>
+      <label>What happened?<textarea name="summary" rows="7" maxlength="8000" required></textarea></label>
+      <label>What is the accountability concern?<textarea name="accountabilityConcern" rows="6" maxlength="5000" required></textarea></label>
+      <label>Source URLs <span class="optional">(one per line, at least one required)</span><textarea name="sourceUrls" rows="5" maxlength="16000" placeholder="https://…" required></textarea></label>
+      <label>Email for follow-up <span class="optional">(optional; never published)</span><input name="submitterEmail" type="email" maxlength="254" autocomplete="email"></label>
+      <div id="turnstile" aria-live="polite"></div>
+      <button class="form-submit" type="submit">Submit for review</button>
+      <p class="form-status" id="form-status" role="status"></p>
+    </form>
+  </main>
+
+  <script src="../assets/js/submit.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Local Cloudflare configuration and secrets
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.wrangler/
+
+# Dependencies and operating-system files
+node_modules/
+.DS_Store

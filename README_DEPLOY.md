@@ -8,6 +8,14 @@ accountability-ledger-structured/
 ├── 404.html
 ├── _headers
 ├── README_DEPLOY.md
+├── migrations/
+│   └── 0001_submissions.sql
+├── functions/
+│   └── api/
+├── dashboard/
+├── review/
+├── submit/
+├── wrangler.jsonc
 └── assets/
     ├── css/
     │   └── styles.css
@@ -22,6 +30,8 @@ accountability-ledger-structured/
 - Edit case records only in `assets/data/cases.json`. Keep it valid JSON.
 - Edit filtering, sorting, interactions, and safe data rendering in `assets/js/app.js`.
 - `_headers` supplies the Cloudflare Pages security headers.
+- `functions/` contains the submission API, review queue API, and public published-case API.
+- `migrations/` contains the Cloudflare D1 schema.
 
 ## Header estimates
 
@@ -41,17 +51,43 @@ The two headline estimates are calculated from optional per-case `estimates` val
 
 ## Test locally
 
-```python
-python3 -m http.server 8000
+```text
+npx wrangler pages dev .
 ```
 
-Open `http://localhost:8000` and stop the server with `Ctrl+C`.
+Copy `.dev.vars.example` to `.dev.vars`, replace every placeholder, and configure the D1 database ID in `wrangler.jsonc` before testing submissions locally.
 
 ## Deploy
 
-Upload the complete folder or deployment ZIP to Cloudflare Pages using Direct Upload.
+The ledger is no longer static-only: public submissions and moderation use Cloudflare Pages Functions and D1. Direct Upload cannot deploy this backend; deploy with Wrangler or connect the repository to Cloudflare Pages.
 
-This is a read-only static site: visitors can read the case JSON but there is no browser-accessible endpoint that can change it. To update a case, edit the local `assets/data/cases.json` file and deploy a new version.
+1. Create a D1 database:
+
+```text
+npx wrangler d1 create accountability-ledger
+```
+
+2. Replace `REPLACE_WITH_YOUR_D1_DATABASE_ID` in `wrangler.jsonc`, then apply the schema:
+
+```text
+npx wrangler d1 migrations apply accountability-ledger --remote
+```
+
+3. Create a Turnstile widget for the submission page domain. Configure `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `SUBMISSION_HASH_SALT`, `REVIEWER_EMAILS`, `CF_ACCESS_TEAM_DOMAIN`, and `CF_ACCESS_AUD` as Pages environment variables or secrets. Never commit the secret values or `.dev.vars`.
+
+4. Configure Cloudflare Access policies before deployment:
+   - `/review/*`
+   - `/api/admin/*`
+
+   Allow only the email addresses listed in `REVIEWER_EMAILS`. The API verifies the Cloudflare Access JWT and the allowlisted email.
+
+5. Deploy:
+
+```text
+npx wrangler pages deploy . --project-name accountability-ledger
+```
+
+Public visitors can submit an incident only to the pending review queue. It is not public and cannot appear in the ledger until an Access-protected reviewer publishes a completed case record. Published submissions are served read-only through `/api/cases`.
 
 Protect the deployment account as the write boundary:
 

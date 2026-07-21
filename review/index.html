@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review queue · Accountability Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="masthead compact-masthead">
+    <div class="wrap">
+      <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Private review queue</span></div>
+      <div class="hero">
+        <div class="eyebrow">Reviewer access only</div>
+        <h1 class="title">Review<br><span class="thin">the record.</span></h1>
+        <p class="standfirst">Approve only evidence that meets the editorial and legal standard. Publishing sends the reviewed case to the public ledger.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap form-page">
+    <label class="submission-form">Pending submission<select id="submission-list" aria-label="Pending submission"></select></label>
+    <section id="submission-detail" class="submission-guidance" hidden></section>
+    <form id="review-form" class="submission-form" hidden>
+      <label>Review notes<textarea id="review-notes" rows="4" maxlength="5000"></textarea></label>
+      <label>Published case JSON <span class="optional">(edit, verify, and remove unsupported claims before publishing)</span><textarea id="case-json" rows="24" spellcheck="false"></textarea></label>
+      <div class="case-actions">
+        <button class="form-submit" type="button" data-status="published">Publish to ledger</button>
+        <button class="case-share" type="button" data-status="approved">Keep approved</button>
+        <button class="case-share" type="button" data-status="rejected">Reject</button>
+      </div>
+      <p class="form-status" id="review-status" role="status"></p>
+    </form>
+  </main>
+
+  <script src="../assets/js/review.js" defer></script>
+</body>
+</html>

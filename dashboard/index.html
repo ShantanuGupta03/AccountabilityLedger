@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minister dashboard · Accountability Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="masthead compact-masthead">
+    <div class="wrap">
+      <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Portfolio dashboard</span></div>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../">Ledger</a>
+        <a href="./" aria-current="page">Minister dashboard</a>
+        <a href="../submit/">Submit an incident</a>
+      </nav>
+      <div class="hero">
+        <div class="eyebrow">Patterns of responsibility</div>
+        <h1 class="title">Who held<br><span class="thin">the file?</span></h1>
+        <p class="standfirst">A portfolio view of the cases in this ledger. Totals are cumulative estimates from the underlying case records, not findings of personal criminal liability.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap dashboard-page">
+    <div class="dashboard-controls">
+      <label class="search">Search office-holder<input id="minister-search" type="search" placeholder="Search a minister or office-holder" aria-label="Search office-holders"></label>
+      <p id="dashboard-count" class="dashboard-count"></p>
+    </div>
+    <div class="table-wrap">
+      <table class="minister-table">
+        <thead>
+          <tr><th>Office-holder / portfolio</th><th>Cases</th><th>Estimated costs</th><th>Estimated deaths</th><th>Recorded accountability outcome</th></tr>
+        </thead>
+        <tbody id="minister-rows"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="../assets/js/dashboard.js" defer></script>
+</body>
+</html>

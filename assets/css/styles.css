@@ -21,6 +21,10 @@
   header.masthead{border-bottom:2px solid var(--ink);padding:34px 0 0}
   .flag{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
   .flag .redtag{color:var(--redline)}
+  .site-nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+  .site-nav a{padding:6px 9px;border:1px solid var(--rule-strong);color:var(--ink-soft);text-decoration:none}
+  .site-nav a:hover,.site-nav a[aria-current="page"]{border-color:var(--redline);color:var(--redline)}
+  .compact-masthead .hero{padding-bottom:34px}
   .hero{padding:46px 0 40px}
   .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.32em;font-size:12.5px;color:var(--redline);margin-bottom:22px}
   h1.title{font-family:var(--display);font-weight:900;line-height:.94;letter-spacing:-.02em;font-size:clamp(42px,7.6vw,86px);margin:0 0 4px}
@@ -67,6 +71,8 @@
   main{padding:8px 0 40px}
   .yearmark{display:flex;align-items:center;gap:18px;padding:34px 0 10px}
   .yearmark .y{font-family:var(--display);font-weight:900;font-size:clamp(32px,4.6vw,54px);letter-spacing:-.03em;line-height:1}
+  .yearmark .year-link{color:var(--ink);text-decoration:none}
+  .yearmark .year-link:hover{color:var(--redline)}
   .yearmark .r{flex:1;height:2px;background:var(--ink)}
   .yearmark .c{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase}
 
@@ -94,6 +100,10 @@
   .est{font-family:var(--mono);font-weight:700;font-size:8.5px;letter-spacing:.1em;color:var(--amber);border:1px solid var(--amber-soft);padding:1px 4px}
   .expandbar{display:block;width:100%;padding:12px 24px 18px;font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--ink-faint);background:none;border:0;cursor:pointer;user-select:none}
   .expandbar:hover{color:var(--redline)}
+  .case-actions{display:flex;align-items:center;padding-right:14px}
+  .case-actions .expandbar{flex:1}
+  .case-share{flex:0 0 auto;padding:6px 8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--constructive);background:transparent;border:1px solid var(--rule-strong);cursor:pointer}
+  .case-share:hover{border-color:var(--constructive)}
 
   .filebody{max-height:0;overflow:hidden;transition:max-height .45s ease}
   .file.open .filebody{max-height:6000px}
@@ -127,11 +137,38 @@
   footer .fine{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-top:26px;line-height:1.9}
   .empty{padding:60px 0;text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--ink-faint)}
 
+  .form-page,.dashboard-page{padding-top:44px;padding-bottom:64px}
+  .submission-guidance{max-width:78ch;padding:20px 24px;margin-bottom:28px;border-left:4px solid var(--amber-soft);background:var(--paper-sunken)}
+  .submission-guidance h2{margin:0 0 8px;font-family:var(--display);font-size:24px}
+  .submission-guidance ul{margin:0;padding-left:20px;color:var(--ink-soft)}
+  .submission-form{display:grid;gap:20px;max-width:860px}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .submission-form label{display:grid;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .submission-form input,.submission-form textarea{width:100%;padding:11px 12px;border:1px solid var(--rule-strong);border-radius:0;background:var(--paper-raised);font:16px/1.5 var(--serif);letter-spacing:normal;text-transform:none;color:var(--ink);resize:vertical}
+  .submission-form input:focus,.submission-form textarea:focus{outline:2px solid var(--redline);outline-offset:-1px}
+  .optional{color:var(--ink-faint);font-size:9px}
+  .form-submit{justify-self:start;padding:11px 14px;background:var(--redline);border:1px solid var(--redline);color:#F4F4EF;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .form-submit:disabled{cursor:wait;opacity:.65}
+  .form-status{min-height:1.6em;margin:0;color:var(--constructive)}
+  .form-status.error{color:var(--redline)}
+
+  .dashboard-controls{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+  .dashboard-controls .search{max-width:480px}
+  .dashboard-count{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .table-wrap{overflow-x:auto;border:1px solid var(--rule-strong);background:var(--paper-raised)}
+  .minister-table{width:100%;border-collapse:collapse;min-width:790px;font-size:14px}
+  .minister-table th,.minister-table td{padding:14px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left}
+  .minister-table thead th{background:var(--paper-sunken);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .minister-table tbody th{min-width:220px;font-family:var(--display);font-size:17px}
+  .minister-table tbody th span{display:block}
+  .minister-table small{display:block;margin-top:5px;font-family:var(--mono);font-size:9px;line-height:1.5;letter-spacing:.03em;font-weight:400}
+
   @media (max-width:760px){
     body{font-size:16px}
     .wrap,.method details{padding-left:16px;padding-right:16px}
     .flag{align-items:flex-start;flex-direction:column;gap:4px;line-height:1.45}
     .eyebrow{letter-spacing:.2em}
+    .site-nav{margin-top:12px}
     .docket{grid-template-columns:repeat(2,1fr)} .docket .cell:nth-child(2){border-right:none}
     .controls{padding:10px 0}
     .controls .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
@@ -145,11 +182,14 @@
     .metrics{grid-template-columns:1fr;margin:0 24px}
     .metric{border-right:none;border-bottom:1px dashed var(--rule);padding:12px 0}.metric:last-child{border-bottom:none}
     footer .grid{grid-template-columns:1fr}
+    .form-grid{grid-template-columns:1fr}
+    .dashboard-controls{align-items:stretch;flex-direction:column}
   }
   @media (max-width:480px){
     .filehead{padding:18px 16px 14px}
     .metrics{margin:0 16px}
     .expandbar{padding:12px 16px 16px}
+    .case-actions{padding-right:8px}
     .filebody-inner{padding-left:16px;padding-right:16px}
     .field.alt{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
     .prop,.src{overflow-wrap:anywhere}
