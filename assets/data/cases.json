@@ -36,7 +36,10 @@
         "label": "Witness-death reporting",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 40
+    }
   },
   {
     "no": 2,
@@ -78,7 +81,11 @@
         "label": "8 Nov 2016 address",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 200000,
+      "deaths": 100
+    }
   },
   {
     "no": 3,
@@ -116,7 +123,10 @@
         "label": "Compensation-delay reporting",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 10000
+    }
   },
   {
     "no": 4,
@@ -155,7 +165,10 @@
         "label": "Top donors and beneficiaries",
         "url": "https://www.business-standard.com/elections/lok-sabha-election/electoral-bonds-data-here-s-a-list-of-the-biggest-donors-and-beneficiaries-124032200461_1.html"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 12146
+    }
   },
   {
     "no": 5,
@@ -241,7 +254,10 @@
         "label": "Convoy-movement reporting",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 40
+    }
   },
   {
     "no": 7,
@@ -283,7 +299,10 @@
         "label": "Centre tells Parliament",
         "url": "https://www.businesstoday.in/latest/economy-politics/story/migrant-deaths-no-data-available-so-no-compensation-centre-informs-parliament-273047-2020-09-15"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 1000
+    }
   },
   {
     "no": 8,
@@ -325,7 +344,10 @@
         "label": "On gov.in, still 'not public'",
         "url": "https://www.deccanherald.com/india/pm-cares-now-under-govin-domain-centre-still-says-it-is-not-public-authority-932943.html"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 1000
+    }
   },
   {
     "no": 9,
@@ -367,7 +389,10 @@
         "label": "How territory was lost (Caravan)",
         "url": "https://caravanmagazine.in/security/india-china-ladakh"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 20
+    }
   },
   {
     "no": 10,
@@ -409,7 +434,10 @@
         "label": "Pandemic-timing criticism",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 20000
+    }
   },
   {
     "no": 11,
@@ -448,7 +476,10 @@
         "label": "Protest death tally",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 700
+    }
   },
   {
     "no": 12,
@@ -528,7 +559,10 @@
         "label": "Panel: audit the deaths",
         "url": "https://www.deccanherald.com/india/covid-19-parliamentary-panel-recommends-audit-of-deaths-due-to-oxygen-shortage-1144652.html"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 4700000
+    }
   },
   {
     "no": 14,
@@ -566,7 +600,10 @@
         "label": "Bhima Koregaon case status",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 1
+    }
   },
   {
     "no": 15,
@@ -682,7 +719,10 @@
         "label": "UAPA conspiracy-case status",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 53
+    }
   },
   {
     "no": 18,
@@ -720,7 +760,10 @@
         "label": "Journalist arrests",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 1
+    }
   },
   {
     "no": 19,
@@ -763,7 +806,10 @@
         "label": "Demand for Teni's dismissal",
         "url": "https://www.deccanherald.com/amp/story/india%2Ffarmers-workers-to-mark-black-day-on-tuesday-to-seek-ajay-mishra-tenis-dismissal-over-lakhimpur-kheri-killings-2709235"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 8
+    }
   },
   {
     "no": 20,
@@ -920,7 +966,10 @@
         "label": "SC cancels release",
         "url": "https://www.deccanherald.com/amp/story/india%2Fsupreme-court-cancels-release-of-11-convicts-in-bilkis-bano-gangrape-case-2839974"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 7
+    }
   },
   {
     "no": 24,
@@ -958,7 +1007,11 @@
         "label": "2 years on, no compensation",
         "url": "https://thefederal.com/category/states/west/gujarat/morbi-tragedy-2-years-later-no-closure-no-compensation-for-victims-159325"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 2,
+      "deaths": 141
+    }
   },
   {
     "no": 25,
@@ -1047,7 +1100,10 @@
         "label": "CM resigns after ~2 years (Reuters)",
         "url": "https://www.yahoo.com/news/chief-violence-hit-indian-state-152727365.html"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 258
+    }
   },
   {
     "no": 27,
@@ -1127,7 +1183,10 @@
         "label": "Rail safety spending data",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 290
+    }
   },
   {
     "no": 29,
@@ -1329,7 +1388,11 @@
         "label": "New roads caving in Ayodhya",
         "url": "https://www.deccanherald.com/amp/story/india%2Futtar-pradesh%2Fayodhya-ram-temples-roof-leaking-after-heavy-showers-on-saturday-night-priest-blames-lack-of-drainage-3079201"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 1800,
+      "deaths": 1
+    }
   },
   {
     "no": 34,
@@ -1375,7 +1438,10 @@
         "label": "'Politically motivated', say experts",
         "url": "https://thekashmirimages.com/2025/02/21/ken-betwa-link-project-politically-motivated-shouldve-never-been-approved-experts/"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 44605
+    }
   },
   {
     "no": 35,
@@ -1489,7 +1555,10 @@
         "label": "Govt: 'no data' on student suicides",
         "url": "https://news.careers360.com/no-data-on-student-suicides-in-neet-coaching-centres-government-tells-lok-sabha/amp"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 14
+    }
   },
   {
     "no": 38,
@@ -1574,7 +1643,10 @@
         "label": "Who is responsible (The Week)",
         "url": "https://www.theweek.in/magazine/theweek/statescan/2026/07/04/faith-and-fraud-who-is-responsible-for-ayodhyas-ram-temple-donation-theft.html"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 200
+    }
   },
   {
     "no": 40,
@@ -1732,7 +1804,10 @@
         "label": "Court denounces demolitions (NBC)",
         "url": "https://www.nbcnews.com/news/world/india-top-court-denounces-bulldozer-justice-demolitions-rcna180094"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 0.6
+    }
   },
   {
     "no": 44,
@@ -1771,7 +1846,10 @@
         "label": "Rules called 'prima facie unconstitutional' (LiveLaw)",
         "url": "https://www.livelaw.in/top-stories/indian-union-muslim-league-moves-supreme-court-to-stay-citizenship-amendment-rules-2024-251925"
       }
-    ]
+    ],
+    "estimates": {
+      "deaths": 25
+    }
   },
   {
     "no": 45,
@@ -1814,7 +1892,10 @@
         "label": "'All coming back to face law', said FM",
         "url": "https://www.deccanherald.com/india/mallya-nirav-modi-mehul-choksi-all-coming-back-to-face-law-fm-sitharaman-963510.html"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 39000
+    }
   },
   {
     "no": 46,
@@ -1856,7 +1937,10 @@
         "label": "₹16.35 lakh cr over a decade, bulk to big industry",
         "url": "https://www.moneylife.in/article/rs1635-lakh-crore-bad-loans-written-off-by-banks-in-past-10-years-govt/76651.html"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 1661000
+    }
   },
   {
     "no": 47,
@@ -1898,7 +1982,10 @@
         "label": "Govt refused to accept the final list",
         "url": "https://www.deccanherald.com/national/east-and-northeast/assam-discontinues-services-of-200-members-of-fts-appointed-to-clear-nrc-claims-1153897.html"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 1600
+    }
   },
   {
     "no": 48,
@@ -1937,7 +2024,10 @@
         "label": "Original investigative report",
         "todo": true
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 45
+    }
   },
   {
     "no": 49,
@@ -1979,7 +2069,10 @@
         "label": "₹6.97 cr paid to dead patients (CAG)",
         "url": "https://www.deccanherald.com/health/healthcare/rs-697-crore-was-paid-to-dead-patients-under-pmjay-cag-2649876"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 6.97
+    }
   },
   {
     "no": 50,
@@ -2021,6 +2114,9 @@
         "label": "₹33,000 cr spent, river still polluted (Scroll)",
         "url": "https://scroll.in/article/1056887/after-spending-rs-33000-crore-has-the-indian-government-finally-managed-to-clean-the-ganga"
       }
-    ]
+    ],
+    "estimates": {
+      "costInrCrore": 22500
+    }
   }
 ]
