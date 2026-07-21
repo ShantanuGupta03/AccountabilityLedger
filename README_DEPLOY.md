@@ -23,6 +23,22 @@ accountability-ledger-structured/
 - Edit filtering, sorting, interactions, and safe data rendering in `assets/js/app.js`.
 - `_headers` supplies the Cloudflare Pages security headers.
 
+## Header estimates
+
+The two headline estimates are calculated from optional per-case `estimates` values in `assets/data/cases.json`:
+
+```python
+"estimates": {
+  "costInrCrore": 200000,
+  "deaths": 100
+}
+```
+
+- `costInrCrore` is a broad, cumulative financial estimate in Indian crore.
+- `deaths` is an estimated death toll.
+- Omit either field when a case has no defensible figure. Do not use `0` as an estimate.
+- The displayed totals include disputed and range-based figures, may overlap between cases, and are not an audited loss or fraud total.
+
 ## Test locally
 
 ```python

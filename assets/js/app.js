@@ -35,11 +35,38 @@ function safeURL(value){
   }
 }
 
+function totalEstimates(){
+  return DATA.reduce((totals,caseFile)=>{
+    const estimates=caseFile.estimates??{};
+    const costInrCrore=Number(estimates.costInrCrore);
+    const deaths=Number(estimates.deaths);
+    if(Number.isFinite(costInrCrore)&&costInrCrore>0) totals.costInrCrore+=costInrCrore;
+    if(Number.isFinite(deaths)&&deaths>0) totals.deaths+=deaths;
+    return totals;
+  },{costInrCrore:0,deaths:0});
+}
+
+function formatCostEstimate(costInrCrore){
+  if(!costInrCrore) return "--";
+  return costInrCrore>=100000
+    ? `≈₹${(costInrCrore/100000).toFixed(2)}L cr`
+    : `≈₹${Math.round(costInrCrore).toLocaleString("en-IN")} cr`;
+}
+
+function formatHumanToll(deaths){
+  if(!deaths) return "--";
+  return deaths>=1000000
+    ? `≈${(deaths/1000000).toFixed(2)}M`
+    : `≈${Math.round(deaths).toLocaleString("en-IN")}`;
+}
+
 function setupControls(){
   CATS=[...new Set(DATA.map(d=>d.cat))].sort();
   state.cats.clear();
+  const estimates=totalEstimates();
   $("#stat-total").textContent=DATA.length;
-  $("#stat-cats").textContent=CATS.length;
+  $("#stat-cost").textContent=formatCostEstimate(estimates.costInrCrore);
+  $("#stat-toll").textContent=formatHumanToll(estimates.deaths);
   catchips.replaceChildren();
   CATS.forEach(c=>{
     const b=document.createElement("button");

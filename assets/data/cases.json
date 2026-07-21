@@ -1733,5 +1733,294 @@
         "url": "https://www.nbcnews.com/news/world/india-top-court-denounces-bulldozer-justice-demolitions-rcna180094"
       }
     ]
+  },
+  {
+    "no": 44,
+    "sk": 20191211,
+    "year": 2019,
+    "date": "Passed Dec 2019. Rules notified Mar 2024.",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "CAA. Religion written into citizenship",
+    "stamp": "Contested. Under challenge in the SC.",
+    "human": {
+      "v": "The first religion test in Indian citizenship; anti-CAA protests left <b>25+</b> dead, over 20 of them in Uttar Pradesh",
+      "est": true
+    },
+    "cost": {
+      "v": "The stake is the secular basis of Indian citizenship, not a rupee figure",
+      "est": false
+    },
+    "what": "The Citizenship Amendment Act amended the 1955 law to fast-track citizenship for non-Muslim migrants, Hindu, Sikh, Buddhist, Jain, Parsi and Christian, who entered from Pakistan, Bangladesh or Afghanistan before 31 December 2014. For the first time in independent India, religion became a criterion in naturalisation. The rules were notified in March 2024, more than four years later, just before the general election.",
+    "dodge": "The law was pushed through amid the largest protests in years, met with police crackdowns and, in places, deadly violence, and paired with talk of a nationwide NRC that raised the spectre of a documentation trap with a religious escape hatch open to some communities and shut to Muslims. The government has faced no reckoning for the protest deaths, sat on the rules for over four years and then rushed them out on the eve of an election, and the constitutional questions remain unresolved in court while the divisions it opened harden.",
+    "ministers": [
+      {
+        "n": "Amit Shah",
+        "r": "Home Minister"
+      }
+    ],
+    "pos": "The government says the law is purely humanitarian, offers refuge to persecuted minorities, takes away no Indian's citizenship, and that mere under-inclusion of a group is no ground to strike a law down.",
+    "alleg": "The claim that the CAA is unconstitutional and discriminates on religion, violating Articles 14 and 21, is the case made by around 230 petitioners and is <em>pending before the Supreme Court</em>, which has declined to stay the law and set final hearings for 2026. It has not been adjudicated.",
+    "alt": "A religion-neutral asylum and refugee framework that shelters anyone facing persecution on the evidence of their plight, not the label of their faith, meeting the humanitarian aim without dividing citizenship along sectarian lines.",
+    "sources": [
+      {
+        "label": "SC to hear ~200 petitions, final hearings 2026",
+        "url": "https://www.scobserver.in/reports/citizenship-amendment-act-supreme-court-schedules-final-hearings-in-may-2026/"
+      },
+      {
+        "label": "Rules called 'prima facie unconstitutional' (LiveLaw)",
+        "url": "https://www.livelaw.in/top-stories/indian-union-muslim-league-moves-supreme-court-to-stay-citizenship-amendment-rules-2024-251925"
+      }
+    ]
+  },
+  {
+    "no": 45,
+    "sk": 20180214,
+    "year": 2018,
+    "date": "Mallya fled 2016. PNB scam broke Feb 2018.",
+    "cat": "Public money",
+    "sev": "amber",
+    "title": "The fugitives who fled with public money",
+    "stamp": "They fled. Little recovered.",
+    "human": {
+      "v": "State-owned banks and, through them, the taxpayer left holding thousands of crore",
+      "est": false
+    },
+    "cost": {
+      "v": "PNB fraud ~<b>₹13,000 to 14,500 cr</b>; 15 declared fugitive offenders owe banks ~<b>₹58,000 cr</b>, of which only ~<b>₹19,000 cr</b> recovered",
+      "est": true
+    },
+    "what": "Diamond tycoons Nirav Modi and Mehul Choksi allegedly defrauded state-owned Punjab National Bank of around ₹13,000 to 14,500 crore through fake Letters of Undertaking, the biggest banking fraud in Indian history, while liquor baron Vijay Mallya defaulted on over ₹9,000 crore owed by his airline. All of them left the country before or just as the cases broke.",
+    "dodge": "Each high-profile accused slipped out of India on the government's watch, Mallya in 2016, and Nirav Modi in early 2018, weeks before the PNB fraud went public and days after he was photographed among industrialists at a Davos event with the Prime Minister. Years of assurances that they would be brought back have produced drawn-out extradition battles and only a fraction of the money recovered. The oversight failure that let them walk out of the country has answered to no one.",
+    "ministers": [
+      {
+        "n": "Nirmala Sitharaman",
+        "r": "Finance Minister (banking oversight)"
+      },
+      {
+        "n": "Union Finance Ministry",
+        "r": "Public-sector banks"
+      }
+    ],
+    "pos": "The government points to the Fugitive Economic Offenders Act of 2018, ongoing extradition efforts, partial recoveries, and insists the defaulters remain liable.",
+    "alleg": "The specific charges against the fugitives are <em>before the courts in India and abroad</em>. The accountability failure logged here is that they were able to flee at all, and that most of the public money is still unrecovered.",
+    "alt": "A system that flags and stops large defaulters before they board a plane, genuinely fast extradition, and real recovery of public-bank money, rather than photo-ops and promises.",
+    "sources": [
+      {
+        "label": "15 fugitive offenders owe banks ~₹58,000 cr",
+        "url": "https://www.deccanherald.com/india/centre-says-15-fugitive-economic-offenders-including-vijay-mallya-nirav-modi-owe-rs-58000-cr-to-banks-3816219"
+      },
+      {
+        "label": "'All coming back to face law', said FM",
+        "url": "https://www.deccanherald.com/india/mallya-nirav-modi-mehul-choksi-all-coming-back-to-face-law-fm-sitharaman-963510.html"
+      }
+    ]
+  },
+  {
+    "no": 46,
+    "sk": 20250318,
+    "year": 2025,
+    "date": "2014 to 2025 (cumulative)",
+    "cat": "Public money",
+    "sev": "amber",
+    "title": "₹16 lakh crore written off. About 16% recovered.",
+    "stamp": "Public money, quietly erased",
+    "human": {
+      "v": "Borne by public-sector banks and, ultimately, ordinary depositors and taxpayers",
+      "est": false
+    },
+    "cost": {
+      "v": "~<b>₹16.35 to 16.61 lakh cr</b> in bad loans written off since 2014; only about <b>16%</b> recovered; roughly <b>₹9.26 lakh cr</b> of it owed by big industry",
+      "est": true
+    },
+    "what": "Indian banks wrote off around ₹16.6 lakh crore in bad loans since 2014, according to RBI data given in an RTI reply and in Parliament, of which only about 16 percent has been recovered. The bulk, roughly ₹9 lakh crore, was owed by large industry and services.",
+    "dodge": "Write-offs are, as the government insists, prudential accounting rather than formal waivers, yet the pattern is hard to stomach: colossal sums of public-bank money erased, overwhelmingly for big corporate borrowers, with recovery stuck near a sixth, while the borrowers' identities stay shielded under the RBI Act. The gulf between how gently large defaulters are treated and how hard small ones are chased has never been honestly answered.",
+    "ministers": [
+      {
+        "n": "Nirmala Sitharaman",
+        "r": "Finance Minister"
+      },
+      {
+        "n": "Reserve Bank of India",
+        "r": "Banking regulator"
+      }
+    ],
+    "pos": "The government says write-offs are accounting measures, that borrowers remain liable, that recovery is an ongoing process, and that gross NPAs have since fallen to multi-year lows.",
+    "alt": "Publish the names of big defaulters, pursue corporate recovery as relentlessly as small-borrower recovery, and account transparently for exactly what public money was lost and to whom.",
+    "sources": [
+      {
+        "label": "₹16.61 lakh cr written off since 2014, 16% recovered",
+        "url": "https://www.nationalheraldindia.com/business/banks-write-off-rs-1661-lakh-crore-in-loans-since-2014-recovery-stands-at-16-pc"
+      },
+      {
+        "label": "₹16.35 lakh cr over a decade, bulk to big industry",
+        "url": "https://www.moneylife.in/article/rs1635-lakh-crore-bad-loans-written-off-by-banks-in-past-10-years-govt/76651.html"
+      }
+    ]
+  },
+  {
+    "no": 47,
+    "sk": 20190831,
+    "year": 2019,
+    "date": "Published 31 Aug 2019, in limbo since",
+    "cat": "Public money",
+    "sev": "amber",
+    "title": "Assam NRC. ₹1,600 crore, then disowned",
+    "stamp": "Built, then rejected by its own backers",
+    "human": {
+      "v": "<b>19,06,657</b> people left off the final list, their citizenship in limbo for years, disproportionately the poor and minorities",
+      "est": false
+    },
+    "cost": {
+      "v": "~<b>₹1,600 cr</b> and a decade of work by tens of thousands of officials, left unimplemented",
+      "est": true
+    },
+    "what": "The Supreme-Court-monitored National Register of Citizens in Assam, an exercise the BJP had long campaigned for, cost around ₹1,600 crore and a decade of work by tens of thousands of officials, and on 31 August 2019 excluded 19,06,657 people from the final list.",
+    "dodge": "Having finally got the register it had demanded, the BJP-led state government and the Centre then refused to accept the result, alleging irregularities and seeking a re-verification, so the ₹1,600 crore exercise sits in limbo, unimplemented to this day. Rejection slips were never properly issued, and 19 lakh people were left in citizenship limbo with no closure. A vast public spend produced an outcome its own sponsors disowned the moment it did not suit them.",
+    "ministers": [
+      {
+        "n": "Amit Shah",
+        "r": "Home Minister"
+      },
+      {
+        "n": "Assam state government (BJP)",
+        "r": "Demanded, then disowned, the NRC"
+      }
+    ],
+    "pos": "The government says it sought re-verification to ensure a correct, error-free register, and that the whole process was monitored by the Supreme Court.",
+    "alt": "Either stand by a court-monitored result or never launch a divisive, ruinously costly exercise you intend to disown, and give the 19 lakh excluded a fair, funded and time-bound path to be heard.",
+    "sources": [
+      {
+        "label": "₹1,600 cr later, NRC still in limbo",
+        "url": "https://assamtribune.com/assam/rs-1600-cr-later-assam-nrc-still-in-limbo-aasu-seeks-re-verification-1579359"
+      },
+      {
+        "label": "Govt refused to accept the final list",
+        "url": "https://www.deccanherald.com/national/east-and-northeast/assam-discontinues-services-of-200-members-of-fts-appointed-to-clear-nrc-claims-1153897.html"
+      }
+    ]
+  },
+  {
+    "no": 48,
+    "sk": 20260601,
+    "year": 2026,
+    "date": "Jun 2026 (allegation)",
+    "cat": "Crony capital (alleged)",
+    "sev": "amber",
+    "title": "MP Chief Minister's family land, and a buried demand for a probe",
+    "stamp": "Alleged. Denied. No inquiry ordered.",
+    "human": {
+      "v": "Public trust in whether high office was used to profit from insider knowledge of land values",
+      "est": false
+    },
+    "cost": {
+      "v": "Media put the alleged family-linked purchases at ~<b>168 acres</b> across ~137 parcels, worth ~<b>₹45 cr</b>, around Ujjain",
+      "est": true
+    },
+    "what": "Media reports in June 2026 alleged that firms and family members linked to Madhya Pradesh Chief Minister Mohan Yadav had acquired around 137 land parcels, roughly 168 acres, in and around Ujjain, concentrated in areas expected to rise in value from planned government infrastructure and development.",
+    "dodge": "Whatever the truth of the purchases, the accountability question is what followed. The Chief Minister's office flatly denied that he or his wife had bought any land since he took office and called the reports misleading; the opposition demanded a judicial inquiry overseen by a sitting Supreme Court judge; and the government ordered no independent probe at all. A serious public allegation that office may have been used to gain from insider land values was met with a denial and a press line, not with the transparent, independent scrutiny that alone could clear it or prove it.",
+    "ministers": [
+      {
+        "n": "Mohan Yadav",
+        "r": "MP Chief Minister (BJP)"
+      }
+    ],
+    "pos": "The Chief Minister's Office denies that he or his wife purchased any land since he took office in December 2023, and calls the media reports misleading, promising a detailed response.",
+    "alleg": "This is an <em>unproven allegation</em> based on media reporting and raised by opposition parties. It has not been tested by any court or independent inquiry, and the Chief Minister denies it. It is logged here for the accountability question it raises, not as an established fact.",
+    "alt": "Refer serious conflict-of-interest allegations against those in office to a genuinely independent inquiry, and routinely publish the land and asset records of office-holders and their families, so the answer comes from scrutiny rather than a denial.",
+    "sources": [
+      {
+        "label": "CMO denies land deal; opposition seeks judicial probe",
+        "url": "https://www.theswipeup.com/2026/06/after-gaining-office-mp-cm-did-not.html"
+      },
+      {
+        "label": "Original investigative report",
+        "todo": true
+      }
+    ]
+  },
+  {
+    "no": 49,
+    "sk": 20230808,
+    "year": 2023,
+    "date": "CAG report tabled Aug 2023",
+    "cat": "Public money",
+    "sev": "amber",
+    "title": "Ayushman Bharat. Dead patients 'treated', ghost phone numbers",
+    "stamp": "CAG-flagged fraud, no reckoning",
+    "human": {
+      "v": "The poor the scheme exists to cover, crowded out by fraud and, the audit found, sometimes still charged despite 'cashless' care",
+      "est": true
+    },
+    "cost": {
+      "v": "<b>₹6.97 cr</b> paid to 'treat' 3,446 patients already recorded as dead; up to <b>7.5 lakh</b> beneficiaries on one phone number",
+      "est": false
+    },
+    "what": "The national auditor's 2023 performance audit of the Ayushman Bharat health-insurance scheme found up to 7.5 lakh beneficiaries registered against a single mobile number (9999999999), thousands registered against the same Aadhaar numbers, ₹6.97 crore paid for the treatment of 3,446 patients already recorded as dead, and tens of thousands of cases of one patient admitted to several hospitals at the same time.",
+    "dodge": "This is not an opposition allegation but a finding of the Comptroller and Auditor General, tabled in Parliament. It points to large-scale leakage of public health money into fraud and ghost claims in a scheme meant for the poorest, with weak checks to stop it. The Health Ministry disputed how the mobile-number data should be read, but the core irregularities passed without any senior accountability or a full, public reckoning.",
+    "ministers": [
+      {
+        "n": "Mansukh Mandaviya",
+        "r": "Health Minister (2023)"
+      },
+      {
+        "n": "National Health Authority",
+        "r": "Scheme administration"
+      }
+    ],
+    "pos": "The Health Ministry said mobile numbers play no role in verifying beneficiaries, that dummy numbers were used, and that AI-based checks and action on around 1.6 lakh flagged claims show fraud is being tackled.",
+    "alt": "Close the ghost-beneficiary and dead-patient loopholes, publish the fraud and recovery data, and hold administrators accountable for public health money lost to leakage.",
+    "sources": [
+      {
+        "label": "'Dead' patients treated; ghost numbers (Business Today)",
+        "url": "https://www.businesstoday.in/latest/policy/story/ayushman-bharat-patients-shown-as-dead-getting-treatment-985-lakh-ab-pmjay-beneficiaries-linked-to-same-mobile-number-says-cag-report-393403-2023-08-09"
+      },
+      {
+        "label": "₹6.97 cr paid to dead patients (CAG)",
+        "url": "https://www.deccanherald.com/health/healthcare/rs-697-crore-was-paid-to-dead-patients-under-pmjay-cag-2649876"
+      }
+    ]
+  },
+  {
+    "no": 50,
+    "sk": 20140601,
+    "year": 2014,
+    "date": "Launched 2014, ongoing",
+    "cat": "Public money",
+    "sev": "amber",
+    "title": "Namami Gange. Tens of thousands of crore, a river still filthy",
+    "stamp": "Money spent, results missing",
+    "human": {
+      "v": "The crores who live along a Ganga still carrying large volumes of untreated sewage",
+      "est": true
+    },
+    "cost": {
+      "v": "Outlays of <b>₹20,000 cr</b> and then <b>₹22,500 cr</b>; over <b>₹13,000 cr</b> spent; CAG flagged unspent funds and failing sewage plants",
+      "est": true
+    },
+    "what": "Launched in 2014 as the Prime Minister's flagship river-cleaning mission with an outlay of ₹20,000 crore, later topped up to ₹22,500 crore, Namami Gange has seen more than ₹13,000 crore spent, yet the Ganga still carries large volumes of untreated sewage.",
+    "dodge": "Successive CAG audits have found underutilised funds, delayed and faulty sewage-treatment plants, and, in recent state audits, only a handful of plants meeting pollution norms, even as the government advertises the mission as a triumph. A decade and tens of thousands of crore later, the core promise of a clean Ganga is largely unmet, and the gap between the spending, the claims and the state of the river has never been honestly owned.",
+    "ministers": [
+      {
+        "n": "Union Jal Shakti Ministry",
+        "r": "National Mission for Clean Ganga"
+      },
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister (flagship project)"
+      }
+    ],
+    "pos": "The government says pollution has fallen, hundreds of sewage plants have been built or sanctioned, and wildlife such as river dolphins has returned.",
+    "alt": "Tie funding to measurable water-quality outcomes, build and actually maintain the treatment plants, and publish honest, independent monitoring of the river against every rupee spent.",
+    "sources": [
+      {
+        "label": "CAG audit: unspent funds, delays (PRS summary)",
+        "url": "https://prsindia.org/policy/report-summaries/audit-namami-gange"
+      },
+      {
+        "label": "₹33,000 cr spent, river still polluted (Scroll)",
+        "url": "https://scroll.in/article/1056887/after-spending-rs-33000-crore-has-the-indian-government-finally-managed-to-clean-the-ganga"
+      }
+    ]
   }
 ]
