@@ -1,0 +1,7 @@
+{
+  "name": "accountability-ledger",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}
