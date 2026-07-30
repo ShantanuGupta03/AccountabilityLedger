@@ -646,7 +646,7 @@
   },
   {
     "no": 16,
-    "sk": 20200805,
+    "sk": 20190805,
     "year": 2019,
     "date": "Aug 2019 onward",
     "cat": "Rights and dissent",
@@ -2117,6 +2117,645 @@
     ],
     "estimates": {
       "costInrCrore": 22500
+    }
+  },
+  {
+    "no": 51,
+    "sk": 20180221,
+    "year": 2018,
+    "date": "Feb 2018 leak, still leaking in 2026",
+    "cat": "Exam integrity",
+    "sev": "red",
+    "title": "SSC. The exam that leaked, and kept leaking",
+    "stamp": "Chargesheets, no convictions",
+    "human": {
+      "v": "<b>30.26 lakh</b> registered for CGL 2017 and <b>15.4 lakh</b> sat Tier-I; <b>1.5 lakh</b> reached the paper that leaked; the final result came <b>nearly three years</b> after the notification",
+      "est": false
+    },
+    "cost": {
+      "v": "Never costed. The bill is paid in working years lost per delayed cycle; the 2024 anti-cheating law caps a service provider's fine at <b>₹1 cr</b>",
+      "est": true
+    },
+    "what": "Questions from the Combined Graduate Level Tier-II paper of 21 February 2018 circulated on social media during the exam window. Candidates occupied the pavement outside the Commission's Delhi office from 27 February until the SSC agreed to recommend a CBI enquiry. The CBI found both a pre-exam leak and remote-access software running on candidates' machines, but said it could not identify everyone who benefited.",
+    "dodge": "The Supreme Court declined to scrap the exam in March 2020, leaving it to a criminal court where no conviction has followed. No SSC or DoPT official was held responsible. The machinery still fails: in February 2026 the UP and Uttarakhand STFs found two laptops and a router in a 24-inch underground chamber in the server room of an SSC exam centre, used to solve papers remotely at ₹10 lakh a candidate. It was booked under state law, the BNS and the IT Act, not under the central anti-cheating Act the government passed in 2024.",
+    "ministers": [
+      {
+        "n": "Ministry of Personnel (DoPT)",
+        "r": "Administrative control of the SSC; no official held responsible"
+      },
+      {
+        "n": "Staff Selection Commission",
+        "r": "Conducting body; recommended a CBI probe, announced no internal accountability"
+      }
+    ],
+    "pos": "The government notes it ordered a CBI enquiry within a week of the protests, re-held the affected paper and accepted the Justice G.S. Singhvi committee's reform recommendations, and that the Supreme Court itself declined to find the exam conclusively tainted. The SSC says its 2025 vendor handled only logistics, not question-setting, and that affected candidates were re-tested.",
+    "alleg": "Protester claims that the 2025 exam vendor was blacklisted or linked to Vyapam are denied by the SSC and remain <em>unverified</em>.",
+    "alt": "A published CBI outcome with named accountability, a statutory deadline between exam and appointment, and the 2024 Act actually invoked when a centre is caught.",
+    "sources": [
+      {
+        "label": "SSC recommends CBI probe, 2018",
+        "url": "https://www.thehindu.com/news/national/ssc-decides-to-recommend-cbi-probe-into-paper-leaks/article22925056.ece"
+      },
+      {
+        "label": "SC refuses to scrap CGL 2017",
+        "url": "https://www.business-standard.com/article/pti-stories/paper-leak-case-sc-refuses-to-scrap-ssc-cgle-exam-of-2017-120030501427_1.html"
+      },
+      {
+        "label": "Final result, three years late",
+        "url": "https://indianexpress.com/article/jobs/ssc-cgl-2017-final-result-today-ssc-nic-in-6120823/"
+      },
+      {
+        "label": "Aspirants protest new vendor, 2025",
+        "url": "https://theprint.in/india/faulty-systems-poor-infra-to-mistreatment-protesting-aspirants-allege-ssc-played-with-their-future/2709705/"
+      }
+    ]
+  },
+  {
+    "no": 52,
+    "sk": 20250924,
+    "year": 2025,
+    "date": "Promised 2019. Four dead Sept 2025.",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Ladakh. A Sixth Schedule promise, then four dead",
+    "stamp": "NSA for the man who asked",
+    "human": {
+      "v": "<b>Four</b> killed in police firing in Leh on 24 September 2025, one a Kargil war veteran; injured reported between <b>50</b> and <b>160+</b>. <b>170 days</b> of preventive detention for Sonam Wangchuk",
+      "est": true
+    },
+    "cost": {
+      "v": "Not a money case. The price is counted in a <b>35-day</b> hunger strike, a <b>1,000 km</b> march stopped at the Delhi border, and <b>97%+</b> of a Scheduled Tribe population still without the safeguards promised",
+      "est": false
+    },
+    "what": "Ladakh became a Union Territory without a legislature in August 2019. The ruling party's 2019 manifesto had listed Sixth Schedule status for Ladakh among its regional priorities, and the National Commission for Scheduled Tribes recommended it the same year. The Leh Apex Body and Kargil Democratic Alliance have since asked for four things: Sixth Schedule safeguards, statehood, a Ladakh Public Service Commission, and separate Lok Sabha seats for Leh and Kargil.",
+    "dodge": "After at least ten rounds of talks between 2020 and March 2024, the Home Minister told the delegation that neither the Sixth Schedule nor statehood would be granted. Wangchuk and 130 others were detained at the Singhu border on 30 September 2024 while marching to Rajghat. When protests turned violent on 24 September 2025, four people were shot dead by police; two days later Wangchuk was detained under the National Security Act and held in Jodhpur Central Jail. The Home Ministry revoked the order after 170 days, two days before the Supreme Court was to hear his wife's habeas corpus petition. No officer has been publicly held responsible for the firing.",
+    "ministers": [
+      {
+        "n": "Ministry of Home Affairs",
+        "r": "Ran the talks; revoked the NSA order two days before a Supreme Court hearing"
+      },
+      {
+        "n": "Amit Shah",
+        "r": "Union Home Minister; conveyed the refusal of Sixth Schedule status and statehood"
+      },
+      {
+        "n": "Ladakh UT administration",
+        "r": "Police firing that killed four; no accountability announced"
+      }
+    ],
+    "pos": "The Home Ministry says it has kept a genuine dialogue running through a High-Powered Committee, and has offered Article 371 safeguards, strengthened hill councils and five new districts in place of the Sixth Schedule. On the September 2025 violence it holds that speeches by protest leaders incited the mob, and that repeated shutdowns damaged students, job aspirants, business and tourism in a strategically sensitive border region.",
+    "alleg": "The injury count from 24 September 2025 is <em>contested</em>, reported variously as 50, 80 and over 160.",
+    "alt": "A published magisterial inquiry into the firing with named responsibility, a dated answer on the Sixth Schedule, and preventive detention reserved for threats to national security rather than for hunger strikers.",
+    "sources": [
+      {
+        "label": "Wangchuk's fasts and NSA detention",
+        "url": "https://frontline.thehindu.com/politics/sonam-wangchuk-hunger-strike/article71223988.ece"
+      },
+      {
+        "label": "Delhi Chalo march detentions, 2024",
+        "url": "https://theprint.in/india/anger-indefinite-fast-ladakhis-continue-protests-in-detention-after-their-delhi-chalo-march-stopped/2292738/"
+      },
+      {
+        "label": "Sixth Schedule demand explained",
+        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/why-ladakh-residents-hunger-strike-sixth-schedule-explained/article68012402.ece"
+      },
+      {
+        "label": "Talks with the Home Ministry, 2026",
+        "url": "https://www.thehindu.com/news/national/ladakh/ladakh-leaders-to-meet-home-ministry-officials-tomorrow-sonam-wangchuk-part-of-delegation/article71007304.ece"
+      }
+    ],
+    "estimates": {
+      "deaths": 4
+    }
+  },
+  {
+    "no": 53,
+    "sk": 20250422,
+    "year": 2025,
+    "date": "22 Apr 2025",
+    "cat": "National security",
+    "sev": "red",
+    "title": "Pahalgam. 26 dead, a lapse admitted, nobody moved",
+    "stamp": "Responsibility taken, no resignation",
+    "human": {
+      "v": "<b>26</b> killed, <b>25</b> Indians and one Nepali citizen, among them a local pony operator shot while trying to stop the gunmen; the injured count is reported inconsistently",
+      "est": false
+    },
+    "cost": {
+      "v": "Never costed publicly. The attack broke a tourism-led recovery in the valley; no compensation figure has been published",
+      "est": true
+    },
+    "what": "On the afternoon of 22 April 2025, gunmen attacked tourists at Baisaran meadow, a walk-in-only site about five kilometres from Pahalgam. Two attackers who had mingled with the crowd herded people towards two more armed men, who segregated victims by religion before shooting them. Twenty-six people were killed.",
+    "dodge": "At an all-party meeting two days later, Home Ministry and IB officials briefed leaders on where the lapses had occurred, and said tourists had gone to Baisaran without police permission. Reporting a year on notes such permission had not historically been sought, and that the meadow carried no deployment at all. On 14 July 2025 the Lieutenant Governor said he took full responsibility for what was 'undoubtedly a security failure', and remained in office. The government has never published what the lapses were, what was fixed, or who was answerable. The only public documents are the NIA chargesheets, which address the terror conspiracy, not the security failure.",
+    "ministers": [
+      {
+        "n": "Ministry of Home Affairs",
+        "r": "Security of J&K; lapses briefed to parties, never published"
+      },
+      {
+        "n": "Manoj Sinha",
+        "r": "Lieutenant Governor, J&K; accepted full responsibility, did not resign"
+      }
+    ],
+    "pos": "The government's position is that this was a Pakistan-sponsored attack designed to create a communal divide and wreck Kashmir's tourism recovery, that it briefed all parties on the lapses within 48 hours, that the route had been opened by tour operators in April without permission on terrain reachable only after a two-hour walk, and that it delivered accountability through Operation Sindoor on 7 May 2025, the killing of the three attackers in July, and NIA chargesheets naming the Lashkar-e-Taiba leadership.",
+    "alleg": "A report that a CRPF company assigned to Baisaran was redeployed shortly before the attack is attributed to unnamed sources and remains <em>unverified</em>.",
+    "alt": "A published inquiry naming the decision that left a known tourist site unguarded, and a convention under which accepting full responsibility for 26 deaths carries a consequence.",
+    "sources": [
+      {
+        "label": "Lapses briefed to all-party meeting",
+        "url": "https://www.thehindu.com/news/national/pahalgam-terror-attack-tourists-taken-to-meadow-without-police-permission-government-informs-all-party-meeting/article69488066.ece"
+      },
+      {
+        "label": "LG: 'undoubtedly a security failure'",
+        "url": "https://economictimes.indiatimes.com/news/defence/i-take-full-responsibility-jk-lg-manoj-sinha-calls-pahalgam-attack-a-security-failure/articleshow/122435616.cms"
+      },
+      {
+        "label": "A year on, lapses still unspecified",
+        "url": "https://m.thewire.in/article/security/a-year-after-pahalgam-modi-govt-yet-to-clarify-lapses-that-led-to-attack"
+      }
+    ],
+    "estimates": {
+      "deaths": 26
+    }
+  },
+  {
+    "no": 54,
+    "sk": 20250807,
+    "year": 2025,
+    "date": "07 Aug 2025",
+    "cat": "Democratic institutions",
+    "sev": "amber",
+    "title": "Vote chori. A claim, an ultimatum, and no audit",
+    "stamp": "Never independently checked",
+    "human": {
+      "v": "A contested claim over <b>1,00,250</b> votes in one Bengaluru segment, and over a net <b>40.81 lakh</b> electors added in Maharashtra between two polls. Neither has been tested by any court, tribunal or auditor",
+      "est": true
+    },
+    "cost": {
+      "v": "Not a money case. What is at stake is whether a serious, specific claim about the electoral roll can be examined at all",
+      "est": false
+    },
+    "what": "On 7 August 2025 the Leader of the Opposition, Rahul Gandhi, alleged at a press conference that 1,00,250 votes had been stolen in the Mahadevapura segment of Bangalore Central, breaking the figure into duplicate voters, invalid addresses, bulk registrations at single addresses, invalid photographs and misuse of Form 6. The Election Commission called the analysis misleading and false. The Chief Electoral Officers of Karnataka, Maharashtra and Haryana asked him to sign a declaration under Rule 20(3)(b) of the Registration of Electors Rules naming the electors concerned. He refused, saying his word in public could be taken as an oath. On 17 August the Chief Election Commissioner gave him seven days to file an affidavit or apologise to the nation.",
+    "dodge": "Not one of the five sub-figures has been examined by any independent body. The Commission declined to release machine-readable electoral rolls or polling-station CCTV footage that could settle the question, citing voter privacy. It has not explained why a ruling-party MP who made comparable roll-discrepancy claims about Rae Bareli was never asked for an affidavit. The constitutional expert P.D.T. Achary has said Rule 20(3)(b) governs claims and objections in the window after a draft roll is published and cannot apply after an election, which would mean the only route the Commission offered does not exist. The allegation and the rebuttal both remain untested, which serves whoever is wrong.",
+    "ministers": [
+      {
+        "n": "Election Commission of India",
+        "r": "Rejected the claim; withheld machine-readable rolls and CCTV footage"
+      },
+      {
+        "n": "Gyanesh Kumar",
+        "r": "Chief Election Commissioner; set a seven-day affidavit-or-apologise ultimatum"
+      }
+    ],
+    "pos": "The Commission's position is that the allegations are false and baseless, that the only lawful route is a signed declaration naming specific electors so that proceedings can begin, and that a false declaration is itself punishable. It notes no election petition was filed within the statutory 45-day window and no evidenced objection was filed with the Maharashtra CEO, that the Maharashtra additions reflect routine summary revision and youth enrolment with figures already supplied to the Congress by letter in December 2024, that disclosure of who voted is barred by the Conduct of Election Rules, and that an exercise involving more than a crore staff cannot be quietly rigged. It asks whether 1.5 lakh voters should be served notice without evidence.",
+    "alleg": "That votes were stolen, that the Commission colluded with any party, or that evidence was destroyed are <em>allegations by the Leader of the Opposition and remain unproven</em>. The Commission denies them in full and no court has made any such finding. The Supreme Court <em>upheld</em> the validity of the Special Intensive Revision of rolls in May 2026.",
+    "alt": "Machine-readable rolls published with personal data redacted, an independent audit of one contested segment to settle the method, and a single evidentiary standard applied to every party that alleges a discrepancy.",
+    "sources": [
+      {
+        "label": "Mahadevapura claims and the ECI reply",
+        "url": "https://www.outlookindia.com/national/rahul-accuses-election-commission-of-vote-chori-in-2024-lok-sabha-polls-ec-says-misleading"
+      },
+      {
+        "label": "CEC: affidavit in seven days, or apologise",
+        "url": "https://www.thehindu.com/news/national/file-affidavit-in-seven-days-or-apologise-eci-ultimatum-on-rahul-gandhis-karnataka-vote-theft-allegations/article69944380.ece"
+      },
+      {
+        "label": "SC orders 65 lakh deleted names published",
+        "url": "https://indianexpress.com/article/india/bihar-sir-row-sc-directs-eci-to-publish-details-of-65-lakh-deleted-voters-with-reasons-10189079/"
+      },
+      {
+        "label": "SC upholds validity of SIR, May 2026",
+        "url": "https://indianexpress.com/article/legal-news/supreme-court-upholds-eci-bihar-electoral-roll-revision-10709988/"
+      }
+    ]
+  },
+  {
+    "no": 55,
+    "sk": 20020228,
+    "year": 2002,
+    "date": "Feb to Mar 2002",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Gujarat 2002. What the courts found, and what they did not",
+    "stamp": "No political resignation",
+    "human": {
+      "v": "<b>1,044</b> killed on the official count given to Parliament — <b>790</b> Muslims and <b>254</b> Hindus — with <b>223</b> missing, <b>2,548</b> injured, <b>919</b> women widowed and <b>606</b> children orphaned. <b>59</b> died in the Godhra train fire that preceded it",
+      "est": false
+    },
+    "cost": {
+      "v": "<b>₹204.62 cr</b> spent by the state on relief and rehabilitation; <b>₹1.5 lakh</b> ex gratia for each person killed",
+      "est": false
+    },
+    "what": "Fifty-nine people died when coaches of the Sabarmati Express were set alight at Godhra on 27 February 2002. Communal violence followed across Gujarat over the following weeks. The official toll, given to the Rajya Sabha in May 2005, was 1,044 dead.",
+    "dodge": "In July 2002 the National Human Rights Commission found a 'comprehensive failure on the part of the State Government to control the persistent violation of the rights to life, liberty, equality and dignity of the people of that State', and recommended five cases be transferred to the CBI. The state government declined, and without its request the Centre said the CBI could not take over. The Supreme Court twice found a fair trial impossible in Gujarat and moved cases out of the state: nine of the twenty-one Best Bakery accused were convicted only on retrial in Mumbai, after all had been acquitted at home. Convictions followed at Sardarpura, Ode, Naroda Patiya and Gulberg Society, and many did not survive appeal. In 2024 the Supreme Court quashed Gujarat's remission of the eleven Bilkis Bano convicts, holding the state was not the competent government and had 'acted in tandem and was complicit' with them. Across twenty-four years, no minister resigned.",
+    "ministers": [
+      {
+        "n": "Gujarat state government (2002)",
+        "r": "NHRC found comprehensive failure to control the violence; declined the CBI transfer"
+      },
+      {
+        "n": "Narendra Modi",
+        "r": "Chief Minister; SIT found no prosecutable evidence, upheld by the Supreme Court in 2022"
+      }
+    ],
+    "pos": "The state's position, substantially accepted by the Supreme Court in June 2022, is that a mob attacked the train at Godhra and that the violence which followed was spontaneous rather than state-sponsored, that the administration moved as fast as an inadequate police force allowed and sought central forces and the Army promptly, and that the then Chief Minister made repeated public appeals for peace. The Court's 452-page judgment dismissing Zakia Jafri's appeal held there was no material worth the name to suspect a pre-planned conspiracy at the highest level, that inaction by some officials could not by itself establish a meeting of minds, that no fault could be found with the SIT's approach, and that the testimony of three officials was 'replete with falsehood'.",
+    "alleg": "Zakia Jafri's allegation of a larger conspiracy involving the then Chief Minister and 63 officials was <em>rejected</em> by the SIT in 2012, a magistrate in 2013, the Gujarat High Court in 2017 and the Supreme Court in 2022. Death tolls above the official 1,044 are estimates by rights organisations and are <em>not court-established</em>. Maya Kodnani, convicted in 2012, was <em>acquitted</em> by the Gujarat High Court in 2018.",
+    "alt": "A state that accepts a national human rights body's recommendation to move investigations out of its own hands, trials that need not be transferred to another state to be fair, and political responsibility that does not wait on a criminal conviction.",
+    "sources": [
+      {
+        "label": "Official toll: 790 Muslims, 254 Hindus",
+        "url": "http://news.bbc.co.uk/2/hi/south_asia/4536199.stm"
+      },
+      {
+        "label": "NHRC report on Gujarat, July 2002",
+        "url": "https://cjp.org.in/wp-content/uploads/2017/06/NHRC-Report-July-2002.pdf"
+      },
+      {
+        "label": "SC rejects Zakia Jafri's appeal, 2022",
+        "url": "https://www.thehindu.com/news/national/2002-gujarat-riots-supreme-court-rejects-zakia-jafris-charges-against-narendra-modi-60-officials/article65560012.ece"
+      },
+      {
+        "label": "Gulberg: 24 convicted, 36 acquitted",
+        "url": "https://www.bbc.com/news/world-asia-india-36423413"
+      },
+      {
+        "label": "Bilkis Bano remission quashed, 2024",
+        "url": "https://www.thehindu.com/news/national/bilkis-bano-case-supreme-court-quashes-gujarats-premature-release-of-convicts/article67718561.ece"
+      }
+    ],
+    "estimates": {
+      "costInrCrore": 204.62,
+      "deaths": 1044
+    }
+  },
+  {
+    "no": 56,
+    "sk": 20200506,
+    "year": 2020,
+    "date": "Duty peak 06 May 2020",
+    "cat": "Public money",
+    "sev": "amber",
+    "title": "Fuel excise. The crude crash the consumer never saw",
+    "stamp": "Cut from the states' share",
+    "human": {
+      "v": "Every household buying fuel through the pandemic, and every state whose share shrank as the levy moved into cesses it does not receive",
+      "est": false
+    },
+    "cost": {
+      "v": "<b>₹24.85 lakh cr</b> of central excise from petroleum, 2014-15 to 2023-24. Duty on petrol went from <b>₹9.48</b> to <b>₹32.98</b> a litre, diesel from <b>₹3.56</b> to <b>₹31.83</b>. Of ₹27.90 on petrol in 2022, only <b>₹1.40</b> was shareable with states",
+      "est": false
+    },
+    "what": "The government told Parliament it raised excise duty on ten occasions between November 2014 and January 2016 'to take away gains arising from a fall in international oil prices', and again by ₹13 a litre on petrol and ₹16 on diesel between March and May 2020 'when international oil prices came crashing after the onset of the pandemic'. Duty peaked at ₹32.98 on petrol on 6 May 2020. Excise from the petroleum sector jumped from ₹2.23 lakh crore in 2019-20 to ₹3.73 lakh crore in 2020-21.",
+    "dodge": "Almost none of it is shared. The Finance Minister confirmed in 2022 that of ₹27.90 a litre of central tax on petrol, only ₹1.40 was basic excise duty shareable with states, and that both the November 2021 and May 2022 cuts were made entirely in the non-shareable Road and Infrastructure Cess. The CAG has repeatedly found the cess money is not reaching the funds it was levied for: ₹10,157 crore of Road and Infrastructure Cess in 2018-19 'was neither transferred to the related Reserve Fund nor utilised for the purpose for which the cess was collected', and a separate ₹10,250 crore was moved out by a journal entry after the year closed, which the CAG said was done 'primarily for the purpose of artificially inflating revenue receipts of the year', had 'the effect of understating deficit', put money to purposes 'contrary to the will of the Parliament', and merited investigation of the officials who authorised it. The Ministry's defence was called untenable.",
+    "ministers": [
+      {
+        "n": "Ministry of Finance",
+        "r": "Set duty and cess structure; CAG defence on cess accounting held untenable"
+      },
+      {
+        "n": "Nirmala Sitharaman",
+        "r": "Union Finance Minister; confirmed cuts were made in the non-shareable cess"
+      }
+    ],
+    "pos": "The government's position is that excise is a legitimate policy instrument calibrated as required, that it cut duty by ₹13 a litre on petrol and ₹16 on diesel across November 2021 and May 2022 and passed the relief fully to consumers, that state finances were unaffected because the cuts came from a cess states never received, and that large subsidy outlays must be set against the revenue. On the accounting, it argued the transfer followed the redesignation of the Central Road Fund and had precedent.",
+    "alleg": "The CAG's language is 'not transferred' and 'short-credited', not diverted or misappropriated. The CAG also notes cess shortfalls date back to levies imposed in 1974 and therefore <em>span multiple governments</em>. Calling the 2020 increases a windfall is fair comment on figures the government itself gave Parliament; calling it profiteering is opinion.",
+    "alt": "Cess proceeds credited to the funds they were raised for, an honest split between shareable duty and cess, and duty that falls when crude falls.",
+    "sources": [
+      {
+        "label": "2014 rates and the 2020 peak, in Parliament",
+        "url": "https://www.business-standard.com/article/economy-policy/excise-duty-on-petrol-was-rs-9-48-ltr-diesel-rs-3-56-in-2014-minister-122080100962_1.html"
+      },
+      {
+        "label": "PPAC: petroleum receipts to the exchequer",
+        "url": "https://ppac.gov.in/prices/contribution-to-central-and-state-exchequer"
+      },
+      {
+        "label": "CAG on the ₹10,250 cr cess accounting",
+        "url": "https://www.thehindu.com/business/Economy/cag-moots-probe-over-cess-accounting-dodge/article61702167.ece"
+      },
+      {
+        "label": "CAG: ₹3.69 lakh cr of cess not transferred",
+        "url": "https://www.thehindu.com/business/Economy/centre-has-not-transferred-369-lakh-crore-of-cess-collections-to-the-designated-funds-cag-finds/article69924061.ece"
+      }
+    ],
+    "estimates": {
+      "costInrCrore": 2484913
+    }
+  },
+  {
+    "no": 57,
+    "sk": 20230301,
+    "year": 2023,
+    "date": "Price peak 01 Mar 2023",
+    "cat": "Consumer harm",
+    "sev": "amber",
+    "title": "The cylinder. Subsidy withdrawn, refills never came",
+    "stamp": "No answer for the empty cylinders",
+    "human": {
+      "v": "<b>10.33 crore</b> Ujjwala connections issued, but a CAG audit found average consumption of <b>3.21</b> refills a year, and <b>17.61%</b> of beneficiaries — about <b>56 lakh</b> households — never returned for a second refill at all",
+      "est": false
+    },
+    "cost": {
+      "v": "Domestic LPG subsidy fell from <b>₹46,458 cr</b> in 2013-14 to <b>₹1,811 cr</b> in 2021-22. The Delhi cylinder went from <b>₹414</b> subsidised in Jan 2014 to a <b>₹1,103</b> market peak in Mar 2023",
+      "est": false
+    },
+    "what": "A connection is not a kitchen. Ujjwala put a cylinder in more than ten crore homes, but the CAG's 2019 audit found beneficiaries were buying 3.21 refills a year against the three to four the scheme assumed, and that consumption was falling, not rising. Nearly 56 lakh households never bought a second cylinder. In Chhattisgarh the average was 1.61. Meanwhile the general subsidy was wound down until transfers effectively stopped in mid-2020, and the market price nearly tripled from the 2014 subsidised rate.",
+    "dodge": "The audit also found that poor refill uptake among 92 lakh loanee consumers blocked recovery of ₹1,234.71 crore in outstanding loans, and recorded 3.44 lakh instances of oil companies issuing between 2 and 20 refills in a single day to households holding one cylinder. No official has answered for a scheme measured in connections issued rather than in cooking fuel actually burned, and the headline count kept being announced while the refill data went unmentioned.",
+    "ministers": [
+      {
+        "n": "Ministry of Petroleum and Natural Gas",
+        "r": "Owns Ujjwala and LPG pricing; reports connections, not sustained use"
+      }
+    ],
+    "pos": "The government's position is that India imports over 60% of its LPG so prices track international markets, that it shielded consumers by letting oil companies absorb losses and compensating them ₹22,000 crore, and that it passed on only an 89.7% price rise against a 235% rise in Saudi contract prices. It says Ujjwala took coverage from 62% to near-saturation, that a ₹300-a-cylinder targeted subsidy for up to nine refills holds the effective price near ₹35 a kg, and that per-capita refill consumption has since risen from 3.01 in 2019-20 to 4.34 annualised in 2024-25.",
+    "alleg": "The common comparison of ₹414 in 2014 against about ₹1,100 today is <em>not like-for-like</em>: the first is a subsidised quota price under a scheme that no longer exists, the second an unsubsidised market price.",
+    "alt": "A scheme audited on refills rather than connections, published per-household consumption data, and a subsidy that survives contact with the price it was meant to offset.",
+    "sources": [
+      {
+        "label": "RS Q1264: ₹414 in 2014 against ₹1,103",
+        "url": "https://sansad.in/getFile/annex/260/AU1264.pdf?source=pqars"
+      },
+      {
+        "label": "LS Q3711: LPG prices and subsidy, 2013-22",
+        "url": "https://sansad.in/getFile/loksabhaquestions/annex/1711/AU3711.pdf?source=pqals"
+      },
+      {
+        "label": "CAG 2019 audit of Ujjwala refills",
+        "url": "https://cag.gov.in/uploads/download_audit_report/2019/Chapter_6_Transition_of_BPL_households_to_LPG_of_Report_No_14_of_2019_Performance_Audit_of_Pradhan_Mantri_Ujjwala_Yojana_Ministry_of_Petroleum_and_Natural_Gas.pdf"
+      },
+      {
+        "label": "PIB: 10.33 crore Ujjwala connections",
+        "url": "https://www.pib.gov.in/PressReleasePage.aspx?lang=1&PRID=2198768&reg=3"
+      }
+    ]
+  },
+  {
+    "no": 58,
+    "sk": 20260131,
+    "year": 2026,
+    "date": "NCAP target year missed, 2026",
+    "cat": "Environment",
+    "sev": "red",
+    "title": "The air. A million dead a year, and a target quietly missed",
+    "stamp": "Officials charged, no minister",
+    "human": {
+      "v": "<b>2.1 million</b> deaths in India attributed to air pollution in 2021, including <b>169,400</b> children under five. The 2019 figure was <b>1.67 million</b>, <b>17.8%</b> of all deaths that year",
+      "est": true
+    },
+    "cost": {
+      "v": "<b>US$36.8 bn</b> lost in 2019, about <b>1.36%</b> of GDP — roughly <b>₹2.6 lakh cr</b> in that year alone",
+      "est": true
+    },
+    "what": "The National Clean Air Programme set out to cut PM10 by 20 to 30% by 2024-25, then revised the goal to up to 40% by 2025-26. By CREA's January 2026 assessment, only 23 of the 130 cities covered had reached the revised target and most remain above national standards. Delhi was ranked the world's most polluted capital for an eighth consecutive year at 82.2 µg/m³ of PM2.5, more than sixteen times the WHO guideline and above India's own weaker 40 µg/m³ standard.",
+    "dodge": "The Supreme Court has been unusually blunt. In September 2024 it told the Commission for Air Quality Management that 'like pollution, your directions are in the air' and found total non-compliance with the Act. In November 2024 it held that the right to live in a pollution-free environment is a fundamental right under Article 21, found a serious lapse by the Delhi government and police on enforcement, and directed prosecution under Section 14 of the CAQM Act, which carries up to five years in prison. Complaints followed against 111 officials of Punjab and Haryana. Not one minister, state or Union, has resigned or been removed, and the target year passed without an accounting.",
+    "ministers": [
+      {
+        "n": "Ministry of Environment, Forest and Climate Change",
+        "r": "Owns NCAP; revised target missed, no accounting published"
+      },
+      {
+        "n": "Commission for Air Quality Management",
+        "r": "Statutory powers since 2021; found in total non-compliance by the Supreme Court"
+      }
+    ],
+    "pos": "The government's position is that air pollution is a diffuse, trans-boundary problem spanning crop residue burning, construction, industry, vehicles and winter meteorology that no single authority controls, which is precisely why it created the CAQM in 2021 as a statutory body with penal powers across four states. It points to city-specific action plans under NCAP, a large expansion of monitoring, and real reductions in a number of cities as evidence that a structural problem is being addressed.",
+    "alleg": "The rupee figure is a conversion of the Lancet's dollar estimate for 2019 and is <em>approximate</em>. The IQAir ranking is reported from its 2025 report rather than read from the primary source.",
+    "alt": "A target with a named owner and a published annual reckoning, enforcement that reaches the people who set policy rather than only district officials, and a national standard that matches the WHO guideline.",
+    "sources": [
+      {
+        "label": "Lancet Planetary Health: GBD 2019 India",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7805008/"
+      },
+      {
+        "label": "State of Global Air 2024 (HEI and UNICEF)",
+        "url": "https://www.healthdata.org/sites/default/files/2024-06/soga-2024-report.pdf"
+      },
+      {
+        "label": "CREA: NCAP progress report, Jan 2026",
+        "url": "https://energyandcleanair.org/wp/wp-content/uploads/2026/01/CREA_Tracing-the-Hazy-Air-2026_-Progress-Report-on-National-Clean-Air-Programme-NCAP.pdf"
+      },
+      {
+        "label": "SC on CAQM and Section 14 prosecution",
+        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/what-can-caqm-do-to-improve-delhi-air/article68903280.ece"
+      }
+    ],
+    "estimates": {
+      "costInrCrore": 259000,
+      "deaths": 2100000
+    }
+  },
+  {
+    "no": 59,
+    "sk": 20150928,
+    "year": 2015,
+    "date": "Sept 2015 onward",
+    "cat": "Rights and dissent",
+    "sev": "red",
+    "title": "Cow protection. 44 dead, and a record export year",
+    "stamp": "The state stopped counting",
+    "human": {
+      "v": "<b>At least 44</b> people killed and around <b>280</b> injured in cow-related violence between May 2015 and December 2018, <b>36</b> of the dead Muslim, across more than 100 incidents in 20 states. There is no official count after 2017",
+      "est": true
+    },
+    "cost": {
+      "v": "<b>₹34,392 cr</b> of buffalo meat exported in 2024-25 — <b>79.4%</b> of India's entire animal-product export basket — while cow slaughter stays banned across most states",
+      "est": false
+    },
+    "what": "Cow slaughter is prohibited in most states and enforced in practice by self-appointed vigilantes, while buffalo meat remains one of India's largest agricultural exports. Human Rights Watch documented at least 44 killings between May 2015 and December 2018, and found police stalling investigations or joining in cover-ups.",
+    "dodge": "The named cases mostly did not end in accountability. More than a decade after Mohammad Akhlaq was killed at Dadri in September 2015 there has been no conviction; all fourteen surviving accused are on bail, and in October 2025 the state applied to withdraw the prosecution entirely, a plea a fast-track court rejected that December. All six adult accused in Pehlu Khan's killing were acquitted in 2019, the court finding serious shortcomings and gross negligence in the police investigation and ruling the video inadmissible. In Rakbar Khan's case four men were convicted in 2023, but of culpable homicide rather than murder, and given seven years. Eleven men convicted for killing Alimuddin Ansari were bailed on appeal in 2019, and a Union minister had already garlanded eight of them at his residence in July 2018, calling it honouring due process. Then the counting stopped: the NCRB gathered data on mob lynching and cow vigilantism for 2017, never published it, and discontinued collection on the ground that the crimes were not defined.",
+    "ministers": [
+      {
+        "n": "Ministry of Home Affairs",
+        "r": "Discontinued NCRB collection of lynching and cow-vigilantism data"
+      },
+      {
+        "n": "Jayant Sinha",
+        "r": "Union Minister of State; garlanded eight men convicted of a lynching, then on bail"
+      },
+      {
+        "n": "National Crime Records Bureau",
+        "r": "Collected 2017 data on mob lynching, never published it"
+      }
+    ],
+    "pos": "The government draws a legal distinction between cow slaughter, banned by states under their own legislative competence and a constitutional directive, and buffalo meat, a lawful regulated export, and so sees no contradiction between the two. On lynchings it says vigilantism is an ordinary crime for state police to prosecute under existing law, that the Prime Minister has publicly condemned cow vigilantism, and that a Group of Ministers was constituted. On data it maintains the NCRB can only publish under heads defined in statute, and mob lynching was not one.",
+    "alleg": "The figure of 44 is a documented floor for May 2015 to December 2018, <em>not a total</em>; because official collection stopped, no comparable count exists for the years since. India's world ranking as a buffalo-meat exporter is <em>stated inconsistently by the government itself</em>, tenth on APEDA's own page and third by volume in a 2025 parliamentary answer.",
+    "alt": "A statutory definition of lynching so the crime can be counted, published national data, and ministers who do not honour men convicted of killing.",
+    "sources": [
+      {
+        "label": "HRW: Violent Cow Protection in India",
+        "url": "https://www.hrw.org/report/2019/02/19/violent-cow-protection-india/vigilante-groups-attack-minorities"
+      },
+      {
+        "label": "Pehlu Khan: all six accused acquitted",
+        "url": "https://www.thehindu.com/news/national/pehlu-khan-lynching-case-all-six-accused-acquitted-by-rajasthan-court/article61584106.ece"
+      },
+      {
+        "label": "Union minister fetes convicted lynchers",
+        "url": "https://indianexpress.com/article/india/after-feting-jharkhand-men-convicted-of-lynching-union-minister-jayant-sinha-talks-of-due-process-5250451/"
+      },
+      {
+        "label": "No data on mob lynching, MHA tells LS",
+        "url": "https://www.thehindu.com/news/national/no-data-on-mob-lynching-mha-tells-lok-sabha/article38006653.ece"
+      },
+      {
+        "label": "APEDA: buffalo meat export data",
+        "url": "https://www.apeda.gov.in/BuffaloMeat"
+      }
+    ],
+    "estimates": {
+      "deaths": 44
+    }
+  },
+  {
+    "no": 60,
+    "sk": 20140526,
+    "year": 2014,
+    "date": "May 2014 onward",
+    "cat": "Democratic institutions",
+    "sev": "amber",
+    "title": "Twelve years, and not one press conference",
+    "stamp": "Never took the questions",
+    "human": {
+      "v": "<b>Zero</b> open news conferences in India across twelve years as Prime Minister, against <b>64</b> one-to-one interviews given between January and late May 2024 alone",
+      "est": false
+    },
+    "cost": {
+      "v": "Not a money case. India went from <b>140th</b> of 180 on the RSF press freedom index in 2014 to <b>157th</b> in 2026, inside the band RSF calls 'very serious'",
+      "est": false
+    },
+    "what": "Narendra Modi has not held a single open news conference in India since taking office in May 2014. The nearest exception came five days before the 2019 Lok Sabha results, when he made a brief statement at a joint appearance and referred every question to the then party president. When a journalist tried to put a follow-up to him directly, he was told the Prime Minister need not respond to queries on everything.",
+    "dodge": "The pattern holds abroad. In Oslo on 18 May 2026 a Norwegian journalist asked why he would not take questions from 'the freest press in the world'; he left without answering. In July 2026 the Editors Guild of India called the Foreign Ministry's explanation — that he prefers direct contact with a largely rural electorate — 'deeply flawed', adding that scripted one-way communication on social media is not a substitute for public interaction with independent media. Interviews are granted in volume, 64 in under five months of 2024. What is avoided is the unscripted follow-up, and with it the possibility of being asked the same question twice.",
+    "ministers": [
+      {
+        "n": "Narendra Modi",
+        "r": "Prime Minister; no open news conference in India since May 2014"
+      },
+      {
+        "n": "Ministry of External Affairs",
+        "r": "Defended the absence as a preference for direct contact with voters"
+      }
+    ],
+    "pos": "The Prime Minister's stated position is that he declines to follow a culture of managing the media, communicating instead directly with citizens through Mann Ki Baat, rallies and social media, and that he remains answerable to Parliament. The Foreign Ministry adds that as a quintessentially Indian politician with a largely rural electorate, he prefers unmediated contact over intermediaries.",
+    "alleg": "The count of zero rests on consistent reporting rather than an official record, since no government tally is published. RSF changed its index methodology in 2022, so the 2014 and 2026 ranks are <em>not a strict like-for-like comparison</em> and are cited here as a trend rather than a measurement.",
+    "alt": "One open news conference a year, questions not submitted in advance, and follow-ups allowed.",
+    "sources": [
+      {
+        "label": "Modi avoids the media in Norway, 2026",
+        "url": "https://www.aljazeera.com/news/2026/5/20/modi-avoids-norway-media-how-that-led-to-storm-over-indias-press-freedom"
+      },
+      {
+        "label": "A decade without press conferences",
+        "url": "https://thediplomat.com/2024/05/narendra-modis-decade-without-press-conferences/"
+      },
+      {
+        "label": "Editors Guild rejects the MEA defence",
+        "url": "https://indianexpress.com/article/india/editors-guild-of-india-slams-mea-pm-modi-press-conferences-10789306/"
+      },
+      {
+        "label": "RSF 2014 index: India 140th of 180",
+        "url": "https://rsf.org/en/index?year=2014"
+      }
+    ]
+  },
+  {
+    "no": 61,
+    "sk": 20190128,
+    "year": 2019,
+    "date": "Promise 2013. Survey withheld Jan 2019.",
+    "cat": "Data denial",
+    "sev": "amber",
+    "title": "The jobs promise, and the survey they sat on",
+    "stamp": "Two statisticians resigned",
+    "human": {
+      "v": "Unemployment at <b>6.1%</b> in 2017-18, the highest since 1972-73, against <b>2.2%</b> in 2011-12. Joblessness among rural men aged 15-29 tripled to <b>17.4%</b>; urban women reached <b>27.2%</b>",
+      "est": false
+    },
+    "cost": {
+      "v": "Never costed. Labour force participation among those over 15 fell from <b>55.9%</b> to <b>49.8%</b> — people leaving the workforce rather than finding work inside it",
+      "est": false
+    },
+    "what": "At a rally in Agra in November 2013 Modi promised one crore jobs. The BJP's 2014 manifesto carried no numerical jobs target at all. What is not in dispute is the outcome: the Periodic Labour Force Survey for 2017-18 put unemployment at 6.1%, a forty-five-year high.",
+    "dodge": "The survey was not published. On 28 January 2019 the acting chairman of the National Statistical Commission, P.C. Mohanan, and its member J.V. Meenakshi resigned over the non-release of that report and the lack of consultation on the GDP back-series. It was released only after the 2019 election was over. Asked about joblessness in January 2018, the Prime Minister offered that someone selling pakodas outside an office for ₹200 a day was employed, even if the earning 'will never come into any books'. Success is now measured by EPFO payroll additions and the RBI's KLEMS series, neither of which counts new jobs: net EPFO figures are first-time joiners minus exits plus rejoiners, which measures formalisation and churn.",
+    "ministers": [
+      {
+        "n": "Ministry of Statistics and Programme Implementation",
+        "r": "Withheld the PLFS report until after the 2019 election"
+      },
+      {
+        "n": "Ministry of Labour and Employment",
+        "r": "Cites EPFO and KLEMS series as evidence of job creation"
+      }
+    ],
+    "pos": "The government argues that headline unemployment understates work in a largely informal economy where a self-employed vendor is genuinely employed, and points to Mudra loans, PMEGP, job fairs and the National Career Service as delivery channels. On measurement it cites the RBI's KLEMS database, which it reads as 7.8 crore jobs created between 2021 and 2024, and 6.2 crore net EPFO additions since 2017, as evidence of both job creation and rising formalisation.",
+    "alleg": "<em>No primary source records a promise of two crore jobs a year.</em> The verified record is one crore jobs in total, promised at Agra in November 2013, and a 2014 manifesto with no numerical target. The annual formulation belongs to the opposition — Manmohan Singh in 2018, Mallikarjun Kharge in 2022 — and is not quoted here as the government's own words.",
+    "alt": "Statistical releases on a published calendar no ministry can hold, a jobs metric that counts jobs rather than payroll transitions, and a statistical commission whose members need not resign to be heard.",
+    "sources": [
+      {
+        "label": "Agra 2013: 'one crore jobs' promised",
+        "url": "https://economictimes.indiatimes.com/news/politics-and-nation/one-crore-jobs-if-bjp-comes-to-power-narendra-modi/articleshow/26165012.cms"
+      },
+      {
+        "label": "PLFS: 6.1%, a 45-year high",
+        "url": "https://www.business-standard.com/article/economy-policy/unemployment-rate-at-five-decade-high-of-6-1-in-2017-18-nsso-survey-119013100053_1.html"
+      },
+      {
+        "label": "The pakoda remark, and the row",
+        "url": "https://scroll.in/latest/866754/if-selling-pakodas-is-a-job-so-is-begging-p-chidambarams-jibe-sparks-twitter-war-with-bjp"
+      },
+      {
+        "label": "Why EPFO job claims mislead",
+        "url": "https://m.thewire.in/article/economy/govt-claims-of-job-creation-based-on-epfo-enrolment-data-are-misleading-heres-why"
+      }
+    ]
+  },
+  {
+    "no": 62,
+    "sk": 20150625,
+    "year": 2015,
+    "date": "Launched 25 Jun 2015",
+    "cat": "Public money",
+    "sev": "amber",
+    "title": "100 smart cities. One finished on time",
+    "stamp": "Deadline moved five times",
+    "human": {
+      "v": "<b>100</b> cities enrolled. A parliamentary panel found <b>Madurai alone</b> had completed all its projects by December 2023, while <b>14</b> cities stood at or below half — Gangtok at <b>16%</b>, Shillong <b>24%</b>, Itanagar <b>31%</b>",
+      "est": false
+    },
+    "cost": {
+      "v": "<b>₹48,000 cr</b> of central outlay against <b>₹1.64 lakh cr</b> of projects taken up. <b>₹11,775 cr</b> went on command and control centres, the one item all 100 cities managed to finish",
+      "est": false
+    },
+    "what": "Launched on 25 June 2015 for 100 cities, each given five years from the date of its selection. The mission took up 8,064 projects worth ₹1.64 lakh crore against a central outlay of ₹48,000 crore.",
+    "dodge": "The deadline moved from 2019-20 to June 2023, then June 2024, then March 2025, then June 2025, then December 2025. The Parliamentary Standing Committee on Housing and Urban Affairs found in February 2024 that 400 projects worth ₹22,814 crore would miss even that, and that the ministry's answer was that states would have to finish them at their own cost — prompting the committee to observe that the ministry's role 'should not be confined to transfer of their share'. Only 6% of projects were financed through public-private partnership against a targeted 21%, which is the mission's financing model failing rather than lagging. Nearly a year after official closure, 280 projects worth ₹8,652 crore were still under implementation, and the unfinished work is the expensive work: ₹29 crore average for what is still running against ₹20.1 crore for what is done.",
+    "ministers": [
+      {
+        "n": "Ministry of Housing and Urban Affairs",
+        "r": "Owns the mission; five deadline extensions, unfinished projects passed to states"
+      }
+    ],
+    "pos": "The ministry's position is that the mission was never meant to transform whole cities: it was deliberately an area-based development model of retrofitting, redevelopment and greenfield work inside a defined area, plus one pan-city digital initiative, intended to create a replicable template. On that yardstick it reports 97% project completion, 99% of the central share claimed and 98% of released funds used as of March 2026, and cites a NITI Aayog evaluation of September 2025 finding the mission demonstrated strong relevance to India's urban needs.",
+    "alleg": "The ₹48,000 cr is the Union allocation alone; the ₹1.64 lakh cr is total project value including state, convergence and private funding. The widely repeated claim that only 18 of 100 cities declared full completion is <em>unverified</em> and is not relied on here.",
+    "alt": "Deadlines that are met or explained, a published city-by-city completion table, and a financing model tested somewhere before 100 cities are enrolled in it.",
+    "sources": [
+      {
+        "label": "400 projects to miss the deadline",
+        "url": "https://indianexpress.com/article/india/400-smart-city-mission-projects-to-miss-june-30-deadline-states-must-take-over-panel-told-9152108/"
+      },
+      {
+        "label": "Mission set to end 31 March 2025",
+        "url": "https://indianexpress.com/article/india/smart-cities-set-to-end-march-31-but-7-projects-likely-to-go-on-9888105/"
+      },
+      {
+        "label": "Rajya Sabha reply: status to Mar 2026",
+        "url": "https://www.tribuneindia.com/news/india/nation-was-sold-a-half-baked-scheme-rahul-slams-govt-on-smart-cities-mission/"
+      },
+      {
+        "label": "A decade on, the mission still lags",
+        "url": "https://www.moneycontrol.com/news/business/economy/a-decade-on-smart-cities-mission-struggles-to-cross-the-finish-line-13727720.html"
+      }
+    ],
+    "estimates": {
+      "costInrCrore": 48000
     }
   }
 ]

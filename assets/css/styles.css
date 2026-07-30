@@ -100,7 +100,7 @@
   .est{font-family:var(--mono);font-weight:700;font-size:8.5px;letter-spacing:.1em;color:var(--amber);border:1px solid var(--amber-soft);padding:1px 4px}
   .expandbar{display:block;width:100%;padding:12px 24px 18px;font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--ink-faint);background:none;border:0;cursor:pointer;user-select:none}
   .expandbar:hover{color:var(--redline)}
-  .case-actions{display:flex;align-items:center;padding-right:14px}
+  .case-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-right:14px}
   .case-actions .expandbar{flex:1}
   .case-share{flex:0 0 auto;padding:6px 8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--constructive);background:transparent;border:1px solid var(--rule-strong);cursor:pointer}
   .case-share:hover{border-color:var(--constructive)}
@@ -149,11 +149,13 @@
   .optional{color:var(--ink-faint);font-size:9px}
   .form-submit{justify-self:start;padding:11px 14px;background:var(--redline);border:1px solid var(--redline);color:#F4F4EF;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
   .form-submit:disabled{cursor:wait;opacity:.65}
+  #turnstile{min-height:65px}
   .form-status{min-height:1.6em;margin:0;color:var(--constructive)}
   .form-status.error{color:var(--redline)}
 
-  .dashboard-controls{display:flex;gap:16px;align-items:center;margin-bottom:20px}
-  .dashboard-controls .search{max-width:480px}
+  .dashboard-controls{display:flex;gap:16px;align-items:end;margin-bottom:20px}
+  .dashboard-controls .search{display:grid;gap:7px;max-width:480px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .dashboard-controls .search input{padding-left:14px}
   .dashboard-count{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
   .table-wrap{overflow-x:auto;border:1px solid var(--rule-strong);background:var(--paper-raised)}
   .minister-table{width:100%;border-collapse:collapse;min-width:790px;font-size:14px}
@@ -184,6 +186,16 @@
     footer .grid{grid-template-columns:1fr}
     .form-grid{grid-template-columns:1fr}
     .dashboard-controls{align-items:stretch;flex-direction:column}
+    .table-wrap{border:none;background:none;overflow-x:visible}
+    .minister-table{display:block;min-width:0;font-size:15px}
+    .minister-table thead{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    .minister-table tbody,.minister-table tr,.minister-table tbody th,.minister-table td{display:block;width:100%}
+    .minister-table tr{margin-bottom:14px;border:1px solid var(--rule-strong);border-left:4px solid var(--redline);background:var(--paper-raised);box-shadow:var(--shadow)}
+    .minister-table tbody th{min-width:0;padding:16px;border-bottom:1px dashed var(--rule)}
+    .minister-table td{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:11px 16px;border-bottom:1px dashed var(--rule);text-align:right;overflow-wrap:anywhere}
+    .minister-table td:last-child{border-bottom:none}
+    .minister-table td::before{content:attr(data-label);flex:0 0 auto;max-width:45%;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:left}
+    .minister-table td.table-empty{display:block;text-align:center;border-bottom:none}
   }
   @media (max-width:480px){
     .filehead{padding:18px 16px 14px}
@@ -193,4 +205,8 @@
     .filebody-inner{padding-left:16px;padding-right:16px}
     .field.alt{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
     .prop,.src{overflow-wrap:anywhere}
+    .form-page,.dashboard-page{padding-top:32px}
+    .submission-guidance{padding:16px 18px}
+    .form-submit{justify-self:stretch;width:100%;padding:14px}
+    .minister-table small a{overflow-wrap:anywhere}
   }

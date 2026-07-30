@@ -34,16 +34,22 @@ function dashboard(cases) {
     const estimates = caseFile.estimates ?? {};
     const cost = Number(estimates.costInrCrore) || 0;
     const deaths = Number(estimates.deaths) || 0;
+    // One case must count once per office-holder even if it names them twice,
+    // otherwise their cost and death totals are inflated.
+    const namesInCase = new Map();
     (caseFile.ministers ?? []).forEach((minister) => {
       splitOfficeHolders(minister.n).forEach((name) => {
         const key = name.toLocaleLowerCase();
-        const group = groups.get(key) ?? { name, cases: [], cost: 0, deaths: 0, outcomes: new Set() };
-        group.cases.push(caseFile);
-        group.cost += cost;
-        group.deaths += deaths;
-        if (caseFile.stamp) group.outcomes.add(caseFile.stamp);
-        groups.set(key, group);
+        if (!namesInCase.has(key)) namesInCase.set(key, name);
       });
+    });
+    namesInCase.forEach((name, key) => {
+      const group = groups.get(key) ?? { name, cases: [], cost: 0, deaths: 0, outcomes: new Set() };
+      group.cases.push(caseFile);
+      group.cost += cost;
+      group.deaths += deaths;
+      if (caseFile.stamp) group.outcomes.add(caseFile.stamp);
+      groups.set(key, group);
     });
   });
   return [...groups.values()].sort((a, b) => b.cases.length - a.cases.length || a.name.localeCompare(b.name));
@@ -62,12 +68,12 @@ function render(groups) {
     const outcomes = [...group.outcomes].slice(0, 2).map(escapeHTML).join(" · ");
     return `<tr>
       <th scope="row"><span>${escapeHTML(group.name)}</span><small>${links}${remaining}</small></th>
-      <td>${group.cases.length}</td>
-      <td>${formatCost(group.cost)}</td>
-      <td>${formatDeaths(group.deaths)}</td>
-      <td>${outcomes || "—"}</td>
+      <td data-label="Cases">${group.cases.length}</td>
+      <td data-label="Estimated costs">${formatCost(group.cost)}</td>
+      <td data-label="Estimated deaths">${formatDeaths(group.deaths)}</td>
+      <td data-label="Outcome">${outcomes || "—"}</td>
     </tr>`;
-  }).join("") || "<tr><td colspan=\"5\">No office-holder matches that search.</td></tr>";
+  }).join("") || "<tr><td class=\"table-empty\" colspan=\"5\">No office-holder matches that search.</td></tr>";
 }
 
 loadCases()

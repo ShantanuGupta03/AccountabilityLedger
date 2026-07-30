@@ -2,6 +2,8 @@
   "name": "accountability-ledger",
   "private": true,
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "validate": "python3 scripts/validate_cases.py",
+    "validate:strict": "python3 scripts/validate_cases.py --strict"
   }
 }
