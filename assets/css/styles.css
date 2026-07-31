@@ -16,6 +16,47 @@
   /* Devanagari must not be tracked out: letter-spacing pulls conjuncts apart
      and the negative tracking on display type collides with its matras. */
   html[lang="hi"] *{letter-spacing:normal !important}
+  /* Devanagari carries matras above and below the line, so it needs more room
+     and does not survive being set as small as the Latin mono labels are. */
+  html[lang="hi"] body{line-height:1.75}
+  html[lang="hi"] .flag,html[lang="hi"] .eyebrow,html[lang="hi"] .lbl,
+  html[lang="hi"] .mk,html[lang="hi"] .field .k,html[lang="hi"] .date,
+  html[lang="hi"] .cat,html[lang="hi"] .stamp,html[lang="hi"] .est,
+  html[lang="hi"] .resultline .wrap,html[lang="hi"] .yearmark .c,
+  html[lang="hi"] .expandbar,html[lang="hi"] .case-share,html[lang="hi"] .chip,
+  html[lang="hi"] .legenditem,html[lang="hi"] .site-nav,html[lang="hi"] footer h4,
+  html[lang="hi"] .fine,html[lang="hi"] .method summary,html[lang="hi"] .source-legend,
+  html[lang="hi"] .src,html[lang="hi"] .prop small,html[lang="hi"] .lang-notice,
+  html[lang="hi"] .dashboard-count,html[lang="hi"] .minister-table thead th,
+  html[lang="hi"] .minister-table small,html[lang="hi"] .queue-warning,
+  html[lang="hi"] .resume-h2,html[lang="hi"] .resume-fold-title,
+  html[lang="hi"] .resume-fold-hint,html[lang="hi"] .resume-metric-lbl,
+  html[lang="hi"] .resume-contact dt,html[lang="hi"] .resume-since,
+  html[lang="hi"] .resume-caveat,html[lang="hi"] .resume-comp-count,
+  html[lang="hi"] .resume-share-btn,html[lang="hi"] .resume-back,
+  html[lang="hi"] .resume-job-date,html[lang="hi"] .resume-job-cat,
+  html[lang="hi"] .resume-job-outcome,html[lang="hi"] .resume-job-dodge-k,
+  html[lang="hi"] .resume-fine,html[lang="hi"] .suggest-source,
+  html[lang="hi"] .src-archive,html[lang="hi"] .tier-badge,
+  html[lang="hi"] .more-toggle,html[lang="hi"] .to-top{font-size:12.5px;line-height:1.7}
+  html[lang="hi"] .stamp,html[lang="hi"] .resume-job-outcome{font-size:12px}
+  html[lang="hi"] .est,html[lang="hi"] .tier-badge{font-size:11px}
+  /* Devanagari sets optically larger than Latin at the same point size, so the
+     display sizes come down rather than swallowing the screen. */
+  html[lang="hi"] h1.title{font-size:clamp(30px,5vw,56px);line-height:1.28}
+  html[lang="hi"] .yearmark .y{font-size:clamp(26px,3.6vw,42px);line-height:1.2}
+  html[lang="hi"] .standfirst{font-size:clamp(17px,2vw,20px)}
+  html[lang="hi"] .headmid h3{font-size:clamp(18px,2.2vw,23px);line-height:1.45}
+  html[lang="hi"] .resume-heading .title{font-size:clamp(24px,3.6vw,36px)}
+  html[lang="hi"] .resume-job-role{font-size:15.5px;line-height:1.45}
+  html[lang="hi"] .docket .num,html[lang="hi"] .resume-metric-num,
+  html[lang="hi"] .standing-record-num{font-size:clamp(21px,2.6vw,30px);line-height:1.2}
+
+  /* A figure that carries a second reading. Tappable, because most readers here
+     are on a phone and will never hover. */
+  .fig{border-bottom:1px dotted var(--rule-strong);cursor:pointer}
+  .fig:hover,.fig:focus-visible{border-bottom-color:var(--redline);color:var(--redline)}
+  .fig:focus-visible{outline:2px solid var(--redline);outline-offset:2px}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.6;
@@ -41,9 +82,16 @@
   .docket{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);margin-top:40px;border-bottom:2px solid var(--ink)}
   .docket .cell{padding:20px 22px 22px;border-right:1px solid var(--rule)}
   .docket .cell:last-child{border-right:none}
-  .docket .num{font-family:var(--display);font-weight:800;font-size:clamp(28px,3.6vw,42px);line-height:1;letter-spacing:-.02em}
+  /* Sized to survive "lakh crore" without stranding a word on its own line. */
+  .docket .num{font-family:var(--display);font-weight:800;font-size:clamp(23px,2.9vw,34px);line-height:1.1;letter-spacing:-.02em;text-wrap:balance}
   .docket .num.red{color:var(--redline)}
   .docket .lbl{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:10.5px;color:var(--ink-faint);margin-top:10px;line-height:1.5}
+
+  .standing-record{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin:0;padding:20px 0 26px;font-size:16px;line-height:1.55;color:var(--ink-soft)}
+  .standing-record-num{font-family:var(--display);font-weight:900;font-size:clamp(38px,5vw,54px);line-height:.9;letter-spacing:-.03em;color:var(--redline)}
+  .standing-record span:not(.standing-record-num){flex:1 1 320px;min-width:0;max-width:70ch}
+  .standing-record a{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--redline);text-decoration:none;border-bottom:1px solid var(--redline)}
+  .standing-record a:hover,.standing-record a:focus-visible{color:var(--ink);border-bottom-color:var(--ink)}
 
   .method{border-bottom:1px solid var(--rule);background:var(--paper-sunken)}
   .method details{max-width:1080px;margin:0 auto;padding:0 28px}
@@ -98,7 +146,9 @@
   .stamp.amber{border-color:var(--amber-soft);color:var(--amber)}
 
   .metrics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);border-top:1px dashed var(--rule-strong);margin:0 24px}
-  .metric{min-width:0;padding:14px 18px 14px 0;border-right:1px dashed var(--rule)}
+  /* Padding on both sides so the text never crowds the divider it sits next to. */
+  .metric{min-width:0;padding:15px 26px;border-right:1px dashed var(--rule)}
+  .metric:first-child{padding-left:0}
   .metric:last-child{border-right:none;padding-right:0}
   .metric .mk{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;color:var(--ink-faint);margin-bottom:6px;display:flex;align-items:center;gap:7px}
   .metric .mv{font-size:15.5px;line-height:1.35;color:var(--ink);overflow-wrap:anywhere}
@@ -310,6 +360,11 @@
     .resume-metrics{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px}
     .resume-fold-summary{flex-wrap:wrap;gap:6px 12px}
     .resume-fold-hint{flex:1 1 100%;order:3}
+    .resume-fold-body{overflow-wrap:anywhere}
+    /* Long date ranges ("Approved 2020. New House opened May 2023") are wider
+       than a phone if kept on one line, and pushed the whole card sideways. */
+    .resume-job-date,.resume-comp-count{white-space:normal}
+    .resume-comp{display:grid;gap:3px;justify-items:start}
   }
 
   @media (max-width:760px){

@@ -19,6 +19,16 @@
 (() => {
   /** Runtime-built strings. English is required here; the DOM has no copy. */
   const EN = {
+    // Figure units. Indian units lead everywhere; the rest is the second reading.
+    unit_lakh_crore: "lakh crore",
+    unit_crore: "crore",
+    unit_lakh: "lakh",
+    unit_trillion: "trillion",
+    unit_billion: "billion",
+    unit_million: "million",
+    unit_thousand: "thousand",
+    unit_at_rate: "at",
+
     est: "Est",
     card_human: "Human cost",
     card_cost: "Financial cost",
@@ -47,10 +57,10 @@
     count_some: "Showing {n} of {total} cases",
     cases_logged_one: "1 case logged",
     cases_logged_many: "{n} cases logged",
-    empty_msg: "No cases match that filter.",
+    empty_msg: "Nothing matches that filter. Widen it. There is no shortage.",
 
     dash_count: "{n} office-holders shown",
-    dash_empty: "No office-holder matches that search.",
+    dash_empty: "No office-holder by that name is on file. Yet.",
     more_n: "+{n} more",
     show_fewer: "show fewer",
     dash_error: "The dashboard could not be loaded.",
@@ -80,8 +90,9 @@
     cv_addr_label: "Registered address",
     cv_grievance_label: "Grievance channel",
     cv_press_label: "Questions",
-    cv_grievance: "CPGRAMS, pgportal.gov.in. File one. Then wait.",
-    cv_press: "Not taken. Enquiries may be submitted through the usual channels, and ignored there.",
+    cv_grievance: "CPGRAMS, pgportal.gov.in. File one. Then wait. Then file another.",
+    cv_press: "Submitted through the usual channels, and ignored there.",
+    cv_press_never: "Not taken. Not once, on the record:",
     cv_share: "Share",
     cv_copy: "Copy link",
     cv_copied: "Link copied",
@@ -124,10 +135,13 @@
     home_title_thin: "जनता का। जनता द्वारा। जनता के लिए।",
     home_standfirst: "पिछले 12+ वर्षों में अनगिनत घोटाले, आपदाएँ और नाकामियाँ। एक बात हर बार समान रही — सत्ता में बैठे लगभग किसी व्यक्ति से कभी जवाब नहीं माँगा गया। यह लेजर दर्ज करता है कि क्या हुआ, कौन ज़िम्मेदार पद पर था, जान और पैसे में इसकी क़ीमत क्या रही, और हर बार जवाबदेही को कैसे दफ़ना दिया गया। इसे पढ़िए। इस पर ठहरिए। फिर खुली आँखों से तय कीजिए कि आप किसे वोट दे रहे हैं।",
 
-    stat_cases: "दर्ज मामले",
-    stat_costs: "अनुमानित लागत",
-    stat_resigned: "वे केंद्रीय मंत्री जिन्होंने नाकामी मानकर इस्तीफ़ा दिया",
-    stat_toll: "अनुमानित मानवीय क्षति",
+    stat_cases: "फ़ाइल में दर्ज नाकामियाँ",
+    stat_costs: "जनता का पैसा जो लगा, अनुमानित",
+    stat_resigned: "वे केंद्रीय मंत्री जिन्होंने इनमें से किसी की<br>ज़िम्मेदारी लेकर इस्तीफ़ा दिया",
+    stat_toll: "जो जानें गईं, अनुमानित",
+
+    standing_presser: "मई 2014 के बाद प्रधानमंत्री ने भारत में इतनी खुली प्रेस कॉन्फ़्रेंस की हैं। इंटरव्यू थोक में दिए जाते हैं — 2024 के पाँच महीनों में 64। जो कभी नहीं दिया जाता, वह है बिना-लिखा अगला सवाल — वही एक सवाल जिसे पहले से मंज़ूरी नहीं दिलाई जा सकी।",
+    standing_presser_cta: "फ़ाइल खोलें →",
 
     method_summary: "इस लेजर को कैसे पढ़ें। पद्धति, आँकड़े और सीमाएँ",
     legend_red: "कोई जवाबदेही नहीं / इनकार / रद्द",
@@ -142,6 +156,15 @@
     footer_funding: "इसे कौन चलाता है",
 
     notice_case_lang: "साइट का नेविगेशन, शीर्षक और लेबल हिंदी में हैं। मामलों का विवरण और विस्तृत पद्धति-टिप्पणी अभी केवल अंग्रेज़ी में है — उनमें अदालती निष्कर्ष और सप्रमाण आरोप दर्ज हैं, इसलिए उनका अनुवाद मशीन नहीं, कोई व्यक्ति करेगा।",
+
+    unit_lakh_crore: "लाख करोड़",
+    unit_crore: "करोड़",
+    unit_lakh: "लाख",
+    unit_trillion: "ट्रिलियन",
+    unit_billion: "अरब",
+    unit_million: "मिलियन",
+    unit_thousand: "हज़ार",
+    unit_at_rate: "की दर से",
 
     est: "अनु॰",
     card_human: "मानवीय क़ीमत",
@@ -171,7 +194,7 @@
     count_some: "{total} में से {n} मामले दिखाए जा रहे हैं",
     cases_logged_one: "1 मामला दर्ज",
     cases_logged_many: "{n} मामले दर्ज",
-    empty_msg: "इस फ़िल्टर से कोई मामला मेल नहीं खाता।",
+    empty_msg: "इस फ़िल्टर से कुछ नहीं मिला। दायरा बढ़ाइए। कमी नहीं है।",
 
     dash_flag_tag: "विभाग डैशबोर्ड",
     dash_eyebrow: "ज़िम्मेदारी के तरीक़े",
@@ -187,7 +210,7 @@
     th_deaths: "इस विभाग के मामलों में मौतें",
     th_outcome: "दर्ज जवाबदेही परिणाम",
     dash_count: "{n} पदाधिकारी दिखाए जा रहे हैं",
-    dash_empty: "इस खोज से कोई पदाधिकारी मेल नहीं खाता।",
+    dash_empty: "इस नाम का कोई पदाधिकारी फ़ाइल में नहीं है। अभी तक।",
     more_n: "+{n} और",
     show_fewer: "कम दिखाएँ",
     dash_error: "डैशबोर्ड लोड नहीं हो सका।",
@@ -214,8 +237,9 @@
     cv_addr_label: "पंजीकृत पता",
     cv_grievance_label: "शिकायत माध्यम",
     cv_press_label: "सवाल",
-    cv_grievance: "CPGRAMS, pgportal.gov.in। दर्ज कीजिए। फिर इंतज़ार कीजिए।",
-    cv_press: "नहीं लिए जाते। प्रश्न सामान्य माध्यमों से भेजे जा सकते हैं, और वहीं अनसुने रह सकते हैं।",
+    cv_grievance: "CPGRAMS, pgportal.gov.in। दर्ज कीजिए। इंतज़ार कीजिए। फिर एक और दर्ज कीजिए।",
+    cv_press: "सामान्य माध्यमों से भेजे जाते हैं, और वहीं अनसुने रह जाते हैं।",
+    cv_press_never: "नहीं लिए जाते। रिकॉर्ड पर, एक बार भी नहीं:",
     cv_share: "शेयर करें",
     cv_copy: "लिंक कॉपी करें",
     cv_copied: "लिंक कॉपी हो गया",
@@ -246,6 +270,48 @@
   const SUPPORTED = ["en", "hi"];
   const ORIGINAL = new WeakMap();
   let current = "en";
+
+  /* ---------- case titles, stamps and categories ----------
+     Held in assets/data/hi/cases.json rather than here: it is per-case content,
+     it is large, and English readers should never download it. Case *body*
+     prose is still English only — see notice_case_lang. */
+  let caseStrings = null;
+  let caseStringsUrl = null;
+  let caseStringsPending = null;
+
+  function setCaseStringsBase(base) {
+    caseStringsUrl = `${base}assets/data/hi/cases.json`;
+  }
+
+  /** Resolves once the active language's case strings are in hand. */
+  function ensureCaseStrings() {
+    if (current !== "hi" || !caseStringsUrl) return Promise.resolve(null);
+    if (caseStrings) return Promise.resolve(caseStrings);
+    caseStringsPending ??= fetch(caseStringsUrl)
+      .then((response) => (response.ok ? response.json() : null))
+      .catch(() => null)
+      .then((loaded) => {
+        caseStrings = loaded;
+        return loaded;
+      });
+    return caseStringsPending;
+  }
+
+  const caseId = (caseFile) => caseFile?.id ?? `case-${caseFile?.no}`;
+
+  /** Translated case title/stamp, falling back to the English in the data. */
+  function caseField(caseFile, field) {
+    if (current === "hi") {
+      const translated = caseStrings?.cases?.[caseId(caseFile)]?.[field];
+      if (translated) return translated;
+    }
+    return caseFile?.[field] ?? "";
+  }
+
+  function category(name) {
+    if (current === "hi") return caseStrings?.categories?.[name] ?? name;
+    return name;
+  }
 
   function detectLang() {
     const saved = localStorage.getItem("ledger-lang");
@@ -304,8 +370,11 @@
       node.hidden = current === "en";
     });
 
-    // Renderers that build their own markup redraw on this.
-    document.dispatchEvent(new CustomEvent("ledger:langchange", { detail: { lang: current } }));
+    // Renderers that build their own markup redraw on this. Case strings are
+    // fetched first so the redraw does not flash English titles.
+    ensureCaseStrings().then(() => {
+      document.dispatchEvent(new CustomEvent("ledger:langchange", { detail: { lang: current } }));
+    });
   }
 
   function setLang(lang) {
@@ -318,7 +387,10 @@
 
   // Resolved before the renderers run, so their first paint is already correct.
   current = detectLang();
-  window.LedgerI18n = { setLang, apply, detectLang, getLang, t, SUPPORTED };
+  window.LedgerI18n = {
+    setLang, apply, detectLang, getLang, t, SUPPORTED,
+    setCaseStringsBase, ensureCaseStrings, caseField, category,
+  };
 
   document.addEventListener("DOMContentLoaded", () => {
     apply(current);

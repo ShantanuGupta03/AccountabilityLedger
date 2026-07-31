@@ -1,4 +1,4 @@
-/** Evidentiary tiers and archive helpers, shared by the ledger and dashboard. */
+/** Evidentiary tiers, archive helpers and figure formatting, shared by the ledger and dashboard. */
 (() => {
   const TIER_1 = new Set([
     "indiankanoon.org", "sci.gov.in", "main.sci.gov.in", "digiscr.sci.gov.in",
@@ -64,5 +64,102 @@
       .replace(/-+/g, "-");
   }
 
-  window.SourceUtils = { classify, tierMeta, host, slugify, TIER_META };
+  const escapeHTML = (value) => String(value ?? "")
+    .replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+
+  /* ---------- figures ----------
+     Every figure on the site reads in Indian units. The international reading
+     is the secondary one, available on hover and on tap. */
+
+  /**
+   * Approximate rupee-per-dollar marker used only for the secondary reading.
+   * The rate is printed alongside the converted figure so a reader can see what
+   * it was converted at instead of trusting an unstated number. Bump it when
+   * the ledger's figures are next refreshed.
+   */
+  const INR_PER_USD = 88;
+
+  const group = (value) => Math.round(value).toLocaleString("en-IN");
+  // Unit words are translated; i18n.js loads after this file but is always
+  // present by the time a figure is rendered.
+  const unit = (key, fallback) => window.LedgerI18n?.t(key) || fallback;
+
+  /** Costs are stored in crore. Renders lakh crore / crore / lakh. */
+  function formatCrore(crore) {
+    const value = Number(crore);
+    if (!Number.isFinite(value) || value <= 0) return null;
+    if (value >= 100000) return `₹${(value / 100000).toFixed(2)} ${unit("unit_lakh_crore", "lakh crore")}`;
+    if (value >= 1) return `₹${group(value)} ${unit("unit_crore", "crore")}`;
+    return `₹${(value * 100).toFixed(0)} ${unit("unit_lakh", "lakh")}`;
+  }
+
+  /** The same amount in dollars, with the rate stated. */
+  function croreToUsd(crore) {
+    const value = Number(crore);
+    if (!Number.isFinite(value) || value <= 0) return null;
+    const usd = (value * 1e7) / INR_PER_USD;
+    const rate = ` ${unit("unit_at_rate", "at")} ₹${INR_PER_USD}/US$`;
+    if (usd >= 1e12) return `≈US$${(usd / 1e12).toFixed(2)} ${unit("unit_trillion", "trillion")}${rate}`;
+    if (usd >= 1e9) return `≈US$${(usd / 1e9).toFixed(1)} ${unit("unit_billion", "billion")}${rate}`;
+    if (usd >= 1e6) return `≈US$${(usd / 1e6).toFixed(1)} ${unit("unit_million", "million")}${rate}`;
+    return `≈US$${group(usd)}${rate}`;
+  }
+
+  /** People counts in Indian units: crore / lakh / plain. */
+  function formatPeople(count) {
+    const value = Number(count);
+    if (!Number.isFinite(value) || value <= 0) return null;
+    if (value >= 1e7) return `${(value / 1e7).toFixed(2)} ${unit("unit_crore", "crore")}`;
+    if (value >= 1e5) return `${(value / 1e5).toFixed(2)} ${unit("unit_lakh", "lakh")}`;
+    return group(value);
+  }
+
+  /** The same count in the international scale. */
+  function peopleToInternational(count) {
+    const value = Number(count);
+    if (!Number.isFinite(value) || value <= 0) return null;
+    if (value >= 1e9) return `≈${(value / 1e9).toFixed(2)} ${unit("unit_billion", "billion")}`;
+    if (value >= 1e6) return `≈${(value / 1e6).toFixed(2)} ${unit("unit_million", "million")}`;
+    if (value >= 1e3) return `≈${(value / 1e3).toFixed(1)} ${unit("unit_thousand", "thousand")}`;
+    return group(value);
+  }
+
+  /**
+   * A figure that carries its own second reading. Hover shows it; tap or Enter
+   * swaps it in, because most readers here are on a phone and never hover.
+   */
+  function figure(primary, alternate) {
+    if (!primary) return "—";
+    if (!alternate) return escapeHTML(primary);
+    return `<span class="fig" role="button" tabindex="0" aria-label="${escapeHTML(`${primary}. Also: ${alternate}`)}"`
+      + ` title="${escapeHTML(alternate)}" data-fig-a="${escapeHTML(primary)}" data-fig-b="${escapeHTML(alternate)}"`
+      + `>${escapeHTML(primary)}</span>`;
+  }
+
+  /** Swaps the two readings; the title always offers whichever is hidden. */
+  function swapFigure(node) {
+    const a = node.dataset.figA;
+    const b = node.dataset.figB;
+    if (!a || !b) return;
+    const showingA = node.textContent.trim() === a;
+    node.textContent = showingA ? b : a;
+    node.setAttribute("title", showingA ? a : b);
+  }
+
+  document.addEventListener("click", (event) => {
+    const node = event.target.closest?.(".fig");
+    if (node) swapFigure(node);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const node = event.target.closest?.(".fig");
+    if (!node) return;
+    event.preventDefault();
+    swapFigure(node);
+  });
+
+  window.SourceUtils = {
+    classify, tierMeta, host, slugify, TIER_META, escapeHTML,
+    formatCrore, croreToUsd, formatPeople, peopleToInternational, figure, INR_PER_USD,
+  };
 })();
