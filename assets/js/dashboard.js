@@ -1,7 +1,13 @@
 const rows = document.querySelector("#minister-rows");
 const search = document.querySelector("#minister-search");
 const count = document.querySelector("#dashboard-count");
+const slugify = window.SourceUtils?.slugify ?? ((name) => String(name).toLowerCase().replace(/\s+/g, "-"));
 const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+
+function ministerLink(name) {
+  const slug = slugify(name);
+  return slug ? `<a class="minister-profile" href="../minister/${encodeURIComponent(slug)}/">${escapeHTML(name)}</a>` : escapeHTML(name);
+}
 
 function splitOfficeHolders(name) {
   return String(name).split(/\s*\/\s*|\s*,\s*/).map((item) => item.trim()).filter(Boolean);
@@ -75,10 +81,10 @@ function render(groups) {
       : "";
     const outcomes = [...group.outcomes].slice(0, 2).map(escapeHTML).join(" · ");
     return `<tr>
-      <th scope="row"><span>${escapeHTML(group.name)}</span><small>${links}${rest}</small></th>
+      <th scope="row"><span>${ministerLink(group.name)}</span><small>${links}${rest}</small></th>
       <td data-label="Cases">${group.cases.length}</td>
-      <td data-label="Estimated costs">${formatCost(group.cost)}</td>
-      <td data-label="Estimated deaths">${formatDeaths(group.deaths)}</td>
+      <td data-label="Costs in these cases">${formatCost(group.cost)}</td>
+      <td data-label="Deaths in portfolio">${formatDeaths(group.deaths)}</td>
       <td data-label="Outcome">${outcomes || "—"}</td>
     </tr>`;
   }).join("") || "<tr><td class=\"table-empty\" colspan=\"5\">No office-holder matches that search.</td></tr>";

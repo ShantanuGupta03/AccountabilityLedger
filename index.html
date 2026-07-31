@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Accountability Ledger. Who Owned the Mess? (2014 onward)</title>
+<meta name="description" content="A sourced accountability ledger of scandals, disasters and policy failures in India since 2014. Every case carries citable links.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Accountability Ledger">
+<meta property="og:description" content="Who held the file when it went wrong? 62 sourced cases, one test: was anyone ever made to answer?">
+<meta property="og:image" content="./assets/og/case-case-1.svg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -15,11 +21,16 @@
   <div class="wrap">
     <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Who owned the mess? 12+ years on the record</span></div>
     <nav class="site-nav" aria-label="Primary navigation">
-      <a href="./" aria-current="page">Ledger</a>
-      <a href="./dashboard/">Minister dashboard</a>
-      <a href="./submit/">Submit an incident</a>
-      <a href="./suggest/">Suggest a source</a>
-      <a href="./corrections/">Corrections</a>
+      <a href="./" aria-current="page" data-i18n="nav_ledger">Ledger</a>
+      <a href="./dashboard/" data-i18n="nav_dashboard">Minister dashboard</a>
+      <a href="./threads/" data-i18n="nav_threads">Threads</a>
+      <a href="./submit/" data-i18n="nav_submit">Submit an incident</a>
+      <a href="./suggest/" data-i18n="nav_suggest">Suggest a source</a>
+      <a href="./corrections/" data-i18n="nav_corrections">Corrections</a>
+      <span class="lang-switch" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="hi" aria-pressed="false">हि</button>
+      </span>
     </nav>
     <div class="hero">
       <div class="eyebrow">A charge sheet against a decade of impunity</div>
@@ -43,7 +54,9 @@
     <div class="body">
       <p>This is an <strong>opinion and analysis resource that makes the accountability case</strong>. Holding the ruling party to account is the right of every citizen of a democracy, and this document exercises that right without apology. Read it as an indictment, not as a neutral encyclopedia.</p>
       <p><strong>Its force is its accuracy, so fact and allegation are kept strictly apart.</strong> Court verdicts, official audits, government admissions and documented death tolls are stated as fact. Where a scam or personal wrongdoing is <em>alleged</em>, it sits in a marked "Contested / alleged" field, attributed to the opposition, to reporting, or to a court process, and never asserted here as proven. Some matters remain in court. Each case also records the government's own defence, because an indictment that survives the counter-argument is the one that cannot be waved away.</p>
-      <p><strong>"Ministers responsible" names who held the portfolio</strong>. That is a matter of record, not by itself a charge of personal guilt. Several failures belong to <em>state</em> BJP governments and are labelled as such rather than pinned on the Union.</p>
+      <p><strong>"Ministers responsible" names who held the portfolio</strong>. That is a matter of record, not by itself a charge of personal guilt. Several failures belong to <em>state</em> governments and are labelled as such rather than pinned on the Union. The dashboard sums deaths and costs <em>recorded in cases under a portfolio</em>; it never attributes those figures to an individual.</p>
+      <p><strong>Sources carry a tier badge.</strong> <span class="tier-badge tier-1">T1</span> primary record (court, audit, gazette, official publication). <span class="tier-badge tier-2">T2</span> independent reporting or documented research. <span class="tier-badge tier-3">T3</span> partisan or advocacy; useful as a pointer, never as the only proof. Where an archived copy exists, it is linked alongside the live URL.</p>
+      <p><strong>Scope is deliberate, not accidental.</strong> This ledger began with the Union BJP period from 2014 because that is the accountability gap its author set out to document. State governments, including non-BJP ones, appear where the record warrants it. The same standard will be applied to whoever holds power next. Holding only one side to account is easy to dismiss; holding every side to the same sourced standard is harder.</p>
       <p><strong>Every number tagged <span class="est">EST</span> is an estimate</strong>, often a disputed range. Treat it as order of magnitude and verify before quoting.</p>
       <p><strong>The headline cost and human-toll figures are broad, cumulative estimates</strong>. They sum only the explicit per-case estimates recorded in the data file, including disputed and range-based figures; cases can overlap and the totals are not an audit or a claim that every amount was stolen. Read them as a scale, not a balance sheet: they mix one-off tolls with <em>annual</em> figures, and money raised with money lost. The two largest single entries are ₹24.85 lakh crore of central fuel excise, which is lawful revenue where the accountability question is how it was split with the states and whether the cess reached the funds it was raised for, and roughly 2.1 million deaths attributed to air pollution in one year, 2021.</p>
       <p><strong>Every case on this page carries at least one link you can open and check.</strong> That is enforced by the build, not by good intentions: a case that cannot be sourced is held back and does not appear here, however well known it is. Where the record is a court judgment, an audit or a government release, that is what is cited. Where a matter is contested, the citation is to the reporting or the filing that documents the dispute. This is a large catalogue, not a complete one.</p>
@@ -60,12 +73,12 @@
   <div class="wrap">
     <label class="search">
       <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="search" type="search" placeholder="Search the ledger" aria-label="Search">
+      <input id="search" type="search" placeholder="Search the ledger" aria-label="Search" data-i18n-placeholder="search_placeholder">
     </label>
     <div class="chips" id="catchips"></div>
     <select class="sort" id="sort" aria-label="Sort order">
-      <option value="desc">Newest incident first</option>
-      <option value="asc">Oldest incident first</option>
+      <option value="desc" data-i18n="sort_newest">Newest incident first</option>
+      <option value="asc" data-i18n="sort_oldest">Oldest incident first</option>
     </select>
   </div>
 </div>
@@ -81,21 +94,25 @@
   <div class="wrap">
     <div class="grid">
       <div>
-        <h4>What this is</h4>
+        <h4 data-i18n="footer_what">What this is</h4>
         <p>A citizen's instrument of oversight in the world's largest democracy. It measures the government against one test that power hates: was anyone ever made to answer? It is deliberately critical, and deliberately open about being so, so that readers judge for themselves.</p>
         <p>Extend it. Every case is one record in <span class="mono">assets/data/cases.json</span>, and submissions from readers go through a review queue before anything is published. The largest democracy on earth deserves a permanent, open accountability ledger. This is a beginning, not the whole of it.</p>
         <p class="fine">Cases held back as unsourced drafts: <span id="stat-drafts">--</span>. They are not counted in anything above.</p>
       </div>
       <div>
-        <h4>How to read it</h4>
+        <h4 data-i18n="footer_read">How to read it</h4>
         <p>Treat every <span class="est">EST</span> figure as approximate. Allegations stay attributed to whoever made them and are never asserted here as proven. Several cases are still moving through the courts, so confirm the current legal status before you quote one. Nothing appears here without a source you can open and check yourself.</p>
         <p>Found an error, or named on this page and want to answer it? Use the <a href="./corrections/">corrections and right-of-reply desk</a>. Corrections are made in the open.</p>
+        <h4 data-i18n="footer_funding">Who pays for this</h4>
+        <p>Nobody. This ledger is self-funded and run by a private citizen. It takes no money from any political party, campaign, company, foreign government, foundation or donor, carries no advertising, sells no data and has no institutional backer. There is nothing to disclose because there is nothing to declare, and that is a deliberate choice: the only thing this site has to defend is its sources.</p>
         <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Every published claim sourced.</p>
       </div>
     </div>
   </div>
 </footer>
 
+<script src="./assets/js/source-utils.js" defer></script>
+<script src="./assets/js/i18n.js" defer></script>
 <script src="./assets/js/app.js" defer></script>
 <script src="./assets/js/to-top.js" defer></script>
 </body>

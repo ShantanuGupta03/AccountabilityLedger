@@ -23,7 +23,7 @@
       <div class="hero">
         <div class="eyebrow">Patterns of responsibility</div>
         <h1 class="title">Who held<br><span class="thin">the file?</span></h1>
-        <p class="standfirst">A portfolio view of the cases in this ledger. Totals are cumulative estimates from the underlying case records, not findings of personal criminal liability.</p>
+        <p class="standfirst">A portfolio view of the cases in this ledger. It groups cases by who held the relevant office at the time. The figures are the totals recorded <em>in those cases</em>, and they are not attributed to the office-holder as an individual.</p>
       </div>
     </div>
   </header>
@@ -33,16 +33,29 @@
       <label class="search">Search office-holder<input id="minister-search" type="search" placeholder="Search a minister or office-holder" aria-label="Search office-holders"></label>
       <p id="dashboard-count" class="dashboard-count"></p>
     </div>
+    <p class="queue-warning" id="dashboard-caveat">
+      Read every figure below as <strong>"recorded in cases under this portfolio"</strong>, never as
+      "caused by this person". Holding an office at the time a failure happened is a matter of public
+      record. It is not a finding of personal responsibility for any death or any rupee, and nothing on
+      this page should be quoted as one.
+    </p>
     <div class="table-wrap">
       <table class="minister-table">
         <thead>
-          <tr><th>Office-holder / portfolio</th><th>Cases</th><th>Estimated costs</th><th>Estimated deaths</th><th>Recorded accountability outcome</th></tr>
+          <tr>
+            <th>Office-holder / portfolio</th>
+            <th>Cases</th>
+            <th>Costs recorded in those cases</th>
+            <th>Deaths in cases under this portfolio</th>
+            <th>Recorded accountability outcome</th>
+          </tr>
         </thead>
         <tbody id="minister-rows"></tbody>
       </table>
     </div>
   </main>
 
+  <script src="../assets/js/source-utils.js" defer></script>
   <script src="../assets/js/dashboard.js" defer></script>
   <script src="../assets/js/to-top.js" defer></script>
 </body>

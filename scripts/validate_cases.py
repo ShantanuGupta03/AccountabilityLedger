@@ -19,6 +19,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterator
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from source_tiers import classify, domain  # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CASES_PATH = REPO_ROOT / "assets" / "data" / "cases.json"
 
@@ -118,6 +121,7 @@ def _check_sources(report: Report, where: str, case: dict[str, Any], strict: boo
         return
 
     verified = 0
+    tiers: list[int] = []
     for position, source in enumerate(sources, start=1):
         at = f"{where} source {position}"
         if not isinstance(source, dict):
@@ -144,6 +148,21 @@ def _check_sources(report: Report, where: str, case: dict[str, Any], strict: boo
             continue
         if url.startswith("http://"):
             report.warn(at, "url is plain http; prefer https")
+        if "archiveUrl" in source and source["archiveUrl"] is not None:
+            archive = source.get("archiveUrl")
+            if not isinstance(archive, str) or not archive.startswith(("http://", "https://")):
+                report.error(at, "archiveUrl must start with http:// or https://")
+
+        tier = source.get("tier")
+        expected = classify(url)
+        if tier not in (1, 2, 3):
+            report.error(at, "needs a tier of 1, 2 or 3; run scripts/source_tiers.py")
+        elif expected is None:
+            report.warn(at, f"{domain(url)} is not in the tier map, so its tier is unchecked")
+        elif tier != expected:
+            report.warn(at, f"is tier {tier} but {domain(url)} classifies as tier {expected}")
+        if isinstance(tier, int):
+            tiers.append(tier)
         verified += 1
 
     if verified == 0:
@@ -152,6 +171,9 @@ def _check_sources(report: Report, where: str, case: dict[str, Any], strict: boo
             report.error(where, f"{message}. Source it, or set \"status\": \"draft\" to hold it back")
         else:
             report.warn(where, f"{message} (draft, so it is not published)")
+    elif tiers and min(tiers) == 3 and shipped:
+        message = "rests entirely on tier 3 sources; find a court, audit, official or reported source"
+        report.error(where, message) if strict else report.warn(where, message)
 
 
 def _check_estimates(report: Report, where: str, case: dict[str, Any], strict: bool, shipped: bool) -> None:

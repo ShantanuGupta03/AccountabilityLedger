@@ -4,6 +4,26 @@
    ========================================================================== */
 let DATA = [];
 let READER_SOURCES = {};
+const { classify, tierMeta } = window.SourceUtils ?? { classify: () => 2, tierMeta: () => ({ short: "T2", name: "Reporting", hint: "" }) };
+
+function sourceChip(source, { reader = false } = {}) {
+  if (source.todo) {
+    return `<span class="src todo">${escapeHTML(source.label)} &middot; source needed</span>`;
+  }
+  const tier = source.tier ?? classify(source.url) ?? 2;
+  const meta = tierMeta(tier);
+  const archive = source.archiveUrl
+    ? `<a class="src-archive" href="${safeURL(source.archiveUrl)}" target="_blank" rel="nofollow noopener noreferrer" title="Archived copy">Archive</a>`
+    : "";
+  const readerNote = reader ? `<small>added by a reader</small>` : "";
+  const rel = reader ? "nofollow ugc noopener noreferrer" : "noopener noreferrer";
+  return `<span class="source-wrap tier-${tier}${reader ? " reader" : ""}">
+    <a class="src" href="${safeURL(source.url)}" target="_blank" rel="${rel}" title="${escapeHTML(meta.hint)}">
+      <span class="tier-badge" aria-label="${escapeHTML(meta.name)}">${escapeHTML(meta.short)}</span>
+      ${escapeHTML(source.label)} &#8599;${readerNote}
+    </a>${archive}
+  </span>`;
+}
 
 /* ---------- render ---------- */
 let CATS=[];
@@ -110,11 +130,10 @@ function card(d){
   const bodyId=`details-${caseId}`;
   const props=d.ministers.map(m=>`<div class="prop"><small>${escapeHTML(m.r)}</small><b>${escapeHTML(m.n)}</b></div>`).join("");
   const reader=READER_SOURCES[caseId]??[];
-  const srcs=d.sources.map(s=>s.todo
-    ? `<span class="src todo">${escapeHTML(s.label)} &middot; source needed</span>`
-    : `<a class="src" href="${safeURL(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(s.label)} &#8599;</a>`)
-    .concat(reader.map(s=>`<a class="src reader" href="${safeURL(s.url)}" target="_blank" rel="nofollow ugc noopener noreferrer">${escapeHTML(s.label)} &#8599;<small>added by a reader</small></a>`))
+  const srcs = d.sources.map((s) => sourceChip(s))
+    .concat(reader.map((s) => sourceChip(s, { reader: true })))
     .join("");
+  const sharePath = `./case/${encodeURIComponent(caseId)}/`;
   const suggestHref=`./suggest/?case=${encodeURIComponent(caseId)}&title=${encodeURIComponent(d.title)}`;
   const readerNote=reader.length?` &middot; ${reader.length} added by readers`:"";
   const alleg=d.alleg?`<div class="field alleg"><div class="k">Contested / alleged</div><div class="v">${safeRichText(d.alleg)}</div></div>`:"";
@@ -134,6 +153,7 @@ function card(d){
     <div class="case-actions">
       <button class="expandbar" type="button" aria-controls="${bodyId}" aria-expanded="false">Open the file  +</button>
       <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}">Copy link</button>
+      <a class="case-share" href="${sharePath}">Share card</a>
     </div>
     <div class="filebody" id="${bodyId}" aria-hidden="true"><div class="filebody-inner">
       <div class="field"><div class="k">What happened</div><div class="v">${safeRichText(d.what)}</div></div>
@@ -141,7 +161,7 @@ function card(d){
       <div class="field"><div class="k">Ministers and office-holders responsible</div><div class="v"><div class="propchips">${props}</div></div></div>
       ${alleg}${pos}
       <div class="field alt"><div class="k">What accountability should have looked like</div><div class="v">${safeRichText(d.alt)}</div></div>
-      <div class="field"><div class="k">Sources${readerNote}</div><div class="v"><div class="sources">${srcs}</div>
+      <div class="field"><div class="k">Sources${readerNote}</div><div class="v"><p class="source-legend"><span class="tier-badge tier-1">T1</span> primary record · <span class="tier-badge tier-2">T2</span> reporting · <span class="tier-badge tier-3">T3</span> partisan</p><div class="sources">${srcs}</div>
         <a class="suggest-source" href="${suggestHref}">Know a source for this case? Add one &#8594;</a>
       </div></div>
     </div></div>
@@ -178,14 +198,13 @@ function render(){
     head.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} });
     bar.addEventListener("click",toggle);
   });
-  timeline.querySelectorAll(".case-share").forEach(button=>button.addEventListener("click",async()=>{
-    const url=new URL(location.href);
-    url.searchParams.set("case",button.dataset.shareCase);
+  timeline.querySelectorAll(".case-share[data-share-case]").forEach(button=>button.addEventListener("click",async()=>{
+    const shareUrl=new URL(`./case/${encodeURIComponent(button.dataset.shareCase)}/`,location.href);
     try{
-      await navigator.clipboard.writeText(url.href);
+      await navigator.clipboard.writeText(shareUrl.href);
       button.textContent="Link copied";
     }catch{
-      window.prompt("Copy this case link:",url.href);
+      window.prompt("Copy this case link:",shareUrl.href);
     }
   }));
   const linkedCase=new URLSearchParams(location.search).get("case");

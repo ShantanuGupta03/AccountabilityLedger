@@ -3,6 +3,10 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.mjs",
+    "archive": "node scripts/ensure_archives.mjs",
+    "archive:quick": "node scripts/ensure_archives.mjs --quick",
+    "stamp-tiers": "python3 scripts/stamp_tiers.py",
+    "tiers": "python3 scripts/source_tiers.py",
     "validate": "python3 scripts/validate_cases.py",
     "validate:strict": "python3 scripts/validate_cases.py --strict"
   }

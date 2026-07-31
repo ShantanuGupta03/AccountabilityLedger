@@ -30,11 +30,13 @@
     "sources": [
       {
         "label": "The Hindu: SC transfers Vyapam probe to CBI (2015)",
-        "url": "https://www.thehindu.com/news/vyapam-scam-sc-transfers-probe-to-cbi/article7402984.ece"
+        "url": "https://www.thehindu.com/news/vyapam-scam-sc-transfers-probe-to-cbi/article7402984.ece",
+        "tier": 2
       },
       {
         "label": "The Hindu: spate of Vyapam-linked deaths (2015)",
-        "url": "https://www.thehindu.com/news/national/Vyapam-scam-spate-of-deaths-raises-disturbing-questions/article60170269.ece"
+        "url": "https://www.thehindu.com/news/national/Vyapam-scam-spate-of-deaths-raises-disturbing-questions/article60170269.ece",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -75,11 +77,13 @@
     "sources": [
       {
         "label": "RBI Annual Report 2017-18: SBNs returned",
-        "url": "https://rbi.org.in/Scripts/AnnualReportPublications.aspx?Id=1239"
+        "url": "https://rbi.org.in/Scripts/AnnualReportPublications.aspx?Id=1239",
+        "tier": 1
       },
       {
         "label": "PIB: text of PM's address, 8 November 2016",
-        "url": "https://archive.pib.gov.in/newsite/PrintRelease.aspx?relid=153404"
+        "url": "https://archive.pib.gov.in/newsite/PrintRelease.aspx?relid=153404",
+        "tier": 1
       }
     ],
     "estimates": {
@@ -117,11 +121,13 @@
     "sources": [
       {
         "label": "GST Council 9th meeting minutes: 1 July 2017 rollout",
-        "url": "https://gstcouncil.gov.in/sites/default/files/Minutes/signed-minutes-9th-gst-council_meeting.pdf"
+        "url": "https://gstcouncil.gov.in/sites/default/files/Minutes/signed-minutes-9th-gst-council_meeting.pdf",
+        "tier": 1
       },
       {
         "label": "The Hindu: delays in GST compensation to States",
-        "url": "https://www.thehindu.com/business/gst-cess-falls-42-short-in-fy20/article32206702.ece"
+        "url": "https://www.thehindu.com/business/gst-cess-falls-42-short-in-fy20/article32206702.ece",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -159,11 +165,13 @@
     "sources": [
       {
         "label": "BJP got more than next 6 combined",
-        "url": "https://www.business-standard.com/elections/lok-sabha-election/electoral-bonds-bjp-received-more-funds-than-the-next-6-parties-combined-124031500434_1.html"
+        "url": "https://www.business-standard.com/elections/lok-sabha-election/electoral-bonds-bjp-received-more-funds-than-the-next-6-parties-combined-124031500434_1.html",
+        "tier": 2
       },
       {
         "label": "Top donors and beneficiaries",
-        "url": "https://www.business-standard.com/elections/lok-sabha-election/electoral-bonds-data-here-s-a-list-of-the-biggest-donors-and-beneficiaries-124032200461_1.html"
+        "url": "https://www.business-standard.com/elections/lok-sabha-election/electoral-bonds-data-here-s-a-list-of-the-biggest-donors-and-beneficiaries-124032200461_1.html",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -205,11 +213,13 @@
     "sources": [
       {
         "label": "SC judgment, Manohar Lal Sharma v Modi (Dec 2018)",
-        "url": "https://indiankanoon.org/doc/95183857/"
+        "url": "https://indiankanoon.org/doc/95183857/",
+        "tier": 1
       },
       {
         "label": "PRS summary, CAG Report No. 3 of 2019 (Rafale)",
-        "url": "https://prsindia.org/policy/report-summaries/capital-acquisition-indian-air-force"
+        "url": "https://prsindia.org/policy/report-summaries/capital-acquisition-indian-air-force",
+        "tier": 2
       }
     ]
   },
@@ -248,11 +258,13 @@
     "sources": [
       {
         "label": "The Wire: Satya Pal Malik's Pulwama claims (2023)",
-        "url": "https://thewire.in/politics/satya-pal-malik-full-interview-pulwama-modi"
+        "url": "https://thewire.in/politics/satya-pal-malik-full-interview-pulwama-modi",
+        "tier": 2
       },
       {
         "label": "Indian Express: Pulwama convoy movement, Feb 2019",
-        "url": "https://indianexpress.com/article/india/pulwama-attack-crpf-constable-convoy-ghastly-sight-scream-bus-disappeared-kashmir-car-bomb-5586642/"
+        "url": "https://indianexpress.com/article/india/pulwama-attack-crpf-constable-convoy-ghastly-sight-scream-bus-disappeared-kashmir-car-bomb-5586642/",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -293,11 +305,13 @@
     "sources": [
       {
         "label": "'No data', so no compensation",
-        "url": "https://www.thenewsminute.com/article/no-data-migrant-worker-deaths-says-govt-some-news-reports-they-should-read-133096"
+        "url": "https://www.thenewsminute.com/article/no-data-migrant-worker-deaths-says-govt-some-news-reports-they-should-read-133096",
+        "tier": 2
       },
       {
         "label": "Centre tells Parliament",
-        "url": "https://www.businesstoday.in/latest/economy-politics/story/migrant-deaths-no-data-available-so-no-compensation-centre-informs-parliament-273047-2020-09-15"
+        "url": "https://www.businesstoday.in/latest/economy-politics/story/migrant-deaths-no-data-available-so-no-compensation-centre-informs-parliament-273047-2020-09-15",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -338,11 +352,13 @@
     "sources": [
       {
         "label": "Centre: not a public authority",
-        "url": "https://scroll.in/latest/1006011/pm-cares-is-not-a-public-authority-under-the-rti-act-centre-tells-delhi-high-court"
+        "url": "https://scroll.in/latest/1006011/pm-cares-is-not-a-public-authority-under-the-rti-act-centre-tells-delhi-high-court",
+        "tier": 2
       },
       {
         "label": "On gov.in, still 'not public'",
-        "url": "https://www.deccanherald.com/india/pm-cares-now-under-govin-domain-centre-still-says-it-is-not-public-authority-932943.html"
+        "url": "https://www.deccanherald.com/india/pm-cares-now-under-govin-domain-centre-still-says-it-is-not-public-authority-932943.html",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -383,11 +399,13 @@
     "sources": [
       {
         "label": "Modi denies incursion (Al Jazeera)",
-        "url": "https://www.aljazeera.com/news/2020/6/19/modi-denies-chinese-incursion-into-india-before-deadly-clash"
+        "url": "https://www.aljazeera.com/news/2020/6/19/modi-denies-chinese-incursion-into-india-before-deadly-clash",
+        "tier": 2
       },
       {
         "label": "How territory was lost (Caravan)",
-        "url": "https://caravanmagazine.in/security/india-china-ladakh"
+        "url": "https://caravanmagazine.in/security/india-china-ladakh",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -428,11 +446,13 @@
     "sources": [
       {
         "label": "Govt Central Vista site: project cost breakdown",
-        "url": "https://centralvista.gov.in/myths-and-realities.php"
+        "url": "https://centralvista.gov.in/myths-and-realities.php",
+        "tier": 1
       },
       {
         "label": "Scroll.in: Central Vista work during Covid lockdown",
-        "url": "https://scroll.in/article/993385/as-covid-19-devastates-delhi-central-vista-project-declared-an-essential-service-work-continues"
+        "url": "https://scroll.in/article/993385/as-covid-19-devastates-delhi-central-vista-project-declared-an-essential-service-work-continues",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -470,11 +490,13 @@
     "sources": [
       {
         "label": "Farm Laws Repeal Bill 2021, full text (PRS)",
-        "url": "https://prsindia.org/files/bills_acts/bills_parliament/2021/Farm%20Laws%20Repeal%20Bill,2021.pdf"
+        "url": "https://prsindia.org/files/bills_acts/bills_parliament/2021/Farm%20Laws%20Repeal%20Bill,2021.pdf",
+        "tier": 1
       },
       {
         "label": "Govt: no record of protest deaths; SKM says 670+",
-        "url": "https://indianexpress.com/article/india/record-farmers-death-protest-compensation-parliament-7650247/"
+        "url": "https://indianexpress.com/article/india/record-farmers-death-protest-compensation-parliament-7650247/",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -511,11 +533,13 @@
     "sources": [
       {
         "label": "PRS: overview of the four labour codes",
-        "url": "https://prsindia.org/billtrack/overview-of-labour-law-reforms"
+        "url": "https://prsindia.org/billtrack/overview-of-labour-law-reforms",
+        "tier": 2
       },
       {
         "label": "Trade unions call labour codes anti-worker",
-        "url": "https://www.thehindu.com/news/national/labour-codes-anti-worker-say-trade-unions/article61723537.ece"
+        "url": "https://www.thehindu.com/news/national/labour-codes-anti-worker-say-trade-unions/article61723537.ece",
+        "tier": 2
       }
     ]
   },
@@ -553,11 +577,13 @@
     "sources": [
       {
         "label": "'No oxygen deaths' outrage (BBC)",
-        "url": "https://feeds.bbci.co.uk/news/world-asia-india-57911638"
+        "url": "https://feeds.bbci.co.uk/news/world-asia-india-57911638",
+        "tier": 2
       },
       {
         "label": "Panel: audit the deaths",
-        "url": "https://www.deccanherald.com/india/covid-19-parliamentary-panel-recommends-audit-of-deaths-due-to-oxygen-shortage-1144652.html"
+        "url": "https://www.deccanherald.com/india/covid-19-parliamentary-panel-recommends-audit-of-deaths-due-to-oxygen-shortage-1144652.html",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -594,11 +620,13 @@
     "sources": [
       {
         "label": "Stan Swamy dies awaiting medical bail, July 2021",
-        "url": "https://indianexpress.com/article/india/stan-swamy-dead-elgar-parishad-case-7389891/"
+        "url": "https://indianexpress.com/article/india/stan-swamy-dead-elgar-parishad-case-7389891/",
+        "tier": 2
       },
       {
         "label": "SC bail judgment, Bhima Koregaon, 28 July 2023",
-        "url": "https://indiankanoon.org/doc/97883907/"
+        "url": "https://indiankanoon.org/doc/97883907/",
+        "tier": 1
       }
     ],
     "estimates": {
@@ -636,11 +664,13 @@
     "sources": [
       {
         "label": "SC order constituting Pegasus committee, Oct 2021",
-        "url": "https://indiankanoon.org/doc/39021018/"
+        "url": "https://indiankanoon.org/doc/39021018/",
+        "tier": 1
       },
       {
         "label": "Pegasus Project findings, The Wire, July 2021",
-        "url": "https://thewire.in/government/project-pegasus-journalists-ministers-activists-phones-spying"
+        "url": "https://thewire.in/government/project-pegasus-journalists-ministers-activists-phones-spying",
+        "tier": 2
       }
     ]
   },
@@ -674,11 +704,13 @@
     "sources": [
       {
         "label": "Access Now #KeepItOn: India leads shutdowns 2023",
-        "url": "https://www.accessnow.org/press-release/india-keepiton-internet-shutdowns-2023-en/"
+        "url": "https://www.accessnow.org/press-release/india-keepiton-internet-shutdowns-2023-en/",
+        "tier": 2
       },
       {
         "label": "Timeline of the J&K internet shutdown, 2019-2021",
-        "url": "https://indianexpress.com/article/india/jk-4g-internet-mobile-timeline-7176408/"
+        "url": "https://indianexpress.com/article/india/jk-4g-internet-mobile-timeline-7176408/",
+        "tier": 2
       }
     ]
   },
@@ -713,11 +745,13 @@
     "sources": [
       {
         "label": "Amnesty International briefing on Delhi riots, 2020",
-        "url": "https://www.amnestyusa.org/wp-content/uploads/2020/08/Investigative-Briefing.pdf"
+        "url": "https://www.amnestyusa.org/wp-content/uploads/2020/08/Investigative-Briefing.pdf",
+        "tier": 2
       },
       {
         "label": "Delhi HC bail order in UAPA conspiracy case, 2021",
-        "url": "https://indiankanoon.org/doc/73074664/"
+        "url": "https://indiankanoon.org/doc/73074664/",
+        "tier": 1
       }
     ],
     "estimates": {
@@ -754,11 +788,13 @@
     "sources": [
       {
         "label": "The Hindu, Hathras cremation and SIT investigation",
-        "url": "https://www.thehindu.com/news/national/other-states/up-police-forcibly-cremating-hathras-rape-victim-at-night-allege-kin/article61700743.ece"
+        "url": "https://www.thehindu.com/news/national/other-states/up-police-forcibly-cremating-hathras-rape-victim-at-night-allege-kin/article61700743.ece",
+        "tier": 2
       },
       {
         "label": "The Hindu, Supreme Court bail for Siddique Kappan",
-        "url": "https://www.thehindu.com/news/national/supreme-court-grants-bail-to-kerala-journalist-siddique-kappan/article65869975.ece"
+        "url": "https://www.thehindu.com/news/national/supreme-court-grants-bail-to-kerala-journalist-siddique-kappan/article65869975.ece",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -800,11 +836,13 @@
     "sources": [
       {
         "label": "SIT chargesheets minister's son",
-        "url": "https://www.india.com/news/india/lakhimpur-kheri-violence-case-sit-files-5000-page-chargesheet-against-ministers-son-ashish-mishra-ajay-kumar-mishra-teni-anti-farm-law-protest-5168097/"
+        "url": "https://www.india.com/news/india/lakhimpur-kheri-violence-case-sit-files-5000-page-chargesheet-against-ministers-son-ashish-mishra-ajay-kumar-mishra-teni-anti-farm-law-protest-5168097/",
+        "tier": 3
       },
       {
         "label": "Demand for Teni's dismissal",
-        "url": "https://www.deccanherald.com/amp/story/india%2Ffarmers-workers-to-mark-black-day-on-tuesday-to-seek-ajay-mishra-tenis-dismissal-over-lakhimpur-kheri-killings-2709235"
+        "url": "https://www.deccanherald.com/amp/story/india%2Ffarmers-workers-to-mark-black-day-on-tuesday-to-seek-ajay-mishra-tenis-dismissal-over-lakhimpur-kheri-killings-2709235",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -845,11 +883,13 @@
     "sources": [
       {
         "label": "BBC, Census delayed six years, now due 2027",
-        "url": "https://www.bbc.com/news/articles/cm26pz5zlmlo"
+        "url": "https://www.bbc.com/news/articles/cm26pz5zlmlo",
+        "tier": 2
       },
       {
         "label": "The Hindu, 2017-18 consumption survey withheld",
-        "url": "https://www.thehindu.com/business/Economy/government-puts-household-spending-report-on-hold/article61611660.ece"
+        "url": "https://www.thehindu.com/business/Economy/government-puts-household-spending-report-on-hold/article61611660.ece",
+        "tier": 2
       }
     ]
   },
@@ -883,11 +923,13 @@
     "sources": [
       {
         "label": "PMO, Cabinet clears AGNIPATH scheme, 14 June 2022",
-        "url": "https://www.pmindia.gov.in/en/news_updates/in-a-transformative-reform-cabinet-clears-agnipath-scheme-for-recruitment-of-youth-in-the-armed-forces/"
+        "url": "https://www.pmindia.gov.in/en/news_updates/in-a-transformative-reform-cabinet-clears-agnipath-scheme-for-recruitment-of-youth-in-the-armed-forces/",
+        "tier": 1
       },
       {
         "label": "The Hindu, anti-Agnipath protests in Bihar",
-        "url": "https://www.thehindu.com/news/national/other-states/anti-agnipath-stir-flares-up-in-bihar-several-trains-vehicles-set-on-fire/article65536796.ece"
+        "url": "https://www.thehindu.com/news/national/other-states/anti-agnipath-stir-flares-up-in-bihar-several-trains-vehicles-set-on-fire/article65536796.ece",
+        "tier": 2
       }
     ]
   },
@@ -922,11 +964,13 @@
     "sources": [
       {
         "label": "Supreme Court, Vijay Madanlal Choudhary (2022)",
-        "url": "https://indiankanoon.org/doc/14485072/"
+        "url": "https://indiankanoon.org/doc/14485072/",
+        "tier": 1
       },
       {
         "label": "Indian Express count of ED cases by party, 2014-22",
-        "url": "https://indianexpress.com/article/express-exclusive/since-2014-4-fold-jump-in-ed-cases-against-politicians-95-per-cent-are-from-opposition-8163060/"
+        "url": "https://indianexpress.com/article/express-exclusive/since-2014-4-fold-jump-in-ed-cases-against-politicians-95-per-cent-are-from-opposition-8163060/",
+        "tier": 2
       }
     ]
   },
@@ -960,11 +1004,13 @@
     "sources": [
       {
         "label": "SC quashes remission",
-        "url": "https://www.scobserver.in/journal/supreme-court-quashes-the-remission-of-11-convicts-in-bilkis-bano-case/"
+        "url": "https://www.scobserver.in/journal/supreme-court-quashes-the-remission-of-11-convicts-in-bilkis-bano-case/",
+        "tier": 2
       },
       {
         "label": "SC cancels release",
-        "url": "https://www.deccanherald.com/amp/story/india%2Fsupreme-court-cancels-release-of-11-convicts-in-bilkis-bano-gangrape-case-2839974"
+        "url": "https://www.deccanherald.com/amp/story/india%2Fsupreme-court-cancels-release-of-11-convicts-in-bilkis-bano-gangrape-case-2839974",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1001,11 +1047,13 @@
     "sources": [
       {
         "label": "SIT holds Oreva responsible",
-        "url": "https://www.indiatvnews.com/gujarat/morbi-bridge-collapse-sit-report-holds-oreva-group-md-managers-fully-responsible-for-tragedy-2023-10-10-897190"
+        "url": "https://www.indiatvnews.com/gujarat/morbi-bridge-collapse-sit-report-holds-oreva-group-md-managers-fully-responsible-for-tragedy-2023-10-10-897190",
+        "tier": 3
       },
       {
         "label": "2 years on, no compensation",
-        "url": "https://thefederal.com/category/states/west/gujarat/morbi-tragedy-2-years-later-no-closure-no-compensation-for-victims-159325"
+        "url": "https://thefederal.com/category/states/west/gujarat/morbi-tragedy-2-years-later-no-closure-no-compensation-for-victims-159325",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1047,11 +1095,13 @@
     "sources": [
       {
         "label": "The Hindu, ISRO NRSC report on Joshimath sinking",
-        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/isro-releases-satellite-images-showing-rise-in-joshimath-land-subsidence/article66373138.ece"
+        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/isro-releases-satellite-images-showing-rise-in-joshimath-land-subsidence/article66373138.ece",
+        "tier": 2
       },
       {
         "label": "Indian Express, 1976 Mishra Committee warnings",
-        "url": "https://indianexpress.com/article/india/from-46-yrs-ago-to-july-2021-report-after-report-rang-alarm-bells-in-joshimath-uttarakhand-subsidence-zone-8371592/"
+        "url": "https://indianexpress.com/article/india/from-46-yrs-ago-to-july-2021-report-after-report-rang-alarm-bells-in-joshimath-uttarakhand-subsidence-zone-8371592/",
+        "tier": 2
       }
     ]
   },
@@ -1094,11 +1144,13 @@
     "sources": [
       {
         "label": "Amnesty on the impunity",
-        "url": "https://www.amnesty.org/en/latest/news/2025/02/india-authorities-must-uphold-human-rights-and-end-violence-in-manipur-following-biren-singhs-resignation/"
+        "url": "https://www.amnesty.org/en/latest/news/2025/02/india-authorities-must-uphold-human-rights-and-end-violence-in-manipur-following-biren-singhs-resignation/",
+        "tier": 2
       },
       {
         "label": "CM resigns after ~2 years (Reuters)",
-        "url": "https://www.yahoo.com/news/chief-violence-hit-indian-state-152727365.html"
+        "url": "https://www.yahoo.com/news/chief-violence-hit-indian-state-152727365.html",
+        "tier": 3
       }
     ],
     "estimates": {
@@ -1139,11 +1191,13 @@
     "sources": [
       {
         "label": "RBI press release, Rs 2000 note withdrawal (2023)",
-        "url": "https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=55707"
+        "url": "https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=55707",
+        "tier": 1
       },
       {
         "label": "BBC, Rs 2000 note and the 2016 demonetisation",
-        "url": "https://www.bbc.co.uk/news/world-asia-india-65679657"
+        "url": "https://www.bbc.co.uk/news/world-asia-india-65679657",
+        "tier": 2
       }
     ]
   },
@@ -1177,11 +1231,13 @@
     "sources": [
       {
         "label": "The Hindu on the CRS inquiry into Balasore",
-        "url": "https://www.thehindu.com/news/national/human-error-led-to-balasore-train-tragedy-says-report-pins-fault-on-signalling-and-telecommunication-department/article67038335.ece"
+        "url": "https://www.thehindu.com/news/national/human-error-led-to-balasore-train-tragedy-says-report-pins-fault-on-signalling-and-telecommunication-department/article67038335.ece",
+        "tier": 2
       },
       {
         "label": "CAG Report No. 22 of 2022, railway derailments",
-        "url": "https://cag.gov.in/uploads/download_audit_report/2022/Report-No.-22-of-2022--Union-Government-(Railways)-Performance-Audit-068b1637f9146b3.65960532.pdf"
+        "url": "https://cag.gov.in/uploads/download_audit_report/2022/Report-No.-22-of-2022--Union-Government-(Railways)-Performance-Audit-068b1637f9146b3.65960532.pdf",
+        "tier": 1
       }
     ],
     "estimates": {
@@ -1222,11 +1278,13 @@
     "sources": [
       {
         "label": "The Hindu on the 17-day Silkyara tunnel rescue",
-        "url": "https://www.thehindu.com/news/national/uttarkashi-silkyara-tunnel-collapse-rescue-workers-updates-november-28/article67582045.ece"
+        "url": "https://www.thehindu.com/news/national/uttarkashi-silkyara-tunnel-collapse-rescue-workers-updates-november-28/article67582045.ece",
+        "tier": 2
       },
       {
         "label": "Indian Express on Char Dham EIA and escape tunnel",
-        "url": "https://indianexpress.com/article/india/citing-cost-time-overrun-uttarkashi-project-said-no-to-separate-rescue-tunnel-9075234/"
+        "url": "https://indianexpress.com/article/india/citing-cost-time-overrun-uttarkashi-project-said-no-to-separate-rescue-tunnel-9075234/",
+        "tier": 2
       }
     ]
   },
@@ -1260,11 +1318,13 @@
     "sources": [
       {
         "label": "PRS summary of the CEC and ECs Bill, 2023",
-        "url": "https://prsindia.org/billtrack/the-chief-election-commissioner-and-other-election-commissioners-appointment-conditions-of-service-and-term-of-office-bill-2023"
+        "url": "https://prsindia.org/billtrack/the-chief-election-commissioner-and-other-election-commissioners-appointment-conditions-of-service-and-term-of-office-bill-2023",
+        "tier": 2
       },
       {
         "label": "Supreme Court, Anoop Baranwal v Union of India",
-        "url": "https://indiankanoon.org/doc/56882156/"
+        "url": "https://indiankanoon.org/doc/56882156/",
+        "tier": 1
       }
     ]
   },
@@ -1298,11 +1358,13 @@
     "sources": [
       {
         "label": "'The Supreme Court is watching'",
-        "url": "https://www.scobserver.in/journal/the-supreme-court-is-watching-cji-warns-presiding-officer-allegedly-caught-vote-tampering-in-chandigarh-mayoral-elections/"
+        "url": "https://www.scobserver.in/journal/the-supreme-court-is-watching-cji-warns-presiding-officer-allegedly-caught-vote-tampering-in-chandigarh-mayoral-elections/",
+        "tier": 2
       },
       {
         "label": "RO to be prosecuted (Bar and Bench)",
-        "url": "https://www.barandbench.com/news/murder-of-democracy-chandigarh-mayor-polls-returning-officer-prosecuted-supreme-court"
+        "url": "https://www.barandbench.com/news/murder-of-democracy-chandigarh-mayor-polls-returning-officer-prosecuted-supreme-court",
+        "tier": 2
       }
     ]
   },
@@ -1336,11 +1398,13 @@
     "sources": [
       {
         "label": "The hole that wasn't plugged (ThePrint)",
-        "url": "https://theprint.in/opinion/newsmaker-of-the-week/neet-paper-leak-came-from-a-hole-that-wasnt-plugged-in-2024-nta-is-ignoring-its-problems/2932680/"
+        "url": "https://theprint.in/opinion/newsmaker-of-the-week/neet-paper-leak-came-from-a-hole-that-wasnt-plugged-in-2024-nta-is-ignoring-its-problems/2932680/",
+        "tier": 2
       },
       {
         "label": "Probe so far (Outlook)",
-        "url": "https://www.outlookindia.com/national/neet-ug-exam-2024-paper-leak-sanjeev-lutan-mukhiya-gang-bihar-jharkhand-oasis-school-cbi-probe"
+        "url": "https://www.outlookindia.com/national/neet-ug-exam-2024-paper-leak-sanjeev-lutan-mukhiya-gang-bihar-jharkhand-oasis-school-cbi-probe",
+        "tier": 2
       }
     ]
   },
@@ -1382,11 +1446,13 @@
     "sources": [
       {
         "label": "Ayodhya temple roof leaks",
-        "url": "https://www.business-standard.com/india-news/ayodhya-ram-temple-chief-priest-reports-a-leaky-roof-all-you-need-to-know-124062500173_1.html"
+        "url": "https://www.business-standard.com/india-news/ayodhya-ram-temple-chief-priest-reports-a-leaky-roof-all-you-need-to-know-124062500173_1.html",
+        "tier": 2
       },
       {
         "label": "New roads caving in Ayodhya",
-        "url": "https://www.deccanherald.com/amp/story/india%2Futtar-pradesh%2Fayodhya-ram-temples-roof-leaking-after-heavy-showers-on-saturday-night-priest-blames-lack-of-drainage-3079201"
+        "url": "https://www.deccanherald.com/amp/story/india%2Futtar-pradesh%2Fayodhya-ram-temples-roof-leaking-after-heavy-showers-on-saturday-night-priest-blames-lack-of-drainage-3079201",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1432,11 +1498,13 @@
     "sources": [
       {
         "label": "Panna core to be submerged",
-        "url": "https://www.downtoearth.org.in/environment/ken-betwa-river-interlinking-core-forest-area-of-panna-tiger-reserve-will-come-under-water-warns-study-80885"
+        "url": "https://www.downtoearth.org.in/environment/ken-betwa-river-interlinking-core-forest-area-of-panna-tiger-reserve-will-come-under-water-warns-study-80885",
+        "tier": 2
       },
       {
         "label": "'Politically motivated', say experts",
-        "url": "https://thekashmirimages.com/2025/02/21/ken-betwa-link-project-politically-motivated-shouldve-never-been-approved-experts/"
+        "url": "https://thekashmirimages.com/2025/02/21/ken-betwa-link-project-politically-motivated-shouldve-never-been-approved-experts/",
+        "tier": 3
       }
     ],
     "estimates": {
@@ -1473,11 +1541,13 @@
     "sources": [
       {
         "label": "Owner anger, questions for govt (Al Jazeera)",
-        "url": "https://www.aljazeera.com/news/2026/7/15/indias-ethanol-rush-prompts-anger-among-vehicle-owners-questions-for-govt"
+        "url": "https://www.aljazeera.com/news/2026/7/15/indias-ethanol-rush-prompts-anger-among-vehicle-owners-questions-for-govt",
+        "tier": 2
       },
       {
         "label": "SC dismisses challenge",
-        "url": "https://www.deccanherald.com/india/sc-throws-out-pil-against-centre-allowing-20-ethanol-blended-petrol-3707355"
+        "url": "https://www.deccanherald.com/india/sc-throws-out-pil-against-centre-allowing-20-ethanol-blended-petrol-3707355",
+        "tier": 2
       }
     ]
   },
@@ -1510,8 +1580,14 @@
     "alt": "Treat a second collapse as a resignation-level failure and rebuild exam security under genuinely independent oversight, not another in-house committee.",
     "sources": [
       {
-        "label": "2026 NEET controversy (overview)",
-        "url": "https://en.wikipedia.org/wiki/2026_NEET_controversy"
+        "label": "The Hindu: NEET-UG 2026 cancelled after leak",
+        "url": "https://www.thehindu.com/education/neet-ug-2026-cancelled-to-be-reconducted-paper-leak-nta-may-12-2026/article70968713.ece",
+        "tier": 2
+      },
+      {
+        "label": "Indian Express: NTA scraps exam, orders CBI probe",
+        "url": "https://indianexpress.com/article/education/neet-paper-leak-nta-cancels-neet-ug-2026-fresh-dates-soon-10685084/",
+        "tier": 2
       }
     ]
   },
@@ -1549,11 +1625,13 @@
     "sources": [
       {
         "label": "13 reported deaths after leak (Outlook)",
-        "url": "https://www.outlookindia.com/amp/story/national/13-reported-suicides-after-neet-paper-leak"
+        "url": "https://www.outlookindia.com/amp/story/national/13-reported-suicides-after-neet-paper-leak",
+        "tier": 2
       },
       {
         "label": "Govt: 'no data' on student suicides",
-        "url": "https://news.careers360.com/no-data-on-student-suicides-in-neet-coaching-centres-government-tells-lok-sabha/amp"
+        "url": "https://news.careers360.com/no-data-on-student-suicides-in-neet-coaching-centres-government-tells-lok-sabha/amp",
+        "tier": 3
       }
     ],
     "estimates": {
@@ -1593,12 +1671,14 @@
     "alt": "Apply one honest standard over time, name the real causes without spin, and stop treating a currency as a scoreboard only when it suits.",
     "sources": [
       {
-        "label": "Rupee at record low 2026",
-        "url": "https://www.indianewsnetwork.com/en/indian-rupee-reaches-record-low-95-80-against-u-dollar-20260514"
+        "label": "The Hindu: rupee closes at record 96.83, May 2026",
+        "url": "https://www.thehindu.com/business/markets/rupee-slips-13-paise-to-hit-fresh-lifetime-low-of-9683-against-us-dollar/article71001792.ece",
+        "tier": 2
       },
       {
-        "label": "USD-INR record 96.8",
-        "url": "https://naga.com/en/news-and-analysis/articles/usd-to-inr-forecast"
+        "label": "The Hindu: rupee at record 96.52, May 19 2026",
+        "url": "https://www.thehindu.com/business/markets/indian-rupee-us-dollar-may-19-2026-forex-markets/article70997255.ece",
+        "tier": 2
       }
     ]
   },
@@ -1637,11 +1717,13 @@
     "sources": [
       {
         "label": "SIT report, lack of accountability",
-        "url": "https://www.opindia.com/2026/07/ayodhya-donation-theft-sit-report-lack-of-accountability-gross-mismanagement-ignored-warnings/"
+        "url": "https://www.opindia.com/2026/07/ayodhya-donation-theft-sit-report-lack-of-accountability-gross-mismanagement-ignored-warnings/",
+        "tier": 3
       },
       {
         "label": "Who is responsible (The Week)",
-        "url": "https://www.theweek.in/magazine/theweek/statescan/2026/07/04/faith-and-fraud-who-is-responsible-for-ayodhyas-ram-temple-donation-theft.html"
+        "url": "https://www.theweek.in/magazine/theweek/statescan/2026/07/04/faith-and-fraud-who-is-responsible-for-ayodhyas-ram-temple-donation-theft.html",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1681,8 +1763,14 @@
     "alt": "Independent quality audits and enforceable contractor warranties for flagship highways, with the findings published, not another inquiry that quietly closes.",
     "sources": [
       {
-        "label": "Expressway pothole row (roundup)",
-        "url": "https://www.oneworldnews.com/desh-ki-baat/political-update-3-july-2026/"
+        "label": "The Hindu: expressway cave-in after rains, Jul 2026",
+        "url": "https://www.thehindu.com/news/national/part-of-new-delhi-dehradun-expressway-caves-in-after-rains/article71174237.ece",
+        "tier": 2
+      },
+      {
+        "label": "Indian Express: NHAI on Shamli cave-in",
+        "url": "https://indianexpress.com/article/cities/delhi/delhi-dehradun-expressway-cave-in-shamli-nhai-reason-10768265/",
+        "tier": 2
       }
     ]
   },
@@ -1717,11 +1805,13 @@
     "sources": [
       {
         "label": "The Hindu on Hindenburg claims and Adani denial",
-        "url": "https://www.thehindu.com/business/Industry/adani-group-to-explore-legal-options-against-hindenburg-in-india-and-us/article66435173.ece"
+        "url": "https://www.thehindu.com/business/Industry/adani-group-to-explore-legal-options-against-hindenburg-in-india-and-us/article66435173.ece",
+        "tier": 2
       },
       {
         "label": "Supreme Court, Vishal Tiwari v Union of India 2024",
-        "url": "https://indiankanoon.org/doc/188573380/"
+        "url": "https://indiankanoon.org/doc/188573380/",
+        "tier": 1
       }
     ]
   },
@@ -1760,11 +1850,13 @@
     "sources": [
       {
         "label": "Wrestling chief charged (CNN)",
-        "url": "https://www.cnn.com/2023/06/15/india/india-brij-bhushan-singh-charged-wrestlers-intl-hnk"
+        "url": "https://www.cnn.com/2023/06/15/india/india-brij-bhushan-singh-charged-wrestlers-intl-hnk",
+        "tier": 2
       },
       {
         "label": "Case only after SC (BBC)",
-        "url": "https://feeds.bbci.co.uk/news/world-asia-india-65421389"
+        "url": "https://feeds.bbci.co.uk/news/world-asia-india-65421389",
+        "tier": 2
       }
     ]
   },
@@ -1798,11 +1890,13 @@
     "sources": [
       {
         "label": "SC bans 'bulldozer justice' (BBC)",
-        "url": "https://feeds.bbci.co.uk/news/articles/c0k8d3ynvzxo"
+        "url": "https://feeds.bbci.co.uk/news/articles/c0k8d3ynvzxo",
+        "tier": 2
       },
       {
         "label": "Court denounces demolitions (NBC)",
-        "url": "https://www.nbcnews.com/news/world/india-top-court-denounces-bulldozer-justice-demolitions-rcna180094"
+        "url": "https://www.nbcnews.com/news/world/india-top-court-denounces-bulldozer-justice-demolitions-rcna180094",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1840,11 +1934,13 @@
     "sources": [
       {
         "label": "SC to hear ~200 petitions, final hearings 2026",
-        "url": "https://www.scobserver.in/reports/citizenship-amendment-act-supreme-court-schedules-final-hearings-in-may-2026/"
+        "url": "https://www.scobserver.in/reports/citizenship-amendment-act-supreme-court-schedules-final-hearings-in-may-2026/",
+        "tier": 2
       },
       {
         "label": "Rules called 'prima facie unconstitutional' (LiveLaw)",
-        "url": "https://www.livelaw.in/top-stories/indian-union-muslim-league-moves-supreme-court-to-stay-citizenship-amendment-rules-2024-251925"
+        "url": "https://www.livelaw.in/top-stories/indian-union-muslim-league-moves-supreme-court-to-stay-citizenship-amendment-rules-2024-251925",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1886,11 +1982,13 @@
     "sources": [
       {
         "label": "15 fugitive offenders owe banks ~₹58,000 cr",
-        "url": "https://www.deccanherald.com/india/centre-says-15-fugitive-economic-offenders-including-vijay-mallya-nirav-modi-owe-rs-58000-cr-to-banks-3816219"
+        "url": "https://www.deccanherald.com/india/centre-says-15-fugitive-economic-offenders-including-vijay-mallya-nirav-modi-owe-rs-58000-cr-to-banks-3816219",
+        "tier": 2
       },
       {
         "label": "'All coming back to face law', said FM",
-        "url": "https://www.deccanherald.com/india/mallya-nirav-modi-mehul-choksi-all-coming-back-to-face-law-fm-sitharaman-963510.html"
+        "url": "https://www.deccanherald.com/india/mallya-nirav-modi-mehul-choksi-all-coming-back-to-face-law-fm-sitharaman-963510.html",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1931,11 +2029,13 @@
     "sources": [
       {
         "label": "₹16.61 lakh cr written off since 2014, 16% recovered",
-        "url": "https://www.nationalheraldindia.com/business/banks-write-off-rs-1661-lakh-crore-in-loans-since-2014-recovery-stands-at-16-pc"
+        "url": "https://www.nationalheraldindia.com/business/banks-write-off-rs-1661-lakh-crore-in-loans-since-2014-recovery-stands-at-16-pc",
+        "tier": 3
       },
       {
         "label": "₹16.35 lakh cr over a decade, bulk to big industry",
-        "url": "https://www.moneylife.in/article/rs1635-lakh-crore-bad-loans-written-off-by-banks-in-past-10-years-govt/76651.html"
+        "url": "https://www.moneylife.in/article/rs1635-lakh-crore-bad-loans-written-off-by-banks-in-past-10-years-govt/76651.html",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -1976,11 +2076,13 @@
     "sources": [
       {
         "label": "₹1,600 cr later, NRC still in limbo",
-        "url": "https://assamtribune.com/assam/rs-1600-cr-later-assam-nrc-still-in-limbo-aasu-seeks-re-verification-1579359"
+        "url": "https://assamtribune.com/assam/rs-1600-cr-later-assam-nrc-still-in-limbo-aasu-seeks-re-verification-1579359",
+        "tier": 2
       },
       {
         "label": "Govt refused to accept the final list",
-        "url": "https://www.deccanherald.com/national/east-and-northeast/assam-discontinues-services-of-200-members-of-fts-appointed-to-clear-nrc-claims-1153897.html"
+        "url": "https://www.deccanherald.com/national/east-and-northeast/assam-discontinues-services-of-200-members-of-fts-appointed-to-clear-nrc-claims-1153897.html",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2017,12 +2119,14 @@
     "alt": "Refer serious conflict-of-interest allegations against those in office to a genuinely independent inquiry, and routinely publish the land and asset records of office-holders and their families, so the answer comes from scrutiny rather than a denial.",
     "sources": [
       {
-        "label": "CMO denies land deal; opposition seeks judicial probe",
-        "url": "https://www.theswipeup.com/2026/06/after-gaining-office-mp-cm-did-not.html"
+        "label": "Indian Express: family land purchases in Ujjain",
+        "url": "https://indianexpress.com/article/express-exclusive/madhya-pradesh-cm-mohan-yadav-family-ujjain-land-deals-10752557/",
+        "tier": 2
       },
       {
-        "label": "Original investigative report",
-        "todo": true
+        "label": "Scroll: Congress demands independent probe",
+        "url": "https://scroll.in/latest/1093805/congress-asks-bjp-if-it-will-allow-independent-probe-into-madhya-pradesh-cms-land-purchases",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2063,11 +2167,13 @@
     "sources": [
       {
         "label": "'Dead' patients treated; ghost numbers (Business Today)",
-        "url": "https://www.businesstoday.in/latest/policy/story/ayushman-bharat-patients-shown-as-dead-getting-treatment-985-lakh-ab-pmjay-beneficiaries-linked-to-same-mobile-number-says-cag-report-393403-2023-08-09"
+        "url": "https://www.businesstoday.in/latest/policy/story/ayushman-bharat-patients-shown-as-dead-getting-treatment-985-lakh-ab-pmjay-beneficiaries-linked-to-same-mobile-number-says-cag-report-393403-2023-08-09",
+        "tier": 2
       },
       {
         "label": "₹6.97 cr paid to dead patients (CAG)",
-        "url": "https://www.deccanherald.com/health/healthcare/rs-697-crore-was-paid-to-dead-patients-under-pmjay-cag-2649876"
+        "url": "https://www.deccanherald.com/health/healthcare/rs-697-crore-was-paid-to-dead-patients-under-pmjay-cag-2649876",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2108,11 +2214,13 @@
     "sources": [
       {
         "label": "CAG audit: unspent funds, delays (PRS summary)",
-        "url": "https://prsindia.org/policy/report-summaries/audit-namami-gange"
+        "url": "https://prsindia.org/policy/report-summaries/audit-namami-gange",
+        "tier": 2
       },
       {
         "label": "₹33,000 cr spent, river still polluted (Scroll)",
-        "url": "https://scroll.in/article/1056887/after-spending-rs-33000-crore-has-the-indian-government-finally-managed-to-clean-the-ganga"
+        "url": "https://scroll.in/article/1056887/after-spending-rs-33000-crore-has-the-indian-government-finally-managed-to-clean-the-ganga",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2154,19 +2262,23 @@
     "sources": [
       {
         "label": "SSC recommends CBI probe, 2018",
-        "url": "https://www.thehindu.com/news/national/ssc-decides-to-recommend-cbi-probe-into-paper-leaks/article22925056.ece"
+        "url": "https://www.thehindu.com/news/national/ssc-decides-to-recommend-cbi-probe-into-paper-leaks/article22925056.ece",
+        "tier": 2
       },
       {
         "label": "SC refuses to scrap CGL 2017",
-        "url": "https://www.business-standard.com/article/pti-stories/paper-leak-case-sc-refuses-to-scrap-ssc-cgle-exam-of-2017-120030501427_1.html"
+        "url": "https://www.business-standard.com/article/pti-stories/paper-leak-case-sc-refuses-to-scrap-ssc-cgle-exam-of-2017-120030501427_1.html",
+        "tier": 2
       },
       {
         "label": "Final result, three years late",
-        "url": "https://indianexpress.com/article/jobs/ssc-cgl-2017-final-result-today-ssc-nic-in-6120823/"
+        "url": "https://indianexpress.com/article/jobs/ssc-cgl-2017-final-result-today-ssc-nic-in-6120823/",
+        "tier": 2
       },
       {
         "label": "Aspirants protest new vendor, 2025",
-        "url": "https://theprint.in/india/faulty-systems-poor-infra-to-mistreatment-protesting-aspirants-allege-ssc-played-with-their-future/2709705/"
+        "url": "https://theprint.in/india/faulty-systems-poor-infra-to-mistreatment-protesting-aspirants-allege-ssc-played-with-their-future/2709705/",
+        "tier": 2
       }
     ]
   },
@@ -2209,19 +2321,23 @@
     "sources": [
       {
         "label": "Wangchuk's fasts and NSA detention",
-        "url": "https://frontline.thehindu.com/politics/sonam-wangchuk-hunger-strike/article71223988.ece"
+        "url": "https://frontline.thehindu.com/politics/sonam-wangchuk-hunger-strike/article71223988.ece",
+        "tier": 2
       },
       {
         "label": "Delhi Chalo march detentions, 2024",
-        "url": "https://theprint.in/india/anger-indefinite-fast-ladakhis-continue-protests-in-detention-after-their-delhi-chalo-march-stopped/2292738/"
+        "url": "https://theprint.in/india/anger-indefinite-fast-ladakhis-continue-protests-in-detention-after-their-delhi-chalo-march-stopped/2292738/",
+        "tier": 2
       },
       {
         "label": "Sixth Schedule demand explained",
-        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/why-ladakh-residents-hunger-strike-sixth-schedule-explained/article68012402.ece"
+        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/why-ladakh-residents-hunger-strike-sixth-schedule-explained/article68012402.ece",
+        "tier": 2
       },
       {
         "label": "Talks with the Home Ministry, 2026",
-        "url": "https://www.thehindu.com/news/national/ladakh/ladakh-leaders-to-meet-home-ministry-officials-tomorrow-sonam-wangchuk-part-of-delegation/article71007304.ece"
+        "url": "https://www.thehindu.com/news/national/ladakh/ladakh-leaders-to-meet-home-ministry-officials-tomorrow-sonam-wangchuk-part-of-delegation/article71007304.ece",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2263,15 +2379,18 @@
     "sources": [
       {
         "label": "Lapses briefed to all-party meeting",
-        "url": "https://www.thehindu.com/news/national/pahalgam-terror-attack-tourists-taken-to-meadow-without-police-permission-government-informs-all-party-meeting/article69488066.ece"
+        "url": "https://www.thehindu.com/news/national/pahalgam-terror-attack-tourists-taken-to-meadow-without-police-permission-government-informs-all-party-meeting/article69488066.ece",
+        "tier": 2
       },
       {
         "label": "LG: 'undoubtedly a security failure'",
-        "url": "https://economictimes.indiatimes.com/news/defence/i-take-full-responsibility-jk-lg-manoj-sinha-calls-pahalgam-attack-a-security-failure/articleshow/122435616.cms"
+        "url": "https://economictimes.indiatimes.com/news/defence/i-take-full-responsibility-jk-lg-manoj-sinha-calls-pahalgam-attack-a-security-failure/articleshow/122435616.cms",
+        "tier": 2
       },
       {
         "label": "A year on, lapses still unspecified",
-        "url": "https://m.thewire.in/article/security/a-year-after-pahalgam-modi-govt-yet-to-clarify-lapses-that-led-to-attack"
+        "url": "https://m.thewire.in/article/security/a-year-after-pahalgam-modi-govt-yet-to-clarify-lapses-that-led-to-attack",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2313,19 +2432,23 @@
     "sources": [
       {
         "label": "Mahadevapura claims and the ECI reply",
-        "url": "https://www.outlookindia.com/national/rahul-accuses-election-commission-of-vote-chori-in-2024-lok-sabha-polls-ec-says-misleading"
+        "url": "https://www.outlookindia.com/national/rahul-accuses-election-commission-of-vote-chori-in-2024-lok-sabha-polls-ec-says-misleading",
+        "tier": 2
       },
       {
         "label": "CEC: affidavit in seven days, or apologise",
-        "url": "https://www.thehindu.com/news/national/file-affidavit-in-seven-days-or-apologise-eci-ultimatum-on-rahul-gandhis-karnataka-vote-theft-allegations/article69944380.ece"
+        "url": "https://www.thehindu.com/news/national/file-affidavit-in-seven-days-or-apologise-eci-ultimatum-on-rahul-gandhis-karnataka-vote-theft-allegations/article69944380.ece",
+        "tier": 2
       },
       {
         "label": "SC orders 65 lakh deleted names published",
-        "url": "https://indianexpress.com/article/india/bihar-sir-row-sc-directs-eci-to-publish-details-of-65-lakh-deleted-voters-with-reasons-10189079/"
+        "url": "https://indianexpress.com/article/india/bihar-sir-row-sc-directs-eci-to-publish-details-of-65-lakh-deleted-voters-with-reasons-10189079/",
+        "tier": 2
       },
       {
         "label": "SC upholds validity of SIR, May 2026",
-        "url": "https://indianexpress.com/article/legal-news/supreme-court-upholds-eci-bihar-electoral-roll-revision-10709988/"
+        "url": "https://indianexpress.com/article/legal-news/supreme-court-upholds-eci-bihar-electoral-roll-revision-10709988/",
+        "tier": 2
       }
     ]
   },
@@ -2364,23 +2487,28 @@
     "sources": [
       {
         "label": "Official toll: 790 Muslims, 254 Hindus",
-        "url": "https://news.bbc.co.uk/2/hi/south_asia/4536199.stm"
+        "url": "https://news.bbc.co.uk/2/hi/south_asia/4536199.stm",
+        "tier": 2
       },
       {
         "label": "NHRC report on Gujarat, July 2002",
-        "url": "https://cjp.org.in/wp-content/uploads/2017/06/NHRC-Report-July-2002.pdf"
+        "url": "https://cjp.org.in/wp-content/uploads/2017/06/NHRC-Report-July-2002.pdf",
+        "tier": 3
       },
       {
         "label": "SC rejects Zakia Jafri's appeal, 2022",
-        "url": "https://www.thehindu.com/news/national/2002-gujarat-riots-supreme-court-rejects-zakia-jafris-charges-against-narendra-modi-60-officials/article65560012.ece"
+        "url": "https://www.thehindu.com/news/national/2002-gujarat-riots-supreme-court-rejects-zakia-jafris-charges-against-narendra-modi-60-officials/article65560012.ece",
+        "tier": 2
       },
       {
         "label": "Gulberg: 24 convicted, 36 acquitted",
-        "url": "https://www.bbc.com/news/world-asia-india-36423413"
+        "url": "https://www.bbc.com/news/world-asia-india-36423413",
+        "tier": 2
       },
       {
         "label": "Bilkis Bano remission quashed, 2024",
-        "url": "https://www.thehindu.com/news/national/bilkis-bano-case-supreme-court-quashes-gujarats-premature-release-of-convicts/article67718561.ece"
+        "url": "https://www.thehindu.com/news/national/bilkis-bano-case-supreme-court-quashes-gujarats-premature-release-of-convicts/article67718561.ece",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2423,19 +2551,23 @@
     "sources": [
       {
         "label": "2014 rates and the 2020 peak, in Parliament",
-        "url": "https://www.business-standard.com/article/economy-policy/excise-duty-on-petrol-was-rs-9-48-ltr-diesel-rs-3-56-in-2014-minister-122080100962_1.html"
+        "url": "https://www.business-standard.com/article/economy-policy/excise-duty-on-petrol-was-rs-9-48-ltr-diesel-rs-3-56-in-2014-minister-122080100962_1.html",
+        "tier": 2
       },
       {
         "label": "PPAC: petroleum receipts to the exchequer",
-        "url": "https://ppac.gov.in/prices/contribution-to-central-and-state-exchequer"
+        "url": "https://ppac.gov.in/prices/contribution-to-central-and-state-exchequer",
+        "tier": 1
       },
       {
         "label": "CAG on the ₹10,250 cr cess accounting",
-        "url": "https://www.thehindu.com/business/Economy/cag-moots-probe-over-cess-accounting-dodge/article61702167.ece"
+        "url": "https://www.thehindu.com/business/Economy/cag-moots-probe-over-cess-accounting-dodge/article61702167.ece",
+        "tier": 2
       },
       {
         "label": "CAG: ₹3.69 lakh cr of cess not transferred",
-        "url": "https://www.thehindu.com/business/Economy/centre-has-not-transferred-369-lakh-crore-of-cess-collections-to-the-designated-funds-cag-finds/article69924061.ece"
+        "url": "https://www.thehindu.com/business/Economy/centre-has-not-transferred-369-lakh-crore-of-cess-collections-to-the-designated-funds-cag-finds/article69924061.ece",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2473,19 +2605,23 @@
     "sources": [
       {
         "label": "RS Q1264: ₹414 in 2014 against ₹1,103",
-        "url": "https://sansad.in/getFile/annex/260/AU1264.pdf?source=pqars"
+        "url": "https://sansad.in/getFile/annex/260/AU1264.pdf?source=pqars",
+        "tier": 1
       },
       {
         "label": "LS Q3711: LPG prices and subsidy, 2013-22",
-        "url": "https://sansad.in/getFile/loksabhaquestions/annex/1711/AU3711.pdf?source=pqals"
+        "url": "https://sansad.in/getFile/loksabhaquestions/annex/1711/AU3711.pdf?source=pqals",
+        "tier": 1
       },
       {
         "label": "CAG 2019 audit of Ujjwala refills",
-        "url": "https://cag.gov.in/uploads/download_audit_report/2019/Chapter_6_Transition_of_BPL_households_to_LPG_of_Report_No_14_of_2019_Performance_Audit_of_Pradhan_Mantri_Ujjwala_Yojana_Ministry_of_Petroleum_and_Natural_Gas.pdf"
+        "url": "https://cag.gov.in/uploads/download_audit_report/2019/Chapter_6_Transition_of_BPL_households_to_LPG_of_Report_No_14_of_2019_Performance_Audit_of_Pradhan_Mantri_Ujjwala_Yojana_Ministry_of_Petroleum_and_Natural_Gas.pdf",
+        "tier": 1
       },
       {
         "label": "PIB: 10.33 crore Ujjwala connections",
-        "url": "https://www.pib.gov.in/PressReleasePage.aspx?lang=1&PRID=2198768&reg=3"
+        "url": "https://www.pib.gov.in/PressReleasePage.aspx?lang=1&PRID=2198768&reg=3",
+        "tier": 1
       }
     ]
   },
@@ -2524,19 +2660,23 @@
     "sources": [
       {
         "label": "Lancet Planetary Health: GBD 2019 India",
-        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7805008/"
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7805008/",
+        "tier": 1
       },
       {
         "label": "State of Global Air 2024 (HEI and UNICEF)",
-        "url": "https://www.healthdata.org/sites/default/files/2024-06/soga-2024-report.pdf"
+        "url": "https://www.healthdata.org/sites/default/files/2024-06/soga-2024-report.pdf",
+        "tier": 1
       },
       {
         "label": "CREA: NCAP progress report, Jan 2026",
-        "url": "https://energyandcleanair.org/wp/wp-content/uploads/2026/01/CREA_Tracing-the-Hazy-Air-2026_-Progress-Report-on-National-Clean-Air-Programme-NCAP.pdf"
+        "url": "https://energyandcleanair.org/wp/wp-content/uploads/2026/01/CREA_Tracing-the-Hazy-Air-2026_-Progress-Report-on-National-Clean-Air-Programme-NCAP.pdf",
+        "tier": 2
       },
       {
         "label": "SC on CAQM and Section 14 prosecution",
-        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/what-can-caqm-do-to-improve-delhi-air/article68903280.ece"
+        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/what-can-caqm-do-to-improve-delhi-air/article68903280.ece",
+        "tier": 2
       }
     ],
     "estimates": {
@@ -2583,23 +2723,28 @@
     "sources": [
       {
         "label": "HRW: Violent Cow Protection in India",
-        "url": "https://www.hrw.org/report/2019/02/19/violent-cow-protection-india/vigilante-groups-attack-minorities"
+        "url": "https://www.hrw.org/report/2019/02/19/violent-cow-protection-india/vigilante-groups-attack-minorities",
+        "tier": 2
       },
       {
         "label": "Pehlu Khan: all six accused acquitted",
-        "url": "https://www.thehindu.com/news/national/pehlu-khan-lynching-case-all-six-accused-acquitted-by-rajasthan-court/article61584106.ece"
+        "url": "https://www.thehindu.com/news/national/pehlu-khan-lynching-case-all-six-accused-acquitted-by-rajasthan-court/article61584106.ece",
+        "tier": 2
       },
       {
         "label": "Union minister fetes convicted lynchers",
-        "url": "https://indianexpress.com/article/india/after-feting-jharkhand-men-convicted-of-lynching-union-minister-jayant-sinha-talks-of-due-process-5250451/"
+        "url": "https://indianexpress.com/article/india/after-feting-jharkhand-men-convicted-of-lynching-union-minister-jayant-sinha-talks-of-due-process-5250451/",
+        "tier": 2
       },
       {
         "label": "No data on mob lynching, MHA tells LS",
-        "url": "https://www.thehindu.com/news/national/no-data-on-mob-lynching-mha-tells-lok-sabha/article38006653.ece"
+        "url": "https://www.thehindu.com/news/national/no-data-on-mob-lynching-mha-tells-lok-sabha/article38006653.ece",
+        "tier": 2
       },
       {
         "label": "APEDA: buffalo meat export data",
-        "url": "https://www.apeda.gov.in/BuffaloMeat"
+        "url": "https://www.apeda.gov.in/BuffaloMeat",
+        "tier": 1
       }
     ],
     "estimates": {
@@ -2641,19 +2786,23 @@
     "sources": [
       {
         "label": "Modi avoids the media in Norway, 2026",
-        "url": "https://www.aljazeera.com/news/2026/5/20/modi-avoids-norway-media-how-that-led-to-storm-over-indias-press-freedom"
+        "url": "https://www.aljazeera.com/news/2026/5/20/modi-avoids-norway-media-how-that-led-to-storm-over-indias-press-freedom",
+        "tier": 2
       },
       {
         "label": "A decade without press conferences",
-        "url": "https://thediplomat.com/2024/05/narendra-modis-decade-without-press-conferences/"
+        "url": "https://thediplomat.com/2024/05/narendra-modis-decade-without-press-conferences/",
+        "tier": 2
       },
       {
         "label": "Editors Guild rejects the MEA defence",
-        "url": "https://indianexpress.com/article/india/editors-guild-of-india-slams-mea-pm-modi-press-conferences-10789306/"
+        "url": "https://indianexpress.com/article/india/editors-guild-of-india-slams-mea-pm-modi-press-conferences-10789306/",
+        "tier": 2
       },
       {
         "label": "RSF 2014 index: India 140th of 180",
-        "url": "https://rsf.org/en/index?year=2014"
+        "url": "https://rsf.org/en/index?year=2014",
+        "tier": 2
       }
     ]
   },
@@ -2692,19 +2841,23 @@
     "sources": [
       {
         "label": "Agra 2013: 'one crore jobs' promised",
-        "url": "https://economictimes.indiatimes.com/news/politics-and-nation/one-crore-jobs-if-bjp-comes-to-power-narendra-modi/articleshow/26165012.cms"
+        "url": "https://economictimes.indiatimes.com/news/politics-and-nation/one-crore-jobs-if-bjp-comes-to-power-narendra-modi/articleshow/26165012.cms",
+        "tier": 2
       },
       {
         "label": "PLFS: 6.1%, a 45-year high",
-        "url": "https://www.business-standard.com/article/economy-policy/unemployment-rate-at-five-decade-high-of-6-1-in-2017-18-nsso-survey-119013100053_1.html"
+        "url": "https://www.business-standard.com/article/economy-policy/unemployment-rate-at-five-decade-high-of-6-1-in-2017-18-nsso-survey-119013100053_1.html",
+        "tier": 2
       },
       {
         "label": "The pakoda remark, and the row",
-        "url": "https://scroll.in/latest/866754/if-selling-pakodas-is-a-job-so-is-begging-p-chidambarams-jibe-sparks-twitter-war-with-bjp"
+        "url": "https://scroll.in/latest/866754/if-selling-pakodas-is-a-job-so-is-begging-p-chidambarams-jibe-sparks-twitter-war-with-bjp",
+        "tier": 2
       },
       {
         "label": "Why EPFO job claims mislead",
-        "url": "https://m.thewire.in/article/economy/govt-claims-of-job-creation-based-on-epfo-enrolment-data-are-misleading-heres-why"
+        "url": "https://m.thewire.in/article/economy/govt-claims-of-job-creation-based-on-epfo-enrolment-data-are-misleading-heres-why",
+        "tier": 2
       }
     ]
   },
@@ -2739,19 +2892,23 @@
     "sources": [
       {
         "label": "400 projects to miss the deadline",
-        "url": "https://indianexpress.com/article/india/400-smart-city-mission-projects-to-miss-june-30-deadline-states-must-take-over-panel-told-9152108/"
+        "url": "https://indianexpress.com/article/india/400-smart-city-mission-projects-to-miss-june-30-deadline-states-must-take-over-panel-told-9152108/",
+        "tier": 2
       },
       {
         "label": "Mission set to end 31 March 2025",
-        "url": "https://indianexpress.com/article/india/smart-cities-set-to-end-march-31-but-7-projects-likely-to-go-on-9888105/"
+        "url": "https://indianexpress.com/article/india/smart-cities-set-to-end-march-31-but-7-projects-likely-to-go-on-9888105/",
+        "tier": 2
       },
       {
         "label": "Rajya Sabha reply: status to Mar 2026",
-        "url": "https://www.tribuneindia.com/news/india/nation-was-sold-a-half-baked-scheme-rahul-slams-govt-on-smart-cities-mission/"
+        "url": "https://www.tribuneindia.com/news/india/nation-was-sold-a-half-baked-scheme-rahul-slams-govt-on-smart-cities-mission/",
+        "tier": 2
       },
       {
         "label": "A decade on, the mission still lags",
-        "url": "https://www.moneycontrol.com/news/business/economy/a-decade-on-smart-cities-mission-struggles-to-cross-the-finish-line-13727720.html"
+        "url": "https://www.moneycontrol.com/news/business/economy/a-decade-on-smart-cities-mission-struggles-to-cross-the-finish-line-13727720.html",
+        "tier": 2
       }
     ],
     "estimates": {
