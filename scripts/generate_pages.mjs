@@ -1,5 +1,5 @@
 /**
- * Static share pages, minister profiles, thread pages and OG images.
+ * Static share pages, minister profiles and OG images.
  * Crawlers read these; humans are redirected to the live ledger.
  */
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -89,7 +89,6 @@ export async function generatePages(cases, outputDir) {
   await mkdir(join(outputDir, "assets/og"), { recursive: true });
   await mkdir(join(outputDir, "case"), { recursive: true });
   await mkdir(join(outputDir, "minister"), { recursive: true });
-  await mkdir(join(outputDir, "threads"), { recursive: true });
 
   for (const caseFile of cases) {
     const id = caseId(caseFile);
@@ -165,77 +164,5 @@ export async function generatePages(cases, outputDir) {
     await writeFile(join(dir, "index.html"), html, "utf8");
   }
 
-  const threads = [
-    {
-      slug: "no-data-dodge",
-      title: "The recurring 'we keep no data' dodge",
-      description: "When counting the dead, the injured, or the affected would create a paper trail, the record goes blank.",
-      intro: "A thread through cases where official data was denied, delayed, destroyed, or never collected in the first place.",
-      caseNos: [4, 7, 8, 9, 13, 19, 20, 32, 33, 34, 35, 39, 44, 52, 53, 60],
-    },
-    {
-      slug: "court-not-government",
-      title: "Accountability that only ever came from a court",
-      description: "Cases where relief, investigation, or admission arrived from the judiciary, not from the government owning the failure.",
-      intro: "When the executive would not act, courts, commissions, or auditors often did — and were then ignored, delayed, or defied.",
-      caseNos: [5, 11, 15, 17, 22, 30, 41, 43, 46, 47, 49, 50, 51, 55, 56, 58],
-    },
-    {
-      slug: "inaugurate-then-fail",
-      title: "Inaugurate, fail in months, blame the rain",
-      description: "Infrastructure and vanity projects that opened to applause and collapsed into scandal, delay, or disaster.",
-      intro: "A pattern of ribbon-cutting ahead of safety, scrutiny, or completion — and accountability deferred to an inquiry that goes nowhere.",
-      caseNos: [10, 28, 29, 40, 42, 45, 54, 57, 59, 62],
-    },
-  ];
-
-  for (const thread of threads) {
-    const matched = thread.caseNos
-      .map((no) => cases.find((c) => c.no === no))
-      .filter(Boolean);
-    const ogName = `thread-${thread.slug}.svg`;
-    await writeFile(
-      join(outputDir, "assets/og", ogName),
-      ogSvg({ title: thread.title, stamp: thread.description, stat: `${matched.length} cases`, label: "Thread" }),
-      "utf8",
-    );
-    const list = matched
-      .map((c) => `<li><a href="../../?case=${encodeURIComponent(caseId(c))}">${escapeHtml(c.title)}</a></li>`)
-      .join("");
-    const html = shareShell({
-      title: `${thread.title} · Accountability Ledger`,
-      description: thread.description,
-      path: `/threads/${thread.slug}/`,
-      imagePath: `/assets/og/${ogName}`,
-      redirect: "../../",
-      cssHref: "../../assets/css/styles.css",
-      body: `<h1>${escapeHtml(thread.title)}</h1><p class="standfirst">${escapeHtml(thread.intro)}</p><ul class="thread-list">${list}</ul>`,
-    });
-    const dir = join(outputDir, "threads", thread.slug);
-    await mkdir(dir, { recursive: true });
-    await writeFile(join(dir, "index.html"), html, "utf8");
-  }
-
-  const threadIndex = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Threads · Accountability Ledger</title>
-  <link rel="stylesheet" href="../assets/css/styles.css">
-</head>
-<body>
-  <main class="wrap form-page">
-    <h1 class="title">Cross-cutting <span class="thin">threads</span></h1>
-    <p class="standfirst">Curated narrative paths through the ledger. Each thread links cases that share a pattern of failure or evasion.</p>
-    <ul class="thread-list">
-      ${threads.map((t) => `<li><a href="./${t.slug}/">${escapeHtml(t.title)}</a><span class="fine">${escapeHtml(t.description)}</span></li>`).join("")}
-    </ul>
-    <p><a href="../">Back to the ledger</a></p>
-  </main>
-</body>
-</html>`;
-  await writeFile(join(outputDir, "threads/index.html"), threadIndex, "utf8");
-
-  console.log(`Generated ${cases.length} case pages, ${groups.size} minister pages, ${threads.length} threads`);
+  console.log(`Generated ${cases.length} case pages, ${groups.size} minister pages`);
 }
