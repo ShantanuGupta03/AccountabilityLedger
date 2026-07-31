@@ -108,9 +108,114 @@ async function loadQueue() {
   showSubmission();
 }
 
+const suggestionList = document.querySelector("#suggestion-list");
+const suggestionCount = document.querySelector("#suggestion-count");
+
+function suggestionCard(suggestion) {
+  const item = document.createElement("li");
+  item.className = "suggestion";
+
+  const heading = document.createElement("h3");
+  const caseLink = document.createElement("a");
+  caseLink.href = `../?case=${encodeURIComponent(suggestion.case_id)}`;
+  caseLink.target = "_blank";
+  caseLink.rel = "noopener noreferrer";
+  caseLink.textContent = suggestion.case_title || suggestion.case_id;
+  heading.append("For: ", caseLink);
+
+  const link = document.createElement("a");
+  link.className = "suggestion-url";
+  link.href = suggestion.url;
+  link.target = "_blank";
+  link.rel = "nofollow noopener noreferrer";
+  link.textContent = suggestion.url;
+
+  const labelField = document.createElement("label");
+  labelField.textContent = "Label shown on the case";
+  const labelInput = document.createElement("input");
+  labelInput.value = suggestion.label;
+  labelInput.maxLength = 60;
+  labelField.append(labelInput);
+
+  const notesField = document.createElement("label");
+  notesField.textContent = "Review notes";
+  const notesInput = document.createElement("input");
+  notesInput.maxLength = 5000;
+  notesField.append(notesInput);
+
+  const actions = document.createElement("div");
+  actions.className = "case-actions";
+  const result = document.createElement("p");
+  result.className = "form-status";
+
+  const decide = async (decision, button) => {
+    actions.querySelectorAll("button").forEach((element) => { element.disabled = true; });
+    result.classList.remove("error");
+    result.textContent = "Saving…";
+    try {
+      const response = await fetch(`../api/admin/source-suggestions/${encodeURIComponent(suggestion.id)}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status: decision, label: labelInput.value, reviewNotes: notesInput.value }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error ?? "Unable to save that decision.");
+      item.remove();
+      updateSuggestionCount();
+    } catch (error) {
+      result.textContent = error.message || "Unable to save that decision.";
+      result.classList.add("error");
+      actions.querySelectorAll("button").forEach((element) => { element.disabled = false; });
+      button.focus();
+    }
+  };
+
+  const approve = document.createElement("button");
+  approve.type = "button";
+  approve.className = "form-submit";
+  approve.textContent = "Approve and show on case";
+  approve.addEventListener("click", () => decide("approved", approve));
+
+  const reject = document.createElement("button");
+  reject.type = "button";
+  reject.className = "case-share";
+  reject.textContent = "Reject";
+  reject.addEventListener("click", () => decide("rejected", reject));
+
+  actions.append(approve, reject);
+  item.append(heading, link);
+  if (suggestion.note) {
+    const note = document.createElement("p");
+    note.className = "suggestion-note";
+    note.textContent = suggestion.note;
+    item.append(note);
+  }
+  item.append(labelField, notesField, actions, result);
+  return item;
+}
+
+function updateSuggestionCount() {
+  const remaining = suggestionList.childElementCount;
+  suggestionCount.textContent = remaining
+    ? `${remaining} suggested source${remaining > 1 ? "s" : ""} waiting`
+    : "No suggested sources waiting.";
+}
+
+async function loadSuggestions() {
+  const response = await fetch("../api/admin/source-suggestions?status=pending", { cache: "no-store" });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error ?? "Unable to load suggested sources.");
+  suggestionList.replaceChildren(...data.suggestions.map(suggestionCard));
+  updateSuggestionCount();
+}
+
 list.addEventListener("change", showSubmission);
 form.querySelectorAll("[data-status]").forEach((button) => button.addEventListener("click", updateSubmission));
 loadQueue().catch((error) => {
   status.textContent = error.message || "Unable to load review queue.";
   status.classList.add("error");
+});
+loadSuggestions().catch((error) => {
+  suggestionCount.textContent = error.message || "Unable to load suggested sources.";
+  suggestionCount.classList.add("error");
 });

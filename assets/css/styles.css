@@ -98,6 +98,7 @@
   .metric .mv{font-size:15.5px;line-height:1.35;color:var(--ink);overflow-wrap:anywhere}
   .metric .mv b{font-family:var(--display);font-weight:800;letter-spacing:-.01em}
   .est{font-family:var(--mono);font-weight:700;font-size:8.5px;letter-spacing:.1em;color:var(--amber);border:1px solid var(--amber-soft);padding:1px 4px}
+  .mono{font-family:var(--mono);font-size:.9em;overflow-wrap:anywhere}
   .expandbar{display:block;width:100%;padding:12px 24px 18px;font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--ink-faint);background:none;border:0;cursor:pointer;user-select:none}
   .expandbar:hover{color:var(--redline)}
   .case-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-right:14px}
@@ -129,6 +130,32 @@
   .src:hover{border-color:var(--constructive);background:rgba(31,92,84,.06)}
   .src.todo{color:var(--redline-soft);border-style:dashed;border-color:var(--redline-soft);cursor:default}
   .src.todo:hover{background:none}
+  .src.reader{display:inline-flex;flex-direction:column;gap:2px;align-items:flex-start}
+  .src.reader small{font-size:8.5px;letter-spacing:.1em;color:var(--ink-faint);text-transform:uppercase}
+  .suggest-source{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--rule-strong);padding-bottom:2px}
+  .suggest-source:hover,.suggest-source:focus-visible{color:var(--redline);border-bottom-color:var(--redline)}
+
+  .more-cases[hidden]{display:none}
+  .more-toggle{margin-left:6px;padding:0;border:0;background:none;font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--redline);text-decoration:underline;cursor:pointer}
+  .more-toggle:hover,.more-toggle:focus-visible{color:var(--ink)}
+
+  .to-top{position:fixed;right:20px;bottom:20px;z-index:40;display:inline-flex;align-items:center;gap:6px;padding:10px 13px;border:1px solid var(--rule-strong);background:var(--paper-raised);color:var(--ink-soft);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .18s,transform .18s,visibility .18s}
+  .to-top.visible{opacity:1;visibility:visible;transform:none}
+  .to-top:hover,.to-top:focus-visible{border-color:var(--redline);color:var(--redline)}
+  @media (prefers-reduced-motion:reduce){.to-top{transition:none}}
+
+  .target-case{margin:0 0 20px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .target-case.error{color:var(--redline)}
+  .review-section{margin-top:48px;padding-top:28px;border-top:2px solid var(--rule-strong)}
+  .review-section h2{margin:0 0 8px;font-family:var(--display);font-size:24px}
+  .suggestion-list{display:grid;gap:16px;margin:16px 0 0;padding:0;list-style:none}
+  .suggestion{display:grid;gap:10px;padding:18px;border:1px solid var(--rule-strong);border-left:4px solid var(--amber-soft);background:var(--paper-raised)}
+  .suggestion h3{margin:0;font-family:var(--display);font-size:17px}
+  .suggestion-url{font-family:var(--mono);font-size:11px;overflow-wrap:anywhere;color:var(--constructive)}
+  .suggestion-note{margin:0;color:var(--ink-soft)}
+  .suggestion label{display:grid;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .suggestion input{width:100%;padding:9px 11px;border:1px solid var(--rule-strong);border-radius:0;background:var(--paper);font:15px/1.5 var(--serif);letter-spacing:normal;text-transform:none;color:var(--ink)}
+  .suggestion input:focus{outline:2px solid var(--redline);outline-offset:-1px}
 
   footer{border-top:2px solid var(--ink);margin-top:40px;padding:38px 0 60px;background:var(--paper-sunken)}
   footer .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px}
@@ -196,6 +223,8 @@
     .minister-table td:last-child{border-bottom:none}
     .minister-table td::before{content:attr(data-label);flex:0 0 auto;max-width:45%;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:left}
     .minister-table td.table-empty{display:block;text-align:center;border-bottom:none}
+    .more-toggle{display:inline-block;margin-left:0;padding:4px 0}
+    .to-top{right:12px;bottom:12px;padding:9px 11px}
   }
   @media (max-width:480px){
     .filehead{padding:18px 16px 14px}

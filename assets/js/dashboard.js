@@ -55,19 +55,27 @@ function dashboard(cases) {
   return [...groups.values()].sort((a, b) => b.cases.length - a.cases.length || a.name.localeCompare(b.name));
 }
 
+const VISIBLE_CASES = 3;
+
+function caseLink(caseFile) {
+  const id = caseFile.id ?? `case-${caseFile.no}`;
+  return `<a href="../?case=${encodeURIComponent(id)}">${escapeHTML(caseFile.title)}</a>`;
+}
+
 function render(groups) {
   const query = search.value.trim().toLocaleLowerCase();
   const filtered = groups.filter((group) => group.name.toLocaleLowerCase().includes(query));
   count.textContent = `${filtered.length} office-holders shown`;
   rows.innerHTML = filtered.map((group) => {
-    const links = group.cases
-      .slice(0, 3)
-      .map((caseFile) => `<a href="../?case=${encodeURIComponent(caseFile.id ?? `case-${caseFile.no}`)}">${escapeHTML(caseFile.title)}</a>`)
-      .join(", ");
-    const remaining = group.cases.length > 3 ? ` +${group.cases.length - 3} more` : "";
+    const links = group.cases.slice(0, VISIBLE_CASES).map(caseLink).join(", ");
+    const hidden = group.cases.slice(VISIBLE_CASES);
+    const rest = hidden.length
+      ? `<span class="more-cases" data-count="${hidden.length}" hidden>, ${hidden.map(caseLink).join(", ")}</span>`
+        + `<button type="button" class="more-toggle" aria-expanded="false">+${hidden.length} more</button>`
+      : "";
     const outcomes = [...group.outcomes].slice(0, 2).map(escapeHTML).join(" · ");
     return `<tr>
-      <th scope="row"><span>${escapeHTML(group.name)}</span><small>${links}${remaining}</small></th>
+      <th scope="row"><span>${escapeHTML(group.name)}</span><small>${links}${rest}</small></th>
       <td data-label="Cases">${group.cases.length}</td>
       <td data-label="Estimated costs">${formatCost(group.cost)}</td>
       <td data-label="Estimated deaths">${formatDeaths(group.deaths)}</td>
@@ -75,6 +83,18 @@ function render(groups) {
     </tr>`;
   }).join("") || "<tr><td class=\"table-empty\" colspan=\"5\">No office-holder matches that search.</td></tr>";
 }
+
+// Delegated so the handler survives every re-render of the table body.
+rows.addEventListener("click", (event) => {
+  const toggle = event.target.closest(".more-toggle");
+  if (!toggle) return;
+  const extra = toggle.parentElement.querySelector(".more-cases");
+  if (!extra) return;
+  const expanded = extra.hidden;
+  extra.hidden = !expanded;
+  toggle.setAttribute("aria-expanded", String(expanded));
+  toggle.textContent = expanded ? "show fewer" : `+${extra.dataset.count} more`;
+});
 
 loadCases()
   .then((cases) => {

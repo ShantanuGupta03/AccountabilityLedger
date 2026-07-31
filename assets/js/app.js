@@ -3,6 +3,7 @@
    Case records live in ../data/cases.json and are loaded as read-only content.
    ========================================================================== */
 let DATA = [];
+let READER_SOURCES = {};
 
 /* ---------- render ---------- */
 let CATS=[];
@@ -108,9 +109,14 @@ function card(d){
   const caseId=text(d.id??`case-${d.no}`).replace(/[^a-zA-Z0-9_-]/g,"");
   const bodyId=`details-${caseId}`;
   const props=d.ministers.map(m=>`<div class="prop"><small>${escapeHTML(m.r)}</small><b>${escapeHTML(m.n)}</b></div>`).join("");
+  const reader=READER_SOURCES[caseId]??[];
   const srcs=d.sources.map(s=>s.todo
-    ? `<span class="src todo">${escapeHTML(s.label)}, add link</span>`
-    : `<a class="src" href="${safeURL(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(s.label)} &#8599;</a>`).join("");
+    ? `<span class="src todo">${escapeHTML(s.label)} &middot; source needed</span>`
+    : `<a class="src" href="${safeURL(s.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(s.label)} &#8599;</a>`)
+    .concat(reader.map(s=>`<a class="src reader" href="${safeURL(s.url)}" target="_blank" rel="nofollow ugc noopener noreferrer">${escapeHTML(s.label)} &#8599;<small>added by a reader</small></a>`))
+    .join("");
+  const suggestHref=`./suggest/?case=${encodeURIComponent(caseId)}&title=${encodeURIComponent(d.title)}`;
+  const readerNote=reader.length?` &middot; ${reader.length} added by readers`:"";
   const alleg=d.alleg?`<div class="field alleg"><div class="k">Contested / alleged</div><div class="v">${safeRichText(d.alleg)}</div></div>`:"";
   const pos=d.pos?`<div class="field pos"><div class="k">The government's position</div><div class="v">${safeRichText(d.pos)}</div></div>`:"";
   return `
@@ -135,7 +141,9 @@ function card(d){
       <div class="field"><div class="k">Ministers and office-holders responsible</div><div class="v"><div class="propchips">${props}</div></div></div>
       ${alleg}${pos}
       <div class="field alt"><div class="k">What accountability should have looked like</div><div class="v">${safeRichText(d.alt)}</div></div>
-      <div class="field"><div class="k">Sources, verify before publishing</div><div class="v"><div class="sources">${srcs}</div></div></div>
+      <div class="field"><div class="k">Sources${readerNote}</div><div class="v"><div class="sources">${srcs}</div>
+        <a class="suggest-source" href="${suggestHref}">Know a source for this case? Add one &#8594;</a>
+      </div></div>
     </div></div>
   </article>`;
 }
@@ -221,6 +229,17 @@ async function loadPublishedCases(){
   }
 }
 
+async function loadReaderSources(){
+  try{
+    const response=await fetch("./api/case-sources",{cache:"no-cache"});
+    if(!response.ok) return {};
+    const payload=await response.json();
+    return payload.sources&&typeof payload.sources==="object"?payload.sources:{};
+  }catch{
+    return {};
+  }
+}
+
 async function loadCases(){
   timeline.setAttribute("aria-busy","true");
   try{
@@ -228,7 +247,9 @@ async function loadCases(){
     if(!response.ok) throw new Error(`Could not load cases: ${response.status}`);
     const cases=await response.json();
     if(!Array.isArray(cases)) throw new TypeError("Case data must be an array");
-    DATA=normalizeCases(cases,await loadPublishedCases());
+    const [published,readerSources]=await Promise.all([loadPublishedCases(),loadReaderSources()]);
+    READER_SOURCES=readerSources;
+    DATA=normalizeCases(cases,published);
     readUrlState();
     setupControls();
     render();

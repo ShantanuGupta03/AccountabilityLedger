@@ -95,6 +95,33 @@ export async function hash(value, salt) {
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+export async function verifyTurnstile(token, secret, remoteip) {
+  const body = new FormData();
+  body.append("secret", secret);
+  body.append("response", token);
+  if (remoteip) body.append("remoteip", remoteip);
+
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    body,
+  });
+  const result = await response.json();
+  return result.success === true;
+}
+
+/** Case ids come from the URL, so keep them to the same shape the front end generates. */
+export function parseCaseId(value) {
+  if (!isNonEmptyString(value, 120)) throw new TypeError("A case reference is required.");
+  const caseId = value.trim();
+  if (!/^[A-Za-z0-9_-]+$/.test(caseId)) throw new TypeError("That case reference is not valid.");
+  return caseId;
+}
+
+export async function clientIpHash(context) {
+  const clientIp = context.request.headers.get("CF-Connecting-IP") ?? "unknown";
+  return hash(clientIp, context.env.SUBMISSION_HASH_SALT);
+}
+
 export async function requireReviewer(context) {
   const accessAssertion = context.request.headers.get("CF-Access-Jwt-Assertion");
   const email = accessAssertion ? await verifiedAccessEmail(accessAssertion, context.env) : null;
