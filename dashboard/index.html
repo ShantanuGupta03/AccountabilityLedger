@@ -6,24 +6,29 @@
   <title>Minister dashboard · Accountability Ledger</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
   <header class="masthead compact-masthead">
     <div class="wrap">
-      <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Portfolio dashboard</span></div>
+      <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="dash_flag_tag">Portfolio dashboard</span></div>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="../">Ledger</a>
-        <a href="./" aria-current="page">Minister dashboard</a>
-        <a href="../submit/">Submit an incident</a>
-        <a href="../suggest/">Suggest a source</a>
-        <a href="../corrections/">Corrections</a>
+        <a href="../" data-i18n="nav_ledger">Ledger</a>
+        <a href="./" aria-current="page" data-i18n="nav_dashboard">Minister dashboard</a>
+        <a href="../submit/" data-i18n="nav_submit">Submit an incident</a>
+        <a href="../suggest/" data-i18n="nav_suggest">Suggest a source</a>
+        <a href="../corrections/" data-i18n="nav_corrections">Corrections</a>
+        <span class="lang-switch" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="hi" aria-pressed="false">हि</button>
+        </span>
       </nav>
+      <p class="lang-notice" data-lang-notice data-i18n="notice_case_lang" hidden></p>
       <div class="hero">
-        <div class="eyebrow">Patterns of responsibility</div>
-        <h1 class="title">Who held<br><span class="thin">the file?</span></h1>
-        <p class="standfirst">A portfolio view of the cases in this ledger. It groups cases by who held the relevant office at the time. The figures are the totals recorded <em>in those cases</em>, and they are not attributed to the office-holder as an individual.</p>
+        <div class="eyebrow" data-i18n="dash_eyebrow">Patterns of responsibility</div>
+        <h1 class="title"><span data-i18n="dash_title_main">Who held</span><br><span class="thin" data-i18n="dash_title_thin">the file?</span></h1>
+        <p class="standfirst" data-i18n-html="dash_standfirst">A portfolio view of the cases in this ledger. It groups cases by who held the relevant office at the time. The figures are the totals recorded <em>in those cases</em>, and they are not attributed to the office-holder as an individual.</p>
       </div>
     </div>
   </header>
@@ -31,10 +36,10 @@
   <main class="wrap dashboard-page">
     <div id="dashboard-view">
       <div class="dashboard-controls">
-        <label class="search">Search office-holder<input id="minister-search" type="search" placeholder="Search a minister or office-holder" aria-label="Search office-holders"></label>
+        <label class="search"><span data-i18n="dash_search_label">Search office-holder</span><input id="minister-search" type="search" placeholder="Search a minister or office-holder" aria-label="Search office-holders" data-i18n-placeholder="dash_search_placeholder"></label>
         <p id="dashboard-count" class="dashboard-count"></p>
       </div>
-      <p class="queue-warning" id="dashboard-caveat">
+      <p class="queue-warning" id="dashboard-caveat" data-i18n-html="dash_caveat_text">
         Read every figure below as <strong>"recorded in cases under this portfolio"</strong>, never as
         "caused by this person". Holding an office at the time a failure happened is a matter of public
         record. It is not a finding of personal responsibility for any death or any rupee, and nothing on
@@ -44,11 +49,11 @@
         <table class="minister-table">
           <thead>
             <tr>
-              <th>Office-holder / portfolio</th>
-              <th>Cases</th>
-              <th>Costs recorded in those cases</th>
-              <th>Deaths in cases under this portfolio</th>
-              <th>Recorded accountability outcome</th>
+              <th data-i18n="th_holder">Office-holder / portfolio</th>
+              <th data-i18n="th_cases">Cases</th>
+              <th data-i18n="th_costs">Costs recorded in those cases</th>
+              <th data-i18n="th_deaths">Deaths in cases under this portfolio</th>
+              <th data-i18n="th_outcome">Recorded accountability outcome</th>
             </tr>
           </thead>
           <tbody id="minister-rows"></tbody>
@@ -59,6 +64,7 @@
   </main>
 
   <script src="../assets/js/source-utils.js" defer></script>
+  <script src="../assets/js/i18n.js" defer></script>
   <script src="../assets/js/dashboard.js" defer></script>
   <script src="../assets/js/to-top.js" defer></script>
 </body>

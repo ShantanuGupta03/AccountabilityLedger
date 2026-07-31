@@ -81,8 +81,30 @@ function ogSvg({ title, stamp, stat, label }) {
 </svg>`;
 }
 
+/**
+ * Must stay in step with splitOfficeHolders in assets/js/dashboard.js, because
+ * the slugs generated here are the URLs that page links to. A comma inside
+ * brackets is part of one name, not a separator between two office-holders.
+ */
+const NON_SPLIT_NAMES = new Set(["ministry of environment, forest and climate change"]);
+
 function splitOfficeHolders(name) {
-  return String(name).split(/\s*\/\s*|\s*,\s*/).map((item) => item.trim()).filter(Boolean);
+  if (NON_SPLIT_NAMES.has(String(name).trim().toLowerCase())) return [String(name).trim()];
+  const parts = [];
+  let buffer = "";
+  let depth = 0;
+  for (const char of String(name)) {
+    if (char === "(") depth += 1;
+    else if (char === ")") depth = Math.max(0, depth - 1);
+    if ((char === "/" || char === ",") && depth === 0) {
+      parts.push(buffer);
+      buffer = "";
+      continue;
+    }
+    buffer += char;
+  }
+  parts.push(buffer);
+  return parts.map((item) => item.trim()).filter(Boolean);
 }
 
 export async function generatePages(cases, outputDir) {
@@ -118,6 +140,9 @@ export async function generatePages(cases, outputDir) {
 
   const groups = new Map();
   for (const caseFile of cases) {
+    const estimates = caseFile.estimates ?? {};
+    const cost = Number(estimates.costInrCrore) || 0;
+    const deaths = Number(estimates.deaths) || 0;
     const namesInCase = new Map();
     for (const minister of caseFile.ministers ?? []) {
       for (const name of splitOfficeHolders(minister.n)) {
@@ -126,8 +151,10 @@ export async function generatePages(cases, outputDir) {
       }
     }
     for (const [key, name] of namesInCase) {
-      const group = groups.get(key) ?? { name, cases: [] };
+      const group = groups.get(key) ?? { name, cases: [], cost: 0, deaths: 0 };
       group.cases.push(caseFile);
+      group.cost += cost;
+      group.deaths += deaths;
       groups.set(key, group);
     }
   }
@@ -135,29 +162,36 @@ export async function generatePages(cases, outputDir) {
   for (const group of groups.values()) {
     const slug = slugify(group.name);
     if (!slug) continue;
+    // "Nobody answering" mirrors the ledger's own severity legend: a red case is
+    // one recorded as no accountability / denied / struck down.
+    const unanswered = group.cases.filter((c) => c.sev !== "amber").length;
+    const n = group.cases.length;
     const ogName = `minister-${slug}.svg`;
     await writeFile(
       join(outputDir, "assets/og", ogName),
       ogSvg({
         title: group.name,
-        stamp: "Portfolio on the ledger",
-        stat: `${group.cases.length} case${group.cases.length === 1 ? "" : "s"} recorded`,
-        label: "Office-holder",
+        stamp: `${n} failure${n === 1 ? "" : "s"} on file. ${unanswered} with nobody answering.`,
+        stat: "Still in the running.",
+        label: "Personnel file",
       }),
       "utf8",
     );
     const list = group.cases
       .sort((a, b) => b.sk - a.sk)
-      .map((c) => `<li><a href="../../?case=${encodeURIComponent(caseId(c))}">${escapeHtml(c.title)}</a> <span class="fine">${escapeHtml(c.date)}</span></li>`)
+      .map((c) => `<li><a href="../../?case=${encodeURIComponent(caseId(c))}">${escapeHtml(c.title)}</a> <span class="fine">${escapeHtml(c.date)} &middot; ${escapeHtml(c.stamp ?? "")}</span></li>`)
       .join("");
     const html = shareShell({
-      title: `${group.name} · Accountability Ledger`,
-      description: `${group.cases.length} cases in this ledger name ${group.name} as the relevant office-holder.`,
+      title: `${group.name} · Personnel file · Accountability Ledger`,
+      description: `${n} failure${n === 1 ? "" : "s"} on file under ${group.name}. ${unanswered} of them closed with nobody answering for anything.`,
       path: `/minister/${slug}/`,
       imagePath: `/assets/og/${ogName}`,
       redirect: `../../dashboard/?minister=${encodeURIComponent(group.name)}`,
       cssHref: "../../assets/css/styles.css",
-      body: `<h1>${escapeHtml(group.name)}</h1><p class="standfirst">Cases grouped by portfolio. Figures on the dashboard are totals <em>recorded in these cases</em>, not attributed to the individual.</p><ul class="thread-list">${list}</ul>`,
+      body: `<p class="eyebrow">Personnel file</p><h1>${escapeHtml(group.name)}</h1>`
+        + `<p class="standfirst">${n} failure${n === 1 ? "" : "s"} recorded on this file. ${unanswered} of them closed with nobody answering for anything.</p>`
+        + `<p class="fine">Figures are totals <em>recorded in these cases</em>, never attributed to the individual. Holding an office when a failure happened is a matter of public record, not a finding of personal responsibility.</p>`
+        + `<ul class="thread-list">${list}</ul>`,
     });
     const dir = join(outputDir, "minister", slug);
     await mkdir(dir, { recursive: true });
