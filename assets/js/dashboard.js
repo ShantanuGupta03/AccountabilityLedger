@@ -6,6 +6,9 @@ const count = document.querySelector("#dashboard-count");
 const slugify = window.SourceUtils?.slugify ?? ((name) => String(name).toLowerCase().replace(/\s+/g, "-"));
 const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 const t = (key, vars) => window.LedgerI18n?.t(key, vars) ?? "";
+const caseField = (caseFile, field) => window.LedgerI18n?.caseField(caseFile, field) ?? caseFile?.[field] ?? "";
+const category = (name) => window.LedgerI18n?.category(name) ?? name;
+window.LedgerI18n?.setCaseStringsBase("../");
 
 function ministerLink(name) {
   const slug = slugify(name);
@@ -44,14 +47,26 @@ function splitOfficeHolders(name) {
   return parts.map((item) => item.trim()).filter(Boolean);
 }
 
+const SU = window.SourceUtils;
+
+/** Indian units lead everywhere; the international reading is on hover and tap. */
 function formatCost(value) {
-  if (!value) return "—";
-  return value >= 100000 ? `₹${(value / 100000).toFixed(2)}L cr` : `₹${Math.round(value).toLocaleString("en-IN")} cr`;
+  const primary = SU?.formatCrore(value);
+  return primary ? SU.figure(primary, SU.croreToUsd(value)) : "—";
 }
 
 function formatDeaths(value) {
-  if (!value) return "—";
-  return value >= 1000000 ? `${(value / 1000000).toFixed(2)}M` : Math.round(value).toLocaleString("en-IN");
+  const primary = SU?.formatPeople(value);
+  return primary ? SU.figure(primary, SU.peopleToInternational(value)) : "—";
+}
+
+/** The plain string, for places that cannot take markup. */
+function plainCost(value) {
+  return SU?.formatCrore(value) ?? "—";
+}
+
+function plainDeaths(value) {
+  return SU?.formatPeople(value) ?? "—";
 }
 
 async function loadCases() {
@@ -59,9 +74,12 @@ async function loadCases() {
     if (!response.ok) throw new Error("Unable to load the ledger.");
     return response.json();
   });
-  const published = await fetch("../api/cases")
-    .then((response) => response.ok ? response.json() : { cases: [] })
-    .catch(() => ({ cases: [] }));
+  const [published] = await Promise.all([
+    fetch("../api/cases")
+      .then((response) => response.ok ? response.json() : { cases: [] })
+      .catch(() => ({ cases: [] })),
+    window.LedgerI18n?.ensureCaseStrings(),
+  ]);
   return [...staticCases, ...(published.cases ?? [])];
 }
 
@@ -96,7 +114,7 @@ const VISIBLE_CASES = 3;
 
 function caseLink(caseFile) {
   const id = caseFile.id ?? `case-${caseFile.no}`;
-  return `<a href="../?case=${encodeURIComponent(id)}">${escapeHTML(caseFile.title)}</a>`;
+  return `<a href="../?case=${encodeURIComponent(id)}">${escapeHTML(caseField(caseFile, "title"))}</a>`;
 }
 
 function renderTable(groups) {
@@ -110,7 +128,9 @@ function renderTable(groups) {
       ? `<span class="more-cases" data-count="${hidden.length}" hidden>, ${hidden.map(caseLink).join(", ")}</span>`
         + `<button type="button" class="more-toggle" aria-expanded="false">${escapeHTML(t("more_n", { n: hidden.length }))}</button>`
       : "";
-    const outcomes = [...group.outcomes].slice(0, 2).map(escapeHTML).join(" · ");
+    // Derived at render time, not at grouping time, so a language switch reaches them.
+    const outcomes = [...new Set(group.cases.map((c) => caseField(c, "stamp")).filter(Boolean))]
+      .slice(0, 2).map(escapeHTML).join(" · ");
     return `<tr>
       <th scope="row"><span>${ministerLink(group.name)}</span><small>${links}${rest}</small></th>
       <td data-label="${escapeHTML(t("th_cases"))}">${group.cases.length}</td>
@@ -232,10 +252,10 @@ function jobEntry(caseFile, key) {
       <span class="resume-job-role">${escapeHTML(role)}</span>
       <span class="resume-job-date">${escapeHTML(caseFile.date ?? "")}</span>
     </div>
-    <p class="resume-job-project">${caseLink(caseFile)}<span class="resume-job-cat"> · ${escapeHTML(caseFile.cat ?? "")}</span></p>
+    <p class="resume-job-project">${caseLink(caseFile)}<span class="resume-job-cat"> · ${escapeHTML(category(caseFile.cat ?? ""))}</span></p>
     <p class="resume-job-desc">${escapeHTML(caseFile.what ?? "")}</p>
     ${handled}
-    <p class="resume-job-outcome ${tone}">${escapeHTML(caseFile.stamp ?? "")}</p>
+    <p class="resume-job-outcome ${tone}">${escapeHTML(caseField(caseFile, "stamp"))}</p>
   </li>`;
 }
 
@@ -243,7 +263,8 @@ function outcomeTally(cases) {
   const tally = new Map();
   cases.forEach((c) => {
     if (!c.stamp) return;
-    tally.set(c.stamp, (tally.get(c.stamp) ?? 0) + 1);
+    const label = caseField(c, "stamp");
+    tally.set(label, (tally.get(label) ?? 0) + 1);
   });
   return [...tally.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }
@@ -257,6 +278,17 @@ function competenciesFor(cases) {
     }))
     .filter((competency) => competency.n > 0)
     .sort((a, b) => b.n - a.n);
+}
+
+/**
+ * The "Questions" line. If this office-holder has a case on file about refusing
+ * to face the press, that case is cited by name and linked, rather than the
+ * generic line — the specific, sourced version is the one that lands.
+ */
+function pressLine(cases) {
+  const onRecord = cases.find((c) => /press conference|took the questions/i.test(`${c.title} ${c.stamp}`));
+  if (!onRecord) return escapeHTML(t("cv_press"));
+  return `${escapeHTML(t("cv_press_never"))} ${caseLink(onRecord)}`;
 }
 
 /** A collapsible block. Native <details> so it works without JS and stays accessible. */
@@ -281,13 +313,14 @@ function renderProfile(group) {
   const slug = slugify(group.name);
   const shareUrl = new URL(`../minister/${encodeURIComponent(slug)}/`, location.href).href;
 
+  // num is already-safe HTML: plain counts are escaped here, figures by figure().
   const metrics = [
-    { num: cases.length, lbl: t("cv_postings") },
+    { num: escapeHTML(String(cases.length)), lbl: t("cv_postings") },
     { num: formatCost(group.cost), lbl: t("cv_costs") },
     { num: formatDeaths(group.deaths), lbl: t("cv_deaths") },
-    { num: unanswered, lbl: t("cv_unanswered") },
+    { num: escapeHTML(String(unanswered)), lbl: t("cv_unanswered") },
   ].map((metric) => `<div class="resume-metric">
-      <span class="resume-metric-num">${escapeHTML(String(metric.num))}</span>
+      <span class="resume-metric-num">${metric.num}</span>
       <span class="resume-metric-lbl">${escapeHTML(metric.lbl)}</span>
     </div>`).join("");
 
@@ -304,7 +337,7 @@ function renderProfile(group) {
       <div class="resume-share">
         <button type="button" class="resume-share-btn" data-share-url="${escapeHTML(shareUrl)}">${escapeHTML(t("cv_share"))}</button>
         <button type="button" class="resume-share-btn" data-copy-url="${escapeHTML(shareUrl)}">${escapeHTML(t("cv_copy"))}</button>
-        <a class="resume-share-btn" href="../minister/${encodeURIComponent(slug)}/">${escapeHTML(t("cv_card"))}</a>
+        <a class="resume-share-btn" href="../assets/og/minister-${encodeURIComponent(slug)}.svg" target="_blank" rel="noopener">${escapeHTML(t("cv_card"))}</a>
       </div>
     </div>
 
@@ -333,7 +366,7 @@ function renderProfile(group) {
         <dl class="resume-contact">
           <div><dt>${escapeHTML(t("cv_addr_label"))}</dt><dd>${escapeHTML(officeAddress(group.name, currentRole))}</dd></div>
           <div><dt>${escapeHTML(t("cv_grievance_label"))}</dt><dd>${escapeHTML(t("cv_grievance"))}</dd></div>
-          <div><dt>${escapeHTML(t("cv_press_label"))}</dt><dd>${escapeHTML(t("cv_press"))}</dd></div>
+          <div><dt>${escapeHTML(t("cv_press_label"))}</dt><dd>${pressLine(cases)}</dd></div>
         </dl>
       </section>
 

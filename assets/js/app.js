@@ -7,6 +7,9 @@ let READER_SOURCES = {};
 const { classify, tierMeta } = window.SourceUtils ?? { classify: () => 2, tierMeta: () => ({ short: "T2", name: "Reporting", hint: "" }) };
 /** Falls back to the key's English when i18n has not loaded. */
 const t = (key, vars) => window.LedgerI18n?.t(key, vars) ?? "";
+/** Case title/stamp/category in the active language, English if untranslated. */
+const caseField = (caseFile, field) => window.LedgerI18n?.caseField(caseFile, field) ?? caseFile?.[field] ?? "";
+const category = (name) => window.LedgerI18n?.category(name) ?? name;
 
 function sourceChip(source, { reader = false } = {}) {
   if (source.todo) {
@@ -91,30 +94,26 @@ function totalEstimates(){
   },{costInrCrore:0,deaths:0});
 }
 
-function formatCostEstimate(costInrCrore){
-  if(!costInrCrore) return "--";
-  return costInrCrore>=100000
-    ? `≈₹${(costInrCrore/100000).toFixed(2)}L cr`
-    : `≈₹${Math.round(costInrCrore).toLocaleString("en-IN")} cr`;
-}
+const SU=window.SourceUtils;
 
-function formatHumanToll(deaths){
-  if(!deaths) return "--";
-  return deaths>=1000000
-    ? `≈${(deaths/1000000).toFixed(2)}M`
-    : `≈${Math.round(deaths).toLocaleString("en-IN")}`;
+/** Indian units lead; the dollar/million reading is the one you hover or tap for. */
+function docketFigure(primary,alternate){
+  if(!primary) return "--";
+  return SU?.figure ? SU.figure(`≈${primary}`,alternate) : `≈${primary}`;
 }
 
 function setupControls(){
   CATS=[...new Set(DATA.map(d=>d.cat))].sort();
   const estimates=totalEstimates();
   $("#stat-total").textContent=DATA.length;
-  $("#stat-cost").textContent=formatCostEstimate(estimates.costInrCrore);
-  $("#stat-toll").textContent=formatHumanToll(estimates.deaths);
+  $("#stat-cost").innerHTML=docketFigure(SU?.formatCrore(estimates.costInrCrore),SU?.croreToUsd(estimates.costInrCrore));
+  $("#stat-toll").innerHTML=docketFigure(SU?.formatPeople(estimates.deaths),SU?.peopleToInternational(estimates.deaths));
   catchips.replaceChildren();
   CATS.forEach(c=>{
     const b=document.createElement("button");
-    b.className="chip cat"; b.textContent=c; b.setAttribute("aria-pressed",state.cats.has(c));
+    // Label is translated; the filter value stays the English category so URLs
+    // and shared links keep working across a language switch.
+    b.className="chip cat"; b.textContent=category(c); b.setAttribute("aria-pressed",state.cats.has(c));
     b.onclick=()=>{ state.cats.has(c)?state.cats.delete(c):state.cats.add(c);
       b.setAttribute("aria-pressed",state.cats.has(c)); syncUrl({caseId:null}); render(); };
     catchips.appendChild(b);
@@ -135,7 +134,10 @@ function card(d){
   const srcs = d.sources.map((s) => sourceChip(s))
     .concat(reader.map((s) => sourceChip(s, { reader: true })))
     .join("");
-  const sharePath = `./case/${encodeURIComponent(caseId)}/`;
+  // The card image itself. /case/<id>/ is the crawler page and bounces a human
+  // straight back here, so pointing "share card" at it looked like a dead button.
+  const cardPath = `./assets/og/${encodeURIComponent(caseId)}.svg`;
+  // The English title goes to the suggest form: the review queue works in English.
   const suggestHref=`./suggest/?case=${encodeURIComponent(caseId)}&title=${encodeURIComponent(d.title)}`;
   const readerNote=reader.length?` &middot; ${reader.length} ${escapeHTML(t("sources_reader_note"))}`:"";
   const alleg=d.alleg?`<div class="field alleg"><div class="k">${escapeHTML(t("field_alleged"))}</div><div class="v">${safeRichText(d.alleg)}</div></div>`:"";
@@ -144,8 +146,8 @@ function card(d){
   <article class="file sev-${severity}" id="case-${caseId}" data-case-id="${escapeHTML(caseId)}" data-cat="${escapeHTML(d.cat)}">
     <div class="filehead" role="button" tabindex="0" aria-controls="${bodyId}" aria-expanded="false">
       <div class="caseno">No.<span class="n">${escapeHTML(String(d.no).padStart(2,"0"))}</span></div>
-      <div class="headmid"><div class="cat">${escapeHTML(d.cat)}</div><h3>${escapeHTML(d.title)}</h3><div class="date">${escapeHTML(d.date)}</div></div>
-      <div class="stamp ${severity==="amber"?"amber":""}">${escapeHTML(d.stamp)}</div>
+      <div class="headmid"><div class="cat">${escapeHTML(category(d.cat))}</div><h3>${escapeHTML(caseField(d,"title"))}</h3><div class="date">${escapeHTML(d.date)}</div></div>
+      <div class="stamp ${severity==="amber"?"amber":""}">${escapeHTML(caseField(d,"stamp"))}</div>
     </div>
     <div class="metrics">
       ${metric(t("card_human"),d.human)}
@@ -155,7 +157,7 @@ function card(d){
     <div class="case-actions">
       <button class="expandbar" type="button" aria-controls="${bodyId}" aria-expanded="false">${escapeHTML(t("card_open"))}</button>
       <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}">${escapeHTML(t("card_copy"))}</button>
-      <a class="case-share" href="${sharePath}">${escapeHTML(t("card_share"))}</a>
+      <a class="case-share" href="${cardPath}" target="_blank" rel="noopener">${escapeHTML(t("card_share"))}</a>
     </div>
     <div class="filebody" id="${bodyId}" aria-hidden="true"><div class="filebody-inner">
       <div class="field"><div class="k">${escapeHTML(t("field_what"))}</div><div class="v">${safeRichText(d.what)}</div></div>
@@ -175,7 +177,9 @@ function render(){
     if(state.cats.size && !state.cats.has(d.cat)) return false;
     if(state.year && d.year!==state.year) return false;
     if(state.q){
-      const hay=(d.title+" "+d.cat+" "+d.what+" "+d.dodge+" "+d.ministers.map(m=>m.n).join(" ")).toLowerCase();
+      // Both languages are searchable, so a Hindi reader can search what they see.
+      const hay=(d.title+" "+d.cat+" "+d.what+" "+d.dodge+" "+d.ministers.map(m=>m.n).join(" ")
+        +" "+caseField(d,"title")+" "+caseField(d,"stamp")+" "+category(d.cat)).toLowerCase();
       if(!hay.includes(state.q)) return false;
     }
     return true;
@@ -265,6 +269,8 @@ async function loadReaderSources(){
   }
 }
 
+window.LedgerI18n?.setCaseStringsBase("./");
+
 async function loadCases(){
   timeline.setAttribute("aria-busy","true");
   try{
@@ -272,7 +278,9 @@ async function loadCases(){
     if(!response.ok) throw new Error(`Could not load cases: ${response.status}`);
     const cases=await response.json();
     if(!Array.isArray(cases)) throw new TypeError("Case data must be an array");
-    const [published,readerSources]=await Promise.all([loadPublishedCases(),loadReaderSources()]);
+    const [published,readerSources]=await Promise.all([
+      loadPublishedCases(),loadReaderSources(),window.LedgerI18n?.ensureCaseStrings(),
+    ]);
     READER_SOURCES=readerSources;
     DATA=normalizeCases(cases,published);
     readUrlState();
@@ -290,6 +298,7 @@ async function loadCases(){
 }
 
 // Case cards are built in JS, so a language switch has to redraw them.
-document.addEventListener("ledger:langchange",()=>{ if(DATA.length) render(); });
+// setupControls too, so the category chips and docket figures re-translate.
+document.addEventListener("ledger:langchange",()=>{ if(DATA.length){ setupControls(); render(); } });
 
 loadCases();
