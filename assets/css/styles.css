@@ -135,6 +135,13 @@
   .suggest-source{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;border-bottom:1px dashed var(--rule-strong);padding-bottom:2px}
   .suggest-source:hover,.suggest-source:focus-visible{color:var(--redline);border-bottom-color:var(--redline)}
 
+  .queue-controls{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:16px}
+  .queue-controls label{display:flex;flex-direction:column;gap:5px;flex:1 1 220px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  .queue-warning{margin:0 0 18px;padding:11px 14px;border-left:4px solid var(--redline);background:var(--paper-sunken);font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+  .danger-action{padding:10px 14px;border:1px solid var(--redline);background:none;color:var(--redline);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .danger-action:hover:not(:disabled),.danger-action:focus-visible{background:var(--redline);color:var(--paper)}
+  .danger-action:disabled{opacity:.5;cursor:not-allowed}
+
   .more-cases[hidden]{display:none}
   .more-toggle{margin-left:6px;padding:0;border:0;background:none;font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--redline);text-decoration:underline;cursor:pointer}
   .more-toggle:hover,.more-toggle:focus-visible{color:var(--ink)}

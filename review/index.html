@@ -22,7 +22,16 @@
   </header>
 
   <main class="wrap form-page">
-    <label class="submission-form">Pending submission<select id="submission-list" aria-label="Pending submission"></select></label>
+    <div class="queue-controls">
+      <label>Queue<select id="queue-status">
+        <option value="pending">Pending review</option>
+        <option value="published">Live on the ledger</option>
+        <option value="approved">Approved, not published</option>
+        <option value="rejected">Rejected</option>
+      </select></label>
+      <label>Submission<select id="submission-list" aria-label="Submission"></select></label>
+    </div>
+    <p class="queue-warning" id="queue-warning" role="status" hidden></p>
     <section id="submission-detail" class="submission-guidance" hidden></section>
     <form id="review-form" class="submission-form" hidden>
       <label>Review notes<textarea id="review-notes" rows="4" maxlength="5000"></textarea></label>
@@ -31,12 +40,18 @@
         <button class="form-submit" type="button" data-status="published">Publish to ledger</button>
         <button class="case-share" type="button" data-status="approved">Keep approved</button>
         <button class="case-share" type="button" data-status="rejected">Reject</button>
+        <button class="danger-action" type="button" id="delete-submission">Erase permanently</button>
       </div>
       <p class="form-status" id="review-status" role="status"></p>
     </form>
 
     <section class="review-section" aria-labelledby="suggestions-title">
       <h2 id="suggestions-title">Suggested sources</h2>
+      <label class="queue-controls">Queue<select id="suggestion-status">
+        <option value="pending">Pending review</option>
+        <option value="approved">Live on the ledger</option>
+        <option value="rejected">Rejected</option>
+      </select></label>
       <p class="dashboard-count" id="suggestion-count">Loading suggested sources…</p>
       <ul class="suggestion-list" id="suggestion-list"></ul>
     </section>

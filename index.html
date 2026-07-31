@@ -19,6 +19,7 @@
       <a href="./dashboard/">Minister dashboard</a>
       <a href="./submit/">Submit an incident</a>
       <a href="./suggest/">Suggest a source</a>
+      <a href="./corrections/">Corrections</a>
     </nav>
     <div class="hero">
       <div class="eyebrow">A charge sheet against a decade of impunity</div>
@@ -45,7 +46,8 @@
       <p><strong>"Ministers responsible" names who held the portfolio</strong>. That is a matter of record, not by itself a charge of personal guilt. Several failures belong to <em>state</em> BJP governments and are labelled as such rather than pinned on the Union.</p>
       <p><strong>Every number tagged <span class="est">EST</span> is an estimate</strong>, often a disputed range. Treat it as order of magnitude and verify before quoting.</p>
       <p><strong>The headline cost and human-toll figures are broad, cumulative estimates</strong>. They sum only the explicit per-case estimates recorded in the data file, including disputed and range-based figures; cases can overlap and the totals are not an audit or a claim that every amount was stolen. Read them as a scale, not a balance sheet: they mix one-off tolls with <em>annual</em> figures, and money raised with money lost. The two largest single entries are ₹24.85 lakh crore of central fuel excise, which is lawful revenue where the accountability question is how it was split with the states and whether the cess reached the funds it was raised for, and roughly 2.1 million deaths attributed to air pollution in one year, 2021.</p>
-      <p><strong>Sources:</strong> most cases carry verified links; a few are marked "add link" for you to fill and check. Nothing is invented. This is a large catalogue, not a complete one. The data lives in one local JSON file, built for you to keep adding.</p>
+      <p><strong>Every case on this page carries at least one link you can open and check.</strong> That is enforced by the build, not by good intentions: a case that cannot be sourced is held back and does not appear here, however well known it is. Where the record is a court judgment, an audit or a government release, that is what is cited. Where a matter is contested, the citation is to the reporting or the filing that documents the dispute. This is a large catalogue, not a complete one.</p>
+      <p><strong>If we have something wrong, say so.</strong> There is a standing <a href="./corrections/">corrections and right-of-reply process</a>, open to anyone, including anyone named on this page.</p>
       <div class="legendrow">
         <div class="legenditem"><span class="swatch red"></span> No accountability / denied / struck down</div>
         <div class="legenditem"><span class="swatch amber"></span> Reversed / partial / alleged / unresolved</div>
@@ -82,11 +84,13 @@
         <h4>What this is</h4>
         <p>A citizen's instrument of oversight in the world's largest democracy. It measures the government against one test that power hates: was anyone ever made to answer? It is deliberately critical, and deliberately open about being so, so that readers judge for themselves.</p>
         <p>Extend it. Every case is one record in <span class="mono">assets/data/cases.json</span>, and submissions from readers go through a review queue before anything is published. The largest democracy on earth deserves a permanent, open accountability ledger. This is a beginning, not the whole of it.</p>
+        <p class="fine">Cases held back as unsourced drafts: <span id="stat-drafts">--</span>. They are not counted in anything above.</p>
       </div>
       <div>
         <h4>How to read it</h4>
-        <p>Treat every <span class="est">EST</span> figure as approximate. Allegations stay attributed to whoever made them and are never asserted here as proven. Several cases are still moving through the courts, so confirm the current legal status before you quote one. Where a case is marked "source needed", the claim is recorded but not yet independently linked.</p>
-        <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Some sources pending verification.</p>
+        <p>Treat every <span class="est">EST</span> figure as approximate. Allegations stay attributed to whoever made them and are never asserted here as proven. Several cases are still moving through the courts, so confirm the current legal status before you quote one. Nothing appears here without a source you can open and check yourself.</p>
+        <p>Found an error, or named on this page and want to answer it? Use the <a href="./corrections/">corrections and right-of-reply desk</a>. Corrections are made in the open.</p>
+        <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Every published claim sourced.</p>
       </div>
     </div>
   </div>

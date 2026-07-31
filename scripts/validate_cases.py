@@ -3,6 +3,10 @@
 
 Run `python3 scripts/validate_cases.py` for a report, or add `--strict` to make
 unverified sources (`todo: true`) and missing estimates fail the run too.
+
+A case with `"status": "draft"` is held back by scripts/build.mjs and never
+reaches the public site, so it is checked far more leniently. The one rule that
+is never relaxed: a case that ships must carry at least one real source URL.
 """
 
 from __future__ import annotations
@@ -22,7 +26,10 @@ REQUIRED_FIELDS = (
     "no", "sk", "year", "date", "cat", "sev", "title", "stamp",
     "human", "cost", "what", "dodge", "ministers", "pos", "alt", "sources",
 )
-OPTIONAL_FIELDS = ("alleg", "estimates", "id")
+OPTIONAL_FIELDS = ("alleg", "estimates", "id", "status")
+
+# Cases default to published; drafts are withheld from the build until sourced.
+STATUSES = {"draft", "published"}
 
 CATEGORIES = {
     "Consumer harm", "Crony capital (alleged)", "Data denial",
@@ -51,6 +58,11 @@ class Report:
 
     def warn(self, where: str, message: str) -> None:
         self.warnings.append(f"{where}: {message}")
+
+
+def is_shipped(case: Any) -> bool:
+    """Mirrors the filter in scripts/build.mjs: anything not marked draft goes live."""
+    return isinstance(case, dict) and case.get("status", "published") != "draft"
 
 
 def _label(case: Any, index: int) -> str:
@@ -99,7 +111,7 @@ def _check_dates(report: Report, where: str, case: dict[str, Any]) -> None:
         report.warn(where, f"date {date_text!r} does not mention its year ({year})")
 
 
-def _check_sources(report: Report, where: str, case: dict[str, Any], strict: bool) -> None:
+def _check_sources(report: Report, where: str, case: dict[str, Any], strict: bool, shipped: bool) -> None:
     sources = case.get("sources")
     if not isinstance(sources, list) or not sources:
         report.error(where, "sources must be a non-empty list")
@@ -122,7 +134,10 @@ def _check_sources(report: Report, where: str, case: dict[str, Any], strict: boo
             if url:
                 report.error(at, "is marked todo but already has a url; drop the todo flag")
             message = f"{label!r} is unverified (todo: true)"
-            report.error(at, message) if strict else report.warn(at, message)
+            if strict and shipped:
+                report.error(at, message)
+            elif shipped:
+                report.warn(at, f"{message}; the build will drop it from the published card")
             continue
         if not isinstance(url, str) or not url.startswith(("http://", "https://")):
             report.error(at, "url must start with http:// or https://")
@@ -132,13 +147,18 @@ def _check_sources(report: Report, where: str, case: dict[str, Any], strict: boo
         verified += 1
 
     if verified == 0:
-        message = "has no source with a real url; every claim should be citable"
-        report.error(where, message) if strict else report.warn(where, message)
+        message = "has no source with a real url; every claim must be citable"
+        if shipped:
+            report.error(where, f"{message}. Source it, or set \"status\": \"draft\" to hold it back")
+        else:
+            report.warn(where, f"{message} (draft, so it is not published)")
 
 
-def _check_estimates(report: Report, where: str, case: dict[str, Any], strict: bool) -> None:
+def _check_estimates(report: Report, where: str, case: dict[str, Any], strict: bool, shipped: bool) -> None:
     estimates = case.get("estimates")
     if estimates is None:
+        if not shipped:
+            return
         message = "has no estimates block, so it adds nothing to the header totals"
         report.error(where, message) if strict else report.warn(where, message)
         return
@@ -168,6 +188,10 @@ def validate_case(report: Report, case: Any, index: int, strict: bool) -> None:
             report.error(where, f"missing required field {field!r}")
     for field in sorted(set(case) - set(REQUIRED_FIELDS) - set(OPTIONAL_FIELDS)):
         report.warn(where, f"unknown field {field!r}")
+
+    shipped = is_shipped(case)
+    if case.get("status", "published") not in STATUSES:
+        report.error(where, f"status {case.get('status')!r} must be one of {sorted(STATUSES)}")
 
     if not isinstance(case.get("no"), int) or case.get("no", 0) < 1:
         report.error(where, "no must be a positive integer")
@@ -209,8 +233,8 @@ def validate_case(report: Report, case: Any, index: int, strict: bool) -> None:
                     report.error(at, f"needs a non-empty {description} ({key!r})")
 
     _check_dates(report, where, case)
-    _check_sources(report, where, case, strict)
-    _check_estimates(report, where, case, strict)
+    _check_sources(report, where, case, strict, shipped)
+    _check_estimates(report, where, case, strict, shipped)
 
 
 def validate_collection(report: Report, cases: list[Any]) -> None:
@@ -288,9 +312,15 @@ def main(argv: list[str] | None = None) -> int:
         validate_case(report, case, index, args.strict)
     validate_collection(report, cases)
 
-    cost, deaths = totals([case for case in cases if isinstance(case, dict)])
+    records = [case for case in cases if isinstance(case, dict)]
+    shipped = [case for case in records if is_shipped(case)]
+    drafts = len(records) - len(shipped)
+    quantified = sum(1 for case in shipped if case.get("estimates"))
+    cost, deaths = totals(shipped)
+
     print(f"Checked {len(cases)} cases in {args.path.relative_to(REPO_ROOT)}")
-    print(f"Header totals: ~Rs {cost:,.0f} crore, ~{deaths:,.0f} deaths")
+    print(f"Publishing {len(shipped)}, holding back {drafts} draft(s)")
+    print(f"Header totals: ~Rs {cost:,.0f} crore, ~{deaths:,.0f} deaths, from {quantified} of {len(shipped)} published cases")
 
     _print(report.warnings, f"Warnings ({len(report.warnings)})")
     _print(report.errors, f"Errors ({len(report.errors)})")

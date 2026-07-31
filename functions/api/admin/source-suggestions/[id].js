@@ -43,3 +43,19 @@ export async function onRequestPatch(context) {
     return json({ error: error instanceof Error ? error.message : "Unable to update the suggestion." }, 400);
   }
 }
+
+/** Erase a suggested source outright. Rejecting one already pulls it from the
+ *  public case; this is for when the stored url or note must not be kept. */
+export async function onRequestDelete(context) {
+  const reviewer = await requireReviewer(context);
+  if (!reviewer) return json({ error: "Reviewer access required." }, 403);
+
+  const suggestion = await context.env.DB
+    .prepare("SELECT id FROM source_suggestions WHERE id = ?")
+    .bind(context.params.id)
+    .first();
+  if (!suggestion) return json({ error: "Suggestion not found." }, 404);
+
+  await context.env.DB.prepare("DELETE FROM source_suggestions WHERE id = ?").bind(suggestion.id).run();
+  return json({ id: suggestion.id, deleted: true });
+}
