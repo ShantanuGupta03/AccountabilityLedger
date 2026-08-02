@@ -206,6 +206,9 @@ const OFFICE_ADDRESSES = [
   [/gujarat/, "Chief Minister's Office, Swarnim Sankul, Gandhinagar – 382010"],
   [/chief minister|\bcm\b/, "Office of the Chief Minister, state secretariat concerned"],
   [/lieutenant governor|\bl-?g\b/, "Raj Bhavan concerned, Government of India"],
+  // A party post is not a public office, and must not be given a government address.
+  [/\bparty president\b|\bbjp president\b|party chief/, "Party headquarters, New Delhi. Not a public office."],
+  [/maharashtra/, "Mantralaya, Madame Cama Road, Mumbai – 400032"],
   // \b matters on "election": "selection" would otherwise match.
   [/\belection commission\b|chief election commissioner/, "Election Commission of India, Nirvachan Sadan, New Delhi – 110001"],
   [/reserve bank|\brbi\b|banking regulator|currency management/, "Reserve Bank of India, Central Office, Shahid Bhagat Singh Marg, Mumbai – 400001"],
@@ -226,6 +229,11 @@ const OFFICE_ADDRESSES = [
   [/statistics|programme implementation|\bplfs\b/, "Ministry of Statistics and Programme Implementation, Sardar Patel Bhawan, New Delhi – 110001"],
   [/personnel|\bdopt\b/, "Department of Personnel and Training, North Block, New Delhi – 110001"],
   [/civil aviation|airport/, "Ministry of Civil Aviation, Rajiv Gandhi Bhawan, New Delhi – 110003"],
+  [/telecom|spectrum|\bdot\b/, "Department of Telecommunications, Sanchar Bhawan, New Delhi – 110001"],
+  [/\bcoal\b/, "Ministry of Coal, Shastri Bhawan, New Delhi – 110001"],
+  [/mining|mines|iron ore/, "Ministry of Mines, Shastri Bhawan, New Delhi – 110001"],
+  [/sports|youth affairs|games/, "Ministry of Youth Affairs and Sports, Shastri Bhawan, New Delhi – 110001"],
+  [/\biaf\b|air chief|air force/, "Air Headquarters (Vayu Bhawan), Rafi Marg, New Delhi – 110106"],
   [/air quality|\bcaqm\b/, "Commission for Air Quality Management, Vayu Bhawan, New Delhi"],
   [/staff selection|\bssc\b/, "Staff Selection Commission, Block No. 12, CGO Complex, New Delhi – 110003"],
   [/crime records|\bncrb\b/, "National Crime Records Bureau, Mahipalpur, New Delhi – 110037"],
@@ -233,6 +241,7 @@ const OFFICE_ADDRESSES = [
   [/ganga|jal shakti|river/, "Ministry of Jal Shakti, Shram Shakti Bhawan, New Delhi – 110001"],
   [/minister|ministry/, "Ministry concerned, Government of India, New Delhi"],
   [/\bmp\b|parliament/, "Parliament House, New Delhi – 110001"],
+  [/state government|state administration|\bpolice\b/, "State secretariat concerned"],
 ];
 
 function officeAddress(name, role) {

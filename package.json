@@ -8,6 +8,8 @@
     "stamp-tiers": "python3 scripts/stamp_tiers.py",
     "tiers": "python3 scripts/source_tiers.py",
     "validate": "python3 scripts/validate_cases.py",
-    "validate:strict": "python3 scripts/validate_cases.py --strict"
+    "validate:strict": "python3 scripts/validate_cases.py --strict",
+    "check-links": "node scripts/check_links.mjs",
+    "check-links:promote": "node scripts/check_links.mjs --promote"
   }
 }
