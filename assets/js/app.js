@@ -102,10 +102,38 @@ function docketFigure(primary,alternate){
   return SU?.figure ? SU.figure(`≈${primary}`,alternate) : `≈${primary}`;
 }
 
+/**
+ * Who actually left office over something on this ledger, counted from the
+ * record rather than asserted. A person is counted once however many cases
+ * name them. The split at 2014 is the whole point of publishing the number:
+ * it is only damning because it is arrived at honestly.
+ */
+function resignationTally(){
+  const union=new Map();
+  DATA.forEach(d=>(d.resignations??[]).forEach(r=>{
+    if(r&&r.level==="union"&&r.n) union.set(r.n,Number(r.year)||0);
+  }));
+  const years=[...union.values()];
+  return {total:union.size,since2014:years.filter(y=>y>=2014).length,before:years.filter(y=>y<2014).length};
+}
+
+function renderResignationRecord(){
+  const node=$("#record-resigned");
+  if(!node) return;
+  const {total,since2014,before}=resignationTally();
+  if(total===0){ node.hidden=true; return; }
+  node.hidden=false;
+  node.innerHTML=`<span class="standing-record-num">${since2014}</span>`
+    +`<span>${escapeHTML(t(since2014===1?"standing_resigned_one":"standing_resigned",{since:since2014,before}))}</span>`
+    +`<a href="./dashboard/">${escapeHTML(t("standing_resigned_cta"))}</a>`;
+}
+
 function setupControls(){
   CATS=[...new Set(DATA.map(d=>d.cat))].sort();
   const estimates=totalEstimates();
   $("#stat-total").textContent=DATA.length;
+  $("#stat-resigned").textContent=resignationTally().total;
+  renderResignationRecord();
   $("#stat-cost").innerHTML=docketFigure(SU?.formatCrore(estimates.costInrCrore),SU?.croreToUsd(estimates.costInrCrore));
   $("#stat-toll").innerHTML=docketFigure(SU?.formatPeople(estimates.deaths),SU?.peopleToInternational(estimates.deaths));
   catchips.replaceChildren();

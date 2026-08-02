@@ -1155,7 +1155,16 @@
   ],
   "estimates": {
    "deaths": 258
-  }
+  },
+  "resignations": [
+   {
+    "n": "N. Biren Singh",
+    "office": "Manipur Chief Minister",
+    "when": "Feb 2025",
+    "year": 2025,
+    "level": "state"
+   }
+  ]
  },
  {
   "no": 27,
@@ -2859,6 +2868,15 @@
     "url": "https://m.thewire.in/article/economy/govt-claims-of-job-creation-based-on-epfo-enrolment-data-are-misleading-heres-why",
     "tier": 2
    }
+  ],
+  "resignations": [
+   {
+    "n": "Two statisticians",
+    "office": "National Statistical Commission members",
+    "when": "Jan 2019",
+    "year": 2019,
+    "level": "official"
+   }
   ]
  },
  {
@@ -2963,7 +2981,16 @@
     "tier": 2
    }
   ],
-  "status": "draft"
+  "status": "draft",
+  "resignations": [
+   {
+    "n": "George Fernandes",
+    "office": "Union Defence Minister",
+    "when": "Mar 2001",
+    "year": 2001,
+    "level": "union"
+   }
+  ]
  },
  {
   "no": 64,
@@ -3105,7 +3132,16 @@
     "tier": 2
    }
   ],
-  "status": "draft"
+  "status": "draft",
+  "resignations": [
+   {
+    "n": "A. Raja",
+    "office": "Union Telecom Minister",
+    "when": "Nov 2010",
+    "year": 2010,
+    "level": "union"
+   }
+  ]
  },
  {
   "no": 67,
@@ -3201,7 +3237,16 @@
     "tier": 2
    }
   ],
-  "status": "draft"
+  "status": "draft",
+  "resignations": [
+   {
+    "n": "Ashok Chavan",
+    "office": "Maharashtra Chief Minister",
+    "when": "Nov 2010",
+    "year": 2010,
+    "level": "state"
+   }
+  ]
  },
  {
   "no": 69,
@@ -3250,7 +3295,23 @@
     "tier": 2
    }
   ],
-  "status": "draft"
+  "status": "draft",
+  "resignations": [
+   {
+    "n": "B.S. Yeddyurappa",
+    "office": "Karnataka Chief Minister",
+    "when": "Jul 2011",
+    "year": 2011,
+    "level": "state"
+   },
+   {
+    "n": "G. Janardhana Reddy",
+    "office": "Karnataka Tourism Minister",
+    "when": "2011",
+    "year": 2011,
+    "level": "state"
+   }
+  ]
  },
  {
   "no": 70,
@@ -3300,7 +3361,16 @@
     "tier": 2
    }
   ],
-  "status": "draft"
+  "status": "draft",
+  "resignations": [
+   {
+    "n": "Babu Singh Kushwaha",
+    "office": "UP Family Welfare Minister",
+    "when": "2011",
+    "year": 2011,
+    "level": "state"
+   }
+  ]
  },
  {
   "no": 71,
@@ -3395,6 +3465,756 @@
    {
     "label": "Deccan Herald: Italian court acquits Agusta execs",
     "url": "https://www.deccanherald.com/content/652604/italian-court-acquits-former-agusta.html",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 73,
+  "sk": 20051108,
+  "year": 2005,
+  "date": "Volcker report, Nov 2005",
+  "cat": "Democratic institutions",
+  "sev": "amber",
+  "title": "Oil-for-food. A foreign minister named, and gone in a month",
+  "stamp": "Resigned. Never charged.",
+  "human": {
+   "v": "India's name in a UN inquiry into who profited from sanctions on Iraq",
+   "est": false
+  },
+  "cost": {
+   "v": "Allocations of Iraqi oil listed against the foreign minister and his party as non-contractual beneficiaries",
+   "est": true
+  },
+  "what": "Paul Volcker's independent inquiry into the UN oil-for-food programme listed External Affairs Minister K. Natwar Singh and the Congress party as non-contractual beneficiaries of Iraqi oil allocations. He was dropped from the external affairs portfolio in November 2005 and left the government entirely a month later.",
+  "dodge": "A domestic inquiry authority was set up and ran for years without producing a prosecution. Natwar Singh was never charged, and no finding was ever published that settled whether the allocations were real or what became of them. The resignation stood in for an answer.",
+  "ministers": [
+   {
+    "n": "K. Natwar Singh",
+    "r": "External Affairs Minister; resigned Nov 2005, never charged"
+   }
+  ],
+  "pos": "Natwar Singh denied receiving any benefit, said his name had been used without his knowledge, and later alleged he had been made to carry the party's exposure.",
+  "alleg": "The Volcker listing is <em>an inquiry finding, not a criminal one</em>. No court ever tested it and no charge was brought.",
+  "alt": "An inquiry that finished, published, and either charged someone or cleared them by name.",
+  "resignations": [
+   {
+    "n": "K. Natwar Singh",
+    "office": "Union External Affairs Minister",
+    "when": "Nov 2005",
+    "year": 2005,
+    "level": "union"
+   }
+  ],
+  "sources": [
+   {
+    "label": "VOA: India's foreign minister quits over oil-for-food",
+    "url": "https://www.voanews.com/a/a-13-2005-11-07-voa17/310932.html",
+    "tier": 2
+   },
+   {
+    "label": "Al Jazeera: Indian minister quits over Iraq scandal",
+    "url": "https://www.aljazeera.com/news/2005/12/6/indian-minister-quits-over-iraq-scandal",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 74,
+  "sk": 20080722,
+  "year": 2008,
+  "date": "22 Jul 2008 (trust vote)",
+  "cat": "Democratic institutions",
+  "sev": "red",
+  "title": "Cash for votes. Currency waved on the floor of the Lok Sabha",
+  "stamp": "Notes on camera. Nobody's government fell.",
+  "human": {
+   "v": "A confidence vote in Parliament, and a bundle of notes held up in the chamber to prove it had been bought",
+   "est": false
+  },
+  "cost": {
+   "v": "Cash allegedly offered to MPs to abstain from a vote the government needed to survive",
+   "est": true
+  },
+  "what": "On 22 July 2008, ahead of the confidence vote the UPA needed to survive the nuclear deal, three BJP MPs walked into the Lok Sabha and waved wads of currency notes, alleging they had been paid to vote for the government. The government won the vote.",
+  "dodge": "A parliamentary committee investigated and could not conclude who had paid. A police investigation years later jailed aides on both sides, including an aide to the leader of the opposition and a Congress MP, but never established who authorised the money. Both parties accused the other of staging it. The vote itself was never revisited.",
+  "ministers": [
+   {
+    "n": "Union Government (UPA)",
+    "r": "Won the vote; alleged to have bought it"
+   },
+   {
+    "n": "Bharatiya Janata Party",
+    "r": "MPs who displayed the cash; accused of staging the sting"
+   }
+  ],
+  "pos": "The government called the display a fabricated stunt designed to discredit a vote it had won legitimately. The opposition said it was proof of bribery caught in the act.",
+  "alleg": "Who paid, and whether the display was a genuine exposure or a set-up, was <em>never established</em>. Both accounts remain allegations.",
+  "alt": "A vote annulled and re-held while the money was investigated, rather than a government seated for five years on a result nobody could vouch for.",
+  "sources": [
+   {
+    "label": "Business Standard: timeline of the cash-for-vote case",
+    "url": "https://www.business-standard.com/article/news-ians/timeline-of-cash-for-vote-scam-case-113112201174_1.html",
+    "tier": 2
+   },
+   {
+    "label": "Deccan Herald: money in the House that shocked a nation",
+    "url": "https://www.deccanherald.com/india/money-house-shocked-nation-2402000",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 75,
+  "sk": 20081130,
+  "year": 2008,
+  "date": "26 to 29 Nov 2008",
+  "cat": "National security",
+  "sev": "amber",
+  "title": "26/11. A city under siege, and the one minister who went",
+  "stamp": "Home Minister resigned. Warnings still unexplained.",
+  "human": {
+   "v": "<b>166</b> people killed and over 300 injured across four days in Mumbai",
+   "est": false
+  },
+  "cost": {
+   "v": "Specific intelligence warnings of a seaborne attack that were not acted on",
+   "est": true
+  },
+  "what": "Ten armed men arrived in Mumbai by sea on 26 November 2008 and attacked a railway terminus, two hotels, a hospital and a Jewish centre over four days, killing 166 people. Intelligence warnings of a seaborne attack on those targets had been passed and not acted on.",
+  "dodge": "Union Home Minister Shivraj Patil resigned on 30 November taking moral responsibility, the rarest outcome on this ledger. But the machinery failure beneath him was never publicly accounted for: no officer was named, the intelligence inputs were never published, and the state's own inquiry report was not tabled in full. A resignation happened; an explanation did not.",
+  "ministers": [
+   {
+    "n": "Shivraj Patil",
+    "r": "Union Home Minister; resigned 30 Nov 2008 taking moral responsibility"
+   },
+   {
+    "n": "Union Home Ministry",
+    "r": "Coastal security and intelligence coordination"
+   }
+  ],
+  "pos": "The government pointed to the resignation, the creation of the NIA and a coastal security overhaul as its response, and to the conviction and execution of the surviving attacker.",
+  "alleg": "That the warnings were specific enough to have prevented the attack is <em>contested</em>; what is not contested is that warnings existed and that no official was held responsible for what happened to them.",
+  "alt": "The inquiry report published, and the officials who sat on the warnings named, rather than one minister absorbing the whole failure and the system carrying on.",
+  "estimates": {
+   "deaths": 166
+  },
+  "resignations": [
+   {
+    "n": "Shivraj Patil",
+    "office": "Union Home Minister",
+    "when": "Nov 2008",
+    "year": 2008,
+    "level": "union"
+   }
+  ],
+  "sources": [
+   {
+    "label": "VOA: India's Home Minister resigns after Mumbai",
+    "url": "https://www.voanews.com/a/a-13-2008-11-30-voa4/401396.html",
+    "tier": 2
+   },
+   {
+    "label": "Al Jazeera: ex-minister discusses the Mumbai attack",
+    "url": "https://www.aljazeera.com/news/2009/11/25/ex-minister-discusses-mumbai-attack",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 76,
+  "sk": 20090107,
+  "year": 2009,
+  "date": "7 Jan 2009 (confession)",
+  "cat": "Economic shock",
+  "sev": "amber",
+  "title": "Satyam. A chairman confesses to inventing ₹7,000 crore",
+  "stamp": "Convicted. Auditors and regulator missed it for years.",
+  "human": {
+   "v": "Around <b>53,000</b> employees and thousands of small shareholders in a company whose accounts were fiction",
+   "est": true
+  },
+  "cost": {
+   "v": "A confessed hole of about <b>₹7,000 crore</b> in the balance sheet, built over years",
+   "est": true
+  },
+  "what": "On 7 January 2009 Satyam Computer Services chairman B. Ramalinga Raju wrote to his board confessing that the company's accounts had been falsified for years, with cash and bank balances of roughly ₹7,000 crore that did not exist. He and nine others were convicted of conspiracy and cheating in 2015 and sentenced to seven years.",
+  "dodge": "The fraud ran for years past statutory auditors, independent directors and the market regulator without being caught, and was only exposed when the chairman confessed. The government moved fast to rescue the company and its employees, which it did well. The question of how the oversight architecture missed a hole that size was never answered with the same energy.",
+  "ministers": [
+   {
+    "n": "Securities and Exchange Board of India",
+    "r": "Market regulator; did not detect the fraud"
+   },
+   {
+    "n": "Ministry of Corporate Affairs",
+    "r": "Statutory audit and company oversight framework"
+   }
+  ],
+  "pos": "The government points to the swift rescue of the company, the convictions obtained, and the auditing and company-law reforms that followed.",
+  "alleg": "The confession and the convictions are matters of record. <em>Regulatory culpability was alleged but never formally established against any official.</em>",
+  "alt": "An audit regime capable of finding a fabricated cash balance without waiting for a confession letter.",
+  "estimates": {
+   "costInrCrore": 7000
+  },
+  "sources": [
+   {
+    "label": "NPR: Satyam founder gets seven years for fraud",
+    "url": "https://www.npr.org/sections/thetwo-way/2015/04/09/398503322/founder-of-indian-it-giant-satyam-gets-7-years-in-fraud",
+    "tier": 2
+   },
+   {
+    "label": "BBC: Satyam chief Raju freed on bail",
+    "url": "https://feeds.bbci.co.uk/news/world-south-asia-11020756",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 77,
+  "sk": 20100418,
+  "year": 2010,
+  "date": "18 Apr 2010",
+  "cat": "Crony capital (alleged)",
+  "sev": "amber",
+  "title": "IPL Kochi. A minister, a friend's equity, and a resignation",
+  "stamp": "Resigned over a conflict of interest",
+  "human": {
+   "v": "A public office used, on the allegation, to help a private consortium win a franchise",
+   "est": false
+  },
+  "cost": {
+   "v": "Free equity in a bid worth around <b>$330 million</b>, held by someone close to the minister",
+   "est": true
+  },
+  "what": "Minister of State for External Affairs Shashi Tharoor mentored a consortium that won the Kochi IPL franchise. It emerged that his friend, later his wife, held sweat equity in the company heading the consortium. He resigned on 18 April 2010.",
+  "dodge": "The resignation closed the political question and opened none of the others. The tax and enforcement inquiries into the franchise dragged on for years without a conclusion about the minister, and the wider question of how IPL franchises were awarded went to a separate inquiry that produced no accountability for anyone in office.",
+  "ministers": [
+   {
+    "n": "Shashi Tharoor",
+    "r": "Minister of State for External Affairs; resigned Apr 2010"
+   }
+  ],
+  "pos": "Tharoor denied any financial interest or impropriety, said the equity was not his and that he had facilitated a bid for his home state without personal gain.",
+  "alleg": "A conflict of interest is <em>the allegation; no finding of corruption was made against him</em>, and he returned to public life.",
+  "alt": "A declared-interests register for ministers that makes this visible before the bid, not after it.",
+  "resignations": [
+   {
+    "n": "Shashi Tharoor",
+    "office": "Union Minister of State for External Affairs",
+    "when": "Apr 2010",
+    "year": 2010,
+    "level": "union"
+   }
+  ],
+  "sources": [
+   {
+    "label": "Business Standard: Kochi IPL row, Tharoor resigns",
+    "url": "https://www.business-standard.com/article/economy-policy/kochi-ipl-row-shashi-tharoor-resigns-110041800068_1.html",
+    "tier": 2
+   },
+   {
+    "label": "Scroll: the $330 million IPL controversy",
+    "url": "https://scroll.in/article/654362/330-million-ipl-controversy-continues-to-dog-tharoor",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 78,
+  "sk": 20110217,
+  "year": 2011,
+  "date": "Deal 2005; rescinded Feb 2011",
+  "cat": "Public money",
+  "sev": "amber",
+  "title": "Antrix-Devas. Public spectrum leased quietly, then torn up expensively",
+  "stamp": "Cancelled. India lost the arbitration.",
+  "human": {
+   "v": "S-band spectrum, a scarce public asset, committed to a private firm without competitive process",
+   "est": false
+  },
+  "cost": {
+   "v": "Contract rescinded in 2011; India has since faced arbitration awards running to <b>over a billion dollars</b> plus interest",
+   "est": true
+  },
+  "what": "In 2005 Antrix, the commercial arm of ISRO, agreed to lease 70 MHz of S-band satellite spectrum to Devas Multimedia. A CAG review found the agreement had been made without competitive process and promoted a private interest at public cost. The government rescinded the contract in February 2011.",
+  "dodge": "Cancelling the contract did not settle anything: international arbitral tribunals repeatedly found against India, leaving the taxpayer facing awards larger than anything the original deal was worth. No official was held responsible either for signing an agreement that should not have been signed, or for cancelling it in a way that cost more than it saved.",
+  "ministers": [
+   {
+    "n": "Department of Space",
+    "r": "Parent of Antrix; signed and then rescinded the agreement"
+   },
+   {
+    "n": "Prime Minister's Office",
+    "r": "Department of Space reports to the PMO"
+   }
+  ],
+  "pos": "The government said it cancelled the contract on grounds of national security and strategic need for the spectrum, and has argued in every forum that the deal was fraudulent from the start.",
+  "alleg": "Fraud in the original deal is <em>the government's own contention, accepted by Indian courts and rejected by several arbitral tribunals</em>. The two findings have not been reconciled.",
+  "alt": "Competitive allocation of the spectrum in 2005, and a cancellation route chosen with the arbitration exposure calculated first.",
+  "sources": [
+   {
+    "label": "The Quint: the scuttled Antrix-Devas deal explained",
+    "url": "https://www.thequint.com/explainers/antrix-devas-deal-scam-or-government-cold-feet",
+    "tier": 2
+   },
+   {
+    "label": "ORF: lessons from the Devas v Antrix disputes",
+    "url": "https://www.orfonline.org/research/devas-v-antrix-lessons-for-india-in-navigating-bilateral-investment-treaty-disputes",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 79,
+  "sk": 20110707,
+  "year": 2011,
+  "date": "Resigned Jul 2011; discharged 2017",
+  "cat": "Crony capital (alleged)",
+  "sev": "amber",
+  "title": "Aircel-Maxis. A telecom minister, a sale, and a discharge",
+  "stamp": "Resigned. Court discharged him.",
+  "human": {
+   "v": "A telecom promoter who says he was pressed into selling his company",
+   "est": false
+  },
+  "cost": {
+   "v": "The sale of a telecom operator alleged to have been coerced by the minister holding the licensing power",
+   "est": true
+  },
+  "what": "The CBI alleged that Dayanidhi Maran, as Telecom Minister, delayed licences to pressure the promoter of Aircel into selling to Malaysia's Maxis, and that his family's media business received investment from a Maxis-linked entity in return. He resigned as Textiles Minister in July 2011.",
+  "dodge": "In February 2017 a special court discharged the Maran brothers and the other accused, holding the agency had produced no evidence worth framing charges on. Six years of investigation ended without a trial. Neither the allegation nor the minister's innocence was ever tested before a court on the merits.",
+  "ministers": [
+   {
+    "n": "Dayanidhi Maran",
+    "r": "Telecom Minister at the time; resigned as Textiles Minister Jul 2011; discharged 2017"
+   }
+  ],
+  "pos": "Maran said the allegations were fabricated, that the licensing decisions followed policy, and that his discharge vindicated him entirely.",
+  "alleg": "Coercion of the seller is <em>an allegation the court found unsupported by evidence at the charge stage</em>. It is recorded here with that outcome attached.",
+  "alt": "An investigation that either produces chargeable evidence within a defined period or closes publicly and says so.",
+  "resignations": [
+   {
+    "n": "Dayanidhi Maran",
+    "office": "Union Textiles Minister",
+    "when": "Jul 2011",
+    "year": 2011,
+    "level": "union"
+   }
+  ],
+  "sources": [
+   {
+    "label": "Business Standard: court discharges Maran in Aircel-Maxis",
+    "url": "https://www.business-standard.com/article/current-affairs/2g-court-discharges-dayanidhi-maran-and-others-accused-in-aircel-maxis-case-117020200626_1.html",
+    "tier": 2
+   },
+   {
+    "label": "DNA: what the Aircel-Maxis deal was about",
+    "url": "https://www.dnaindia.com/india/report-what-is-the-aircel-maxis-deal-and-why-is-dayanidhi-maran-in-trouble-2004611",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 80,
+  "sk": 20120907,
+  "year": 2012,
+  "date": "Shah Commission report, Sep 2012",
+  "cat": "Environment",
+  "sev": "red",
+  "title": "Goa. ₹35,000 crore of ore taken out of a state that stopped counting",
+  "stamp": "Two chief ministers booked. Mining resumed.",
+  "human": {
+   "v": "Villages, groundwater and forest across a small state given over to unregulated extraction",
+   "est": false
+  },
+  "cost": {
+   "v": "The Shah Commission put illegal mining in Goa between 2005 and 2012 at about <b>₹35,000 crore</b>",
+   "est": true
+  },
+  "what": "The Justice M.B. Shah Commission report, tabled in Parliament in September 2012, found industrial-scale illegal iron ore mining in Goa and held that the Chief Minister, who also held the mines portfolio, was aware of the non-compliance and illegalities and did not act on complaints.",
+  "dodge": "Mining was suspended, then resumed under new leases. Two former chief ministers were eventually booked. Prosecutions have moved slowly and the sums the Commission identified have not been recovered. The state's mining regulation was rebuilt around the same industry it had failed to police.",
+  "ministers": [
+   {
+    "n": "Digambar Kamat",
+    "r": "Goa Chief Minister and Mines Minister (Congress); indicted by the Shah Commission"
+   },
+   {
+    "n": "Goa state government",
+    "r": "Mines, forest and pollution control departments"
+   }
+  ],
+  "pos": "Those named have contested the Commission's findings, arguing it exceeded its remit and that lease irregularities were technical rather than criminal.",
+  "alleg": "The Commission's conclusions are <em>findings of an inquiry, not convictions</em>, and remain contested in court.",
+  "alt": "Ore export volumes reconciled against lease permissions in public, monthly, which is all it would have taken to see this as it happened.",
+  "estimates": {
+   "costInrCrore": 35000
+  },
+  "sources": [
+   {
+    "label": "Deccan Herald: judicial panel indicts ex-Goa CM",
+    "url": "https://www.deccanherald.com/india/judicial-panel-indicts-ex-goa-2359012",
+    "tier": 2
+   },
+   {
+    "label": "Deccan Herald: two former CMs booked in Goa mining",
+    "url": "https://www.deccanherald.com/india/2-former-cms-booked-goa-2251331",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 81,
+  "sk": 20121001,
+  "year": 2012,
+  "date": "Surfaced 2012; clean chit 2019",
+  "cat": "Public money",
+  "sev": "amber",
+  "title": "Maharashtra irrigation. ₹70,000 crore spent, and almost no new irrigation",
+  "stamp": "Clean chit. The water never arrived.",
+  "human": {
+   "v": "Farmers in a drought-prone state promised irrigation that a decade of spending did not deliver",
+   "est": false
+  },
+  "cost": {
+   "v": "About <b>₹70,000 crore</b> spent over a decade for a reported rise in irrigation potential of roughly <b>0.1%</b>",
+   "est": true
+  },
+  "what": "The state's own 2012 Economic Survey recorded that Maharashtra had spent close to ₹70,000 crore on irrigation over a decade while irrigation potential rose by a fraction of a percent. Project costs had been revised upward repeatedly and approvals cleared in bulk.",
+  "dodge": "The Deputy Chief Minister who chaired the relevant irrigation corporation resigned briefly and returned. A white paper was produced. The Anti-Corruption Bureau later gave him a clean chit in the cases examined. The gap between money spent and water delivered has never been explained by anyone.",
+  "ministers": [
+   {
+    "n": "Ajit Pawar",
+    "r": "Water Resources Minister and Vidarbha irrigation corporation chairman (NCP); later cleared by the ACB"
+   },
+   {
+    "n": "Maharashtra Water Resources Department",
+    "r": "Approvals and cost revisions"
+   }
+  ],
+  "pos": "Pawar denied wrongdoing throughout, said cost revisions reflected inflation and design changes, and points to the Anti-Corruption Bureau's clean chit.",
+  "alleg": "Corruption is <em>alleged and has not been established; the investigating agency itself cleared the principal figure</em>. The spending figure and the irrigation figure are the state's own.",
+  "alt": "Irrigation potential audited against expenditure every year and published, so a decade cannot pass before anyone notices.",
+  "estimates": {
+   "costInrCrore": 70000
+  },
+  "sources": [
+   {
+    "label": "ThePrint: what the Maharashtra irrigation scam was",
+    "url": "https://theprint.in/theprint-essential/maharashtra-irrigation-scam-clean-chit-ajit-pawar/2838627/",
+    "tier": 2
+   },
+   {
+    "label": "Tribune: Ajit Pawar gets ACB clean chit",
+    "url": "https://www.tribuneindia.com/news/archive/nation/ajit-pawar-gets-acb-clean-chit-in-vidarbha-irrigation-scam-870997",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 82,
+  "sk": 20130423,
+  "year": 2013,
+  "date": "Surfaced Apr 2013",
+  "cat": "Consumer harm",
+  "sev": "red",
+  "title": "Saradha. Small savers cleaned out, and politicians in the frame",
+  "stamp": "Depositors ruined. Investigation still crawling.",
+  "human": {
+   "v": "Hundreds of thousands of small depositors across eastern India, many of them very poor; suicides were reported among agents and investors",
+   "est": true
+  },
+  "cost": {
+   "v": "A collapse put at <b>over ₹10,000 crore</b> across West Bengal, Odisha and Assam",
+   "est": true
+  },
+  "what": "The Saradha Group collected deposits from hundreds of thousands of small savers across eastern India through a web of companies, and collapsed in April 2013. The Supreme Court ordered a CBI investigation in 2014 after the initial probe indicated the involvement of politicians across three states.",
+  "dodge": "The investigation became a jurisdictional fight between the central agency and the state government, culminating in a police commissioner being questioned over destroyed evidence and the state refusing cooperation. More than a decade on, senior political figures named early have not been tried, and depositors have recovered a fraction of what they lost.",
+  "ministers": [
+   {
+    "n": "West Bengal state government",
+    "r": "Regulation of deposit-taking; accused of obstructing the CBI"
+   },
+   {
+    "n": "Securities and Exchange Board of India",
+    "r": "Collective investment regulation; acted years after the schemes began"
+   }
+  ],
+  "pos": "The state government said it had set up its own commission and a compensation fund for depositors, and characterised the central investigation as politically motivated.",
+  "alleg": "Political protection is <em>alleged and, in the case of most figures named, untested in court</em>. The collapse and the losses are not in dispute.",
+  "alt": "A regulator that acts when unregistered deposit-taking reaches lakhs of people, and an investigation not paralysed by which government is running it.",
+  "estimates": {
+   "costInrCrore": 10000
+  },
+  "sources": [
+   {
+    "label": "Deccan Herald: SC orders CBI probe into the chit fund scam",
+    "url": "https://www.deccanherald.com/amp/story/india%2Fsupreme-court-orders-cbi-probe-into-chit-fund-scam-391943.html",
+    "tier": 2
+   },
+   {
+    "label": "ThePrint: SC declines to monitor the Saradha probe",
+    "url": "https://theprint.in/india/governance/supreme-court-refuses-to-monitor-ongoing-cbi-investigation-into-saradha-chit-fund-scam/190754/",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 83,
+  "sk": 20130508,
+  "year": 2013,
+  "date": "May 2013",
+  "cat": "Democratic institutions",
+  "sev": "amber",
+  "title": "The caged parrot. A law minister editing the CBI's report to the court",
+  "stamp": "Minister resigned. The cage was never opened.",
+  "human": {
+   "v": "An investigating agency's report to the Supreme Court, altered by the people it was investigating",
+   "est": false
+  },
+  "cost": {
+   "v": "The independence of the central investigating agency, established in open court to be absent",
+   "est": false
+  },
+  "what": "The CBI director told the Supreme Court on affidavit that the Law Minister, and officials of the Prime Minister's Office and the coal ministry, had made changes to the agency's status report on coal block allocations before it was filed. The bench said the CBI was 'a caged parrot speaking in its master's voice'.",
+  "dodge": "Law Minister Ashwani Kumar resigned in May 2013. The structural problem the court identified, an investigating agency answerable to the government it investigates, was not fixed. Successive governments have continued to control CBI appointments and sanction, and the phrase has been quoted against every government since.",
+  "ministers": [
+   {
+    "n": "Ashwani Kumar",
+    "r": "Union Law Minister; resigned May 2013"
+   },
+   {
+    "n": "Prime Minister's Office",
+    "r": "Officials named in the CBI's affidavit as having seen the draft"
+   }
+  ],
+  "pos": "The government said the changes were suggestions on legal presentation rather than substance, and that the minister resigned to remove any perception of interference.",
+  "alleg": "That the edits changed the report's substance is <em>disputed</em>; that the report was shown to and altered by the executive is on the CBI's own affidavit.",
+  "alt": "Statutory insulation for the agency, which is what the court asked for and what no government since has delivered.",
+  "resignations": [
+   {
+    "n": "Ashwani Kumar",
+    "office": "Union Law Minister",
+    "when": "May 2013",
+    "year": 2013,
+    "level": "union"
+   }
+  ],
+  "sources": [
+   {
+    "label": "Business Standard: CBI a caged parrot, says SC",
+    "url": "https://www.business-standard.com/article/news-ians/cbi-a-caged-parrot-speaking-in-master-s-voice-113050800624_1.html",
+    "tier": 2
+   },
+   {
+    "label": "BBC: court criticises the coal scandal probe report",
+    "url": "https://feeds.bbci.co.uk/news/world-asia-india-22450872",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 84,
+  "sk": 20130510,
+  "year": 2013,
+  "date": "May 2013",
+  "cat": "Public money",
+  "sev": "amber",
+  "title": "Railgate. A bribe for a seat on the Railway Board",
+  "stamp": "Minister resigned, then became a witness.",
+  "human": {
+   "v": "Senior appointments in the railways treated as purchasable",
+   "est": false
+  },
+  "cost": {
+   "v": "<b>₹90 lakh</b> caught being paid for a Railway Board post",
+   "est": false
+  },
+  "what": "In May 2013 the CBI arrested the Railway Minister's nephew for taking ₹90 lakh as a bribe to fix the appointment of a Member (Electrical) to the Railway Board. The money was caught in transit.",
+  "dodge": "Pawan Kumar Bansal refused to resign, then resigned under pressure from his own party rather than on his own initiative. The CBI found no evidence against him and named him as a prosecution witness in the case against his nephew. Nobody has explained how a Railway Board appointment came to have a price, or whether it had one before.",
+  "ministers": [
+   {
+    "n": "Pawan Kumar Bansal",
+    "r": "Union Railway Minister; resigned May 2013, later a prosecution witness"
+   }
+  ],
+  "pos": "Bansal denied any knowledge of his nephew's dealings, and the CBI stated it found no evidence of his involvement.",
+  "alleg": "The minister's own culpability was <em>alleged, investigated, and not established</em>. The bribe itself was caught in the act.",
+  "alt": "Board appointments made through a published, contestable process rather than one worth ₹90 lakh to influence.",
+  "resignations": [
+   {
+    "n": "Pawan Kumar Bansal",
+    "office": "Union Railway Minister",
+    "when": "May 2013",
+    "year": 2013,
+    "level": "union"
+   }
+  ],
+  "sources": [
+   {
+    "label": "Business Standard: Bansal named a witness in Railgate",
+    "url": "https://www.business-standard.com/article/current-affairs/railgate-bansal-named-as-witness-nephew-architect-of-scam-113070400833_1.html",
+    "tier": 2
+   },
+   {
+    "label": "Deccan Herald: no proof of Bansal's role in bribery",
+    "url": "https://www.deccanherald.com/india/no-proof-bansals-role-bribery-2269639",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 85,
+  "sk": 20171213,
+  "year": 2017,
+  "date": "Allocation 2007; convicted Dec 2017",
+  "cat": "Public money",
+  "sev": "amber",
+  "title": "Madhu Koda. A chief minister convicted over a coal block",
+  "stamp": "Convicted. Three years.",
+  "human": {
+   "v": "A state's mineral wealth allocated through a chief minister's office",
+   "est": false
+  },
+  "cost": {
+   "v": "A coal block in Jharkhand recommended to a private company against process",
+   "est": true
+  },
+  "what": "Former Jharkhand Chief Minister Madhu Koda was convicted in December 2017, along with a former Union coal secretary and others, of criminal conspiracy and corruption over the allocation of the Rajhara North coal block to a Kolkata company, and sentenced to three years.",
+  "dodge": "The conviction took a decade from the allocation. It is one of the few on this ledger where a head of government was actually convicted, and it is recorded here for that reason as much as any other. The wider allocations system that produced it had already been struck down by the Supreme Court by then.",
+  "ministers": [
+   {
+    "n": "Madhu Koda",
+    "r": "Jharkhand Chief Minister; convicted Dec 2017, sentenced to three years"
+   },
+   {
+    "n": "Ministry of Coal",
+    "r": "Screening committee that processed the recommendation"
+   }
+  ],
+  "pos": "Koda maintained his innocence and appealed; he was subsequently barred from contesting elections after the Supreme Court declined to suspend the conviction.",
+  "alt": "Allocation by auction, which is what the law now requires, arrived at without needing a decade of litigation first.",
+  "sources": [
+   {
+    "label": "Tribune: Jharkhand ex-CM Koda convicted in coal case",
+    "url": "https://www.tribuneindia.com/news/archive/nation/coal-scam-jharkhand-ex-cm-madhu-koda-held-guilty-of-corruption-512618",
+    "tier": 2
+   },
+   {
+    "label": "Scroll: SC dismisses Koda's plea to contest polls",
+    "url": "https://scroll.in/latest/1074929/sc-dismisses-former-jharkhand-cm-madhu-kodas-plea-seeking-suspension-of-conviction-to-contest-polls",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 86,
+  "sk": 20030101,
+  "year": 2003,
+  "date": "2002 to 2003",
+  "cat": "Public money",
+  "sev": "amber",
+  "title": "Taj Corridor. A riverbed project, and a governor who refused sanction",
+  "stamp": "Sanction refused. Case never tried.",
+  "human": {
+   "v": "Construction on the Yamuna floodplain beside a World Heritage monument, without the clearances it required",
+   "est": false
+  },
+  "cost": {
+   "v": "About <b>₹175 crore</b> released for a project that was never lawfully cleared",
+   "est": true
+  },
+  "what": "A project to build tourist facilities on the Yamuna riverbed beside the Taj Mahal proceeded in 2002-03 with money released and work begun before the environmental clearances it required were in place. The CBI investigated the then Chief Minister and a minister in her government.",
+  "dodge": "In June 2007 the Governor refused sanction to prosecute, holding there was insufficient evidence. The case has never been tried on its merits. Two decades on it resurfaces periodically as a live file without ever reaching a court, which is its own form of answer.",
+  "ministers": [
+   {
+    "n": "Mayawati",
+    "r": "UP Chief Minister (BSP); prosecution sanction refused in 2007"
+   },
+   {
+    "n": "Nasimuddin Siddiqui",
+    "r": "UP minister named in the CBI case"
+   }
+  ],
+  "pos": "Mayawati has consistently denied wrongdoing and points to the refusal of sanction and the absence of any charge as settling the matter.",
+  "alleg": "The allegations were <em>never tested in court because sanction to prosecute was refused</em>. Nothing here should be read as a finding of guilt.",
+  "alt": "A sanction decision made on published reasons and open to challenge, rather than one that quietly ends a case for twenty years.",
+  "estimates": {
+   "costInrCrore": 175
+  },
+  "sources": [
+   {
+    "label": "Tribune: Taj corridor case coverage (2003)",
+    "url": "https://www.tribuneindia.com/2003/20030912/main7.htm",
+    "tier": 2
+   },
+   {
+    "label": "Tribune: Taj corridor case coverage (2005)",
+    "url": "https://www.tribuneindia.com/2005/20051122/nation.htm",
+    "tier": 2
+   }
+  ],
+  "status": "draft"
+ },
+ {
+  "no": 87,
+  "sk": 20181017,
+  "year": 2018,
+  "date": "17 Oct 2018",
+  "cat": "Rights and dissent",
+  "sev": "amber",
+  "title": "A minister resigns, sues his accuser, and loses",
+  "stamp": "Resigned. Lost the defamation case.",
+  "human": {
+   "v": "Women who described harassment by a man who by then held public office, and were sued for saying so",
+   "est": false
+  },
+  "cost": {
+   "v": "A criminal defamation prosecution brought by a serving minister against a journalist who accused him",
+   "est": false
+  },
+  "what": "After multiple women publicly accused Minister of State for External Affairs M.J. Akbar of sexual harassment during his earlier career as an editor, he resigned on 17 October 2018 and filed a criminal defamation complaint against journalist Priya Ramani.",
+  "dodge": "The resignation was accompanied by a prosecution: the accuser was put in the dock rather than the accusations examined. In February 2021 a Delhi court acquitted Ramani, holding that a woman cannot be punished for speaking about abuse and that the right to reputation cannot come at the cost of the right to dignity. No inquiry into the underlying conduct was ever held.",
+  "ministers": [
+   {
+    "n": "M.J. Akbar",
+    "r": "Union Minister of State for External Affairs; resigned Oct 2018, lost his defamation case"
+   }
+  ],
+  "pos": "Akbar denied all the allegations, said they were false and politically motivated, and pursued the defamation complaint and an appeal against the acquittal.",
+  "alleg": "The harassment allegations were <em>never adjudicated as such</em>; what a court decided was that the journalist was entitled to make them. Nothing here is a criminal finding against him.",
+  "alt": "An inquiry into the conduct alleged, rather than a criminal case against the woman who alleged it.",
+  "resignations": [
+   {
+    "n": "M.J. Akbar",
+    "office": "Union Minister of State for External Affairs",
+    "when": "Oct 2018",
+    "year": 2018,
+    "level": "union"
+   }
+  ],
+  "sources": [
+   {
+    "label": "Tribune: court acquits Priya Ramani in Akbar's case",
+    "url": "https://www.tribuneindia.com/news/nation/metoo-delhi-court-acquits-priya-ramani-in-mj-akbars-criminal-defamation-case-213733",
+    "tier": 2
+   },
+   {
+    "label": "The News Minute: Ramani wins, Akbar loses defamation case",
+    "url": "https://www.thenewsminute.com/news/priya-ramanis-truth-wins-mj-akbar-loses-defamation-case-filed-metoo-143618",
     "tier": 2
    }
   ],

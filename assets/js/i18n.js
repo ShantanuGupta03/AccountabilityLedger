@@ -59,6 +59,11 @@
     cases_logged_many: "{n} cases logged",
     empty_msg: "Nothing matches that filter. Widen it. There is no shortage.",
 
+    // Numbers come from the resignations recorded on the cases themselves.
+    standing_resigned_one: "Union minister has left office over anything on this file since 2014. In the years before that, {before} did. The failures did not stop. The resigning did.",
+    standing_resigned: "Union ministers have left office over anything on this file since 2014. In the years before that, {before} did. The failures did not stop. The resigning did.",
+    standing_resigned_cta: "See who \u2192",
+
     dash_count: "{n} office-holders shown",
     dash_empty: "No office-holder by that name is on file. Yet.",
     more_n: "+{n} more",
@@ -137,11 +142,14 @@
 
     stat_cases: "फ़ाइल में दर्ज नाकामियाँ",
     stat_costs: "जनता का पैसा जो लगा, अनुमानित",
-    stat_resigned: "2014 के बाद वे केंद्रीय मंत्री जिन्होंने नाकामी<br>की ज़िम्मेदारी लेकर इस्तीफ़ा दिया",
+    stat_resigned: "वे केंद्रीय मंत्री जिन्होंने इस फ़ाइल के<br>किसी मामले पर पद छोड़ा",
     stat_toll: "जो जानें गईं, अनुमानित",
 
     standing_presser: "मई 2014 के बाद प्रधानमंत्री ने भारत में इतनी खुली प्रेस कॉन्फ़्रेंस की हैं। इंटरव्यू थोक में दिए जाते हैं — 2024 के पाँच महीनों में 64। जो कभी नहीं दिया जाता, वह है बिना-लिखा अगला सवाल — वही एक सवाल जिसे पहले से मंज़ूरी नहीं दिलाई जा सकी।",
     standing_presser_cta: "फ़ाइल खोलें →",
+    standing_resigned_one: "केंद्रीय मंत्री ने 2014 के बाद इस फ़ाइल की किसी बात पर पद छोड़ा है। उससे पहले के वर्षों में {before} ने छोड़ा था। नाकामियाँ नहीं रुकीं। इस्तीफ़े रुक गए।",
+    standing_resigned: "केंद्रीय मंत्रियों ने 2014 के बाद इस फ़ाइल की किसी बात पर पद छोड़ा है। उससे पहले के वर्षों में {before} ने छोड़ा था। नाकामियाँ नहीं रुकीं। इस्तीफ़े रुक गए।",
+    standing_resigned_cta: "देखिए कौन →",
 
     method_summary: "इस लेजर को कैसे पढ़ें। पद्धति, आँकड़े और सीमाएँ",
     legend_red: "कोई जवाबदेही नहीं / इनकार / रद्द",
