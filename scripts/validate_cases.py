@@ -29,7 +29,7 @@ REQUIRED_FIELDS = (
     "no", "sk", "year", "date", "cat", "sev", "title", "stamp",
     "human", "cost", "what", "dodge", "ministers", "pos", "alt", "sources",
 )
-OPTIONAL_FIELDS = ("alleg", "estimates", "id", "status")
+OPTIONAL_FIELDS = ("alleg", "estimates", "id", "status", "resignations")
 
 # Cases default to published; drafts are withheld from the build until sourced.
 STATUSES = {"draft", "published"}
@@ -176,6 +176,38 @@ def _check_sources(report: Report, where: str, case: dict[str, Any], strict: boo
         report.error(where, message) if strict else report.warn(where, message)
 
 
+RESIGNATION_LEVELS = {"union", "state", "official"}
+
+
+def _check_resignations(report: Report, where: str, case: dict[str, Any]) -> None:
+    """Who actually left office over this case.
+
+    The header counts these, so the ledger's claim about how many ministers ever
+    resigned is derived from the record rather than asserted. `level` separates
+    a Union minister from a state one from a civil servant, because conflating
+    them is how a headline number stops being true.
+    """
+    entries = case.get("resignations")
+    if entries is None:
+        return
+    if not isinstance(entries, list) or not entries:
+        report.error(where, "resignations must be a non-empty list when present")
+        return
+    for position, entry in enumerate(entries, start=1):
+        at = f"{where} resignation {position}"
+        if not isinstance(entry, dict):
+            report.error(at, "must be an object")
+            continue
+        for key, description in (("n", "name"), ("office", "office held"), ("when", "date text")):
+            if not isinstance(entry.get(key), str) or not entry[key].strip():
+                report.error(at, f"needs a non-empty {description} ({key!r})")
+        if entry.get("level") not in RESIGNATION_LEVELS:
+            report.error(at, f"level must be one of {sorted(RESIGNATION_LEVELS)}")
+        year = entry.get("year")
+        if not isinstance(year, int) or not 1947 <= year <= datetime.now().year + 1:
+            report.error(at, "year must be a plausible integer")
+
+
 def _check_estimates(report: Report, where: str, case: dict[str, Any], strict: bool, shipped: bool) -> None:
     estimates = case.get("estimates")
     if estimates is None:
@@ -256,6 +288,7 @@ def validate_case(report: Report, case: Any, index: int, strict: bool) -> None:
 
     _check_dates(report, where, case)
     _check_sources(report, where, case, strict, shipped)
+    _check_resignations(report, where, case)
     _check_estimates(report, where, case, strict, shipped)
 
 
