@@ -1,6 +1,24 @@
-TURNSTILE_SITE_KEY=REPLACE_WITH_YOUR_PUBLIC_TURNSTILE_SITE_KEY
-TURNSTILE_SECRET_KEY=REPLACE_WITH_YOUR_TURNSTILE_SECRET
-SUBMISSION_HASH_SALT=REPLACE_WITH_A_LONG_RANDOM_SECRET
+# Copy to .dev.vars for local testing with `npm run dev`. Never commit .dev.vars.
+#
+# The two Turnstile values below are Cloudflare's official *test* keys. They are
+# public, documented, and always pass verification, which is what makes a local
+# submit-to-publish rehearsal possible. Replace both with your real widget keys
+# before deploying anywhere public.
+TURNSTILE_SITE_KEY=1x00000000000000000000AA
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+
+# Any long random string. Salts the IP hash used for submission rate limiting.
+SUBMISSION_HASH_SALT=local-development-only-change-me
+
+# Reviewer allowlist, checked against the Cloudflare Access email in production.
 REVIEWER_EMAILS=reviewer@example.com
+
+# Local-only reviewer bypass. Cloudflare Access cannot issue a JWT to a dev
+# server, so the review console would be unreachable locally without this. It is
+# ignored unless the request host is loopback, so it cannot take effect on a
+# deployed site. Do NOT set this as a Pages environment variable.
+DEV_REVIEWER_EMAIL=reviewer@example.com
+
+# Production Access settings. Not needed locally; required on the deployed site.
 CF_ACCESS_TEAM_DOMAIN=your-team.cloudflareaccess.com
 CF_ACCESS_AUD=REPLACE_WITH_YOUR_ACCESS_APPLICATION_AUDIENCE

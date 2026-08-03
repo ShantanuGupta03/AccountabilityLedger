@@ -3,13 +3,20 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.mjs",
+    "validate": "python3 scripts/validate_cases.py",
+    "validate:strict": "python3 scripts/validate_cases.py --strict",
+    "dev": "npm run build && npx wrangler pages dev dist --local --port 8788",
+    "db:migrate:local": "npx wrangler d1 migrations apply public-submission --local",
+    "db:migrate:remote": "npx wrangler d1 migrations apply public-submission --remote",
+    "check-links": "node scripts/check_links.mjs",
+    "check-links:promote": "node scripts/check_links.mjs --promote",
     "archive": "node scripts/ensure_archives.mjs",
     "archive:quick": "node scripts/ensure_archives.mjs --quick",
     "stamp-tiers": "python3 scripts/stamp_tiers.py",
     "tiers": "python3 scripts/source_tiers.py",
-    "validate": "python3 scripts/validate_cases.py",
-    "validate:strict": "python3 scripts/validate_cases.py --strict",
-    "check-links": "node scripts/check_links.mjs",
-    "check-links:promote": "node scripts/check_links.mjs --promote"
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name accountabilityledger"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
   }
 }
