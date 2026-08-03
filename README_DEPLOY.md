@@ -87,6 +87,8 @@ npx wrangler d1 migrations apply accountability-ledger --remote
 npx wrangler pages deploy . --project-name accountability-ledger
 ```
 
+See `docs/REVIEWING.md` for the reviewer workflow: publishing, unpublishing and erasing submissions.
+
 Public visitors can submit an incident only to the pending review queue. It is not public and cannot appear in the ledger until an Access-protected reviewer publishes a completed case record. Published submissions are served read-only through `/api/cases`.
 
 Protect the deployment account as the write boundary:

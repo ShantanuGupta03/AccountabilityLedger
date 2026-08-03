@@ -95,6 +95,7 @@ async function updateSubmission(event) {
     }
   }
   button.disabled = true;
+  button.setAttribute("aria-busy", "true");
   status.classList.remove("error");
   status.textContent = "Saving review decision…";
   try {
@@ -117,6 +118,7 @@ async function updateSubmission(event) {
     status.classList.add("error");
   } finally {
     button.disabled = false;
+    button.removeAttribute("aria-busy");
   }
 }
 
@@ -231,7 +233,10 @@ function suggestionCard(suggestion) {
   const queue = suggestionStatus.value;
 
   const send = async (button, request, failure) => {
-    actions.querySelectorAll("button").forEach((element) => { element.disabled = true; });
+    actions.querySelectorAll("button").forEach((element) => {
+      element.disabled = true;
+      element.setAttribute("aria-busy", "true");
+    });
     result.classList.remove("error");
     result.textContent = "Saving…";
     try {
@@ -240,7 +245,10 @@ function suggestionCard(suggestion) {
       if (!response.ok) throw new Error(payload.error ?? failure);
       if (payload.status === queue) {
         result.textContent = "Saved.";
-        actions.querySelectorAll("button").forEach((element) => { element.disabled = false; });
+        actions.querySelectorAll("button").forEach((element) => {
+          element.disabled = false;
+          element.removeAttribute("aria-busy");
+        });
         return;
       }
       item.remove();
@@ -248,7 +256,10 @@ function suggestionCard(suggestion) {
     } catch (error) {
       result.textContent = error.message || failure;
       result.classList.add("error");
-      actions.querySelectorAll("button").forEach((element) => { element.disabled = false; });
+      actions.querySelectorAll("button").forEach((element) => {
+        element.disabled = false;
+        element.removeAttribute("aria-busy");
+      });
       button.focus();
     }
   };
