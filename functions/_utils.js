@@ -122,7 +122,28 @@ export async function clientIpHash(context) {
   return hash(clientIp, context.env.SUBMISSION_HASH_SALT);
 }
 
+/**
+ * True only for `wrangler pages dev`, which serves on loopback. Cloudflare Pages
+ * is never reached on a loopback hostname, so this cannot be turned on in
+ * production by setting a variable: the host itself has to be localhost.
+ */
+function isLoopbackRequest(request) {
+  try {
+    const { hostname } = new URL(request.url);
+    return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]" || hostname === "::1";
+  } catch {
+    return false;
+  }
+}
+
 export async function requireReviewer(context) {
+  // Cloudflare Access cannot issue a JWT to a local dev server, so there would
+  // otherwise be no way to rehearse the review flow before going live. Requires
+  // BOTH a loopback host and an explicitly set DEV_REVIEWER_EMAIL.
+  if (isLoopbackRequest(context.request) && context.env.DEV_REVIEWER_EMAIL) {
+    return String(context.env.DEV_REVIEWER_EMAIL).trim().toLowerCase();
+  }
+
   const accessAssertion = context.request.headers.get("CF-Access-Jwt-Assertion");
   const email = accessAssertion ? await verifiedAccessEmail(accessAssertion, context.env) : null;
   const allowed = (context.env.REVIEWER_EMAILS ?? "")

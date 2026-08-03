@@ -49,9 +49,33 @@ function unblock() {
   setNote("");
 }
 
+/** Marks an error as "the API did not answer" rather than "verification failed". */
+class ApiUnavailable extends Error {}
+
+/**
+ * Reads /api/public-config. A 404 here means Cloudflare Pages Functions are not
+ * deployed at all, which used to surface as "human verification could not load"
+ * and sent everyone looking at their ad blocker. Distinguish the two.
+ */
+async function loadConfig() {
+  let response;
+  try {
+    response = await fetch("../api/public-config", { cache: "no-store" });
+  } catch {
+    throw new ApiUnavailable("network");
+  }
+  if (!response.ok) throw new ApiUnavailable(`HTTP ${response.status}`);
+  const body = await response.text();
+  try {
+    return JSON.parse(body);
+  } catch {
+    // An HTML body here is the 404 page: the route exists as a static miss.
+    throw new ApiUnavailable("non-JSON response");
+  }
+}
+
 async function configureTurnstile() {
-  const response = await fetch("../api/public-config", { cache: "no-store" });
-  const config = await response.json();
+  const config = await loadConfig();
 
   if (!config.submissionsEnabled) {
     // The API already tells us which variables are unset; saying which one is
@@ -148,8 +172,14 @@ configureTurnstile()
     clearTimeout(turnstileTimer);
     if (!submitButton.disabled) setNote("Complete the verification check above before submitting.");
   })
-  .catch(() => {
+  .catch((error) => {
     clearTimeout(turnstileTimer);
+    if (error instanceof ApiUnavailable) {
+      block(`The submission API did not respond (${error.message}). /api/public-config returned nothing usable, `
+        + "which usually means the Cloudflare Pages Functions are not deployed. This is a server-side fault, not your browser.");
+      setStatus("The submission service is unavailable right now.", true);
+      return;
+    }
     block("Human verification could not load, so the form cannot be submitted. An ad or script blocker is the usual cause.");
     setStatus("Human verification could not load. Please try again later.", true);
   });

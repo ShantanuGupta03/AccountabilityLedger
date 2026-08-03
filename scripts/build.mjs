@@ -2,8 +2,13 @@ import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { generatePages } from "./generate_pages.mjs";
 
 const output = "dist";
+// wrangler.jsonc sets pages_build_output_dir to ./dist, so this directory *is*
+// the deployment. Pages looks for the Functions directory at the root of what it
+// deploys, which means "functions" has to be copied across or the whole API
+// silently 404s: no /api/cases, no /api/public-config, no submissions, no review
+// console. Everything here ships; nothing else does.
 const publicPaths = [
-  "index.html", "404.html", "_headers", "assets",
+  "index.html", "404.html", "_headers", "assets", "functions",
   "corrections", "dashboard", "review", "submit", "suggest",
 ];
 const casesPath = "assets/data/cases.json";
@@ -76,4 +81,24 @@ console.log(
 const corrections = await readFile("corrections/index.html", "utf8");
 if (!/href="mailto:[^"]+@[^".]+\.[^"]+"/.test(corrections)) {
   throw new Error("corrections/index.html has no contact address for corrections and legal notices.");
+}
+
+// The API shipping is not optional: without it the submission form, the review
+// console and the published-case feed all fail with a 404 that looks like a
+// front-end bug. Fail the build here rather than discover it in production.
+const requiredFunctions = [
+  "functions/api/public-config.js",
+  "functions/api/cases.js",
+  "functions/api/submissions/index.js",
+  "functions/api/admin/submissions/index.js",
+];
+for (const path of requiredFunctions) {
+  try {
+    await readFile(`${output}/${path}`, "utf8");
+  } catch {
+    throw new Error(
+      `${path} is missing from ${output}/. Cloudflare Pages serves ${output}/ and reads its Functions `
+      + `from ${output}/functions, so the API would 404. Add it to publicPaths in scripts/build.mjs.`,
+    );
+  }
 }

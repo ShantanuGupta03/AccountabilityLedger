@@ -10,6 +10,9 @@ accountability-ledger-structured/
 ├── README_DEPLOY.md
 ├── migrations/
 │   └── 0001_submissions.sql
+├── docs/
+│   ├── REVIEWING.md
+│   └── TESTING-SUBMISSIONS.md
 ├── functions/
 │   └── api/
 ├── dashboard/
@@ -52,10 +55,18 @@ The two headline estimates are calculated from optional per-case `estimates` val
 ## Test locally
 
 ```text
-npx wrangler pages dev .
+npm install
+cp .dev.vars.example .dev.vars
+npm run db:migrate:local
+npm run dev
 ```
 
-Copy `.dev.vars.example` to `.dev.vars`, replace every placeholder, and configure the D1 database ID in `wrangler.jsonc` before testing submissions locally.
+Serves the built site with the API and a local D1 at <http://localhost:8788>.
+`.dev.vars.example` ships with Cloudflare's public Turnstile *test* keys so the
+submission flow works locally without a real widget.
+
+`docs/TESTING-SUBMISSIONS.md` walks through the whole loop — submit, review,
+publish, verify, unpublish, erase — which is worth doing once before going live.
 
 ## Deploy
 
@@ -81,11 +92,20 @@ npx wrangler d1 migrations apply accountability-ledger --remote
 
    Allow only the email addresses listed in `REVIEWER_EMAILS`. The API verifies the Cloudflare Access JWT and the allowlisted email.
 
-5. Deploy:
+5. Deploy the **build output**, not the repository root:
 
 ```text
-npx wrangler pages deploy . --project-name accountability-ledger
+npm run deploy
 ```
+
+`wrangler.jsonc` sets `pages_build_output_dir` to `./dist`, so `dist/` is what
+Cloudflare serves and `dist/functions/` is where it looks for the API.
+`scripts/build.mjs` copies `functions/` across and then fails the build if the
+API is missing, because a deploy without it 404s every form and the published-case
+feed while the static pages look perfectly healthy.
+
+If the repository is connected to Cloudflare Pages for automatic deployments, set
+the build command to `npm run build` and the output directory to `dist`.
 
 See `docs/REVIEWING.md` for the reviewer workflow: publishing, unpublishing and erasing submissions.
 
