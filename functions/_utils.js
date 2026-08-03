@@ -95,6 +95,30 @@ export async function hash(value, salt) {
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+/**
+ * True when this request may skip Turnstile. Needs BOTH a loopback host and
+ * ALLOW_LOCAL_TURNSTILE_BYPASS explicitly set, so it cannot be switched on for a
+ * deployed site: Cloudflare Pages is never reached on localhost.
+ *
+ * It exists because a live Turnstile widget only renders on the hostnames listed
+ * in its dashboard, which never includes localhost, so there is otherwise no way
+ * to rehearse a submission before going live.
+ */
+export function localHumanBypassAllowed(context) {
+  return isLoopbackRequest(context.request)
+    && String(context.env.ALLOW_LOCAL_TURNSTILE_BYPASS ?? "") === "true";
+}
+
+/** Turnstile verification, with the loopback-only development bypass in front. */
+export async function verifyHuman(context, token) {
+  if (localHumanBypassAllowed(context) && token === LOCAL_HUMAN_TOKEN) return true;
+  return verifyTurnstile(
+    token,
+    context.env.TURNSTILE_SECRET_KEY,
+    context.request.headers.get("CF-Connecting-IP"),
+  );
+}
+
 export async function verifyTurnstile(token, secret, remoteip) {
   const body = new FormData();
   body.append("secret", secret);
@@ -122,12 +146,15 @@ export async function clientIpHash(context) {
   return hash(clientIp, context.env.SUBMISSION_HASH_SALT);
 }
 
+/** The token the local dev bypass expects. Worthless anywhere else. */
+export const LOCAL_HUMAN_TOKEN = "local-dev-bypass";
+
 /**
  * True only for `wrangler pages dev`, which serves on loopback. Cloudflare Pages
  * is never reached on a loopback hostname, so this cannot be turned on in
  * production by setting a variable: the host itself has to be localhost.
  */
-function isLoopbackRequest(request) {
+export function isLoopbackRequest(request) {
   try {
     const { hostname } = new URL(request.url);
     return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]" || hostname === "::1";

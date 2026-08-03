@@ -5,7 +5,7 @@ import {
   parseCaseId,
   parseHttpUrls,
   readJson,
-  verifyTurnstile,
+  verifyHuman,
 } from "../_utils.js";
 
 const MAX_SUGGESTIONS_PER_HOUR = 6;
@@ -74,11 +74,7 @@ export async function onRequestPost(context) {
       return json({ message: "That link has already been suggested for this case. Thank you." }, 200);
     }
 
-    const human = await verifyTurnstile(
-      turnstileToken,
-      context.env.TURNSTILE_SECRET_KEY,
-      context.request.headers.get("CF-Connecting-IP"),
-    );
+    const human = await verifyHuman(context, turnstileToken);
     if (!human) return json({ error: "Human-verification failed. Please try again." }, 400);
 
     await context.env.DB

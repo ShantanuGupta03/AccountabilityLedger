@@ -5,7 +5,7 @@ import {
   parseHttpUrls,
   parseOfficeHolders,
   readJson,
-  verifyTurnstile,
+  verifyHuman,
 } from "../../_utils.js";
 
 const MAX_SUBMISSIONS_PER_HOUR = 3;
@@ -54,11 +54,7 @@ export async function onRequestPost(context) {
       return json({ error: "Too many submissions from this connection. Try again in an hour." }, 429);
     }
 
-    const human = await verifyTurnstile(
-      turnstileToken,
-      context.env.TURNSTILE_SECRET_KEY,
-      context.request.headers.get("CF-Connecting-IP"),
-    );
+    const human = await verifyHuman(context, turnstileToken);
     if (!human) return json({ error: "Human-verification failed. Please try again." }, 400);
 
     const id = crypto.randomUUID();
