@@ -9,6 +9,11 @@ const params = new URLSearchParams(location.search);
 const caseId = (params.get("case") ?? "").replace(/[^A-Za-z0-9_-]/g, "");
 const caseTitle = (params.get("title") ?? "").slice(0, 240);
 let turnstileWidget;
+let lastConfig = null;
+let localBypass = false;
+
+/** Must match LOCAL_HUMAN_TOKEN in functions/_utils.js. */
+const LOCAL_HUMAN_TOKEN = "local-dev-bypass";
 
 function setStatus(message, error = false) {
   status.textContent = message;
@@ -58,6 +63,13 @@ function describeCase() {
 async function configureTurnstile() {
   const response = await fetch("../api/public-config", { cache: "no-store" });
   const config = await response.json();
+  lastConfig = config;
+  if (config.submissionsEnabled && config.localHumanBypass) {
+    localBypass = true;
+    turnstileMount.textContent = "";
+    setNote("Local development: human verification is bypassed on this host. This never applies to a deployed site.");
+    return;
+  }
   if (!config.submissionsEnabled) {
     disableForm("Source suggestions are temporarily unavailable. Please return later.");
     return;
@@ -79,7 +91,11 @@ async function configureTurnstile() {
       setNote("");
     },
     "error-callback": () => {
-      block("Human verification could not complete on this domain. If you are the operator, check the Turnstile widget's allowed hostnames.");
+      const host = lastConfig?.hostname || location.hostname;
+      const key = String(lastConfig?.turnstileSiteKey ?? "");
+      block(lastConfig?.turnstileMode === "live"
+        ? `Human verification did not render: a live Turnstile key (${key.slice(0, 6)}\u2026) on "${host}". Add this hostname in the Turnstile dashboard, or set ALLOW_LOCAL_TURNSTILE_BYPASS=true in .dev.vars for local testing.`
+        : `Human verification did not render on "${host}". Reload to try again.`);
       return true;
     },
     "expired-callback": () => setStatus("Human verification expired. Please complete it again.", true),
@@ -89,12 +105,12 @@ async function configureTurnstile() {
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
-  if (turnstileWidget === undefined) {
+  if (!localBypass && turnstileWidget === undefined) {
     setStatus("Human verification is still loading. Please wait a moment.", true);
     return;
   }
 
-  if (!window.turnstile.getResponse(turnstileWidget)) {
+  if (!localBypass && !window.turnstile.getResponse(turnstileWidget)) {
     setStatus("Complete the human-verification check above, then send.", true);
     return;
   }
@@ -114,13 +130,13 @@ form.addEventListener("submit", async (event) => {
         label: data.get("label"),
         note: data.get("note"),
         submitterEmail: data.get("submitterEmail"),
-        turnstileToken: window.turnstile.getResponse(turnstileWidget),
+        turnstileToken: localBypass ? LOCAL_HUMAN_TOKEN : window.turnstile.getResponse(turnstileWidget),
       }),
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error ?? "That could not be sent.");
     form.reset();
-    window.turnstile.reset(turnstileWidget);
+    if (!localBypass) window.turnstile.reset(turnstileWidget);
     setStatus(result.message ?? "Thank you. An editor will check the link.");
   } catch (error) {
     setStatus(error.message || "Unable to send that source.", true);
@@ -132,7 +148,7 @@ form.addEventListener("submit", async (event) => {
 if (describeCase()) {
   setNote("Loading human verification…");
   configureTurnstile()
-    .then(() => { if (!submitButton.disabled) setNote("Complete the verification check above before sending."); })
+    .then(() => { if (!submitButton.disabled && !localBypass) setNote("Complete the verification check above before sending."); })
     .catch(() => disableForm("Human verification could not load, so this form cannot be sent. An ad or script blocker is the usual cause."));
 } else {
   block("Open a case on the ledger and use its \u201cSuggest a source\u201d button; this form needs to know which case you mean.");

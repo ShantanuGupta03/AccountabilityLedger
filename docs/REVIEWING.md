@@ -114,9 +114,12 @@ and the line says why:
   it names the missing variables. Set them on the Pages project.
 - *"Human verification could not load"* — the Turnstile script was blocked,
   usually by an extension or a network filter.
-- *"Human verification could not complete on this domain"* — the Turnstile
-  widget does not list this hostname. Add it in the Turnstile dashboard,
-  including any preview domains.
+- *"Human verification did not render... live Turnstile key... on <host>"* — the
+  widget does not list that hostname. Add it in the Turnstile dashboard,
+  including preview domains. For local work set
+  `ALLOW_LOCAL_TURNSTILE_BYPASS=true` in `.dev.vars` instead.
+- *"The submission API did not respond"* — the Pages Functions are not deployed.
+  Check that `https://<site>/api/public-config` returns JSON rather than HTML.
 
 A **wait** cursor means one thing only: a request is in flight right now. If you
 see a wait cursor before you have clicked anything, that is a bug — report it.

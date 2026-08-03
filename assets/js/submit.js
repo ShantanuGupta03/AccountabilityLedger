@@ -4,6 +4,10 @@ const note = document.querySelector("#form-note");
 const turnstileMount = document.querySelector("#turnstile");
 const submitButton = form.querySelector("button[type='submit']");
 let turnstileWidget;
+let lastConfig = null;
+
+/** Must match LOCAL_HUMAN_TOKEN in functions/_utils.js. */
+const LOCAL_HUMAN_TOKEN = "local-dev-bypass";
 
 /** How long to wait for the verification widget before saying so. */
 const TURNSTILE_TIMEOUT_MS = 12000;
@@ -74,8 +78,21 @@ async function loadConfig() {
   }
 }
 
+/** Set when the API says this loopback request may skip Turnstile. */
+let localBypass = false;
+
 async function configureTurnstile() {
   const config = await loadConfig();
+  lastConfig = config;
+
+  if (config.submissionsEnabled && config.localHumanBypass) {
+    // Local rehearsal: a live widget will not render on localhost, so the whole
+    // challenge is skipped and the API accepts a sentinel token. Loopback only.
+    localBypass = true;
+    turnstileMount.textContent = "";
+    setNote("Local development: human verification is bypassed on this host. This never applies to a deployed site.");
+    return;
+  }
 
   if (!config.submissionsEnabled) {
     // The API already tells us which variables are unset; saying which one is
@@ -107,7 +124,7 @@ async function configureTurnstile() {
     // this domain, or a blocked challenge. Without this the widget just sits
     // there and the button looks broken for no stated reason.
     "error-callback": () => {
-      block("Human verification could not complete on this domain. If you are the operator, check that the Turnstile widget allows this hostname.");
+      block(turnstileDiagnosis());
       return true;
     },
     "expired-callback": () => {
@@ -116,16 +133,35 @@ async function configureTurnstile() {
   });
 }
 
+/**
+ * Turnstile reports failures without saying why. The two facts that explain
+ * almost every one of them are the hostname and whether the site key is a live
+ * key or one of Cloudflare's test keys, and we have both.
+ */
+function turnstileDiagnosis() {
+  const host = lastConfig?.hostname || location.hostname;
+  const key = String(lastConfig?.turnstileSiteKey ?? "");
+  const shown = key ? `${key.slice(0, 6)}\u2026` : "unknown";
+  if (lastConfig?.turnstileMode === "live") {
+    return `Human verification did not render. The site key in use is a live Turnstile key (${shown}) and this page is on "${host}". `
+      + "A live widget only renders on the hostnames listed in its Turnstile dashboard. Add this hostname there, or for local "
+      + "testing set ALLOW_LOCAL_TURNSTILE_BYPASS=true in .dev.vars.";
+  }
+  return `Human verification did not render on "${host}" using test key ${shown}. Reload to try again.`;
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
-  if (turnstileWidget === undefined) {
-    setStatus("Human verification is still loading. Please wait a moment and try again.", true);
-    return;
-  }
-  if (!window.turnstile.getResponse(turnstileWidget)) {
-    setStatus("Complete the human-verification check above, then submit.", true);
-    return;
+  if (!localBypass) {
+    if (turnstileWidget === undefined) {
+      setStatus("Human verification is still loading. Please wait a moment and try again.", true);
+      return;
+    }
+    if (!window.turnstile.getResponse(turnstileWidget)) {
+      setStatus("Complete the human-verification check above, then submit.", true);
+      return;
+    }
   }
 
   const data = new FormData(form);
@@ -145,13 +181,13 @@ form.addEventListener("submit", async (event) => {
         officeHolders: lines(data.get("officeHolders")),
         sourceUrls: lines(data.get("sourceUrls")),
         submitterEmail: data.get("submitterEmail"),
-        turnstileToken: window.turnstile.getResponse(turnstileWidget),
+        turnstileToken: localBypass ? LOCAL_HUMAN_TOKEN : window.turnstile.getResponse(turnstileWidget),
       }),
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error ?? "Submission failed.");
     form.reset();
-    window.turnstile.reset(turnstileWidget);
+    if (!localBypass) window.turnstile.reset(turnstileWidget);
     setStatus("Submitted. An editor will review the evidence before any publication decision.");
   } catch (error) {
     setStatus(error.message || "Unable to submit the incident.", true);
@@ -162,7 +198,7 @@ form.addEventListener("submit", async (event) => {
 
 setNote("Loading human verification…");
 const turnstileTimer = setTimeout(() => {
-  if (turnstileWidget === undefined && !submitButton.disabled) {
+  if (turnstileWidget === undefined && !localBypass && !submitButton.disabled) {
     setNote("Human verification is taking longer than usual. It may be blocked by an extension or a network filter.", true);
   }
 }, TURNSTILE_TIMEOUT_MS);
@@ -170,7 +206,7 @@ const turnstileTimer = setTimeout(() => {
 configureTurnstile()
   .then(() => {
     clearTimeout(turnstileTimer);
-    if (!submitButton.disabled) setNote("Complete the verification check above before submitting.");
+    if (!submitButton.disabled && !localBypass) setNote("Complete the verification check above before submitting.");
   })
   .catch((error) => {
     clearTimeout(turnstileTimer);

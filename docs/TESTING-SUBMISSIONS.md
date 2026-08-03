@@ -8,8 +8,11 @@ production database.
 
 Two things cannot work on a static preview:
 
-- **Turnstile** needs a real widget bound to a real hostname. Locally you use
-  Cloudflare's official *test* keys, which always pass.
+- **Turnstile** only renders on the hostnames listed in its dashboard, and
+  `localhost` is never one of them. `ALLOW_LOCAL_TURNSTILE_BYPASS=true` skips the
+  challenge entirely on a loopback host; the API accepts a sentinel token only
+  under the same two conditions. `wrangler.jsonc` pins a live site key in `vars`,
+  so this bypass is what makes local testing work regardless of that.
 - **Cloudflare Access** cannot issue a JWT to a dev server, so the reviewer API
   would reject you. `DEV_REVIEWER_EMAIL` stands in, and only on a loopback host.
 
@@ -40,12 +43,14 @@ bypass only recognises loopback hostnames.
 
 Open <http://localhost:8788/submit/>.
 
-The button should be solid red with a normal pointer cursor. If it is greyed with
-a *not-allowed* cursor, read the line underneath — it names the fault.
+The button should be solid red with a normal pointer cursor, and the note
+underneath should read *"Local development: human verification is bypassed on this
+host."* If it is greyed with a *not-allowed* cursor, read the line underneath — it
+names the fault, including the hostname and whether the site key is a live one.
 
 Fill everything in. For sources use a URL that resolves, e.g.
-`https://www.tribuneindia.com/`. Complete the verification widget (the test key
-passes instantly), then **Submit for review**.
+`https://www.tribuneindia.com/`. There is no challenge to solve locally, so press
+**Submit for review**.
 
 Expect: *"Submitted. An editor will review the evidence before any publication
 decision."*
@@ -149,8 +154,12 @@ npm run db:migrate:local
 - [ ] Set `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `SUBMISSION_HASH_SALT`,
       `REVIEWER_EMAILS`, `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD` on the Pages
       project.
-- [ ] **Do not** set `DEV_REVIEWER_EMAIL` in production. It is ignored off
-      loopback, but there is no reason for it to exist there.
+- [ ] **Do not** set `DEV_REVIEWER_EMAIL` or `ALLOW_LOCAL_TURNSTILE_BYPASS` in
+      production. Both are ignored off loopback, but neither has any reason to
+      exist there.
+- [ ] Add every hostname the site serves to the Turnstile widget: the apex
+      domain, `*.pages.dev`, and any preview domain. A missing hostname is what
+      makes the form fail with no obvious cause.
 - [ ] Apply migrations to the real database: `npm run db:migrate:remote`.
 - [ ] Add Cloudflare Access policies for `/review/*` and `/api/admin/*`.
 - [ ] Confirm `https://<your-site>/api/public-config` returns JSON. If it returns
