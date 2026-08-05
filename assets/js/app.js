@@ -169,7 +169,12 @@ function card(d){
   const suggestHref=`./suggest/?case=${encodeURIComponent(caseId)}&title=${encodeURIComponent(d.title)}`;
   const readerNote=reader.length?` &middot; ${reader.length} ${escapeHTML(t("sources_reader_note"))}`:"";
   const alleg=d.alleg?`<div class="field alleg"><div class="k">${escapeHTML(t("field_alleged"))}</div><div class="v">${safeRichText(d.alleg)}</div></div>`:"";
-  const pos=d.pos?`<div class="field pos"><div class="k">${escapeHTML(t("field_position"))}</div><div class="v">${safeRichText(d.pos)}</div></div>`:"";
+  // The government's own answer, set against what followed. Both columns carry
+  // equal weight so a reader can side with the left one if the record allows it.
+  const h2h=d.pos?`<div class="field"><div class="k">${escapeHTML(t("h2h_heading"))}</div><div class="v"><div class="h2h-grid">
+        <div class="h2h-side h2h-said"><p class="h2h-label">${escapeHTML(t("h2h_said"))}</p><p class="h2h-body">${safeRichText(d.pos)}</p></div>
+        <div class="h2h-side h2h-record"><p class="h2h-label">${escapeHTML(t("h2h_record"))}</p><p class="h2h-verdict">${escapeHTML(caseField(d,"stamp"))}</p><p class="h2h-body">${safeRichText(d.dodge)}</p></div>
+      </div></div></div>`:"";
   return `
   <article class="file sev-${severity}" id="case-${caseId}" data-case-id="${escapeHTML(caseId)}" data-cat="${escapeHTML(d.cat)}">
     <div class="filehead" role="button" tabindex="0" aria-controls="${bodyId}" aria-expanded="false">
@@ -185,13 +190,14 @@ function card(d){
     <div class="case-actions">
       <button class="expandbar" type="button" aria-controls="${bodyId}" aria-expanded="false">${escapeHTML(t("card_open"))}</button>
       <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}">${escapeHTML(t("card_copy"))}</button>
+      <a class="case-share" href="./case/${encodeURIComponent(caseId)}/">${escapeHTML(t("card_open_page"))}</a>
       <a class="case-share" href="${cardPath}" target="_blank" rel="noopener">${escapeHTML(t("card_share"))}</a>
     </div>
     <div class="filebody" id="${bodyId}" aria-hidden="true"><div class="filebody-inner">
       <div class="field"><div class="k">${escapeHTML(t("field_what"))}</div><div class="v">${safeRichText(d.what)}</div></div>
-      <div class="field dodge"><div class="k">${escapeHTML(t("field_dodge"))}</div><div class="v">${safeRichText(d.dodge)}</div></div>
+      ${h2h}
       <div class="field"><div class="k">${escapeHTML(t("field_ministers"))}</div><div class="v"><div class="propchips">${props}</div></div></div>
-      ${alleg}${pos}
+      ${alleg}
       <div class="field alt"><div class="k">${escapeHTML(t("field_alt"))}</div><div class="v">${safeRichText(d.alt)}</div></div>
       <div class="field"><div class="k">${escapeHTML(t("field_sources"))}${readerNote}</div><div class="v"><p class="source-legend"><span class="tier-badge tier-1">T1</span> ${escapeHTML(t("tier_legend_1"))} · <span class="tier-badge tier-2">T2</span> ${escapeHTML(t("tier_legend_2"))} · <span class="tier-badge tier-3">T3</span> ${escapeHTML(t("tier_legend_3"))}</p><div class="sources">${srcs}</div>
         <a class="suggest-source" href="${suggestHref}">${escapeHTML(t("suggest_source_cta"))}</a>
