@@ -248,6 +248,87 @@
   .suggestion input{width:100%;padding:9px 11px;border:1px solid var(--rule-strong);border-radius:0;background:var(--paper);font:15px/1.5 var(--serif);letter-spacing:normal;text-transform:none;color:var(--ink)}
   .suggestion input:focus{outline:2px solid var(--redline);outline-offset:-1px}
 
+  /* ---------- case pages, the claim-vs-record head-to-head, and the clock ---------- */
+  .casefile-page,.claims-page{padding-top:26px;padding-bottom:64px}
+  .crumbs{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:20px}
+  .crumbs a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dotted var(--rule-strong)}
+  .crumbs a:hover,.crumbs a:focus-visible{color:var(--redline);border-bottom-color:var(--redline)}
+
+  .casefile{background:var(--paper-raised);border:1px solid var(--rule-strong);border-left:4px solid var(--redline);box-shadow:var(--shadow);padding:32px 32px 40px}
+  .casefile.sev-amber{border-left-color:var(--amber-soft)}
+  .casefile-head{padding-bottom:22px;border-bottom:2px solid var(--ink)}
+  .casefile-head .title{font-size:clamp(28px,4.6vw,50px);line-height:1.04;margin-bottom:10px}
+  .casefile-date{margin:0 0 14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .casefile-head .stamp{display:inline-block;transform:none;margin:0}
+
+  /* The clock. A number that goes up on its own is the point, so it leads. */
+  .clock{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:22px 0 0;padding:16px 18px;background:var(--paper-sunken);border-left:4px solid var(--redline)}
+  .clock-num{font-family:var(--display);font-weight:900;font-size:clamp(30px,4.4vw,46px);line-height:.92;letter-spacing:-.03em;color:var(--redline)}
+  .clock-unit{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+  .clock-line{flex:1 1 260px;min-width:0;font-size:16px;line-height:1.5;color:var(--ink)}
+
+  .case-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 26px;border-bottom:1px dashed var(--rule);padding:6px 0}
+  .case-metrics .metric{border-right:none;padding:16px 0}
+
+  .case-field{padding:24px 0;border-bottom:1px dashed var(--rule)}
+  .case-field:last-of-type{border-bottom:none}
+  .case-field-k{margin:0 0 10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--ink-faint);display:flex;align-items:center;gap:8px}
+  .case-field-k::before{content:"";width:12px;height:2px;background:var(--redline);flex:0 0 auto}
+  .case-field-v{font-size:17.5px;line-height:1.62;color:var(--ink);max-width:74ch;overflow-wrap:anywhere}
+  .case-field.alleg .case-field-v{color:var(--ink-soft)}
+  .case-field.alleg .case-field-v em{color:var(--ink);font-style:normal;font-weight:500}
+  .case-field.alt{background:linear-gradient(0deg,rgba(31,92,84,.06),rgba(31,92,84,.06));margin:0 -32px;padding:24px 32px}
+  .case-field.alt .case-field-k{color:var(--constructive)}
+  .case-field.alt .case-field-k::before{background:var(--constructive)}
+  .case-field.alt .case-field-v{color:#14413b}
+  .case-caveat{margin:12px 0 0;font-family:var(--mono);font-size:10.5px;line-height:1.7;color:var(--ink-faint);max-width:74ch}
+
+  /* Head-to-head. Two columns, equal weight, so a reader can disagree with us. */
+  .headtohead{padding:26px 0;border-bottom:1px dashed var(--rule)}
+  .h2h-title{margin:0 0 16px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--redline);display:flex;align-items:center;gap:8px}
+  .h2h-title::before{content:"";width:12px;height:2px;background:var(--redline);flex:0 0 auto}
+  .h2h-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .h2h-side{padding:18px 20px;border:1px solid var(--rule-strong);background:var(--paper)}
+  .h2h-said{border-left:3px solid var(--ink-faint)}
+  .h2h-record{border-left:3px solid var(--redline)}
+  .h2h-label{margin:0 0 10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+  .h2h-record .h2h-label{color:var(--redline)}
+  .h2h-verdict{margin:0 0 10px;font-family:var(--display);font-weight:800;font-size:17px;line-height:1.25;letter-spacing:-.01em;color:var(--redline)}
+  .h2h-body{margin:0;font-size:16px;line-height:1.6;color:var(--ink-soft);overflow-wrap:anywhere}
+  .h2h-said .h2h-body{font-style:italic}
+
+  .holders{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+  .holder{display:grid;gap:2px;padding-bottom:10px;border-bottom:1px dashed var(--rule)}
+  .holder:last-child{border-bottom:none;padding-bottom:0}
+  .holder-role{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  .holder-name{font-size:17px;color:var(--ink)}
+
+  .src-items{display:grid;gap:9px;margin:12px 0 0;padding:0;list-style:none}
+  .src-item{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .case-actions-row{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+
+  .case-prevnext{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .prevnext{display:block;padding:16px 18px;border:1px solid var(--rule-strong);background:var(--paper-raised);text-decoration:none;color:var(--ink);font-size:16px;line-height:1.35}
+  .prevnext span{display:block;margin-bottom:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+  .prevnext:hover,.prevnext:focus-visible{border-color:var(--redline);color:var(--redline)}
+  .prevnext.next{text-align:right}
+
+  .claim-list{display:grid;gap:22px;margin:24px 0 0;padding:0;list-style:none}
+  .claim-row{padding-bottom:22px;border-bottom:1px solid var(--rule)}
+  .claim-row:last-child{border-bottom:none}
+  .claim-case{margin:0 0 12px;font-family:var(--display);font-weight:700;font-size:19px;line-height:1.3}
+  .claim-case a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule-strong)}
+  .claim-case a:hover,.claim-case a:focus-visible{color:var(--redline);border-bottom-color:var(--redline)}
+  .claim-meta{display:block;margin-top:5px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:400}
+
+  @media (max-width:640px){
+    .casefile{padding:22px 18px 30px}
+    .case-field.alt{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}
+    .case-prevnext{grid-template-columns:1fr}
+    .prevnext.next{text-align:left}
+    .clock{padding:14px 15px}
+  }
+
   footer{border-top:2px solid var(--ink);margin-top:40px;padding:38px 0 60px;background:var(--paper-sunken)}
   footer .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px}
   footer h4{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--redline);margin:0 0 12px}
