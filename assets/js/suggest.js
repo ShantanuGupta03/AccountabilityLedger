@@ -47,6 +47,10 @@ function disableForm(message) {
 }
 
 function describeCase() {
+  // The banner starts hidden: this form now shares a page with the corrections
+  // desk, so an empty "Loading the case…" line above unrelated prose reads as a
+  // bug rather than as status.
+  targetCase.hidden = false;
   if (!caseId) {
     targetCase.textContent = "No case was selected. Open a case on the ledger and use its “Suggest a source” button.";
     targetCase.classList.add("error");

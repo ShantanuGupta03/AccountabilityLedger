@@ -77,6 +77,10 @@
   .site-nav a{padding:6px 9px;border:1px solid var(--rule-strong);color:var(--ink-soft);text-decoration:none}
   .site-nav a:hover,.site-nav a[aria-current="page"]{border-color:var(--redline);color:var(--redline)}
   .compact-masthead .hero{padding-bottom:34px}
+  /* Generated pages carry their headline in <main>, so there is no hero to
+     space the masthead off its own bottom rule. Without this the 2px black
+     line hugs the nav and reads as a rendering fault. */
+  .bare-masthead .wrap{padding-bottom:22px}
   .hero{padding:46px 0 40px}
   .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.32em;font-size:12.5px;color:var(--redline);margin-bottom:22px}
   h1.title{font-family:var(--display);font-weight:900;line-height:.94;letter-spacing:-.02em;font-size:clamp(42px,7.6vw,86px);margin:0 0 4px}
@@ -312,6 +316,25 @@
   .src-item{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
   .case-actions-row{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
 
+  .related{max-width:1080px;margin:40px auto 0;padding:24px 0 0;border-top:1px solid var(--rule)}
+  .related-title{margin:0 0 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--redline)}
+  .related-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0;padding:0;list-style:none}
+  .related-item{display:grid;gap:5px;padding:14px 16px;border:1px solid var(--rule-strong);background:var(--paper-raised)}
+  .related-link{font-family:var(--display);font-weight:600;font-size:16px;line-height:1.35;color:var(--ink);text-decoration:none}
+  .related-item:hover{border-color:var(--redline)}
+  .related-item:hover .related-link{color:var(--redline)}
+  .related-meta,.related-why{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .related-why{color:var(--constructive)}
+  /* The permalink out of an open ledger card. Deliberately quiet: the expander
+     two buttons above it is the primary action, and two loud CTAs that both say
+     "open" is the redundancy this replaced. */
+  .case-permalink{margin:0;padding:14px 24px 20px;text-align:right}
+  .case-permalink a{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .case-permalink a:hover{color:var(--redline)}
+  /* Jump links on the merged corrections desk. */
+  .page-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+  .page-jump a{padding:6px 9px;border:1px solid var(--rule-strong);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none}
+  .page-jump a:hover{border-color:var(--redline);color:var(--redline)}
   .case-prevnext{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
   .prevnext{display:block;padding:16px 18px;border:1px solid var(--rule-strong);background:var(--paper-raised);text-decoration:none;color:var(--ink);font-size:16px;line-height:1.35}
   .prevnext span{display:block;margin-bottom:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
@@ -365,6 +388,13 @@
   .form-status.error{color:var(--redline)}
 
   /* ---------- RTI generator ---------- */
+  .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .rti-case-picker{display:grid;gap:10px}
+  .rti-case-picker input[type="search"]{width:100%;padding:11px 12px;border:1px solid var(--rule-strong);background:var(--paper-raised);font:16px/1.5 var(--serif);color:var(--ink)}
+  .rti-case-picker input[type="search"]:focus{outline:2px solid var(--redline);outline-offset:-1px}
+  .rti-case-picker select{padding:6px 4px}
+  .rti-case-picker select option{padding:7px 8px;font:15.5px/1.5 var(--serif)}
+  .rti-case-picker select option:checked{background:var(--redline);color:#F4F4EF}
   .rti-form select{width:100%;padding:11px 12px;border:1px solid var(--rule-strong);border-radius:0;background:var(--paper-raised);font:16px/1.5 var(--serif);letter-spacing:normal;text-transform:none;color:var(--ink)}
   .rti-form select:focus{outline:2px solid var(--redline);outline-offset:-1px}
   /* The rest of the form is a stack of grid labels; a checkbox is the one row
@@ -497,7 +527,19 @@
     .wrap,.method details{padding-left:16px;padding-right:16px}
     .flag{align-items:flex-start;flex-direction:column;gap:4px;line-height:1.45}
     .eyebrow{letter-spacing:.2em}
-    .site-nav{margin-top:12px}
+    /* Five nav items wrapped to three rows on a phone and ate the top of every
+       page. One scrolling row instead, the pattern the chips already use. */
+    .site-nav{margin-top:12px;flex-wrap:nowrap;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .site-nav::-webkit-scrollbar{display:none}
+    .site-nav a{flex:0 0 auto;white-space:nowrap}
+    /* The nav scrolls, but the language toggle must not scroll out of reach:
+       pin it to the right edge of the scroller with the page colour behind it. */
+    .site-nav .lang-switch{position:sticky;right:0;flex:0 0 auto;white-space:nowrap;padding-left:10px;background:var(--paper);box-shadow:-10px 0 10px -7px rgba(25,27,31,.22)}
+    .related-list{grid-template-columns:1fr}
+    .case-permalink{padding:12px 16px 18px}
+    .page-jump{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+    .page-jump::-webkit-scrollbar{display:none}
+    .page-jump a{flex:0 0 auto;white-space:nowrap}
     .docket{grid-template-columns:repeat(2,1fr)} .docket .cell:nth-child(2){border-right:none}
     .controls{padding:10px 0}
     .controls .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}

@@ -24,12 +24,10 @@
     <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="flag_tag">Who owned the mess? 25 years, every party, on the record</span></div>
     <nav class="site-nav" aria-label="Primary navigation">
       <a href="./" aria-current="page" data-i18n="nav_ledger">Ledger</a>
-      <a href="./dashboard/" data-i18n="nav_dashboard">Minister dashboard</a>
-      <a href="./claims/" data-i18n="nav_claims">Claim vs record</a>
+      <a href="./dashboard/" data-i18n="nav_dashboard">Ministers</a>
       <a href="./rti/" data-i18n="nav_rti">File an RTI</a>
-      <a href="./submit/" data-i18n="nav_submit">Submit an incident</a>
-      <a href="./suggest/" data-i18n="nav_suggest">Suggest a source</a>
-      <a href="./corrections/" data-i18n="nav_corrections">Corrections</a>
+      <a href="./submit/" data-i18n="nav_submit">Submit a case</a>
+      <a href="./corrections/" data-i18n="nav_corrections">Corrections &amp; sources</a>
       <span class="lang-switch" aria-label="Language">
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="hi" aria-pressed="false">हि</button>
@@ -67,7 +65,7 @@
       <p><strong>"Ministers responsible" names who held the portfolio</strong>. That is a matter of record, not by itself a charge of personal guilt. Several failures belong to <em>state</em> governments and are labelled as such rather than pinned on the Union. The dashboard sums deaths and costs <em>recorded in cases under a portfolio</em>; it never attributes those figures to an individual.</p>
       <p><strong>Sources carry a tier badge.</strong> <span class="tier-badge tier-1">T1</span> primary record (court, audit, gazette, official publication). <span class="tier-badge tier-2">T2</span> independent reporting or documented research. <span class="tier-badge tier-3">T3</span> partisan or advocacy; useful as a pointer, never as the only proof. Where an archived copy exists, it is linked alongside the live URL.</p>
       <p><strong>Scope is deliberate, and it is not one-sided.</strong> This ledger runs from 2000 onward and covers every government that has held power in that time: the NDA under Vajpayee, the UPA under Manmohan Singh, and the NDA since 2014, along with state governments of every party. A ledger that begins in 2014 can be waved away as opposition material, and it should be. This one records the defence-deal sting that brought down a BJP president in 2001, the spectrum and coal allocations of the UPA years, illegal mining under a BJP state government, health funds looted under a BSP one, and counterfeiting protected by a state police force. The test applied is identical in every case and has nothing to do with party: <em>was anyone made to answer?</em></p>
-      <p><strong>Being even-handed also means recording the cases that did not survive scrutiny.</strong> Some entries here are famous accusations that collapsed: charges the courts threw out, presumptive loss figures that were never tested, ministers who were cleared. Those stay on the ledger, marked as such, because an accountability record that only remembers the accusations and forgets the acquittals is propaganda with footnotes. Where a court cleared someone, this ledger says so in the same breath as the allegation.</p>
+      <p><strong>Being even-handed also means recording the cases that did not survive scrutiny.</strong> Some entries here are famous accusations that collapsed: charges the courts threw out, presumptive loss figures that were never tested, ministers who were cleared. Those stay on the ledger, marked as such, because an accountability record that only remembers the accusations and forgets the acquittals is propaganda with footnotes. Where a court cleared someone, this ledger says so in the same breath as the allegation. Every claim and the record beside it is collected on one page: <a href="./claims/">claim against record</a>.</p>
       <p><strong>It also means recording the resignations.</strong> The counter at the top of this page is not a rhetorical zero; it is counted from the cases themselves. Every time an office-holder actually left over something on this file, it is logged against that case with the office and the date, and the header adds them up. That is why the number is what it is rather than what would be convenient. Union ministers, state ministers and officials are counted separately, because rolling them together is how a headline figure stops being true. If a minister resigns tomorrow over a case here, the number goes up on its own.</p>
       <p><strong>Every number tagged <span class="est">EST</span> is an estimate</strong>, often a disputed range. Treat it as order of magnitude and verify before quoting.</p>
       <p><strong>The headline cost and human-toll figures are broad, cumulative estimates</strong>. They sum only the explicit per-case estimates recorded in the data file, including disputed and range-based figures; cases can overlap and the totals are not an audit or a claim that every amount was stolen. Read them as a scale, not a balance sheet: they mix one-off tolls with <em>annual</em> figures, and money raised with money lost. The two largest single entries are ₹24.85 lakh crore of central fuel excise, which is lawful revenue where the accountability question is how it was split with the states and whether the cess reached the funds it was raised for, and roughly 2.1 million deaths attributed to air pollution in one year, 2021.</p>
@@ -89,8 +87,12 @@
     </label>
     <div class="chips" id="catchips"></div>
     <select class="sort" id="sort" aria-label="Sort order">
-      <option value="desc" data-i18n="sort_newest">Newest incident first</option>
-      <option value="asc" data-i18n="sort_oldest">Oldest incident first</option>
+      <option value="desc" data-i18n="sort_newest">Newest first</option>
+      <option value="asc" data-i18n="sort_oldest">Oldest first</option>
+      <option value="cost-desc" data-i18n="sort_cost_desc">Costliest in money</option>
+      <option value="cost-asc" data-i18n="sort_cost_asc">Cheapest in money</option>
+      <option value="deaths-desc" data-i18n="sort_deaths_desc">Deadliest</option>
+      <option value="deaths-asc" data-i18n="sort_deaths_asc">Fewest deaths</option>
     </select>
   </div>
 </div>

@@ -23,12 +23,10 @@
       <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="rti_flag_tag">Right to Information desk</span></div>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="../" data-i18n="nav_ledger">Ledger</a>
-        <a href="../dashboard/" data-i18n="nav_dashboard">Minister dashboard</a>
-        <a href="../claims/" data-i18n="nav_claims">Claim vs record</a>
+        <a href="../dashboard/" data-i18n="nav_dashboard">Ministers</a>
         <a href="./" aria-current="page" data-i18n="nav_rti">File an RTI</a>
-        <a href="../submit/" data-i18n="nav_submit">Submit an incident</a>
-        <a href="../suggest/" data-i18n="nav_suggest">Suggest a source</a>
-        <a href="../corrections/" data-i18n="nav_corrections">Corrections</a>
+        <a href="../submit/" data-i18n="nav_submit">Submit a case</a>
+        <a href="../corrections/" data-i18n="nav_corrections">Corrections &amp; sources</a>
         <span class="lang-switch" aria-label="Language">
           <button type="button" data-lang="en" aria-pressed="true">EN</button>
           <button type="button" data-lang="hi" aria-pressed="false">हि</button>
@@ -54,10 +52,17 @@
     </section>
 
     <form id="rti-form" class="submission-form rti-form" novalidate>
-      <label>
-        <span data-i18n="rti_field_case">Which case are you asking about?</span>
-        <select name="case" id="rti-case" required></select>
-      </label>
+      <div class="rti-case-picker">
+        <label>
+          <span data-i18n="rti_field_case">Which case are you asking about?</span>
+          <input id="rti-case-search" type="search" autocomplete="off" placeholder="Search 84 cases by name, minister or year" data-i18n-placeholder="rti_case_search_placeholder" aria-describedby="rti-case-count">
+        </label>
+        <p class="form-note" id="rti-case-count" role="status"></p>
+        <label>
+          <span class="visually-hidden" data-i18n="rti_field_case_select">Matching cases</span>
+          <select name="case" id="rti-case" size="6" required></select>
+        </label>
+      </div>
 
       <label>
         <span data-i18n="rti_field_authority">Public authority to address it to</span>

@@ -52,7 +52,13 @@ async function loadCases() {
       .catch(() => ({ cases: [] })),
     window.LedgerI18n?.ensureCaseStrings(),
   ]);
-  return [...staticCases, ...(published.cases ?? [])];
+  // The reader-submitted feed is the only part of this that can come back
+  // malformed, and spreading a non-array throws before a single row is drawn —
+  // which is what an empty dashboard looks like from the outside. The static
+  // file is the floor: whatever the API does, the ledger still renders.
+  const extra = Array.isArray(published?.cases) ? published.cases : [];
+  if (!Array.isArray(staticCases)) throw new Error("cases.json did not parse as a list.");
+  return [...staticCases, ...extra];
 }
 
 function dashboard(cases) {
@@ -360,8 +366,14 @@ let GROUPS = [];
 let PROFILE = null;
 
 function draw() {
-  if (PROFILE) renderProfile(PROFILE);
-  else renderTable(GROUPS);
+  try {
+    if (PROFILE) renderProfile(PROFILE);
+    else renderTable(GROUPS);
+  } catch (error) {
+    count.textContent = t("dash_error");
+    count.classList.add("error");
+    console.error("Dashboard failed to render:", error);
+  }
 }
 
 // The table and the CV are both built in JS, so a language switch redraws them.
@@ -385,6 +397,21 @@ loadCases()
       renderTable(GROUPS);
     });
   })
-  .catch(() => {
+  .catch((error) => {
+    // Say what broke. A silent blank table is indistinguishable from "nobody in
+    // this country was ever responsible for anything", which is funny once and
+    // then just looks like the site is down.
     count.textContent = t("dash_error");
+    count.classList.add("error");
+    console.error("Dashboard failed to load:", error);
+    const rows = document.querySelector("#minister-rows");
+    if (rows && !rows.children.length) {
+      const cell = document.createElement("td");
+      cell.className = "table-empty";
+      cell.colSpan = 5;
+      cell.textContent = t("dash_error");
+      const row = document.createElement("tr");
+      row.append(cell);
+      rows.append(row);
+    }
   });

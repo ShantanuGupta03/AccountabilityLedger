@@ -1,0 +1,4 @@
+# /suggest/ was folded into the corrections desk. Case pages and old links carry
+# ?case= and ?title=, which Pages preserves across a redirect.
+/suggest    /corrections/#sources    301
+/suggest/   /corrections/#sources    301

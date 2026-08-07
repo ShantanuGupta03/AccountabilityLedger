@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Corrections, right of reply and removals · Accountability Ledger</title>
+  <title>Corrections and sources · Accountability Ledger</title>
+  <meta name="description" content="Suggest a source for a case, send a correction, or exercise the right of reply. One desk for everything the record needs from a reader.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -12,23 +13,52 @@
 <body>
   <header class="masthead compact-masthead">
     <div class="wrap">
-      <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Corrections desk</span></div>
+      <div class="flag"><span>Citizens' Accountability Ledger</span><span class="redtag">Corrections and evidence desk</span></div>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="../">Ledger</a>
-        <a href="../dashboard/">Minister dashboard</a>
-        <a href="../submit/">Submit an incident</a>
-        <a href="../suggest/">Suggest a source</a>
-        <a href="./" aria-current="page">Corrections</a>
+        <a href="../dashboard/">Ministers</a>
+        <a href="../rti/">File an RTI</a>
+        <a href="../submit/">Submit a case</a>
+        <a href="./" aria-current="page">Corrections &amp; sources</a>
       </nav>
       <div class="hero">
-        <div class="eyebrow">Tell us we are wrong</div>
-        <h1 class="title">Corrections,<br><span class="thin">and the right of reply.</span></h1>
-        <p class="standfirst">A ledger that demands accountability has to accept it. If something here is wrong, we want to know, and we will fix it in the open rather than quietly. If you are named on this site, you have a standing right to answer.</p>
+        <div class="eyebrow">Tell us we are wrong. Or give us better proof.</div>
+        <h1 class="title">Corrections,<br><span class="thin">and better sources.</span></h1>
+        <p class="standfirst">A ledger that demands accountability has to accept it. If something here is wrong, we want to know, and we will fix it in the open rather than quietly. If you are named on this site, you have a standing right to answer. And if you can prove a case harder than we have, this is where you hand over the link.</p>
       </div>
     </div>
   </header>
 
   <main class="wrap form-page">
+    <nav class="page-jump" aria-label="On this page">
+      <a href="#sources">Suggest a source</a>
+      <a href="#corrections-title">Send a correction</a>
+      <a href="#reply-title">Right of reply</a>
+      <a href="#removal-title">Removal requests</a>
+      <a href="#contact-title">Contact</a>
+    </nav>
+
+    <section id="sources" class="submission-guidance" aria-labelledby="suggest-guidance-title">
+      <h2 id="suggest-guidance-title">Suggest a source</h2>
+      <p class="target-case" id="target-case" role="status" hidden></p>
+      <p>Some cases are recorded but not yet linked to everything that proves them. A ledger is only as good as the documents behind it, so if you have one we have missed, it is worth more to this site than any amount of agreement.</p>
+      <ul>
+        <li>A published report, court order, audit, or official record — not a social media post.</li>
+        <li>A page that is publicly reachable without a login, and that still loads today.</li>
+        <li>A source that supports a claim already on the case, rather than a new allegation. To add a new case, <a href="../submit/">submit a case</a>.</li>
+      </ul>
+      <form id="suggest-form" class="submission-form" novalidate>
+        <label>Source link<input name="url" type="url" maxlength="2000" placeholder="https://…" required></label>
+        <label>Short label <span class="optional">(what this source shows, 60 characters)</span><input name="label" maxlength="60" placeholder="For example: CAG report on cess transfers" required></label>
+        <label>Anything the editor should know? <span class="optional">(optional)</span><textarea name="note" rows="4" maxlength="1000"></textarea></label>
+        <label>Email for follow-up <span class="optional">(optional; never published)</span><input name="submitterEmail" type="email" maxlength="254" autocomplete="email"></label>
+        <div id="turnstile" aria-live="polite"></div>
+        <button class="form-submit" type="submit">Send to the editor</button>
+        <p class="form-note" id="form-note" hidden></p>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </section>
+
     <section class="submission-guidance" aria-labelledby="corrections-title">
       <h2 id="corrections-title">Corrections</h2>
       <p>Every case here is built from public reporting, audits, court records and official statements, and some of it will be wrong. Errors of fact, outdated legal status, a misattributed portfolio, a figure that has since been revised: send it and we will check it.</p>
@@ -92,6 +122,7 @@
     </section>
   </main>
 
+  <script src="../assets/js/suggest.js" defer></script>
   <script src="../assets/js/to-top.js" defer></script>
 </body>
 </html>
