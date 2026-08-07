@@ -37,10 +37,15 @@
     card_close: "Close the file  -",
     card_copy: "Copy link",
     card_copied: "Link copied",
-    card_share: "Share card",
+    // One share button, not three. It hands the case to the OS share sheet and
+    // falls back to the clipboard; the OG card is a crawler asset, not a page.
+    card_share: "Share",
+    card_rti: "File an RTI",
+    card_permalink: "Permanent page for citing this case →",
     h2h_heading: "Claim against record",
     h2h_said: "What the government said",
     h2h_record: "What the record shows",
+    h2h_all: "See every case this way →",
     nav_claims: "Claim vs record",
     case_holder_caveat: "Naming who held the portfolio is a matter of public record. It is not by itself a finding of personal responsibility for any death or any rupee.",
     clock_days: "days since",
@@ -65,6 +70,9 @@
     cases_logged_one: "1 case logged",
     cases_logged_many: "{n} cases logged",
     empty_msg: "Nothing matches that filter. Widen it. There is no shortage.",
+    // A ranking has to admit what it could not rank.
+    count_ranked_cost: "{n} of them carry a costed estimate; the other {total} have no figure on file and sort last.",
+    count_ranked_deaths: "{n} of them carry a recorded death toll; the other {total} have no figure on file and sort last.",
 
     // Numbers come from the resignations recorded on the cases themselves.
     standing_resigned_one: "Union minister has left office over anything on this file since 2014. In the years before that, {before} did. The failures did not stop. The resigning did.",
@@ -131,6 +139,9 @@
     comp_reverse: "Quietly reversing the flagship achievement",
 
     /* RTI generator. These are read from JavaScript, so English lives here too. */
+    rti_case_all: "{n} cases on file. Type to narrow it down.",
+    rti_case_matches: "{n} matching. Pick one.",
+    rti_case_none: "Nothing matches that. Try a minister's name, a year, or one word from the title.",
     rti_authority_incomplete: "fill in the state",
     rti_note_state: "This is a state authority, so the application goes to the State Public Information Officer. State fee rules and state portals differ from the central ones; the notes under the letter have changed to match.",
     rti_note_incomplete: "The ledger records the office but not which state it sits in. Put the exact authority and address in the box above before you file, or it will be returned unanswered.",
@@ -151,10 +162,10 @@
   /** Hindi. Static-page keys need no English twin; the HTML holds it. */
   const HI = {
     nav_ledger: "लेजर",
-    nav_dashboard: "मंत्री डैशबोर्ड",
-    nav_submit: "घटना दर्ज करें",
+    nav_dashboard: "मंत्री",
+    nav_submit: "मामला भेजें",
     nav_suggest: "स्रोत सुझाएँ",
-    nav_corrections: "सुधार",
+    nav_corrections: "सुधार और स्रोत",
     lang_label: "भाषा",
 
     flag_title: "नागरिकों का जवाबदेही लेजर",
@@ -180,8 +191,6 @@
     legend_amber: "वापस लिया / आंशिक / आरोपित / अनिर्णीत",
 
     search_placeholder: "लेजर में खोजें",
-    sort_newest: "नई घटना पहले",
-    sort_oldest: "पुरानी घटना पहले",
 
     footer_what: "यह क्या है",
     footer_read: "कैसे पढ़ें",
@@ -206,10 +215,20 @@
     card_close: "फ़ाइल बंद करें  -",
     card_copy: "लिंक कॉपी करें",
     card_copied: "लिंक कॉपी हो गया",
-    card_share: "शेयर कार्ड",
+    card_share: "साझा करें",
+    card_rti: "आरटीआई लगाएँ",
+    card_permalink: "इस मामले को उद्धृत करने के लिए स्थायी पृष्ठ →",
+    related_heading: "वही पैटर्न, फ़ाइल में और जगह",
+    sort_newest: "नए पहले",
+    sort_oldest: "पुराने पहले",
+    sort_cost_desc: "पैसे में सबसे महँगे",
+    sort_cost_asc: "पैसे में सबसे सस्ते",
+    sort_deaths_desc: "सबसे ज़्यादा जानलेवा",
+    sort_deaths_asc: "सबसे कम मौतें",
     h2h_heading: "दावा बनाम रिकॉर्ड",
     h2h_said: "सरकार ने क्या कहा",
     h2h_record: "रिकॉर्ड क्या कहता है",
+    h2h_all: "हर मामला इसी तरह देखें →",
     nav_claims: "दावा बनाम रिकॉर्ड",
     case_holder_caveat: "किसके पास विभाग था, यह बताना सार्वजनिक रिकॉर्ड की बात है। यह अपने आप में किसी मौत या किसी रुपये के लिए व्यक्तिगत ज़िम्मेदारी का निष्कर्ष नहीं है।",
     clock_days: "दिन बीत चुके",
@@ -234,6 +253,8 @@
     cases_logged_one: "1 मामला दर्ज",
     cases_logged_many: "{n} मामले दर्ज",
     empty_msg: "इस फ़िल्टर से कुछ नहीं मिला। दायरा बढ़ाइए। कमी नहीं है।",
+    count_ranked_cost: "इनमें से {n} पर लागत का अनुमान दर्ज है; बाक़ी {total} पर कोई आँकड़ा नहीं, इसलिए वे अंत में हैं।",
+    count_ranked_deaths: "इनमें से {n} पर मृतकों की संख्या दर्ज है; बाक़ी {total} पर कोई आँकड़ा नहीं, इसलिए वे अंत में हैं।",
 
     dash_flag_tag: "विभाग डैशबोर्ड",
     dash_eyebrow: "ज़िम्मेदारी के तरीक़े",
@@ -340,6 +361,11 @@
     rti_help_appeal: "उसी कार्यालय के प्रथम अपीलीय अधिकारी के पास धारा 19(1) के अंतर्गत पहली अपील कीजिए — निःशुल्क, इनकार से या समय-सीमा बीतने से तीस दिन के भीतर। वह भी विफल हो तो धारा 19(3) के अंतर्गत दूसरी अपील केंद्रीय या राज्य सूचना आयोग में जाती है। बिना कारण इनकार करने वाले लोक सूचना अधिकारी पर धारा 20 के अंतर्गत ₹250 प्रतिदिन, अधिकतम ₹25,000 का जुर्माना लग सकता है। यह जुर्माना कम ही लगता है, जो अपने आप में एक संकेत है, पर धारा मौजूद है और उसका ज़िक्र ध्यान खींचता है।",
     rti_disclaimer: "यह एक प्रारूप है, क़ानूनी सलाह नहीं। इसे इस लेजर के सार्वजनिक रिकॉर्ड और सूचना का अधिकार अधिनियम, 2005 के मूल पाठ से तैयार किया गया है। दाख़िल करने से पहले पता और शब्दावली जाँच लीजिए, और मामला अदालत में हो तो उचित सलाह लीजिए।",
 
+    rti_case_search_placeholder: "नाम, मंत्री या वर्ष से मामला खोजें",
+    rti_field_case_select: "मिलते-जुलते मामले",
+    rti_case_all: "फ़ाइल में {n} मामले। छाँटने के लिए टाइप कीजिए।",
+    rti_case_matches: "{n} मामले मिले। एक चुनिए।",
+    rti_case_none: "इससे कुछ नहीं मिला। किसी मंत्री का नाम, कोई वर्ष, या शीर्षक का एक शब्द आज़माइए।",
     rti_authority_incomplete: "राज्य का नाम भरें",
     rti_note_state: "यह राज्य का प्राधिकरण है, इसलिए आवेदन राज्य लोक सूचना अधिकारी के पास जाएगा। राज्यों के शुल्क नियम और पोर्टल केंद्र से अलग हैं; पत्र के नीचे दिए निर्देश उसी के अनुसार बदल गए हैं।",
     rti_note_incomplete: "लेजर में पद दर्ज है, पर यह नहीं कि वह किस राज्य का है। दाख़िल करने से पहले ऊपर के बॉक्स में सटीक प्राधिकरण और पता भरिए, वरना आवेदन बिना जवाब लौट आएगा।",

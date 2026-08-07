@@ -106,16 +106,15 @@ function pageShell({ title, description, path, imagePath, body, up = "../../", e
   <link rel="stylesheet" href="${up}assets/css/styles.css">
 ${extraHead}</head>
 <body>
-  <header class="masthead compact-masthead">
+  <header class="masthead compact-masthead bare-masthead">
     <div class="wrap">
       <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="flag_tag">Who owned the mess? 25 years, every party, on the record</span></div>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="${up}" data-i18n="nav_ledger">Ledger</a>
-        <a href="${up}dashboard/" data-i18n="nav_dashboard">Minister dashboard</a>
-        <a href="${up}claims/" data-i18n="nav_claims">Claim vs record</a>
+        <a href="${up}dashboard/" data-i18n="nav_dashboard">Ministers</a>
         <a href="${up}rti/" data-i18n="nav_rti">File an RTI</a>
-        <a href="${up}submit/" data-i18n="nav_submit">Submit an incident</a>
-        <a href="${up}corrections/" data-i18n="nav_corrections">Corrections</a>
+        <a href="${up}submit/" data-i18n="nav_submit">Submit a case</a>
+        <a href="${up}corrections/" data-i18n="nav_corrections">Corrections &amp; sources</a>
         <span class="lang-switch" aria-label="Language">
           <button type="button" data-lang="en" aria-pressed="true">EN</button>
           <button type="button" data-lang="hi" aria-pressed="false">हि</button>
@@ -175,7 +174,7 @@ function clockBlock(caseFile) {
 function headToHead(caseFile) {
   if (!caseFile.pos) return "";
   return `<section class="headtohead" aria-labelledby="h2h-${escapeHtml(caseId(caseFile))}">
-      <h2 class="h2h-title" id="h2h-${escapeHtml(caseId(caseFile))}" data-i18n="h2h_heading">Claim against record</h2>
+      <h2 class="h2h-title" id="h2h-${escapeHtml(caseId(caseFile))}"><span data-i18n="h2h_heading">Claim against record</span> <a class="h2h-all" href="../../claims/" data-i18n="h2h_all">See every case this way &rarr;</a></h2>
       <div class="h2h-grid">
         <div class="h2h-side h2h-said">
           <p class="h2h-label" data-i18n="h2h_said">What the government said</p>
@@ -206,7 +205,63 @@ function sourceList(caseFile) {
   }).join("");
 }
 
-function casePage(caseFile, { previous, next }) {
+/**
+ * Related cases. "Earlier" and "later" are chronology, which is the one thing a
+ * reader can already see; what actually helps is the case with the same person
+ * on the file, or the same failure happening again under a different flag.
+ *
+ * Scored rather than filtered, so a case is never left with an empty block:
+ * a shared office-holder is the strongest signal, a shared category next, and a
+ * near-in-time case is the weak tiebreak that stops the list going blank.
+ */
+function relatedCases(caseFile, all) {
+  const id = caseId(caseFile);
+  const holders = new Set(
+    (caseFile.ministers ?? []).flatMap((m) => splitOfficeHolders(m.n)).map((n) => n.toLowerCase()),
+  );
+  const scored = all
+    .filter((other) => caseId(other) !== id)
+    .map((other) => {
+      const otherHolders = new Set(
+        (other.ministers ?? []).flatMap((m) => splitOfficeHolders(m.n)).map((n) => n.toLowerCase()),
+      );
+      let score = 0;
+      let why = [];
+      const shared = [...holders].filter((n) => otherHolders.has(n));
+      if (shared.length) {
+        score += 5 * shared.length;
+        why.push(`Same office-holder: ${shared.length}`);
+      }
+      if (other.cat === caseFile.cat) {
+        score += 3;
+        why.push("Same category");
+      }
+      if (other.sev === caseFile.sev) score += 1;
+      // Never enough on its own; only separates cases already tied on substance.
+      const gap = Math.abs(Number(other.year) - Number(caseFile.year));
+      if (gap <= 2) score += 1;
+      return { other, score, why };
+    })
+    .filter((entry) => entry.score >= 3)
+    .sort((a, b) => b.score - a.score || Math.abs(b.other.sk - caseFile.sk) - Math.abs(a.other.sk - caseFile.sk));
+  return scored.slice(0, 3);
+}
+
+function relatedBlock(related) {
+  if (!related.length) return "";
+  const items = related.map(({ other, why }) => `
+        <li class="related-item">
+          <a class="related-link" href="../${encodeURIComponent(caseId(other))}/">${escapeHtml(other.title)}</a>
+          <span class="related-meta">${escapeHtml(other.date)} &middot; ${escapeHtml(other.cat)}</span>
+          <span class="related-why">${why.map((reason) => escapeHtml(reason.replace(/Same office-holder: \d+/, "Same office-holder"))).join(" &middot; ")}</span>
+        </li>`).join("");
+  return `<section class="related" aria-labelledby="related-title">
+      <h2 class="related-title" id="related-title" data-i18n="related_heading">The same pattern, elsewhere on the file</h2>
+      <ul class="related-list">${items}</ul>
+    </section>`;
+}
+
+function casePage(caseFile, { previous, next, related = [] }) {
   const id = caseId(caseFile);
   const number = String(caseFile.no).padStart(2, "0");
   const severity = caseFile.sev === "amber" ? "amber" : "red";
@@ -262,12 +317,12 @@ function casePage(caseFile, { previous, next }) {
         <ul class="src-items">${sourceList(caseFile)}</ul>
         <p class="case-actions-row">
           <a class="case-share act" href="../../rti/?case=${encodeURIComponent(id)}">Ask them officially. File an RTI</a>
-          <a class="case-share" href="../../suggest/?case=${encodeURIComponent(id)}&amp;title=${encodeURIComponent(caseFile.title)}">Know a better source? Add one</a>
-          <a class="case-share" href="../../assets/og/${encodeURIComponent(id)}.svg" target="_blank" rel="noopener">Share card</a>
-          <a class="case-share" href="../../?case=${encodeURIComponent(id)}">Open in the ledger</a>
+          <a class="case-share" href="../../corrections/?case=${encodeURIComponent(id)}&amp;title=${encodeURIComponent(caseFile.title)}#sources">Know a better source? Add one</a>
         </p>
       </section>
     </article>
+
+    ${relatedBlock(related)}
 
     <nav class="case-prevnext" aria-label="Nearby cases">
       ${previous ? `<a class="prevnext prev" href="../${encodeURIComponent(caseId(previous))}/"><span>Earlier</span>${escapeHtml(previous.title)}</a>` : "<span></span>"}
@@ -435,7 +490,11 @@ export async function generatePages(cases, outputDir) {
     await mkdir(dir, { recursive: true });
     await writeFile(
       join(dir, "index.html"),
-      casePage(caseFile, { previous: byDate[index - 1], next: byDate[index + 1] }),
+      casePage(caseFile, {
+        previous: byDate[index - 1],
+        next: byDate[index + 1],
+        related: relatedCases(caseFile, cases),
+      }),
       "utf8",
     );
   }

@@ -11,7 +11,7 @@ case record. Publishing is a separate, deliberate act from receiving.
 | What | Where |
 | --- | --- |
 | Public submission form | `/submit/` |
-| Public "suggest a source" form | `/suggest/?case=<id>` |
+| Public "suggest a source" form | `/corrections/?case=<id>#sources` |
 | Reviewer console | `/review/` — Cloudflare Access protected |
 | Submission API (public POST) | `functions/api/submissions/index.js` |
 | Admin API | `functions/api/admin/submissions/` |

@@ -8,8 +8,8 @@ const output = "dist";
 // silently 404s: no /api/cases, no /api/public-config, no submissions, no review
 // console. Everything here ships; nothing else does.
 const publicPaths = [
-  "index.html", "404.html", "_headers", "assets", "functions",
-  "corrections", "dashboard", "review", "rti", "submit", "suggest",
+  "index.html", "404.html", "_headers", "_redirects", "assets", "functions",
+  "corrections", "dashboard", "review", "rti", "submit",
 ];
 const casesPath = "assets/data/cases.json";
 const archivesPath = "assets/data/archives.json";

@@ -33,6 +33,36 @@ function sourceChip(source, { reader = false } = {}) {
 /* ---------- render ---------- */
 let CATS=[];
 const state={q:"",cats:new Set(),sort:"desc",year:null};
+
+/**
+ * Sort orders. Date is always answerable; cost and death toll are not, because
+ * only the cases carrying an explicit estimate have a number to sort on. Those
+ * without one are never allowed to win "lowest" by default — an unmeasured case
+ * is not a cheap case — so they sink to the bottom of every figure-based order
+ * and the date decides between them.
+ */
+const figure=(d,field)=>{const v=Number(d.estimates?.[field]);return Number.isFinite(v)&&v>0?v:null;};
+function byFigure(field,direction){
+  return (a,b)=>{
+    const x=figure(a,field), y=figure(b,field);
+    if(x===null&&y===null) return b.sk-a.sk;
+    if(x===null) return 1;
+    if(y===null) return -1;
+    return x===y ? b.sk-a.sk : (direction==="desc" ? y-x : x-y);
+  };
+}
+const SORTS={
+  desc:(a,b)=>b.sk-a.sk,
+  asc:(a,b)=>a.sk-b.sk,
+  "cost-desc":byFigure("costInrCrore","desc"),
+  "cost-asc":byFigure("costInrCrore","asc"),
+  "deaths-desc":byFigure("deaths","desc"),
+  "deaths-asc":byFigure("deaths","asc"),
+};
+const FIGURE_SORTS=new Map([
+  ["cost-desc","costInrCrore"],["cost-asc","costInrCrore"],
+  ["deaths-desc","deaths"],["deaths-asc","deaths"],
+]);
 const $=s=>document.querySelector(s);
 const timeline=$("#timeline"), emptyEl=$("#empty"), catchips=$("#catchips");
 const richTextTags=new Set(["B","EM"]);
@@ -43,7 +73,7 @@ function readUrlState(){
   const params=new URLSearchParams(location.search);
   state.q=params.get("q")??"";
   state.cats=new Set((params.get("categories")??"").split(",").filter(Boolean));
-  state.sort=params.get("sort")==="asc"?"asc":"desc";
+  state.sort=SORTS[params.get("sort")]?params.get("sort"):"desc";
   const year=Number(params.get("year"));
   state.year=Number.isInteger(year)&&year>0?year:null;
   $("#search").value=state.q;
@@ -54,7 +84,7 @@ function syncUrl({caseId}={}){
   const url=new URL(location.href);
   state.q?url.searchParams.set("q",state.q):url.searchParams.delete("q");
   state.cats.size?url.searchParams.set("categories",[...state.cats].sort().join(",")):url.searchParams.delete("categories");
-  state.sort==="asc"?url.searchParams.set("sort","asc"):url.searchParams.delete("sort");
+  state.sort==="desc"?url.searchParams.delete("sort"):url.searchParams.set("sort",state.sort);
   state.year?url.searchParams.set("year",state.year):url.searchParams.delete("year");
   if(caseId===null) url.searchParams.delete("case");
   if(caseId) url.searchParams.set("case",caseId);
@@ -162,11 +192,8 @@ function card(d){
   const srcs = d.sources.map((s) => sourceChip(s))
     .concat(reader.map((s) => sourceChip(s, { reader: true })))
     .join("");
-  // The card image itself. /case/<id>/ is the crawler page and bounces a human
-  // straight back here, so pointing "share card" at it looked like a dead button.
-  const cardPath = `./assets/og/${encodeURIComponent(caseId)}.svg`;
   // The English title goes to the suggest form: the review queue works in English.
-  const suggestHref=`./suggest/?case=${encodeURIComponent(caseId)}&title=${encodeURIComponent(d.title)}`;
+  const suggestHref=`./corrections/?case=${encodeURIComponent(caseId)}&title=${encodeURIComponent(d.title)}#sources`;
   const readerNote=reader.length?` &middot; ${reader.length} ${escapeHTML(t("sources_reader_note"))}`:"";
   const alleg=d.alleg?`<div class="field alleg"><div class="k">${escapeHTML(t("field_alleged"))}</div><div class="v">${safeRichText(d.alleg)}</div></div>`:"";
   // The government's own answer, set against what followed. Both columns carry
@@ -189,9 +216,8 @@ function card(d){
     </div>
     <div class="case-actions">
       <button class="expandbar" type="button" aria-controls="${bodyId}" aria-expanded="false">${escapeHTML(t("card_open"))}</button>
-      <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}">${escapeHTML(t("card_copy"))}</button>
-      <a class="case-share" href="./case/${encodeURIComponent(caseId)}/">${escapeHTML(t("card_open_page"))}</a>
-      <a class="case-share" href="${cardPath}" target="_blank" rel="noopener">${escapeHTML(t("card_share"))}</a>
+      <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}" data-share-title="${escapeHTML(caseField(d,"title"))}">${escapeHTML(t("card_share"))}</button>
+      <a class="case-share act" href="./rti/?case=${encodeURIComponent(caseId)}">${escapeHTML(t("card_rti"))}</a>
     </div>
     <div class="filebody" id="${bodyId}" aria-hidden="true"><div class="filebody-inner">
       <div class="field"><div class="k">${escapeHTML(t("field_what"))}</div><div class="v">${safeRichText(d.what)}</div></div>
@@ -202,6 +228,7 @@ function card(d){
       <div class="field"><div class="k">${escapeHTML(t("field_sources"))}${readerNote}</div><div class="v"><p class="source-legend"><span class="tier-badge tier-1">T1</span> ${escapeHTML(t("tier_legend_1"))} · <span class="tier-badge tier-2">T2</span> ${escapeHTML(t("tier_legend_2"))} · <span class="tier-badge tier-3">T3</span> ${escapeHTML(t("tier_legend_3"))}</p><div class="sources">${srcs}</div>
         <a class="suggest-source" href="${suggestHref}">${escapeHTML(t("suggest_source_cta"))}</a>
       </div></div>
+      <p class="case-permalink"><a href="./case/${encodeURIComponent(caseId)}/">${escapeHTML(t("card_permalink"))}</a></p>
     </div></div>
   </article>`;
 }
@@ -218,21 +245,34 @@ function render(){
     }
     return true;
   });
-  rows.sort((a,b)=> state.sort==="asc" ? a.sk-b.sk : b.sk-a.sk);
-  $("#count").textContent = rows.length===DATA.length
+  rows.sort(SORTS[state.sort]??SORTS.desc);
+  const base = rows.length===DATA.length
     ? t("count_all",{n:DATA.length})
     : t("count_some",{n:rows.length,total:DATA.length});
+  const field = FIGURE_SORTS.get(state.sort);
+  const ranked = field ? rows.filter(d=>figure(d,field)!==null).length : 0;
+  $("#count").textContent = field
+    ? `${base}. ${t(field==="deaths"?"count_ranked_deaths":"count_ranked_cost",{n:ranked,total:rows.length-ranked})}`
+    : base;
   emptyEl.hidden = rows.length>0;
   emptyEl.textContent = t("empty_msg");
 
-  const seen=new Map(); const order=[];
-  rows.forEach(d=>{ if(!seen.has(d.year)){seen.set(d.year,[]);order.push(d.year);} seen.get(d.year).push(d); });
-  timeline.innerHTML=order.map(y=>{
-    const items=seen.get(y).map(card).join("");
-    const n=seen.get(y).length;
-    const logged=n===1?t("cases_logged_one"):t("cases_logged_many",{n});
-    return `<section id="year-${y}"><div class="yearmark"><a class="y year-link" href="?year=${y}" aria-label="Show cases from ${y}">${y}</a><span class="r"></span><span class="c">${escapeHTML(logged)}</span></div>${items}</section>`;
-  }).join("");
+  // Year dividers are only honest for a chronological sort. Bucketing a cost
+  // ranking by year silently re-orders it — the second most expensive case in
+  // the country ends up below every other case that shares a year with the
+  // first — so a figure sort renders one flat list instead.
+  if(FIGURE_SORTS.has(state.sort)){
+    timeline.innerHTML=`<section>${rows.map(card).join("")}</section>`;
+  }else{
+    const seen=new Map(); const order=[];
+    rows.forEach(d=>{ if(!seen.has(d.year)){seen.set(d.year,[]);order.push(d.year);} seen.get(d.year).push(d); });
+    timeline.innerHTML=order.map(y=>{
+      const items=seen.get(y).map(card).join("");
+      const n=seen.get(y).length;
+      const logged=n===1?t("cases_logged_one"):t("cases_logged_many",{n});
+      return `<section id="year-${y}"><div class="yearmark"><a class="y year-link" href="?year=${y}" aria-label="Show cases from ${y}">${y}</a><span class="r"></span><span class="c">${escapeHTML(logged)}</span></div>${items}</section>`;
+    }).join("");
+  }
 
   timeline.querySelectorAll(".file").forEach(f=>{
     const head=f.querySelector(".filehead"), bar=f.querySelector(".expandbar");
@@ -242,11 +282,27 @@ function render(){
     head.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} });
     bar.addEventListener("click",toggle);
   });
+  // Share used to open the raw OG SVG in a tab. On a phone that renders at its
+  // intrinsic 1200px with no scaling, so the reader got the top-left corner of
+  // the card blown up. The SVG is a crawler asset; it was never a destination.
+  // What people actually want is to send the case to someone, so hand the link
+  // to the OS share sheet and fall back to the clipboard where there is none.
   timeline.querySelectorAll(".case-share[data-share-case]").forEach(button=>button.addEventListener("click",async()=>{
     const shareUrl=new URL(`./case/${encodeURIComponent(button.dataset.shareCase)}/`,location.href);
+    const title=button.dataset.shareTitle||"";
+    if(navigator.share){
+      try{
+        await navigator.share({title,text:title,url:shareUrl.href});
+        return;
+      }catch(error){
+        // AbortError is the reader dismissing the sheet, not a failure.
+        if(error?.name==="AbortError") return;
+      }
+    }
     try{
       await navigator.clipboard.writeText(shareUrl.href);
       button.textContent=t("card_copied");
+      setTimeout(()=>{button.textContent=t("card_share");},2500);
     }catch{
       window.prompt("Copy this case link:",shareUrl.href);
     }

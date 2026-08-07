@@ -15,6 +15,8 @@
   const SU = window.SourceUtils;
   const form = document.querySelector("#rti-form");
   const caseSelect = document.querySelector("#rti-case");
+  const caseSearch = document.querySelector("#rti-case-search");
+  const caseCount = document.querySelector("#rti-case-count");
   const authoritySelect = document.querySelector("#rti-authority");
   const authorityCustom = document.querySelector("#rti-authority-custom");
   const authorityNote = document.querySelector("#rti-authority-note");
@@ -304,12 +306,43 @@
     render();
   }
 
+  /**
+   * Eighty-four cases is too many to scroll past, so the list is filtered rather
+   * than browsed. Matching runs over the title, the category, the year and the
+   * office-holders, because "Gadkari" and "2016" are how people actually
+   * remember a case, not its exact headline.
+   */
+  function matches(caseFile, query) {
+    if (!query) return true;
+    const hay = [
+      caseFile.title, title(caseFile), caseFile.cat, caseFile.date, caseFile.year,
+      caseFile.stamp, caseFile.what,
+      ...(caseFile.ministers ?? []).map((m) => `${m.n} ${m.r}`),
+    ].join(" ").toLowerCase();
+    return query.split(/\s+/).every((word) => hay.includes(word));
+  }
+
   function renderCaseOptions() {
+    const query = (caseSearch?.value ?? "").trim().toLowerCase();
     const previous = caseSelect.value;
-    caseSelect.innerHTML = cases
+    const shown = cases.filter((caseFile) => matches(caseFile, query));
+    caseSelect.innerHTML = shown
       .map((caseFile) => `<option value="${caseFile.no}">${SU?.escapeHTML(`${caseFile.date} — ${title(caseFile)}`)}</option>`)
       .join("");
-    if (previous) caseSelect.value = previous;
+    // Keep the selected case if the new filter still contains it; otherwise the
+    // top match becomes the selection so the letter is never blank.
+    if (previous && shown.some((caseFile) => String(caseFile.no) === previous)) {
+      caseSelect.value = previous;
+    } else if (shown.length) {
+      caseSelect.value = String(shown[0].no);
+    }
+    if (caseCount) {
+      caseCount.textContent = shown.length
+        ? t(query ? "rti_case_matches" : "rti_case_all", { n: shown.length })
+        : t("rti_case_none");
+      caseCount.classList.toggle("blocked", shown.length === 0);
+    }
+    return shown.length;
   }
 
   /* ---------- actions ---------- */
@@ -371,7 +404,11 @@
     renderCaseOptions();
     const wanted = new URLSearchParams(location.search).get("case");
     const preselect = wanted && /^case-(\d+)$/.test(wanted) ? wanted.replace("case-", "") : wanted;
-    if (preselect && cases.some((item) => String(item.no) === preselect)) caseSelect.value = preselect;
+    if (preselect && cases.some((item) => String(item.no) === preselect)) {
+      if (caseSearch) caseSearch.value = "";
+      renderCaseOptions();
+      caseSelect.value = preselect;
+    }
     onCaseChange();
   }).catch(() => {
     statusNode.classList.add("error");
@@ -379,8 +416,10 @@
   });
 
   caseSelect.addEventListener("change", onCaseChange);
+  caseSearch?.addEventListener("input", () => { if (renderCaseOptions()) onCaseChange(); });
   authoritySelect.addEventListener("change", () => { updateAuthorityNote(); render(); });
   form.addEventListener("input", (event) => {
+    if (event.target === caseSearch) return;
     if (event.target === authorityCustom) updateAuthorityNote();
     render();
   });
