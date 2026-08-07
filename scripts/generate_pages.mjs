@@ -10,7 +10,12 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
-const SITE = process.env.SITE_URL ?? "https://accountabilityledger.pages.dev";
+/**
+ * The canonical origin. Every canonical link and og:image is absolute, so this
+ * has to be the domain readers actually land on: pointing them at an old host
+ * splits search authority and breaks social previews. Override with SITE_URL.
+ */
+const SITE = (process.env.SITE_URL ?? "https://whoisresponsible.xyz").replace(/\/$/, "");
 
 function slugify(name) {
   return String(name ?? "")
@@ -108,6 +113,7 @@ ${extraHead}</head>
         <a href="${up}" data-i18n="nav_ledger">Ledger</a>
         <a href="${up}dashboard/" data-i18n="nav_dashboard">Minister dashboard</a>
         <a href="${up}claims/" data-i18n="nav_claims">Claim vs record</a>
+        <a href="${up}rti/" data-i18n="nav_rti">File an RTI</a>
         <a href="${up}submit/" data-i18n="nav_submit">Submit an incident</a>
         <a href="${up}corrections/" data-i18n="nav_corrections">Corrections</a>
         <span class="lang-switch" aria-label="Language">
@@ -255,6 +261,7 @@ function casePage(caseFile, { previous, next }) {
         <p class="source-legend"><span class="tier-badge tier-1">T1</span> primary record &middot; <span class="tier-badge tier-2">T2</span> reporting &middot; <span class="tier-badge tier-3">T3</span> partisan</p>
         <ul class="src-items">${sourceList(caseFile)}</ul>
         <p class="case-actions-row">
+          <a class="case-share act" href="../../rti/?case=${encodeURIComponent(id)}">Ask them officially. File an RTI</a>
           <a class="case-share" href="../../suggest/?case=${encodeURIComponent(id)}&amp;title=${encodeURIComponent(caseFile.title)}">Know a better source? Add one</a>
           <a class="case-share" href="../../assets/og/${encodeURIComponent(id)}.svg" target="_blank" rel="noopener">Share card</a>
           <a class="case-share" href="../../?case=${encodeURIComponent(id)}">Open in the ledger</a>
@@ -286,19 +293,84 @@ function casePage(caseFile, { previous, next }) {
   });
 }
 
-function ogSvg({ title, stamp, stat, label }) {
-  const safeTitle = escapeHtml(title.slice(0, 90));
-  const safeStamp = escapeHtml(stamp.slice(0, 120));
-  const safeStat = escapeHtml(stat ?? "On the record");
-  const safeLabel = escapeHtml(label ?? "Accountability Ledger");
+/**
+ * Greedy word wrap for SVG text, which does not wrap on its own. Width is
+ * estimated from the font size: Georgia bold averages a little under half its
+ * point size per character, and 0.52 leaves margin for wide strings without
+ * wasting a line on narrow ones.
+ */
+function wrapSvgText(text, { maxWidth, fontSize, maxLines }) {
+  const perChar = fontSize * 0.52;
+  const limit = Math.max(8, Math.floor(maxWidth / perChar));
+  const lines = [];
+  let current = "";
+  for (const word of String(text).split(/\s+/).filter(Boolean)) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length <= limit) {
+      current = candidate;
+      continue;
+    }
+    if (current) lines.push(current);
+    current = word;
+    if (lines.length === maxLines) break;
+  }
+  if (current && lines.length < maxLines) lines.push(current);
+  if (lines.length === maxLines) {
+    // Anything past the last line is dropped, so mark the truncation.
+    const consumed = lines.join(" ").length;
+    if (consumed < String(text).replace(/\s+/g, " ").trim().length) {
+      lines[maxLines - 1] = `${lines[maxLines - 1].replace(/[,.;:]$/, "")}…`;
+    }
+  }
+  return lines;
+}
+
+/**
+ * The share card. Titles are wrapped rather than run off the edge, and the
+ * headline number is the day count, because "6,471 days, nobody answered" is the
+ * part worth putting in front of someone scrolling past.
+ */
+function ogSvg({ title, stamp, stat, label, days, dayLine }) {
+  const MAX_W = 1072;
+  // Long titles step down a size before they step onto a fourth line.
+  const titleSize = title.length > 78 ? 40 : title.length > 46 ? 46 : 54;
+  const titleLines = wrapSvgText(title, { maxWidth: MAX_W, fontSize: titleSize, maxLines: 3 });
+  const stampLines = wrapSvgText(stamp ?? "", { maxWidth: MAX_W, fontSize: 27, maxLines: 2 });
+
+  let y = 168;
+  const parts = [
+    `<text x="64" y="76" font-family="Georgia, serif" font-size="21" fill="#6b6f76" letter-spacing="4">${escapeHtml(label ?? "Accountability Ledger")}</text>`,
+  ];
+  for (const line of titleLines) {
+    parts.push(`<text x="64" y="${y}" font-family="Georgia, serif" font-size="${titleSize}" font-weight="700" fill="#191b1f">${escapeHtml(line)}</text>`);
+    y += Math.round(titleSize * 1.2);
+  }
+  y += 18;
+  for (const line of stampLines) {
+    parts.push(`<text x="64" y="${y}" font-family="Georgia, serif" font-size="27" fill="#4a4f57">${escapeHtml(line)}</text>`);
+    y += 36;
+  }
+
+  if (Number.isFinite(days) && days > 0) {
+    parts.push(`<text x="64" y="500" font-family="Georgia, serif" font-size="84" font-weight="700" fill="#b42318">${escapeHtml(days.toLocaleString("en-IN"))}</text>`);
+    const offset = 64 + String(days.toLocaleString("en-IN")).length * 46 + 18;
+    parts.push(`<text x="${offset}" y="500" font-family="monospace" font-size="22" fill="#6b6f76">DAYS SINCE</text>`);
+    for (const [index, line] of wrapSvgText(dayLine ?? "", { maxWidth: MAX_W, fontSize: 22, maxLines: 2 }).entries()) {
+      parts.push(`<text x="64" y="${544 + index * 30}" font-family="monospace" font-size="21" fill="#4a4f57">${escapeHtml(line)}</text>`);
+    }
+  } else {
+    for (const [index, line] of wrapSvgText(stat ?? "On the record", { maxWidth: MAX_W, fontSize: 24, maxLines: 2 }).entries()) {
+      parts.push(`<text x="64" y="${508 + index * 32}" font-family="monospace" font-size="24" fill="#b42318">${escapeHtml(line)}</text>`);
+    }
+  }
+
+  parts.push(`<text x="64" y="600" font-family="monospace" font-size="18" fill="#8a8f96">${escapeHtml(SITE.replace(/^https?:\/\//, ""))}</text>`);
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#f7f4ee"/>
   <rect x="0" y="0" width="8" height="630" fill="#b42318"/>
-  <text x="64" y="72" font-family="Georgia, serif" font-size="22" fill="#6b6f76" letter-spacing="4">${safeLabel}</text>
-  <text x="64" y="250" font-family="Georgia, serif" font-size="52" font-weight="700" fill="#191b1f">${safeTitle}</text>
-  <text x="64" y="330" font-family="Georgia, serif" font-size="28" fill="#4a4f57">${safeStamp}</text>
-  <text x="64" y="520" font-family="monospace" font-size="24" fill="#b42318">${safeStat}</text>
+  ${parts.join("\n  ")}
 </svg>`;
 }
 
@@ -341,9 +413,21 @@ export async function generatePages(cases, outputDir) {
     const ogName = `${id}.svg`;
     const human = stripHtml(caseFile.human?.v ?? "");
     const stat = human ? human.slice(0, 80) : stripHtml(caseFile.cost?.v ?? "").slice(0, 80);
+    const resigned = (caseFile.resignations ?? []).filter((r) => r?.n);
     await writeFile(
       join(outputDir, "assets/og", ogName),
-      ogSvg({ title: caseFile.title, stamp: caseFile.stamp, stat, label: `Case ${String(caseFile.no).padStart(2, "0")}` }),
+      ogSvg({
+        title: caseFile.title,
+        stamp: caseFile.stamp,
+        stat,
+        label: `Case ${String(caseFile.no).padStart(2, "0")} \u00b7 ${caseFile.cat}`,
+        days: daysSince(caseFile.sk) ?? undefined,
+        dayLine: resigned.length
+          ? `Someone left over this: ${resigned.map((r) => r.n).join(", ")}.`
+          : caseFile.sev === "amber"
+            ? stat
+            : "Nobody has been held to account.",
+      }),
       "utf8",
     );
 
@@ -415,6 +499,19 @@ export async function generatePages(cases, outputDir) {
     await mkdir(dir, { recursive: true });
     await writeFile(join(dir, "index.html"), html, "utf8");
   }
+
+  // The homepage card. index.html references it, so it has to exist.
+  const unansweredAll = cases.filter((c) => c.sev !== "amber").length;
+  await writeFile(
+    join(outputDir, "assets/og", "ledger.svg"),
+    ogSvg({
+      title: "Who owned the mess?",
+      stamp: `${cases.length} sourced cases since 2000, under every government that held power.`,
+      stat: `${unansweredAll} of them closed with nobody answering.`,
+      label: "Citizens' Accountability Ledger",
+    }),
+    "utf8",
+  );
 
   // Claim against record: every case that has a recorded government defence.
   const contested = byDate.filter((c) => c.pos).reverse();

@@ -38,7 +38,12 @@
   html[lang="hi"] .resume-job-outcome,html[lang="hi"] .resume-job-dodge-k,
   html[lang="hi"] .resume-fine,html[lang="hi"] .suggest-source,
   html[lang="hi"] .src-archive,html[lang="hi"] .tier-badge,
+  html[lang="hi"] .rti-help h3,html[lang="hi"] .rti-check,
   html[lang="hi"] .more-toggle,html[lang="hi"] .to-top{font-size:12.5px;line-height:1.7}
+  /* The application itself is monospaced; Devanagari cannot be read at the
+     size Latin mono is comfortable at, and this is a document to be checked
+     line by line before it is signed. */
+  html[lang="hi"] .rti-letter{font-size:14.5px;line-height:1.95}
   html[lang="hi"] .stamp,html[lang="hi"] .resume-job-outcome{font-size:12px}
   html[lang="hi"] .est,html[lang="hi"] .tier-badge{font-size:11px}
   /* Devanagari sets optically larger than Latin at the same point size, so the
@@ -359,6 +364,37 @@
   .form-status{min-height:1.6em;margin:0;color:var(--constructive)}
   .form-status.error{color:var(--redline)}
 
+  /* ---------- RTI generator ---------- */
+  .rti-form select{width:100%;padding:11px 12px;border:1px solid var(--rule-strong);border-radius:0;background:var(--paper-raised);font:16px/1.5 var(--serif);letter-spacing:normal;text-transform:none;color:var(--ink)}
+  .rti-form select:focus{outline:2px solid var(--redline);outline-offset:-1px}
+  /* The rest of the form is a stack of grid labels; a checkbox is the one row
+     that has to sit beside its text instead of above it. */
+  .submission-form label.rti-check{display:flex;gap:10px;align-items:flex-start;text-transform:none;letter-spacing:normal;font-family:var(--serif);font-size:15.5px;color:var(--ink)}
+  .rti-check input{width:18px;height:18px;flex:0 0 auto;margin-top:2px;accent-color:var(--redline)}
+  .rti-output{max-width:860px;margin:36px 0 0}
+  .rti-output-head{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+  .rti-output-head h2{margin:0;font-family:var(--display);font-size:26px}
+  .rti-output-head .case-actions-row{margin:0}
+  .rti-output .form-status{margin:10px 0 0}
+  .rti-letter{margin:14px 0 0;padding:26px 24px;border:1px solid var(--rule-strong);background:var(--paper-raised);font-family:var(--mono);font-size:13px;line-height:1.85;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere;max-height:60vh;overflow-y:auto}
+  .rti-letter:focus{outline:2px solid var(--redline);outline-offset:-1px}
+  .rti-help{max-width:940px;margin:44px 0 0;padding-top:26px;border-top:2px solid var(--rule-strong)}
+  .rti-help h2{margin:0 0 18px;font-family:var(--display);font-size:26px}
+  .rti-help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 32px}
+  .rti-help h3{margin:0 0 6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--redline)}
+  .rti-help p{margin:0;font-family:var(--serif);font-size:15.5px;line-height:1.65;color:var(--ink-soft)}
+  .rti-help .form-note{margin-top:24px;max-width:78ch}
+  /* The one action on a case page that does something rather than links onward. */
+  .case-share.act{color:var(--redline);border-color:var(--redline)}
+  .case-share.act:hover{background:var(--redline);color:#F4F4EF}
+
+  /* Printing this page means printing the application, nothing else. */
+  @media print{
+    .masthead,.rti-form,.submission-guidance,.rti-help,.rti-output-head,.rti-output .form-status,footer,.to-top{display:none !important}
+    .rti-page{padding:0}
+    .rti-letter{max-height:none;overflow:visible;border:0;padding:0;background:none;color:#000;font-size:11.5pt;line-height:1.6}
+  }
+
   .dashboard-controls{display:flex;gap:16px;align-items:end;margin-bottom:20px}
   .dashboard-controls .search{display:grid;gap:7px;max-width:480px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
   .dashboard-controls .search input{padding-left:14px}
@@ -476,6 +512,10 @@
     .metric{border-right:none;border-bottom:1px dashed var(--rule);padding:12px 0}.metric:last-child{border-bottom:none}
     footer .grid{grid-template-columns:1fr}
     .form-grid{grid-template-columns:1fr}
+    .rti-help-grid{grid-template-columns:1fr}
+    .rti-output-head{align-items:stretch;flex-direction:column;gap:10px}
+    .rti-output-head .case-actions-row{width:100%}
+    .rti-output-head .case-share{flex:1 1 auto;text-align:center}
     .dashboard-controls{align-items:stretch;flex-direction:column}
     .table-wrap{border:none;background:none;overflow-x:visible}
     .minister-table{display:block;min-width:0;font-size:15px}
@@ -501,5 +541,9 @@
     .form-page,.dashboard-page{padding-top:32px}
     .submission-guidance{padding:16px 18px}
     .form-submit{justify-self:stretch;width:100%;padding:14px}
+    /* The letter is monospaced and unwrappable below a point; on a narrow phone
+       it scrolls sideways inside its own box rather than pushing the page out. */
+    .rti-letter{padding:16px 14px;font-size:12px;line-height:1.8;max-height:55vh}
+    .rti-output-head .case-share{flex:1 1 100%}
     .minister-table small a{overflow-wrap:anywhere}
   }

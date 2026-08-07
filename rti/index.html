@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTI generator · Accountability Ledger</title>
+  <meta name="description" content="Turn any case in the ledger into a filed Right to Information application. Pick the case, add your details, get a ready-to-send RTI addressed to the right public authority.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Make them answer in writing. RTI generator">
+  <meta property="og:description" content="A press conference can be avoided. An RTI has a thirty-day clock and a named officer at the end of it. Pick a case, get the application.">
+  <meta property="og:image" content="https://whoisresponsible.xyz/assets/og/ledger.svg">
+  <meta property="og:url" content="https://whoisresponsible.xyz/rti/">
+  <link rel="canonical" href="https://whoisresponsible.xyz/rti/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="masthead compact-masthead">
+    <div class="wrap">
+      <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="rti_flag_tag">Right to Information desk</span></div>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../" data-i18n="nav_ledger">Ledger</a>
+        <a href="../dashboard/" data-i18n="nav_dashboard">Minister dashboard</a>
+        <a href="../claims/" data-i18n="nav_claims">Claim vs record</a>
+        <a href="./" aria-current="page" data-i18n="nav_rti">File an RTI</a>
+        <a href="../submit/" data-i18n="nav_submit">Submit an incident</a>
+        <a href="../suggest/" data-i18n="nav_suggest">Suggest a source</a>
+        <a href="../corrections/" data-i18n="nav_corrections">Corrections</a>
+        <span class="lang-switch" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="hi" aria-pressed="false">हि</button>
+        </span>
+      </nav>
+      <p class="lang-notice" data-lang-notice data-i18n="notice_case_lang" hidden></p>
+      <div class="hero">
+        <div class="eyebrow" data-i18n="rti_eyebrow">Ten rupees. Thirty days. A named officer.</div>
+        <h1 class="title"><span data-i18n="rti_title_main">Make them answer</span><br><span class="thin" data-i18n="rti_title_thin">in writing.</span></h1>
+        <p class="standfirst" data-i18n="rti_standfirst">A press conference can be skipped. A question in the House can be deflected into a paragraph that says nothing. An RTI cannot be ignored the same way: it goes to a named officer, it starts a thirty-day clock, and a refusal has to be written down with the section of the Act it hides behind. That written refusal is itself a record. Pick a case below, put your name to it, and post it.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap form-page rti-page">
+    <section class="submission-guidance" aria-labelledby="rti-guidance-title">
+      <h2 id="rti-guidance-title" data-i18n="rti_guidance_title">How this works</h2>
+      <ul>
+        <li data-i18n="rti_guidance_1">Pick a case. The generator reads that case's record and works out which ministry or authority actually holds the file, then drafts the questions that fit it.</li>
+        <li data-i18n="rti_guidance_2">Your name and address are typed into the letter in your own browser. Nothing you enter here is sent anywhere, stored, or seen by this site. Filing an RTI requires your real name and a real address, so use them.</li>
+        <li data-i18n="rti_guidance_3">Read the draft before you send it. Edit anything that does not fit. You are the applicant, not us.</li>
+      </ul>
+    </section>
+
+    <form id="rti-form" class="submission-form rti-form" novalidate>
+      <label>
+        <span data-i18n="rti_field_case">Which case are you asking about?</span>
+        <select name="case" id="rti-case" required></select>
+      </label>
+
+      <label>
+        <span data-i18n="rti_field_authority">Public authority to address it to</span>
+        <select name="authority" id="rti-authority"></select>
+      </label>
+      <label>
+        <span><span data-i18n="rti_field_authority_custom">Or type the authority yourself</span> <span class="optional" data-i18n="rti_optional_override">(overrides the choice above)</span></span>
+        <input name="authorityCustom" id="rti-authority-custom" maxlength="200" autocomplete="off">
+      </label>
+      <p class="form-note" id="rti-authority-note" hidden></p>
+
+      <div class="form-grid">
+        <label>
+          <span data-i18n="rti_field_name">Your full name</span>
+          <input name="name" id="rti-name" maxlength="120" autocomplete="name" required>
+        </label>
+        <label>
+          <span><span data-i18n="rti_field_phone">Phone</span> <span class="optional" data-i18n="rti_optional">(optional)</span></span>
+          <input name="phone" id="rti-phone" maxlength="40" autocomplete="tel">
+        </label>
+      </div>
+      <label>
+        <span data-i18n="rti_field_address">Your postal address, with PIN code</span>
+        <textarea name="address" id="rti-address" rows="3" maxlength="400" autocomplete="street-address" required></textarea>
+      </label>
+      <div class="form-grid">
+        <label>
+          <span><span data-i18n="rti_field_email">Email</span> <span class="optional" data-i18n="rti_optional">(optional)</span></span>
+          <input name="email" id="rti-email" type="email" maxlength="254" autocomplete="email">
+        </label>
+        <label>
+          <span data-i18n="rti_field_place">Place of signing</span>
+          <input name="place" id="rti-place" maxlength="80" placeholder="New Delhi" data-i18n-placeholder="rti_place_placeholder">
+        </label>
+      </div>
+
+      <label class="rti-check">
+        <input type="checkbox" name="bpl" id="rti-bpl">
+        <span data-i18n="rti_field_bpl">I hold a below-poverty-line card, so no fee is payable under Section 7(5)</span>
+      </label>
+    </form>
+
+    <section class="rti-output" aria-labelledby="rti-output-title">
+      <div class="rti-output-head">
+        <h2 id="rti-output-title" data-i18n="rti_output_title">Your application</h2>
+        <div class="case-actions-row">
+          <button type="button" class="case-share" id="rti-copy" data-i18n="rti_copy">Copy the text</button>
+          <button type="button" class="case-share" id="rti-download" data-i18n="rti_download">Download as .txt</button>
+          <button type="button" class="case-share" id="rti-print" data-i18n="rti_print">Print / save as PDF</button>
+        </div>
+      </div>
+      <p class="form-status" id="rti-status" role="status"></p>
+      <pre class="rti-letter" id="rti-letter" tabindex="0"></pre>
+    </section>
+
+    <section class="rti-help" aria-labelledby="rti-help-title">
+      <h2 id="rti-help-title" data-i18n="rti_help_title">Where to send it, what it costs, and what happens when they stall</h2>
+      <div class="rti-help-grid">
+        <div>
+          <h3 data-i18n="rti_help_file_h">Filing it</h3>
+          <p id="rti-help-file" data-i18n="rti_help_file_union">Central ministries and their departments take online applications at <span class="mono">rtionline.gov.in</span>, which is the fastest route and gives you a registration number the same day. Post also works: address the envelope to the CPIO at the address in the letter, by registered post or speed post, and keep the receipt.</p>
+        </div>
+        <div>
+          <h3 data-i18n="rti_help_fee_h">The fee</h3>
+          <p id="rti-help-fee" data-i18n="rti_help_fee_union">₹10, by Indian Postal Order, demand draft, banker's cheque or court fee stamp, made out to the Accounts Officer of that authority. Online filing takes a card or UPI payment. If you hold a BPL card there is no fee at all under Section 7(5), and the authority may not invent one.</p>
+        </div>
+        <div>
+          <h3 data-i18n="rti_help_clock_h">The clock</h3>
+          <p data-i18n="rti_help_clock">Thirty days under Section 7(1), from the day they receive it. Forty-eight hours if the information concerns life or liberty. If they transfer it to another authority under Section 6(3) they have five days to do so, and the clock restarts from receipt there. Silence past the deadline is a deemed refusal, which is a refusal you can appeal.</p>
+        </div>
+        <div>
+          <h3 data-i18n="rti_help_appeal_h">When they stall</h3>
+          <p data-i18n="rti_help_appeal">File a first appeal under Section 19(1) with the First Appellate Authority of the same office, free, within thirty days of the refusal or of the deadline passing. If that fails, a second appeal goes to the Central or State Information Commission under Section 19(3). A CPIO who refuses without cause can be fined ₹250 a day up to ₹25,000 under Section 20. That penalty is imposed rarely, which tells you something, but the section exists and citing it concentrates minds.</p>
+        </div>
+      </div>
+      <p class="form-note" data-i18n="rti_disclaimer">This is a template, not legal advice. It is drafted from the public record in this ledger and from the plain text of the Right to Information Act, 2005. Check the addressee and the wording before you file, and take proper advice if a matter is in court.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Every published claim sourced. <a href="../corrections/">Corrections and right of reply</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/source-utils.js" defer></script>
+  <script src="../assets/js/i18n.js" defer></script>
+  <script src="../assets/js/rti.js" defer></script>
+  <script src="../assets/js/to-top.js" defer></script>
+</body>
+</html>
