@@ -9,7 +9,7 @@ const output = "dist";
 // console. Everything here ships; nothing else does.
 const publicPaths = [
   "index.html", "404.html", "_headers", "assets", "functions",
-  "corrections", "dashboard", "review", "submit", "suggest",
+  "corrections", "dashboard", "review", "rti", "submit", "suggest",
 ];
 const casesPath = "assets/data/cases.json";
 const archivesPath = "assets/data/archives.json";

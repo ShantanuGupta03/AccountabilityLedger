@@ -15,37 +15,9 @@ function ministerLink(name) {
   return slug ? `<a class="minister-profile" href="?minister=${encodeURIComponent(name)}">${escapeHTML(name)}</a>` : escapeHTML(name);
 }
 
-/**
- * Institution names whose own commas would otherwise be read as separators.
- * Better fixed in assets/data/cases.json by writing the name unambiguously;
- * until then this keeps the ministry from being split into two office-holders.
- */
-const NON_SPLIT_NAMES = new Set(["ministry of environment, forest and climate change"]);
-
-/**
- * "A / B" and "A, B" name separate office-holders and must become separate
- * rows — case 8 lists three ministers that way. A comma inside brackets is part
- * of one name, though: "BJP state governments (UP, MP, Rajasthan and others)"
- * is a single entry.
- */
-function splitOfficeHolders(name) {
-  if (NON_SPLIT_NAMES.has(String(name).trim().toLowerCase())) return [String(name).trim()];
-  const parts = [];
-  let buffer = "";
-  let depth = 0;
-  for (const char of String(name)) {
-    if (char === "(") depth += 1;
-    else if (char === ")") depth = Math.max(0, depth - 1);
-    if ((char === "/" || char === ",") && depth === 0) {
-      parts.push(buffer);
-      buffer = "";
-      continue;
-    }
-    buffer += char;
-  }
-  parts.push(buffer);
-  return parts.map((item) => item.trim()).filter(Boolean);
-}
+// Shared with the RTI generator, which has to name the same office-holders.
+const splitOfficeHolders = (name) => window.SourceUtils?.splitOfficeHolders(name)
+  ?? [String(name ?? "").trim()].filter(Boolean);
 
 const SU = window.SourceUtils;
 
@@ -192,63 +164,14 @@ function roleForCase(caseFile, key) {
 }
 
 /**
- * A CV parody wants a letterhead address, and these are the real, public,
- * institutional addresses of the offices concerned — the kind printed on a
- * government website. Matched against the office-holder name and role text,
- * most specific first. It never invents or publishes a personal or
- * residential address, only the seat of the public office.
+ * A CV parody wants a letterhead address, and the table it comes from lives in
+ * source-utils.js: the real, public, institutional address of the office
+ * concerned, never a personal or residential one. It is shared so that the RTI
+ * generator addresses its application to exactly the authority this page
+ * prints on the CV, rather than to a second, quietly different guess.
  */
-const OFFICE_ADDRESSES = [
-  [/prime minister/, "Prime Minister's Office, South Block, New Delhi – 110011"],
-  [/\bmp\b.*(chief minister|\bcm\b)|(chief minister|\bcm\b).*\bmp\b|madhya pradesh/, "Chief Minister's Office, Vallabh Bhawan, Bhopal – 462004"],
-  [/\bup\b.*(chief minister|\bcm\b)|(chief minister|\bcm\b).*\bup\b|uttar pradesh/, "Chief Minister's Office, Lok Bhawan, Lucknow – 226001"],
-  [/manipur/, "Chief Minister's Office, Manipur Secretariat, Imphal – 795001"],
-  [/gujarat/, "Chief Minister's Office, Swarnim Sankul, Gandhinagar – 382010"],
-  [/chief minister|\bcm\b/, "Office of the Chief Minister, state secretariat concerned"],
-  [/lieutenant governor|\bl-?g\b/, "Raj Bhavan concerned, Government of India"],
-  // A party post is not a public office, and must not be given a government address.
-  [/\bparty president\b|\bbjp president\b|party chief/, "Party headquarters, New Delhi. Not a public office."],
-  [/maharashtra/, "Mantralaya, Madame Cama Road, Mumbai – 400032"],
-  // \b matters on "election": "selection" would otherwise match.
-  [/\belection commission\b|chief election commissioner/, "Election Commission of India, Nirvachan Sadan, New Delhi – 110001"],
-  [/reserve bank|\brbi\b|banking regulator|currency management/, "Reserve Bank of India, Central Office, Shahid Bhagat Singh Marg, Mumbai – 400001"],
-  [/home (minister|ministry|affairs)|\bmos home\b|ministry of home|delhi police|\bnia\b|\bcrpf\b|census|\brgi\b/, "Ministry of Home Affairs, North Block, New Delhi – 110001"],
-  [/finance minister|finance ministry|\bgst\b|excise|\bcess\b/, "Ministry of Finance, North Block, New Delhi – 110001"],
-  [/defence/, "Ministry of Defence, South Block, New Delhi – 110011"],
-  [/railway/, "Ministry of Railways, Rail Bhawan, New Delhi – 110001"],
-  [/education|\bnta\b|exam policy/, "Ministry of Education, Shastri Bhawan, New Delhi – 110001"],
-  [/health/, "Ministry of Health and Family Welfare, Nirman Bhawan, New Delhi – 110011"],
-  [/environment|forest|climate|clearance/, "Ministry of Environment, Forest and Climate Change, Indira Paryavaran Bhawan, New Delhi – 110003"],
-  [/petroleum|natural gas|\blpg\b|ujjwala/, "Ministry of Petroleum and Natural Gas, Shastri Bhawan, New Delhi – 110001"],
-  [/road transport|highway/, "Ministry of Road Transport and Highways, Transport Bhawan, New Delhi – 110001"],
-  [/labour|employment/, "Ministry of Labour and Employment, Shram Shakti Bhawan, New Delhi – 110001"],
-  [/housing|urban affairs/, "Ministry of Housing and Urban Affairs, Nirman Bhawan, New Delhi – 110011"],
-  [/external affairs/, "Ministry of External Affairs, South Block, New Delhi – 110011"],
-  [/law and justice|law minister/, "Ministry of Law and Justice, Shastri Bhawan, New Delhi – 110001"],
-  [/agriculture|farmer/, "Ministry of Agriculture and Farmers' Welfare, Krishi Bhawan, New Delhi – 110001"],
-  [/statistics|programme implementation|\bplfs\b/, "Ministry of Statistics and Programme Implementation, Sardar Patel Bhawan, New Delhi – 110001"],
-  [/personnel|\bdopt\b/, "Department of Personnel and Training, North Block, New Delhi – 110001"],
-  [/civil aviation|airport/, "Ministry of Civil Aviation, Rajiv Gandhi Bhawan, New Delhi – 110003"],
-  [/telecom|spectrum|\bdot\b/, "Department of Telecommunications, Sanchar Bhawan, New Delhi – 110001"],
-  [/\bcoal\b/, "Ministry of Coal, Shastri Bhawan, New Delhi – 110001"],
-  [/mining|mines|iron ore/, "Ministry of Mines, Shastri Bhawan, New Delhi – 110001"],
-  [/sports|youth affairs|games/, "Ministry of Youth Affairs and Sports, Shastri Bhawan, New Delhi – 110001"],
-  [/\biaf\b|air chief|air force/, "Air Headquarters (Vayu Bhawan), Rafi Marg, New Delhi – 110106"],
-  [/air quality|\bcaqm\b/, "Commission for Air Quality Management, Vayu Bhawan, New Delhi"],
-  [/staff selection|\bssc\b/, "Staff Selection Commission, Block No. 12, CGO Complex, New Delhi – 110003"],
-  [/crime records|\bncrb\b/, "National Crime Records Bureau, Mahipalpur, New Delhi – 110037"],
-  [/human rights|\bnhrc\b/, "National Human Rights Commission, Manav Adhikar Bhawan, New Delhi – 110023"],
-  [/ganga|jal shakti|river/, "Ministry of Jal Shakti, Shram Shakti Bhawan, New Delhi – 110001"],
-  [/minister|ministry/, "Ministry concerned, Government of India, New Delhi"],
-  [/\bmp\b|parliament/, "Parliament House, New Delhi – 110001"],
-  [/state government|state administration|\bpolice\b/, "State secretariat concerned"],
-];
-
-function officeAddress(name, role) {
-  const haystack = `${name ?? ""} ${role ?? ""}`.toLowerCase();
-  const match = OFFICE_ADDRESSES.find(([pattern]) => pattern.test(haystack));
-  return match ? match[1] : "Government of India, New Delhi";
-}
+const officeAddress = (name, role) => window.SourceUtils?.officeAddress(name, role)
+  ?? "Government of India, New Delhi";
 
 function jobEntry(caseFile, key) {
   const role = roleForCase(caseFile, key);

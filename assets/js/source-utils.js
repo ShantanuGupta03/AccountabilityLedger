@@ -158,8 +158,175 @@
     swapFigure(node);
   });
 
+
+  /* ---------- office-holders ---------- */
+
+  /**
+   * Institution names whose own commas would otherwise be read as separators.
+   * Better fixed in assets/data/cases.json by writing the name unambiguously;
+   * until then this keeps the ministry from being split into two office-holders.
+   */
+  const NON_SPLIT_NAMES = new Set(["ministry of environment, forest and climate change"]);
+
+  /**
+   * "A / B" and "A, B" name separate office-holders and must become separate
+   * entries — case 8 lists three ministers that way. A comma inside brackets is
+   * part of one name, though: "BJP state governments (UP, MP, Rajasthan and
+   * others)" is a single entry.
+   */
+  function splitOfficeHolders(name) {
+    if (NON_SPLIT_NAMES.has(String(name).trim().toLowerCase())) return [String(name).trim()];
+    const parts = [];
+    let buffer = "";
+    let depth = 0;
+    for (const char of String(name)) {
+      if (char === "(") depth += 1;
+      else if (char === ")") depth = Math.max(0, depth - 1);
+      if ((char === "/" || char === ",") && depth === 0) {
+        parts.push(buffer);
+        buffer = "";
+        continue;
+      }
+      buffer += char;
+    }
+    parts.push(buffer);
+    return parts.map((item) => item.trim()).filter(Boolean);
+  }
+
+  /* ---------- public authorities ----------
+     Real, public, institutional addresses for the offices this ledger names.
+     Used for the letterhead on a personnel file and for the addressee on a
+     generated RTI application, so both have to agree. Never a personal address. */
+
+  /**
+   * A state RTI goes to that state's SPIO at that state's secretariat, so the
+   * state has to be identified before any generic "chief minister" rule can
+   * swallow it. This block therefore runs first, and order inside it matters
+   * only where one state's name could appear in another's entry.
+   */
+  const STATE_OFFICES = [
+    // "MP" and "UP" are also "Member of Parliament" and "up", so those two need
+    // the office named alongside the abbreviation before they can match.
+    [/\bmp\b.*(chief minister|\bcm\b)|(chief minister|\bcm\b).*\bmp\b|madhya pradesh/, "Chief Minister's Office, Vallabh Bhawan, Bhopal – 462004"],
+    [/\bup\b.*(chief minister|\bcm\b)|(chief minister|\bcm\b).*\bup\b|uttar pradesh/, "Chief Minister's Office, Lok Bhawan, Lucknow – 226001"],
+    [/uttarakhand/, "Uttarakhand Secretariat, Subhash Road, Dehradun – 248001"],
+    [/manipur/, "Chief Minister's Office, Manipur Secretariat, Imphal – 795001"],
+    [/gujarat/, "Chief Minister's Office, Swarnim Sankul, Gandhinagar – 382010"],
+    [/maharashtra/, "Mantralaya, Madame Cama Road, Mumbai – 400032"],
+    [/karnataka|bengaluru|bangalore/, "Karnataka Government Secretariat, Vidhana Soudha, Bengaluru – 560001"],
+    [/\bgoa\b/, "Secretariat, Government of Goa, Porvorim – 403521"],
+    [/jharkhand/, "Jharkhand Secretariat, Project Bhawan, Dhurwa, Ranchi – 834004"],
+    [/west bengal/, "West Bengal Secretariat, Nabanna, 325 Sarat Chatterjee Road, Howrah – 711102"],
+    [/\bassam\b/, "Assam Secretariat, Janata Bhawan, Dispur, Guwahati – 781006"],
+    [/ladakh/, "UT Secretariat, Ladakh, Leh – 194101", { ut: true }],
+    // The LG is not the secretariat, so the office is named before the state is.
+    [/lieutenant governor.*(jammu|kashmir|\bj&k\b)|(jammu|kashmir|\bj&k\b).*lieutenant governor/, "Office of the Lieutenant Governor, Raj Bhavan, Srinagar – 190001", { ut: true }],
+    [/jammu|kashmir|\bj&k\b/, "Civil Secretariat, Jammu and Kashmir, Srinagar – 190001", { ut: true }],
+    [/rajasthan/, "Government Secretariat, Jaipur – 302005"],
+    [/\bbihar\b/, "Main Secretariat, Patna – 800015"],
+    [/tamil nadu/, "Secretariat, Fort St George, Chennai – 600009"],
+    [/\bkerala\b/, "Government Secretariat, Thiruvananthapuram – 695001"],
+    [/odisha|orissa/, "Odisha Secretariat, Lok Seva Bhawan, Bhubaneswar – 751001"],
+    [/\bpunjab\b/, "Punjab Civil Secretariat, Sector 1, Chandigarh – 160001"],
+    [/haryana/, "Haryana Civil Secretariat, Sector 1, Chandigarh – 160001"],
+    [/chhattisgarh/, "Mahanadi Bhawan, Mantralaya, Naya Raipur – 492002"],
+    [/telangana/, "Telangana Secretariat, Hyderabad – 500022"],
+    [/andhra pradesh/, "Andhra Pradesh Secretariat, Velagapudi, Amaravati – 522503"],
+    [/himachal/, "Himachal Pradesh Secretariat, Shimla – 171002"],
+    // Delhi Police answers to the Union Home Ministry, not to the Delhi
+    // government, so a bare "Delhi" must not route here. The state office is
+    // claimed only where the Delhi government itself is named.
+    [/delhi (chief minister|government|cabinet)|government of nct|(chief minister|deputy chief minister)[^.]*delhi/, "Delhi Secretariat, IP Estate, New Delhi – 110002", { ut: true }],
+  ];
+
+  const OFFICE_ADDRESSES = [
+    [/prime minister/, "Prime Minister's Office, South Block, New Delhi – 110011"],
+    // The trustees are the PM and three Union ministers, and the fund has told
+    // applicants for four years that it is not a public authority at all.
+    [/pm cares|ex-officio (chairman|trustee)/, "PM CARES Fund, Prime Minister's Office, South Block, New Delhi – 110011"],
+    ...STATE_OFFICES,
+    [/chief minister|\bcm\b/, "Office of the Chief Minister, state secretariat concerned"],
+    [/lieutenant governor|\bl-?g\b/, "Raj Bhavan concerned, Government of India"],
+    // \b matters on "election": "selection" would otherwise match.
+    [/\belection commission\b|chief election commissioner|returning officer/, "Election Commission of India, Nirvachan Sadan, New Delhi – 110001"],
+    [/reserve bank|\brbi\b|banking regulator|currency management/, "Reserve Bank of India, Central Office, Shahid Bhagat Singh Marg, Mumbai – 400001"],
+    [/\bsebi\b|securities and exchange board/, "Securities and Exchange Board of India, SEBI Bhavan, Plot C4-A, G Block, Bandra Kurla Complex, Mumbai – 400051"],
+    [/home (minister|ministry|affairs)|union home|\bmos home\b|ministry of home|delhi police|\bnia\b|\bcrpf\b|census|\brgi\b/, "Ministry of Home Affairs, North Block, New Delhi – 110001"],
+    [/finance minister|finance ministry|\bgst\b|excise|\bcess\b/, "Ministry of Finance, North Block, New Delhi – 110001"],
+    [/corporate affairs/, "Ministry of Corporate Affairs, Shastri Bhawan, New Delhi – 110001"],
+    [/defence/, "Ministry of Defence, South Block, New Delhi – 110011"],
+    [/railway/, "Ministry of Railways, Rail Bhawan, New Delhi – 110001"],
+    [/education|\bnta\b|exam policy/, "Ministry of Education, Shastri Bhawan, New Delhi – 110001"],
+    [/health/, "Ministry of Health and Family Welfare, Nirman Bhawan, New Delhi – 110011"],
+    [/environment|forest|climate|clearance/, "Ministry of Environment, Forest and Climate Change, Indira Paryavaran Bhawan, New Delhi – 110003"],
+    [/petroleum|natural gas|\blpg\b|ujjwala/, "Ministry of Petroleum and Natural Gas, Shastri Bhawan, New Delhi – 110001"],
+    // NHAI has its own CPIO and is the body that actually holds the file, so it
+    // has to be matched before the ministry that owns it.
+    [/\bnhai\b|national highways authority/, "National Highways Authority of India, G-5 and G-6, Sector 10, Dwarka, New Delhi – 110075"],
+    [/road transport|highway/, "Ministry of Road Transport and Highways, Transport Bhawan, New Delhi – 110001"],
+    [/department of space|\bisro\b|antrix/, "Department of Space, Antariksh Bhavan, New BEL Road, Bengaluru – 560231"],
+    [/\bpower\b|electricity/, "Ministry of Power, Shram Shakti Bhawan, New Delhi – 110001"],
+    [/labour|employment/, "Ministry of Labour and Employment, Shram Shakti Bhawan, New Delhi – 110001"],
+    [/housing|urban affairs/, "Ministry of Housing and Urban Affairs, Nirman Bhawan, New Delhi – 110011"],
+    [/external affairs/, "Ministry of External Affairs, South Block, New Delhi – 110011"],
+    [/law and justice|law minister/, "Ministry of Law and Justice, Shastri Bhawan, New Delhi – 110001"],
+    [/agriculture|farmer/, "Ministry of Agriculture and Farmers' Welfare, Krishi Bhawan, New Delhi – 110001"],
+    [/statistics|programme implementation|\bplfs\b/, "Ministry of Statistics and Programme Implementation, Sardar Patel Bhawan, New Delhi – 110001"],
+    [/personnel|\bdopt\b/, "Department of Personnel and Training, North Block, New Delhi – 110001"],
+    [/civil aviation|airport/, "Ministry of Civil Aviation, Rajiv Gandhi Bhawan, New Delhi – 110003"],
+    [/telecom|spectrum|\bdot\b/, "Department of Telecommunications, Sanchar Bhawan, New Delhi – 110001"],
+    [/\bcoal\b/, "Ministry of Coal, Shastri Bhawan, New Delhi – 110001"],
+    [/mining|mines|iron ore/, "Ministry of Mines, Shastri Bhawan, New Delhi – 110001"],
+    [/sports|youth affairs|games/, "Ministry of Youth Affairs and Sports, Shastri Bhawan, New Delhi – 110001"],
+    [/\biaf\b|air chief|air force/, "Air Headquarters (Vayu Bhawan), Rafi Marg, New Delhi – 110106"],
+    [/air quality|\bcaqm\b/, "Commission for Air Quality Management, Vayu Bhawan, New Delhi"],
+    [/staff selection|\bssc\b/, "Staff Selection Commission, Block No. 12, CGO Complex, New Delhi – 110003"],
+    [/crime records|\bncrb\b/, "National Crime Records Bureau, Mahipalpur, New Delhi – 110037"],
+    [/human rights|\bnhrc\b/, "National Human Rights Commission, Manav Adhikar Bhawan, New Delhi – 110023"],
+    [/ganga|jal shakti|river/, "Ministry of Jal Shakti, Shram Shakti Bhawan, New Delhi – 110001"],
+    /* A party post is not a public office and must not be handed a government
+       address. These sit below every state and ministry rule on purpose: half
+       the office-holders in this ledger carry a party in brackets after their
+       real job, and "(BJP)" must never outrank "Karnataka Chief Minister". */
+    [/\bparty president\b|\bbjp president\b|party chief/, "Party headquarters, New Delhi. Not a public office."],
+    [/bharatiya janata party|indian national congress|\blocal bjp\b/, "Party headquarters. Not a public office."],
+    [/teerth kshetra|janmabhoomi trust/, "Shri Ram Janmabhoomi Teerth Kshetra Trust, Ayodhya. A private trust, not a public office."],
+    [/minister|ministry/, "Ministry concerned, Government of India, New Delhi"],
+    [/\bmp\b|parliament/, "Parliament House, New Delhi – 110001"],
+    [/state government|state administration|\bpolice\b/, "State secretariat concerned"],
+  ];
+
+  function officeAddress(name, role) {
+    const haystack = `${name ?? ""} ${role ?? ""}`.toLowerCase();
+    const match = OFFICE_ADDRESSES.find(([pattern]) => pattern.test(haystack));
+    return match ? match[1] : "Government of India, New Delhi";
+  }
+
+  /**
+   * Whether the RTI goes to a State Public Information Officer or a Central
+   * one, which also settles the fee rules, the portal and the appellate
+   * commission. Read off the resolved address rather than off the role text, so
+   * the addressee and the instructions under it can never disagree.
+   *
+   * Union territories are central, not state, however much they look like one:
+   * Section 2 makes the Central Government the appropriate government for a UT,
+   * so Delhi, J&K and Ladakh take a CPIO and appeal to the CIC. They are
+   * flagged in the table rather than guessed at from the address.
+   */
+  const STATE_ADDRESSES = new Set(
+    STATE_OFFICES.filter(([, , meta]) => !meta?.ut).map(([, address]) => address),
+  );
+
+  function isStateAuthority(name, role) {
+    const address = officeAddress(name, role);
+    // "state secretariat concerned" is the unresolved placeholder; it is still a
+    // state, the ledger just does not record which one.
+    return STATE_ADDRESSES.has(address) || /state secretariat/i.test(address);
+  }
+
   window.SourceUtils = {
     classify, tierMeta, host, slugify, TIER_META, escapeHTML,
     formatCrore, croreToUsd, formatPeople, peopleToInternational, figure, INR_PER_USD,
+    officeAddress, isStateAuthority, splitOfficeHolders,
   };
 })();
