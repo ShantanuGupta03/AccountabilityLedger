@@ -16,7 +16,7 @@ export async function onRequestGet(context) {
       `SELECT s.id, s.status, s.title, s.incident_date, s.category, s.summary,
         s.accountability_concern, s.office_holders, s.source_urls, s.submitter_email,
         s.review_notes, s.reviewed_by, s.reviewed_at, s.published_case_id,
-        s.created_at, s.updated_at, p.case_json
+        s.human_verified, s.created_at, s.updated_at, p.case_json
        FROM submissions s
        LEFT JOIN published_cases p ON p.submission_id = s.id
        WHERE s.status = ? ORDER BY s.created_at ASC`,

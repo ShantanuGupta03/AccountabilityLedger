@@ -48,10 +48,24 @@
         <li>A source that supports a claim already on the case, rather than a new allegation. To add a new case, <a href="../submit/">submit a case</a>.</li>
       </ul>
       <form id="suggest-form" class="submission-form" novalidate>
+        <div class="rti-case-picker" id="suggest-case-picker" hidden>
+          <label>
+            <span>Which case is this source for?</span>
+            <input id="suggest-case-search" type="search" autocomplete="off" placeholder="Search by title, minister or year" aria-describedby="suggest-case-count">
+          </label>
+          <p class="form-note" id="suggest-case-count" role="status"></p>
+          <label>
+            <span class="visually-hidden">Matching cases</span>
+            <select id="suggest-case" size="6"></select>
+          </label>
+        </div>
         <label>Source link<input name="url" type="url" maxlength="2000" placeholder="https://…" required></label>
         <label>Short label <span class="optional">(what this source shows, 60 characters)</span><input name="label" maxlength="60" placeholder="For example: CAG report on cess transfers" required></label>
         <label>Anything the editor should know? <span class="optional">(optional)</span><textarea name="note" rows="4" maxlength="1000"></textarea></label>
         <label>Email for follow-up <span class="optional">(optional; never published)</span><input name="submitterEmail" type="email" maxlength="254" autocomplete="email"></label>
+        <div class="honeypot" aria-hidden="true">
+          <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+        </div>
         <div id="turnstile" aria-live="polite"></div>
         <button class="form-submit" type="submit">Send to the editor</button>
         <p class="form-note" id="form-note" hidden></p>
@@ -59,6 +73,7 @@
       </form>
     </section>
 
+    <div class="desk-grid">
     <section class="submission-guidance" aria-labelledby="corrections-title">
       <h2 id="corrections-title">Corrections</h2>
       <p>Every case here is built from public reporting, audits, court records and official statements, and some of it will be wrong. Errors of fact, outdated legal status, a misattributed portfolio, a figure that has since been revised: send it and we will check it.</p>
@@ -120,6 +135,7 @@
       <p>Put the case number in the subject line. If you are sending a legal notice, say so in the first line so it is not triaged as an ordinary correction.</p>
       <p class="fine">This site is opinion and analysis making an accountability case. It is not a court, and it does not claim to be neutral. It does claim to be accurate, and that is the claim this page exists to defend.</p>
     </section>
+    </div>
   </main>
 
   <script src="../assets/js/suggest.js" defer></script>

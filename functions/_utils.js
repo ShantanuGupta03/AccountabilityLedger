@@ -109,9 +109,12 @@ export function localHumanBypassAllowed(context) {
     && String(context.env.ALLOW_LOCAL_TURNSTILE_BYPASS ?? "") === "true";
 }
 
-/** Turnstile verification, with the loopback-only development bypass in front. */
+/**
+ * Turnstile verification, with the loopback-only development bypass in front.
+ * Returns "pass", "fail" or "unavailable" — see verifyTurnstile.
+ */
 export async function verifyHuman(context, token) {
-  if (localHumanBypassAllowed(context) && token === LOCAL_HUMAN_TOKEN) return true;
+  if (localHumanBypassAllowed(context) && token === LOCAL_HUMAN_TOKEN) return "pass";
   return verifyTurnstile(
     token,
     context.env.TURNSTILE_SECRET_KEY,
@@ -119,18 +122,83 @@ export async function verifyHuman(context, token) {
   );
 }
 
+/**
+ * Minimum time a real person needs between the form rendering and pressing send.
+ * Eight seconds is under any genuine attempt to fill these forms in and over any
+ * scripted post. Only consulted when there is no Turnstile token to trust.
+ */
+const MIN_DWELL_MS = 8_000;
+
+/**
+ * The human check, in the order of what it can actually establish.
+ *
+ * Turnstile is the good path and stays the good path. What changed is the bad
+ * path: a reader whose browser could not load challenges.cloudflare.com used to
+ * be refused outright, which is a strange way to run a ledger that asks the
+ * public for evidence. A tokenless submission is now accepted if it clears two
+ * cheap tests a script does not bother with — an untouched honeypot field and
+ * having existed on screen for longer than a moment — and is flagged for the
+ * reviewer instead of being thrown away.
+ *
+ * Returns { ok, verified, reason }. `verified` false means accept-but-flag, and
+ * the caller is expected to apply its stricter rate limit to those.
+ */
+export async function humanCheck(context, { token, honeypot, dwellMs }) {
+  // A bot filling in every field it finds is the cheapest signal there is, and
+  // it is worth rejecting whether or not a token came with it.
+  if (isNonEmptyString(honeypot, 500)) {
+    return { ok: false, verified: false, reason: "honeypot" };
+  }
+
+  if (isNonEmptyString(token, 4_000)) {
+    const outcome = await verifyHuman(context, token);
+    if (outcome === "pass") return { ok: true, verified: true, reason: "turnstile" };
+    if (outcome === "fail") return { ok: false, verified: false, reason: "turnstile-failed" };
+    // "unavailable": our verifier, our problem. Fall through to the cheap checks
+    // and accept the submission flagged, exactly as if no token had arrived.
+  }
+
+  const dwell = Number(dwellMs);
+  if (!Number.isFinite(dwell) || dwell < MIN_DWELL_MS) {
+    return { ok: false, verified: false, reason: "too-fast" };
+  }
+  return { ok: true, verified: false, reason: "unverified" };
+}
+
+/** What to tell the sender when humanCheck refuses. Never leaks the honeypot. */
+export function humanCheckError(reason) {
+  if (reason === "turnstile-failed") return "Human-verification failed. Please try again.";
+  if (reason === "too-fast") return "That was sent too quickly to be checked. Wait a moment and send it again.";
+  return "That submission could not be accepted.";
+}
+
+/**
+ * Three outcomes, not two, and the difference matters.
+ *
+ * "fail" is Cloudflare telling us this token is no good — refuse it. "unavailable"
+ * is our own verifier being unreachable or answering with something that is not
+ * JSON, which is not the sender's fault and must not cost them their submission.
+ * Collapsing those two into false is how an outage at our end turns into a
+ * closed door at theirs.
+ */
 export async function verifyTurnstile(token, secret, remoteip) {
   const body = new FormData();
   body.append("secret", secret);
   body.append("response", token);
   if (remoteip) body.append("remoteip", remoteip);
 
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    body,
-  });
-  const result = await response.json();
-  return result.success === true;
+  let result;
+  try {
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body,
+    });
+    if (!response.ok) return "unavailable";
+    result = JSON.parse(await response.text());
+  } catch {
+    return "unavailable";
+  }
+  return result?.success === true ? "pass" : "fail";
 }
 
 /** Case ids come from the URL, so keep them to the same shape the front end generates. */

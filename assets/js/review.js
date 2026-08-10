@@ -67,7 +67,13 @@ function showSubmission() {
   const heading = document.createElement("h2");
   heading.textContent = submission.title;
   const meta = document.createElement("p");
-  meta.textContent = `${submission.incident_date} · ${submission.category}`;
+  // Unverified means Turnstile could not run in the sender's browser, not that
+  // the submission is suspect. It is a reason to read it more carefully, and the
+  // reviewer should be told rather than left to guess.
+  const verified = Number(submission.human_verified ?? 1) === 1;
+  meta.textContent = `${submission.incident_date} · ${submission.category}`
+    + (verified ? "" : " · NOT HUMAN-VERIFIED, CHECK BY HAND");
+  meta.classList.toggle("meta-unverified", !verified);
   const summary = document.createElement("p");
   summary.textContent = submission.summary;
   const concern = document.createElement("p");
@@ -179,7 +185,10 @@ async function loadQueue() {
     showSubmission();
     return;
   }
-  submissions.forEach((submission) => list.append(new Option(`${submission.incident_date} · ${submission.title}`, submission.id)));
+  submissions.forEach((submission) => list.append(new Option(
+    `${Number(submission.human_verified ?? 1) === 1 ? "" : "⚠ "}${submission.incident_date} · ${submission.title}`,
+    submission.id,
+  )));
   showSubmission();
 }
 

@@ -6,6 +6,18 @@ const submitButton = form.querySelector("button[type='submit']");
 let turnstileWidget;
 let lastConfig = null;
 
+/**
+ * Set when the challenge could not be shown at all. The form stays usable: the
+ * submission goes through without a token, the API accepts it under a tighter
+ * rate limit, and the reviewer sees it flagged as unverified. Refusing the
+ * submission instead would mean only readers with a clean path to
+ * challenges.cloudflare.com get to contribute to a public-evidence ledger.
+ */
+let degraded = false;
+
+/** When this form appeared. The API uses it to reject instant scripted posts. */
+const loadedAt = Date.now();
+
 /** Must match LOCAL_HUMAN_TOKEN in functions/_utils.js. */
 const LOCAL_HUMAN_TOKEN = "local-dev-bypass";
 
@@ -81,6 +93,27 @@ async function loadConfig() {
 /** Set when the API says this loopback request may skip Turnstile. */
 let localBypass = false;
 
+/**
+ * Loads the challenge script, once, with a single retry. A flaky first fetch on
+ * a mobile connection is common enough that one retry converts a fair number of
+ * "verification could not load" reports into a working form.
+ */
+function loadTurnstileScript(attempt = 1) {
+  return new Promise((resolve, reject) => {
+    if (window.turnstile) return resolve();
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = () => {
+      script.remove();
+      if (attempt >= 2) return reject(new Error("turnstile script unreachable"));
+      setTimeout(() => loadTurnstileScript(attempt + 1).then(resolve, reject), 1200);
+    };
+    document.head.append(script);
+  });
+}
+
 async function configureTurnstile() {
   const config = await loadConfig();
   lastConfig = config;
@@ -105,14 +138,7 @@ async function configureTurnstile() {
     return;
   }
 
-  await new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    script.async = true;
-    script.onload = resolve;
-    script.onerror = () => reject(new Error("turnstile script blocked"));
-    document.head.append(script);
-  });
+  await loadTurnstileScript();
 
   turnstileWidget = window.turnstile.render(turnstileMount, {
     sitekey: config.turnstileSiteKey,
@@ -124,7 +150,10 @@ async function configureTurnstile() {
     // this domain, or a blocked challenge. Without this the widget just sits
     // there and the button looks broken for no stated reason.
     "error-callback": () => {
-      block(turnstileDiagnosis());
+      // The reader cannot fix an unauthorised site key, so they should not be
+      // held hostage by one. Diagnosis goes to the console for the operator.
+      console.warn(turnstileDiagnosis());
+      degradeToUnverified(new Error("turnstile error-callback"));
       return true;
     },
     "expired-callback": () => {
@@ -150,10 +179,17 @@ function turnstileDiagnosis() {
   return `Human verification did not render on "${host}" using test key ${shown}. Reload to try again.`;
 }
 
+/** The token to send, or an empty string when there is legitimately none. */
+function humanToken() {
+  if (localBypass) return LOCAL_HUMAN_TOKEN;
+  if (degraded || turnstileWidget === undefined) return "";
+  return window.turnstile.getResponse(turnstileWidget) ?? "";
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
-  if (!localBypass) {
+  if (!localBypass && !degraded) {
     if (turnstileWidget === undefined) {
       setStatus("Human verification is still loading. Please wait a moment and try again.", true);
       return;
@@ -181,14 +217,16 @@ form.addEventListener("submit", async (event) => {
         officeHolders: lines(data.get("officeHolders")),
         sourceUrls: lines(data.get("sourceUrls")),
         submitterEmail: data.get("submitterEmail"),
-        turnstileToken: localBypass ? LOCAL_HUMAN_TOKEN : window.turnstile.getResponse(turnstileWidget),
+        turnstileToken: humanToken(),
+        honeypot: data.get("website") ?? "",
+        dwellMs: Date.now() - loadedAt,
       }),
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error ?? "Submission failed.");
     form.reset();
-    if (!localBypass) window.turnstile.reset(turnstileWidget);
-    setStatus("Submitted. An editor will review the evidence before any publication decision.");
+    if (!localBypass && !degraded) window.turnstile.reset(turnstileWidget);
+    setStatus(result.message || "Submitted. An editor will review the evidence before any publication decision.");
   } catch (error) {
     setStatus(error.message || "Unable to submit the incident.", true);
   } finally {
@@ -198,8 +236,10 @@ form.addEventListener("submit", async (event) => {
 
 setNote("Loading human verification…");
 const turnstileTimer = setTimeout(() => {
-  if (turnstileWidget === undefined && !localBypass && !submitButton.disabled) {
-    setNote("Human verification is taking longer than usual. It may be blocked by an extension or a network filter.", true);
+  // Twelve seconds without a widget means it is not coming. Waiting longer only
+  // teaches the reader that the form is broken.
+  if (turnstileWidget === undefined && !localBypass && !degraded) {
+    degradeToUnverified(new Error("turnstile timed out"));
   }
 }, TURNSTILE_TIMEOUT_MS);
 
@@ -216,6 +256,21 @@ configureTurnstile()
       setStatus("The submission service is unavailable right now.", true);
       return;
     }
-    block("Human verification could not load, so the form cannot be submitted. An ad or script blocker is the usual cause.");
-    setStatus("Human verification could not load. Please try again later.", true);
+    degradeToUnverified(error);
   });
+
+/**
+ * Verification is unavailable, so carry on without it rather than turning a
+ * reader away. Says what happened without blaming the reader's browser, because
+ * a blocked challenge is at least as often the network, the site key or
+ * Cloudflare itself.
+ */
+function degradeToUnverified(error) {
+  degraded = true;
+  turnstileMount.textContent = "";
+  unblock();
+  setNote("Human verification could not be shown here, so it has been skipped. You can still submit: the case will be "
+    + "queued as unverified and checked by a reviewer by hand. One submission per hour on this route.");
+  setStatus("");
+  console.warn("Turnstile unavailable, submitting unverified:", error);
+}

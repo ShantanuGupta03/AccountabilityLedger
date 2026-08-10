@@ -31,6 +31,34 @@ function caseId(caseFile) {
   return caseFile.id ?? `case-${caseFile.no}`;
 }
 
+/**
+ * Display numbers, oldest first.
+ *
+ * `no` in the data file is the order cases were *added*: the 2014-onward set got
+ * 1 to 54 and the pre-2014 tranche got 55 to 87, so the oldest event on the
+ * ledger was numbered 63 and the newest 40. On a page that presents itself as a
+ * chronological record that is simply wrong, and it invited readers to read the
+ * number as a position it never held.
+ *
+ * The number shown is therefore derived from the date every time the site is
+ * built, so it cannot drift again. Identity stays with the `id` field, which is
+ * frozen in the data file: renumbering a label must never move a URL that has
+ * already been shared or cited.
+ */
+function byDateThenId(a, b) {
+  // Dates are not unique, so ties need a stable second key or the rank order and
+  // the display order drift apart. Mirrors byDateThenId in assets/js/app.js.
+  return (a.sk - b.sk) || caseId(a).localeCompare(caseId(b));
+}
+
+function displayNumbers(cases) {
+  const ranks = new Map();
+  [...cases].sort(byDateThenId).forEach((caseFile, index) => {
+    ranks.set(caseId(caseFile), index + 1);
+  });
+  return ranks;
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -261,9 +289,9 @@ function relatedBlock(related) {
     </section>`;
 }
 
-function casePage(caseFile, { previous, next, related = [] }) {
+function casePage(caseFile, { previous, next, related = [], number = 0 }) {
   const id = caseId(caseFile);
-  const number = String(caseFile.no).padStart(2, "0");
+  const label = String(number).padStart(2, "0");
   const severity = caseFile.sev === "amber" ? "amber" : "red";
   const holders = (caseFile.ministers ?? []).map((minister) => {
     const names = splitOfficeHolders(minister.n).map((name) => {
@@ -283,12 +311,12 @@ function casePage(caseFile, { previous, next, related = [] }) {
     <nav class="crumbs" aria-label="Breadcrumb">
       <a href="../../">Ledger</a> <span aria-hidden="true">/</span>
       <a href="../../?year=${escapeHtml(String(caseFile.year))}">${escapeHtml(String(caseFile.year))}</a> <span aria-hidden="true">/</span>
-      <span>Case ${number}</span>
+      <span>${escapeHtml(caseFile.title)}</span>
     </nav>
 
     <article class="casefile sev-${severity}">
       <header class="casefile-head">
-        <p class="eyebrow">Case ${number} &middot; ${escapeHtml(caseFile.cat)}</p>
+        <p class="eyebrow">Case ${label} &middot; ${escapeHtml(caseFile.cat)}</p>
         <h1 class="title">${escapeHtml(caseFile.title)}</h1>
         <p class="casefile-date">${escapeHtml(caseFile.date)}</p>
         <p class="stamp ${severity === "amber" ? "amber" : ""}">${escapeHtml(caseFile.stamp ?? "")}</p>
@@ -461,7 +489,8 @@ export async function generatePages(cases, outputDir) {
   await mkdir(join(outputDir, "minister"), { recursive: true });
 
   // Oldest first, so "earlier" and "later" on a case page mean what they say.
-  const byDate = [...cases].sort((a, b) => a.sk - b.sk);
+  const byDate = [...cases].sort(byDateThenId);
+  const numbers = displayNumbers(cases);
 
   for (const [index, caseFile] of byDate.entries()) {
     const id = caseId(caseFile);
@@ -475,7 +504,7 @@ export async function generatePages(cases, outputDir) {
         title: caseFile.title,
         stamp: caseFile.stamp,
         stat,
-        label: `Case ${String(caseFile.no).padStart(2, "0")} \u00b7 ${caseFile.cat}`,
+        label: `Case ${String(numbers.get(id) ?? 0).padStart(2, "0")} \u00b7 ${caseFile.cat}`,
         days: daysSince(caseFile.sk) ?? undefined,
         dayLine: resigned.length
           ? `Someone left over this: ${resigned.map((r) => r.n).join(", ")}.`
@@ -494,6 +523,7 @@ export async function generatePages(cases, outputDir) {
         previous: byDate[index - 1],
         next: byDate[index + 1],
         related: relatedCases(caseFile, cases),
+        number: numbers.get(id) ?? 0,
       }),
       "utf8",
     );
