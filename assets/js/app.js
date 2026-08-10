@@ -51,9 +51,18 @@ function byFigure(field,direction){
     return x===y ? b.sk-a.sk : (direction==="desc" ? y-x : x-y);
   };
 }
+/**
+ * Dates are not unique — two cases carry "Jun 2026" — so a bare sk comparison
+ * leaves ties in whatever order the file happens to hold. Every chronological
+ * sort on the site uses this one comparator so the numbering, the ledger order
+ * and the build all agree. Mirrors generate_pages.mjs.
+ */
+const caseKey=(d)=>text(d.id??`case-${d.no}`);
+const byDateThenId=(a,b)=>(a.sk-b.sk)||caseKey(a).localeCompare(caseKey(b));
+
 const SORTS={
-  desc:(a,b)=>b.sk-a.sk,
-  asc:(a,b)=>a.sk-b.sk,
+  desc:(a,b)=>-byDateThenId(a,b),
+  asc:byDateThenId,
   "cost-desc":byFigure("costInrCrore","desc"),
   "cost-asc":byFigure("costInrCrore","asc"),
   "deaths-desc":byFigure("deaths","desc"),
@@ -159,6 +168,7 @@ function renderResignationRecord(){
 }
 
 function setupControls(){
+  computeRanks();
   CATS=[...new Set(DATA.map(d=>d.cat))].sort();
   const estimates=totalEstimates();
   $("#stat-total").textContent=DATA.length;
@@ -183,9 +193,23 @@ $("#sort").addEventListener("change",e=>{state.sort=e.target.value;syncUrl({case
 const estTag=()=>`<span class="est">${escapeHTML(t("est"))}</span>`;
 function metric(k,o){return `<div class="metric"><div class="mk">${escapeHTML(k)}${o.est?estTag():""}</div><div class="mv">${safeRichText(o.v)}</div></div>`;}
 
+/**
+ * Display numbers, oldest first, derived from the date on every render. The `no`
+ * field is the order cases were added to the file, not their place in time — the
+ * oldest case on the ledger carries no=63 — so it is not shown anywhere.
+ * Identity stays with `id`, which never moves. Mirrors displayNumbers() in
+ * scripts/generate_pages.mjs.
+ */
+let RANKS=new Map();
+function computeRanks(){
+  RANKS=new Map();
+  [...DATA].sort(byDateThenId).forEach((d,i)=>RANKS.set(text(d.id??`case-${d.no}`),i+1));
+}
+
 function card(d){
   const severity=d.sev==="amber"?"amber":"red";
   const caseId=text(d.id??`case-${d.no}`).replace(/[^a-zA-Z0-9_-]/g,"");
+  const number=RANKS.get(caseId)??0;
   const bodyId=`details-${caseId}`;
   const props=d.ministers.map(m=>`<div class="prop"><small>${escapeHTML(m.r)}</small><b>${escapeHTML(m.n)}</b></div>`).join("");
   const reader=READER_SOURCES[caseId]??[];
@@ -205,7 +229,7 @@ function card(d){
   return `
   <article class="file sev-${severity}" id="case-${caseId}" data-case-id="${escapeHTML(caseId)}" data-cat="${escapeHTML(d.cat)}">
     <div class="filehead" role="button" tabindex="0" aria-controls="${bodyId}" aria-expanded="false">
-      <div class="caseno">No.<span class="n">${escapeHTML(String(d.no).padStart(2,"0"))}</span></div>
+      <div class="caseno">No.<span class="n">${escapeHTML(String(number).padStart(2,"0"))}</span></div>
       <div class="headmid"><div class="cat">${escapeHTML(category(d.cat))}</div><h3>${escapeHTML(caseField(d,"title"))}</h3><div class="date">${escapeHTML(d.date)}</div></div>
       <div class="stamp ${severity==="amber"?"amber":""}">${escapeHTML(caseField(d,"stamp"))}</div>
     </div>

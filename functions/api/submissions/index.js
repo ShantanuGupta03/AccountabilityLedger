@@ -1,14 +1,20 @@
 import {
   hash,
+  humanCheck,
+  humanCheckError,
   isNonEmptyString,
   json,
   parseHttpUrls,
   parseOfficeHolders,
   readJson,
-  verifyHuman,
 } from "../../_utils.js";
 
+/**
+ * Two rate limits, because a submission we could not verify is worth less
+ * trust and no more than a trickle. A verified reader gets the normal budget.
+ */
 const MAX_SUBMISSIONS_PER_HOUR = 3;
+const MAX_UNVERIFIED_PER_HOUR = 1;
 
 export async function onRequestPost(context) {
   if (!context.env.TURNSTILE_SECRET_KEY || !context.env.SUBMISSION_HASH_SALT) {
@@ -27,6 +33,8 @@ export async function onRequestPost(context) {
       sourceUrls,
       submitterEmail = "",
       turnstileToken,
+      honeypot = "",
+      dwellMs,
     } = payload;
 
     if (!isNonEmptyString(title, 240)) throw new TypeError("Title is required and must be 240 characters or fewer.");
@@ -37,12 +45,15 @@ export async function onRequestPost(context) {
     if (submitterEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submitterEmail)) {
       throw new TypeError("Provide a valid email address or leave it blank.");
     }
-    if (!isNonEmptyString(turnstileToken, 4_000)) throw new TypeError("Complete the human-verification check.");
-
     const sources = parseHttpUrls(sourceUrls);
     const officeHoldersList = parseOfficeHolders(officeHolders);
     const clientIp = context.request.headers.get("CF-Connecting-IP") ?? "unknown";
     const ipHash = await hash(clientIp, context.env.SUBMISSION_HASH_SALT);
+    const human = await humanCheck(context, { token: turnstileToken, honeypot, dwellMs });
+    if (!human.ok) {
+      return json({ error: humanCheckError(human.reason) }, human.reason === "too-fast" ? 429 : 400);
+    }
+
     const recent = await context.env.DB
       .prepare(
         "SELECT COUNT(*) AS count FROM submissions WHERE ip_hash = ? AND created_at > datetime('now', '-1 hour')",
@@ -50,20 +61,18 @@ export async function onRequestPost(context) {
       .bind(ipHash)
       .first();
 
-    if (Number(recent.count) >= MAX_SUBMISSIONS_PER_HOUR) {
+    const budget = human.verified ? MAX_SUBMISSIONS_PER_HOUR : MAX_UNVERIFIED_PER_HOUR;
+    if (Number(recent.count) >= budget) {
       return json({ error: "Too many submissions from this connection. Try again in an hour." }, 429);
     }
-
-    const human = await verifyHuman(context, turnstileToken);
-    if (!human) return json({ error: "Human-verification failed. Please try again." }, 400);
 
     const id = crypto.randomUUID();
     await context.env.DB
       .prepare(
         `INSERT INTO submissions (
           id, title, incident_date, category, summary, accountability_concern,
-          office_holders, source_urls, submitter_email, ip_hash
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          office_holders, source_urls, submitter_email, ip_hash, human_verified
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       )
       .bind(
         id,
@@ -76,11 +85,22 @@ export async function onRequestPost(context) {
         JSON.stringify(sources),
         submitterEmail.trim() || null,
         ipHash,
+        human.verified ? 1 : 0,
       )
       .run();
 
-    return json({ id, message: "Your incident has been submitted for review." }, 201);
+    return json({
+      id,
+      message: human.verified
+        ? "Your incident has been submitted for review."
+        : "Sent. Human verification could not run in your browser, so this is queued as unverified and a reviewer will look at it by hand.",
+    }, 201);
   } catch (error) {
-    return json({ error: error instanceof Error ? error.message : "Unable to submit the incident." }, 400);
+    // TypeError is how this file signals "your input is wrong", and those
+    // messages are written to be read. Anything else is ours to fix, and
+    // echoing it back would leak internals for no one's benefit.
+    if (error instanceof TypeError) return json({ error: error.message }, 400);
+    console.error("functions/api/submissions/index.js:", error);
+    return json({ error: "Unable to submit the incident." }, 500);
   }
 }

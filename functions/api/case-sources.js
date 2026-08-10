@@ -1,14 +1,17 @@
 import {
   clientIpHash,
+  humanCheck,
+  humanCheckError,
   isNonEmptyString,
   json,
   parseCaseId,
   parseHttpUrls,
   readJson,
-  verifyHuman,
 } from "../_utils.js";
 
+/** A suggestion we could not verify still gets in, but only a couple an hour. */
 const MAX_SUGGESTIONS_PER_HOUR = 6;
+const MAX_UNVERIFIED_PER_HOUR = 2;
 
 /** Reader-supplied sources an editor has approved, grouped by case for the ledger page. */
 export async function onRequestGet(context) {
@@ -38,7 +41,10 @@ export async function onRequestPost(context) {
 
   try {
     const payload = await readJson(context.request);
-    const { caseId, caseTitle = "", url, label, note = "", submitterEmail = "", turnstileToken } = payload;
+    const {
+      caseId, caseTitle = "", url, label, note = "", submitterEmail = "",
+      turnstileToken, honeypot = "", dwellMs,
+    } = payload;
 
     const id = parseCaseId(caseId);
     const [sourceUrl] = parseHttpUrls([url], 1);
@@ -51,8 +57,9 @@ export async function onRequestPost(context) {
     if (submitterEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submitterEmail)) {
       throw new TypeError("Provide a valid email address or leave it blank.");
     }
-    if (!isNonEmptyString(turnstileToken, 4_000)) {
-      throw new TypeError("Complete the human-verification check.");
+    const human = await humanCheck(context, { token: turnstileToken, honeypot, dwellMs });
+    if (!human.ok) {
+      return json({ error: humanCheckError(human.reason) }, human.reason === "too-fast" ? 429 : 400);
     }
 
     const ipHash = await clientIpHash(context);
@@ -62,7 +69,7 @@ export async function onRequestPost(context) {
       )
       .bind(ipHash)
       .first();
-    if (Number(recent.count) >= MAX_SUGGESTIONS_PER_HOUR) {
+    if (Number(recent.count) >= (human.verified ? MAX_SUGGESTIONS_PER_HOUR : MAX_UNVERIFIED_PER_HOUR)) {
       return json({ error: "Too many suggestions from this connection. Try again in an hour." }, 429);
     }
 
@@ -74,13 +81,10 @@ export async function onRequestPost(context) {
       return json({ message: "That link has already been suggested for this case. Thank you." }, 200);
     }
 
-    const human = await verifyHuman(context, turnstileToken);
-    if (!human) return json({ error: "Human-verification failed. Please try again." }, 400);
-
     await context.env.DB
       .prepare(
-        `INSERT INTO source_suggestions (id, case_id, case_title, url, label, note, submitter_email, ip_hash)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO source_suggestions (id, case_id, case_title, url, label, note, submitter_email, ip_hash, human_verified)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       )
       .bind(
         crypto.randomUUID(),
@@ -91,11 +95,17 @@ export async function onRequestPost(context) {
         note.trim() || null,
         submitterEmail.trim() || null,
         ipHash,
+        human.verified ? 1 : 0,
       )
       .run();
 
     return json({ message: "Thank you. An editor will check the link before it appears on the case." }, 201);
   } catch (error) {
-    return json({ error: error instanceof Error ? error.message : "Unable to suggest that source." }, 400);
+    // TypeError is how this file signals "your input is wrong", and those
+    // messages are written to be read. Anything else is ours to fix, and
+    // echoing it back would leak internals for no one's benefit.
+    if (error instanceof TypeError) return json({ error: error.message }, 400);
+    console.error("functions/api/case-sources.js:", error);
+    return json({ error: "Unable to suggest that source." }, 500);
   }
 }

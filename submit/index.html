@@ -49,6 +49,9 @@
       <label>What is the accountability concern?<textarea name="accountabilityConcern" rows="6" maxlength="5000" required></textarea></label>
       <label>Source URLs <span class="optional">(one per line, at least one required)</span><textarea name="sourceUrls" rows="5" maxlength="16000" placeholder="https://…" required></textarea></label>
       <label>Email for follow-up <span class="optional">(optional; never published)</span><input name="submitterEmail" type="email" maxlength="254" autocomplete="email"></label>
+      <div class="honeypot" aria-hidden="true">
+        <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+      </div>
       <div id="turnstile" aria-live="polite"></div>
       <button class="form-submit" type="submit">Submit for review</button>
       <p class="form-note" id="form-note" hidden></p>
