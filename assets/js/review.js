@@ -54,17 +54,26 @@ function showConsole() {
 async function loadAuthHints() {
   try {
     const response = await fetch("/api/public-config", { cache: "no-store" });
-    if (!response.ok) return;
+    if (!response.ok) {
+      reviewAuthLead.textContent = `Could not load /api/public-config (HTTP ${response.status}). Use the apex domain https://whoisresponsible.xyz/review/ — not www.`;
+      return;
+    }
     const config = await response.json();
     const hints = [];
     if (config.reviewAuth?.localBypass) {
       hints.push("Local dev: set DEV_REVIEWER_EMAIL in .dev.vars and use http://localhost:8788/review/.");
     }
     if (config.reviewAuth?.access) hints.push("Cloudflare Access is configured for this site.");
-    if (config.reviewAuth?.secret) {
+    const secretStatus = config.reviewAuth?.secretStatus ?? "missing";
+    if (secretStatus === "ready") {
       hints.push("Enter the ADMIN_REVIEW_SECRET you set on the Pages project.");
+    } else if (secretStatus === "too-short") {
+      hints.push("ADMIN_REVIEW_SECRET is set but shorter than 16 characters — lengthen it in Pages → Settings → Variables, then redeploy Production.");
     } else {
-      hints.push("No ADMIN_REVIEW_SECRET is set yet — add one under Pages → Settings → Environment variables (Encrypt).");
+      hints.push("The server does not see ADMIN_REVIEW_SECRET yet. In Pages → Settings → Variables, add it as an encrypted secret for Production, then run npm run deploy to redeploy.");
+    }
+    if (!config.reviewAuth?.reviewerAllowlist) {
+      hints.push("Also set REVIEWER_EMAILS (plain text) to your admin email on the Pages project — wrangler.jsonc alone is not enough for Git-based deploys.");
     }
     reviewAuthLead.textContent = hints.join(" ");
   } catch {

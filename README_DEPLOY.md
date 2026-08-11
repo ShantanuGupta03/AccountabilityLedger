@@ -84,7 +84,19 @@ npx wrangler d1 create accountability-ledger
 npx wrangler d1 migrations apply accountability-ledger --remote
 ```
 
-3. Create a Turnstile widget for the submission page domain. Configure `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `SUBMISSION_HASH_SALT`, `REVIEWER_EMAILS`, `CF_ACCESS_TEAM_DOMAIN`, and `CF_ACCESS_AUD` as Pages environment variables or secrets. Never commit the secret values or `.dev.vars`.
+3. Create a Turnstile widget for the submission page domain. Set these on the **Cloudflare Pages project → Settings → Environment variables** for **Production** (encrypted where noted), then **redeploy** — secrets do not bind to a running deployment until the next deploy:
+
+| Name | Type | Purpose |
+| --- | --- | --- |
+| `TURNSTILE_SITE_KEY` | Plain text | Turnstile widget (also in `wrangler.jsonc`) |
+| `TURNSTILE_SECRET_KEY` | Secret | Turnstile verification |
+| `SUBMISSION_HASH_SALT` | Secret | Rate-limit hashing |
+| `REVIEWER_EMAILS` | Plain text | Your admin email (comma-separated). **Not** the public contact address. |
+| `ADMIN_REVIEW_SECRET` | Secret | 16+ characters; unlocks `/review/` until Access is wired |
+| `CF_ACCESS_TEAM_DOMAIN` | Plain text | Optional; for Cloudflare Access |
+| `CF_ACCESS_AUD` | Plain text | Optional; Access application audience |
+
+Never commit secret values or `.dev.vars`. `wrangler.jsonc` `vars` are not enough when the repo deploys through Git — set everything above in the dashboard.
 
 4. Configure Cloudflare Access policies before deployment:
    - `/review/*`

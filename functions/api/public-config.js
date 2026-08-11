@@ -35,6 +35,13 @@ export function onRequestGet(context) {
     reviewAuth: {
       access: Boolean(context.env.CF_ACCESS_TEAM_DOMAIN && context.env.CF_ACCESS_AUD),
       secret: String(context.env.ADMIN_REVIEW_SECRET ?? "").length >= 16,
+      secretStatus: (() => {
+        const length = String(context.env.ADMIN_REVIEW_SECRET ?? "").length;
+        if (length === 0) return "missing";
+        if (length < 16) return "too-short";
+        return "ready";
+      })(),
+      reviewerAllowlist: Boolean(String(context.env.REVIEWER_EMAILS ?? "").trim()),
       localBypass: isLoopbackRequest(context.request) && Boolean(context.env.DEV_REVIEWER_EMAIL),
     },
   });

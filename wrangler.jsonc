@@ -4,8 +4,7 @@
   "compatibility_date": "2026-07-21",
   "pages_build_output_dir": "./dist",
   "vars": {
-    "TURNSTILE_SITE_KEY": "0x4AAAAAAEB3t3op9nHsvk-8",
-    "REVIEWER_EMAILS": "shantanugupta21@gmail.com"
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAEB3t3op9nHsvk-8"
   },
   "d1_databases": [
     {
