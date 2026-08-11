@@ -84,19 +84,31 @@ npx wrangler d1 create accountability-ledger
 npx wrangler d1 migrations apply accountability-ledger --remote
 ```
 
-3. Create a Turnstile widget for the submission page domain. Set these on the **Cloudflare Pages project → Settings → Environment variables** for **Production** (encrypted where noted), then **redeploy** — secrets do not bind to a running deployment until the next deploy:
+3. Configure Turnstile and environment variables.
 
-| Name | Type | Purpose |
-| --- | --- | --- |
-| `TURNSTILE_SITE_KEY` | Plain text | Turnstile widget (also in `wrangler.jsonc`) |
-| `TURNSTILE_SECRET_KEY` | Secret | Turnstile verification |
-| `SUBMISSION_HASH_SALT` | Secret | Rate-limit hashing |
-| `REVIEWER_EMAILS` | Plain text | Your admin email (comma-separated). **Not** the public contact address. |
-| `ADMIN_REVIEW_SECRET` | Secret | 16+ characters; unlocks `/review/` until Access is wired |
-| `CF_ACCESS_TEAM_DOMAIN` | Plain text | Optional; for Cloudflare Access |
-| `CF_ACCESS_AUD` | Plain text | Optional; Access application audience |
+This project uses **Wrangler-managed plain text vars** and **dashboard secrets only** (Cloudflare shows: *“Environment variables for this project are being managed through wrangler.toml”*).
 
-Never commit secret values or `.dev.vars`. `wrangler.jsonc` `vars` are not enough when the repo deploys through Git — set everything above in the dashboard.
+**Plain text → `wrangler.jsonc` `vars`** (commit non-secret values, redeploy):
+
+| Name | Purpose |
+| --- | --- |
+| `TURNSTILE_SITE_KEY` | Turnstile widget site key |
+| `REVIEWER_EMAILS` | Your admin email (comma-separated). **Not** the public `contact@…` address. |
+
+Optional later, for Cloudflare Access:
+
+| `CF_ACCESS_TEAM_DOMAIN` | Access team domain |
+| `CF_ACCESS_AUD` | Access application audience |
+
+**Encrypted secrets → Pages dashboard → Settings → Variables → Encrypt** (then redeploy):
+
+| Name | Purpose |
+| --- | --- |
+| `TURNSTILE_SECRET_KEY` | Turnstile server verification |
+| `SUBMISSION_HASH_SALT` | Rate-limit IP hashing |
+| `ADMIN_REVIEW_SECRET` | 16+ characters; enter once on `/review/` to unlock the console |
+
+Never commit `.dev.vars`. After changing either `wrangler.jsonc` vars or dashboard secrets, run `npm run deploy` so Production picks them up.
 
 4. Configure Cloudflare Access policies before deployment:
    - `/review/*`

@@ -70,10 +70,10 @@ async function loadAuthHints() {
     } else if (secretStatus === "too-short") {
       hints.push("ADMIN_REVIEW_SECRET is set but shorter than 16 characters — lengthen it in Pages → Settings → Variables, then redeploy Production.");
     } else {
-      hints.push("The server does not see ADMIN_REVIEW_SECRET yet. In Pages → Settings → Variables, add it as an encrypted secret for Production, then run npm run deploy to redeploy.");
+      hints.push("The server does not see ADMIN_REVIEW_SECRET yet. Add it as an encrypted secret in the Pages dashboard, then redeploy Production.");
     }
     if (!config.reviewAuth?.reviewerAllowlist) {
-      hints.push("Also set REVIEWER_EMAILS (plain text) to your admin email on the Pages project — wrangler.jsonc alone is not enough for Git-based deploys.");
+      hints.push("Set REVIEWER_EMAILS in wrangler.jsonc vars (plain text is managed there when the project uses Wrangler config).");
     }
     reviewAuthLead.textContent = hints.join(" ");
   } catch {

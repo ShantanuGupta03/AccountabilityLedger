@@ -27,8 +27,8 @@ cases in `assets/data/cases.json` are the static set and are separate.
 
 **Production — pick one:**
 
-1. **Cloudflare Access (recommended)** — protect `/review/` and `/api/admin/*`. Set `REVIEWER_EMAILS`, `CF_ACCESS_TEAM_DOMAIN`, and `CF_ACCESS_AUD` on the Pages project.
-2. **Review secret (solo admin)** — set `ADMIN_REVIEW_SECRET` (16+ characters) as an encrypted Pages secret. Open `/review/`, enter it once; the browser stores it for the session. Prefer Access once you have it wired.
+1. **Review secret (current setup)** — `ADMIN_REVIEW_SECRET` (16+ characters) as an **encrypted Pages dashboard secret**. `REVIEWER_EMAILS` as **plain text in `wrangler.jsonc` `vars`**. Open `/review/`, enter the secret once; the browser stores it for the session.
+2. **Cloudflare Access (recommended later)** — protect `/review/` and `/api/admin/*`. Add `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` to `wrangler.jsonc` `vars`.
 
 The **Published from submissions** queue lists only cases a reader submitted and you published through this console. The 84+ main ledger cases in `assets/data/cases.json` are **not** here — edit those in git and redeploy.
 
@@ -38,8 +38,8 @@ If you use Cloudflare Access, the API checks the Access JWT *and* the email allo
 
 1. Cloudflare Access → add your email to the policy for `/review/` and
    `/api/admin/*`.
-2. Set `REVIEWER_EMAILS` (comma-separated) on the Pages project.
-3. Set `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` so the JWT can be verified.
+2. Set `REVIEWER_EMAILS` (comma-separated) in **`wrangler.jsonc` `vars`**, then redeploy.
+3. Set `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` in **`wrangler.jsonc` `vars`** so the JWT can be verified.
 
 If `REVIEWER_EMAILS` is empty, every admin call returns 403 — an unset
 allowlist denies everyone rather than allowing everyone. That is deliberate.
