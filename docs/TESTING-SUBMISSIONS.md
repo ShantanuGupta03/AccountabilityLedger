@@ -160,7 +160,7 @@ npm run db:migrate:local
 - [ ] Add every hostname the site serves to the Turnstile widget: the apex
       domain, `*.pages.dev`, and any preview domain. A missing hostname is what
       makes the form fail with no obvious cause.
-- [ ] Apply migrations to the real database: `npm run db:migrate:remote`.
+- [ ] Apply migrations to the real database: `npm run db:migrate:remote` (includes `0003_human_verification.sql` — required for submissions to save).
 - [ ] Add Cloudflare Access policies for `/review/*` and `/api/admin/*`.
 - [ ] Confirm `https://<your-site>/api/public-config` returns JSON. If it returns
       HTML, the Functions are not deployed and every form will fail.

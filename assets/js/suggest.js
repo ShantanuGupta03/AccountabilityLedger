@@ -175,7 +175,7 @@ function humanToken() {
 }
 
 async function configureTurnstile() {
-  const response = await fetch("../api/public-config", { cache: "no-store" });
+  const response = await fetch("/api/public-config", { cache: "no-store" });
   const config = await response.json();
   lastConfig = config;
   if (config.submissionsEnabled && config.localHumanBypass) {
@@ -233,7 +233,7 @@ form.addEventListener("submit", async (event) => {
   setStatus("Sending…");
 
   try {
-    const response = await fetch("../api/case-sources", {
+    const response = await fetch("/api/case-sources", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({

@@ -239,6 +239,19 @@ export async function requireReviewer(context) {
     return String(context.env.DEV_REVIEWER_EMAIL).trim().toLowerCase();
   }
 
+  // Solo-operator fallback when Cloudflare Access is not wired yet. The secret
+  // lives only in Pages secrets; the browser sends it in a header after a
+  // one-time prompt on /review/. Prefer Access once it is configured.
+  const expectedSecret = String(context.env.ADMIN_REVIEW_SECRET ?? "");
+  const providedSecret = context.request.headers.get("X-Review-Secret") ?? "";
+  if (expectedSecret.length >= 16 && providedSecret === expectedSecret) {
+    const allowed = (context.env.REVIEWER_EMAILS ?? "")
+      .split(",")
+      .map((value) => value.trim().toLowerCase())
+      .filter(Boolean);
+    return allowed[0] ?? "reviewer";
+  }
+
   const accessAssertion = context.request.headers.get("CF-Access-Jwt-Assertion");
   const email = accessAssertion ? await verifiedAccessEmail(accessAssertion, context.env) : null;
   const allowed = (context.env.REVIEWER_EMAILS ?? "")

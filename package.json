@@ -5,7 +5,7 @@
     "build": "node scripts/build.mjs",
     "validate": "python3 scripts/validate_cases.py",
     "validate:strict": "python3 scripts/validate_cases.py --strict",
-    "dev": "npm run build && npx wrangler pages dev dist --local --port 8788",
+    "dev": "npm run db:migrate:local && npm run build && npx wrangler pages dev dist --local --port 8788",
     "db:migrate:local": "npx wrangler d1 migrations apply public-submission --local",
     "db:migrate:remote": "npx wrangler d1 migrations apply public-submission --remote",
     "check-links": "node scripts/check_links.mjs",

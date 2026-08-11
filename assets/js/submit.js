@@ -76,7 +76,7 @@ class ApiUnavailable extends Error {}
 async function loadConfig() {
   let response;
   try {
-    response = await fetch("../api/public-config", { cache: "no-store" });
+    response = await fetch("/api/public-config", { cache: "no-store" });
   } catch {
     throw new ApiUnavailable("network");
   }
@@ -205,7 +205,7 @@ form.addEventListener("submit", async (event) => {
   setStatus("Submitting for review…");
 
   try {
-    const response = await fetch("../api/submissions", {
+    const response = await fetch("/api/submissions", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -252,7 +252,8 @@ configureTurnstile()
     clearTimeout(turnstileTimer);
     if (error instanceof ApiUnavailable) {
       block(`The submission API did not respond (${error.message}). /api/public-config returned nothing usable, `
-        + "which usually means the Cloudflare Pages Functions are not deployed. This is a server-side fault, not your browser.");
+        + "which usually means the Cloudflare Pages Functions are not deployed, or you are on the wrong hostname "
+        + "(use the apex domain, not www, and run npm run dev locally — not a plain static file server).");
       setStatus("The submission service is unavailable right now.", true);
       return;
     }
@@ -269,8 +270,10 @@ function degradeToUnverified(error) {
   degraded = true;
   turnstileMount.textContent = "";
   unblock();
+  const waitSec = Math.max(1, Math.ceil((8_000 - (Date.now() - loadedAt)) / 1000));
   setNote("Human verification could not be shown here, so it has been skipped. You can still submit: the case will be "
-    + "queued as unverified and checked by a reviewer by hand. One submission per hour on this route.");
+    + "queued as unverified and checked by a reviewer by hand. One submission per hour on this route."
+    + (waitSec > 0 ? ` Wait about ${waitSec}s after the page loaded, then send.` : ""));
   setStatus("");
   console.warn("Turnstile unavailable, submitting unverified:", error);
 }

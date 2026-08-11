@@ -29,3 +29,8 @@ DEV_REVIEWER_EMAIL=reviewer@example.com
 # Production Access settings. Not needed locally; required on the deployed site.
 CF_ACCESS_TEAM_DOMAIN=your-team.cloudflareaccess.com
 CF_ACCESS_AUD=REPLACE_WITH_YOUR_ACCESS_APPLICATION_AUDIENCE
+
+# Optional solo-admin fallback when Cloudflare Access is not set up yet.
+# Set a long random string (16+ chars) as an encrypted Pages secret, then enter
+# it once on /review/ to unlock the console. Prefer Access for production.
+# ADMIN_REVIEW_SECRET=replace-with-a-long-random-string

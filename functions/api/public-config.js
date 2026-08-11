@@ -1,4 +1,4 @@
-import { json, localHumanBypassAllowed } from "../_utils.js";
+import { json, localHumanBypassAllowed, isLoopbackRequest } from "../_utils.js";
 
 const REQUIRED = ["TURNSTILE_SITE_KEY", "TURNSTILE_SECRET_KEY", "SUBMISSION_HASH_SALT"];
 
@@ -32,5 +32,10 @@ export function onRequestGet(context) {
     localHumanBypass: localHumanBypassAllowed(context),
     hostname,
     missing,
+    reviewAuth: {
+      access: Boolean(context.env.CF_ACCESS_TEAM_DOMAIN && context.env.CF_ACCESS_AUD),
+      secret: String(context.env.ADMIN_REVIEW_SECRET ?? "").length >= 16,
+      localBypass: isLoopbackRequest(context.request) && Boolean(context.env.DEV_REVIEWER_EMAIL),
+    },
   });
 }

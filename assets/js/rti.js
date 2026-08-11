@@ -29,6 +29,19 @@
   const lang = () => window.LedgerI18n?.getLang?.() ?? "en";
   const t = (key, vars) => window.LedgerI18n?.t(key, vars) ?? "";
   const title = (caseFile) => window.LedgerI18n?.caseField(caseFile, "title") ?? caseFile.title;
+  const caseKey = (caseFile) => caseFile?.id ?? `case-${caseFile?.no}`;
+  let displayRanks = new Map();
+
+  function refreshRanks() {
+    displayRanks = new Map();
+    [...cases]
+      .sort((a, b) => (Number(a.sk) - Number(b.sk)) || caseKey(a).localeCompare(caseKey(b)))
+      .forEach((caseFile, index) => displayRanks.set(caseKey(caseFile), index + 1));
+  }
+
+  function findCase(value) {
+    return cases.find((item) => caseKey(item) === value);
+  }
 
   let cases = [];
   let authorities = [];
@@ -213,7 +226,7 @@
 
   function buildLetter() {
     const S = strings();
-    const caseFile = cases.find((item) => String(item.no) === caseSelect.value);
+    const caseFile = findCase(caseSelect.value);
     if (!caseFile) return "";
     const authority = selectedAuthority();
     const subject = `${title(caseFile)} (${caseFile.date})`;
@@ -301,7 +314,7 @@
   }
 
   function onCaseChange() {
-    const caseFile = cases.find((item) => String(item.no) === caseSelect.value);
+    const caseFile = findCase(caseSelect.value);
     if (caseFile) renderAuthorityOptions(caseFile);
     render();
   }
@@ -327,14 +340,20 @@
     const previous = caseSelect.value;
     const shown = cases.filter((caseFile) => matches(caseFile, query));
     caseSelect.innerHTML = shown
-      .map((caseFile) => `<option value="${caseFile.no}">${SU?.escapeHTML(`${caseFile.date} — ${title(caseFile)}`)}</option>`)
+      .map((caseFile) => {
+        const rank = displayRanks.get(caseKey(caseFile)) ?? 0;
+        const label = rank
+          ? `${String(rank).padStart(2, "0")} · ${caseFile.date} — ${title(caseFile)}`
+          : `${caseFile.date} — ${title(caseFile)}`;
+        return `<option value="${SU?.escapeHTML(caseKey(caseFile))}">${SU?.escapeHTML(label)}</option>`;
+      })
       .join("");
     // Keep the selected case if the new filter still contains it; otherwise the
     // top match becomes the selection so the letter is never blank.
-    if (previous && shown.some((caseFile) => String(caseFile.no) === previous)) {
+    if (previous && shown.some((caseFile) => caseKey(caseFile) === previous)) {
       caseSelect.value = previous;
     } else if (shown.length) {
-      caseSelect.value = String(shown[0].no);
+      caseSelect.value = caseKey(shown[0]);
     }
     if (caseCount) {
       caseCount.textContent = shown.length
@@ -369,12 +388,13 @@
   }
 
   function downloadLetter() {
-    const caseFile = cases.find((item) => String(item.no) === caseSelect.value);
+    const caseFile = findCase(caseSelect.value);
+    const rank = caseFile ? displayRanks.get(caseKey(caseFile)) : 0;
     const blob = new Blob([letterNode.textContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `RTI-case-${caseFile ? String(caseFile.no).padStart(2, "0") : "application"}.txt`;
+    link.download = `RTI-case-${rank ? String(rank).padStart(2, "0") : "application"}.txt`;
     document.body.append(link);
     link.click();
     link.remove();
@@ -401,13 +421,13 @@
 
   loadCases().then((loaded) => {
     cases = loaded.sort((a, b) => Number(b.sk) - Number(a.sk));
+    refreshRanks();
     renderCaseOptions();
     const wanted = new URLSearchParams(location.search).get("case");
-    const preselect = wanted && /^case-(\d+)$/.test(wanted) ? wanted.replace("case-", "") : wanted;
-    if (preselect && cases.some((item) => String(item.no) === preselect)) {
+    if (wanted && cases.some((item) => caseKey(item) === wanted)) {
       if (caseSearch) caseSearch.value = "";
       renderCaseOptions();
-      caseSelect.value = preselect;
+      caseSelect.value = wanted;
     }
     onCaseChange();
   }).catch(() => {

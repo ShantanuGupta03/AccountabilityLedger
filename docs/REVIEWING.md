@@ -23,8 +23,18 @@ cases in `assets/data/cases.json` are the static set and are separate.
 
 ## Getting access
 
-`/review/` is protected by Cloudflare Access, and the API checks the Access JWT
-*and* the email allowlist. Both must be right:
+`/review/` is the admin control dashboard. Open it at **`https://<your-site>/review/`** (locally: `http://localhost:8788/review/` with `DEV_REVIEWER_EMAIL` in `.dev.vars`).
+
+**Production — pick one:**
+
+1. **Cloudflare Access (recommended)** — protect `/review/` and `/api/admin/*`. Set `REVIEWER_EMAILS`, `CF_ACCESS_TEAM_DOMAIN`, and `CF_ACCESS_AUD` on the Pages project.
+2. **Review secret (solo admin)** — set `ADMIN_REVIEW_SECRET` (16+ characters) as an encrypted Pages secret. Open `/review/`, enter it once; the browser stores it for the session. Prefer Access once you have it wired.
+
+The **Published from submissions** queue lists only cases a reader submitted and you published through this console. The 84+ main ledger cases in `assets/data/cases.json` are **not** here — edit those in git and redeploy.
+
+It shows every submission queue as a card list with **Open**, **Reject/Unpublish**, and **Erase** on each row.
+
+If you use Cloudflare Access, the API checks the Access JWT *and* the email allowlist. Both must be right:
 
 1. Cloudflare Access → add your email to the policy for `/review/` and
    `/api/admin/*`.

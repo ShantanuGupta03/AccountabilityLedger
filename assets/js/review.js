@@ -1,4 +1,7 @@
 const list = document.querySelector("#submission-list");
+const queueList = document.querySelector("#queue-list");
+const queueCount = document.querySelector("#queue-count");
+const reviewerInfo = document.querySelector("#reviewer-info");
 const detail = document.querySelector("#submission-detail");
 const form = document.querySelector("#review-form");
 const notes = document.querySelector("#review-notes");
@@ -7,7 +10,67 @@ const status = document.querySelector("#review-status");
 const queueStatus = document.querySelector("#queue-status");
 const queueWarning = document.querySelector("#queue-warning");
 const deleteButton = document.querySelector("#delete-submission");
+const reviewAuth = document.querySelector("#review-auth");
+const reviewConsole = document.querySelector("#review-console");
+const reviewAuthForm = document.querySelector("#review-auth-form");
+const reviewSecretInput = document.querySelector("#review-secret");
+const reviewAuthStatus = document.querySelector("#review-auth-status");
+const reviewAuthLead = document.querySelector("#review-auth-lead");
 let submissions = [];
+let reviewerEmail = "";
+
+const REVIEW_SECRET_KEY = "ledger-review-secret";
+
+function reviewHeaders(extra = {}) {
+  const headers = { ...extra };
+  const secret = sessionStorage.getItem(REVIEW_SECRET_KEY);
+  if (secret) headers["X-Review-Secret"] = secret;
+  return headers;
+}
+
+function adminFetch(url, options = {}) {
+  return fetch(url, {
+    ...options,
+    headers: reviewHeaders(options.headers ?? {}),
+  });
+}
+
+function showAuthGate(message = "") {
+  reviewConsole.hidden = true;
+  reviewAuth.hidden = false;
+  if (message) {
+    reviewAuthStatus.textContent = message;
+    reviewAuthStatus.classList.add("error");
+  }
+}
+
+function showConsole() {
+  reviewAuth.hidden = true;
+  reviewConsole.hidden = false;
+  reviewAuthStatus.textContent = "";
+  reviewAuthStatus.classList.remove("error");
+}
+
+async function loadAuthHints() {
+  try {
+    const response = await fetch("/api/public-config", { cache: "no-store" });
+    if (!response.ok) return;
+    const config = await response.json();
+    const hints = [];
+    if (config.reviewAuth?.localBypass) {
+      hints.push("Local dev: set DEV_REVIEWER_EMAIL in .dev.vars and use http://localhost:8788/review/.");
+    }
+    if (config.reviewAuth?.access) hints.push("Cloudflare Access is configured for this site.");
+    if (config.reviewAuth?.secret) {
+      hints.push("Enter the ADMIN_REVIEW_SECRET you set on the Pages project.");
+    } else {
+      hints.push("No ADMIN_REVIEW_SECRET is set yet — add one under Pages → Settings → Environment variables (Encrypt).");
+    }
+    reviewAuthLead.textContent = hints.join(" ");
+  } catch {
+    reviewAuthLead.textContent = "Could not reach /api/public-config. Deploy with npm run deploy and use the apex domain (not www).";
+  }
+}
 
 /* What each decision means depends on which queue you are looking at: from the
    published queue, "approved" and "rejected" both retract the live case. */
@@ -45,16 +108,160 @@ function selectedSubmission() {
   return submissions.find((submission) => submission.id === list.value);
 }
 
+function isVerified(submission) {
+  return Number(submission?.human_verified ?? 1) === 1;
+}
+
+function renderQueueList() {
+  queueList.replaceChildren();
+
+  if (!submissions.length) {
+    const empty = document.createElement("li");
+    empty.className = "queue-empty";
+    empty.textContent = emptyLabel();
+    queueList.append(empty);
+    queueCount.textContent = emptyLabel();
+    if (queueStatus.value === "published") {
+      fetch("/api/cases", { cache: "no-store" })
+        .then((response) => (response.ok ? response.json() : { cases: [] }))
+        .then((data) => {
+          const n = Array.isArray(data.cases) ? data.cases.length : 0;
+          queueCount.textContent = n
+            ? `${emptyLabel()} (${n} submission case${n === 1 ? "" : "s"} in /api/cases; list may be out of sync — refresh)`
+            : `${emptyLabel()} (0 submission cases in /api/cases)`;
+        })
+        .catch(() => {});
+    }
+    return;
+  }
+
+  const unverified = submissions.filter((item) => !isVerified(item)).length;
+  queueCount.textContent = `${submissions.length} in ${queueStatus.value}`
+    + (unverified ? ` · ${unverified} not human-verified` : "");
+
+  submissions.forEach((submission) => {
+    const item = document.createElement("li");
+    item.className = "queue-item";
+    if (submission.id === list.value) item.classList.add("selected");
+
+    const head = document.createElement("div");
+    head.className = "queue-item-head";
+    const title = document.createElement("h3");
+    title.textContent = submission.title;
+    const meta = document.createElement("p");
+    meta.className = "queue-item-meta";
+    meta.textContent = `${submission.incident_date} · ${submission.category}`;
+    head.append(title, meta);
+    if (!isVerified(submission)) {
+      const badge = document.createElement("span");
+      badge.className = "queue-badge";
+      badge.textContent = "Unverified";
+      head.append(badge);
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "queue-item-actions";
+
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "case-share";
+    open.textContent = "Open";
+    open.addEventListener("click", () => {
+      list.value = submission.id;
+      showSubmission();
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    const reject = document.createElement("button");
+    reject.type = "button";
+    reject.className = "case-share";
+    reject.textContent = queueStatus.value === "published" ? "Unpublish" : "Reject";
+    reject.addEventListener("click", () => quickDecision(submission.id, queueStatus.value === "published" ? "approved" : "rejected", reject));
+
+    const erase = document.createElement("button");
+    erase.type = "button";
+    erase.className = "danger-action";
+    erase.textContent = "Erase";
+    erase.addEventListener("click", () => quickErase(submission.id, erase));
+
+    actions.append(open, reject, erase);
+    item.append(head, actions);
+    queueList.append(item);
+  });
+}
+
+async function quickDecision(id, nextStatus, button) {
+  const submission = submissions.find((item) => item.id === id);
+  if (!submission) return;
+  if (nextStatus === "published") {
+    list.value = id;
+    showSubmission();
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+    status.textContent = "Edit the JSON below, then press Publish to ledger.";
+    return;
+  }
+  button.disabled = true;
+  status.classList.remove("error");
+  status.textContent = "Saving…";
+  try {
+    const response = await adminFetch(`/api/admin/submissions/${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ status: nextStatus, reviewNotes: notes.value || "Quick decision from queue list." }),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error ?? "Unable to save the review decision.");
+    if (result.status === queueStatus.value) await loadQueue();
+    else dropFromQueue(id);
+    status.textContent = `Marked ${result.status}.`;
+  } catch (error) {
+    status.textContent = error.message || "Unable to save the review decision.";
+    status.classList.add("error");
+  } finally {
+    button.disabled = false;
+  }
+}
+
+async function quickErase(id, button) {
+  const submission = submissions.find((item) => item.id === id);
+  if (!submission) return;
+  const confirmed = window.confirm(
+    `Erase "${submission.title}" and any case it published?\n\nThis cannot be undone.`,
+  );
+  if (!confirmed) return;
+  button.disabled = true;
+  status.classList.remove("error");
+  status.textContent = "Erasing…";
+  try {
+    const response = await adminFetch(`/api/admin/submissions/${encodeURIComponent(id)}`, { method: "DELETE" });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error ?? "Unable to erase that submission.");
+    dropFromQueue(id);
+    status.textContent = "Erased.";
+  } catch (error) {
+    status.textContent = error.message || "Unable to erase that submission.";
+    status.classList.add("error");
+  } finally {
+    button.disabled = false;
+  }
+}
+
 function showSubmission() {
   const submission = selectedSubmission();
   const queue = queueStatus.value;
-  queueWarning.hidden = queue !== "published";
-  queueWarning.textContent = queue === "published"
-    ? "These cases are live on the public ledger right now. Unpublishing removes one immediately."
-    : "";
+  if (queue === "published") {
+    queueWarning.hidden = false;
+    queueWarning.textContent = submissions.length
+      ? "These reader-submitted cases are live on the site right now. Unpublishing removes one immediately."
+      : QUEUE_SCOPE.published;
+  } else {
+    queueWarning.hidden = true;
+    queueWarning.textContent = "";
+  }
   form.querySelectorAll("[data-status]").forEach((button) => {
     button.textContent = ACTION_LABELS[queue][button.dataset.status];
   });
+  renderQueueList();
 
   if (!submission) {
     detail.hidden = true;
@@ -67,10 +274,7 @@ function showSubmission() {
   const heading = document.createElement("h2");
   heading.textContent = submission.title;
   const meta = document.createElement("p");
-  // Unverified means Turnstile could not run in the sender's browser, not that
-  // the submission is suspect. It is a reason to read it more carefully, and the
-  // reviewer should be told rather than left to guess.
-  const verified = Number(submission.human_verified ?? 1) === 1;
+  const verified = isVerified(submission);
   meta.textContent = `${submission.incident_date} · ${submission.category}`
     + (verified ? "" : " · NOT HUMAN-VERIFIED, CHECK BY HAND");
   meta.classList.toggle("meta-unverified", !verified);
@@ -105,14 +309,13 @@ async function updateSubmission(event) {
   status.classList.remove("error");
   status.textContent = "Saving review decision…";
   try {
-    const response = await fetch(`../api/admin/submissions/${encodeURIComponent(submission.id)}`, {
+    const response = await adminFetch(`/api/admin/submissions/${encodeURIComponent(submission.id)}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error ?? "Unable to save the review decision.");
-    // The list only holds one status, so a decision that changes it drops the item.
     if (result.status === queueStatus.value) {
       await loadQueue();
     } else {
@@ -150,7 +353,7 @@ async function deleteSubmission() {
   status.classList.remove("error");
   status.textContent = "Erasing…";
   try {
-    const response = await fetch(`../api/admin/submissions/${encodeURIComponent(submission.id)}`, { method: "DELETE" });
+    const response = await adminFetch(`/api/admin/submissions/${encodeURIComponent(submission.id)}`, { method: "DELETE" });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error ?? "Unable to erase that submission.");
     dropFromQueue(submission.id);
@@ -165,9 +368,14 @@ async function deleteSubmission() {
 
 const EMPTY_LABELS = {
   pending: "Nothing waiting for review",
-  published: "Nothing is live on the ledger",
+  published: "No reader submissions are live on the site right now",
   approved: "Nothing approved and unpublished",
   rejected: "Nothing rejected",
+};
+
+const QUEUE_SCOPE = {
+  published: "This queue is only for cases a reader submitted and you published through this console. "
+    + "The main ledger cases in assets/data/cases.json are edited in the repository and redeployed — they never appear here.",
 };
 
 function emptyLabel() {
@@ -175,10 +383,21 @@ function emptyLabel() {
 }
 
 async function loadQueue() {
-  const response = await fetch(`../api/admin/submissions?status=${queueStatus.value}`, { cache: "no-store" });
+  const response = await adminFetch(`/api/admin/submissions?status=${queueStatus.value}`, { cache: "no-store" });
   const data = await response.json();
+  if (response.status === 403) {
+    sessionStorage.removeItem(REVIEW_SECRET_KEY);
+    showAuthGate(data.error ?? "Reviewer access required.");
+    throw new Error(data.error ?? "Reviewer access required.");
+  }
   if (!response.ok) throw new Error(data.error ?? "Unable to load review queue.");
   submissions = data.submissions;
+  if (data.reviewer) {
+    reviewerEmail = data.reviewer;
+    reviewerInfo.hidden = false;
+    reviewerInfo.textContent = `Signed in as ${data.reviewer}. Queues are private; nothing here is public until you publish.`;
+  }
+  showConsole();
   list.replaceChildren();
   if (!submissions.length) {
     list.append(new Option(emptyLabel(), ""));
@@ -186,9 +405,12 @@ async function loadQueue() {
     return;
   }
   submissions.forEach((submission) => list.append(new Option(
-    `${Number(submission.human_verified ?? 1) === 1 ? "" : "⚠ "}${submission.incident_date} · ${submission.title}`,
+    `${isVerified(submission) ? "" : "⚠ "}${submission.incident_date} · ${submission.title}`,
     submission.id,
   )));
+  if (!submissions.some((item) => item.id === list.value)) {
+    list.value = submissions[0].id;
+  }
   showSubmission();
 }
 
@@ -249,7 +471,7 @@ function suggestionCard(suggestion) {
     result.classList.remove("error");
     result.textContent = "Saving…";
     try {
-      const response = await fetch(`../api/admin/source-suggestions/${encodeURIComponent(suggestion.id)}`, request);
+      const response = await adminFetch(`/api/admin/source-suggestions/${encodeURIComponent(suggestion.id)}`, request);
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error ?? failure);
       if (payload.status === queue) {
@@ -325,18 +547,11 @@ function updateSuggestionCount() {
 
 async function loadSuggestions() {
   suggestionCount.classList.remove("error");
-  const response = await fetch(`../api/admin/source-suggestions?status=${suggestionStatus.value}`, { cache: "no-store" });
+  const response = await adminFetch(`/api/admin/source-suggestions?status=${suggestionStatus.value}`, { cache: "no-store" });
   const data = await response.json();
   if (!response.ok) throw new Error(data.error ?? "Unable to load suggested sources.");
   suggestionList.replaceChildren(...data.suggestions.map(suggestionCard));
   updateSuggestionCount();
-}
-
-function refreshQueue() {
-  loadQueue().catch((error) => {
-    status.textContent = error.message || "Unable to load review queue.";
-    status.classList.add("error");
-  });
 }
 
 function refreshSuggestions() {
@@ -346,10 +561,37 @@ function refreshSuggestions() {
   });
 }
 
+function refreshQueue() {
+  loadQueue().catch((error) => {
+    if (error.message.includes("Reviewer access")) return;
+    status.textContent = error.message || "Unable to load review queue.";
+    status.classList.add("error");
+  });
+}
+
+reviewAuthForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const secret = reviewSecretInput?.value?.trim();
+  if (!secret) return;
+  sessionStorage.setItem(REVIEW_SECRET_KEY, secret);
+  reviewAuthStatus.textContent = "Checking…";
+  reviewAuthStatus.classList.remove("error");
+  refreshQueue();
+});
+
 list.addEventListener("change", showSubmission);
 queueStatus.addEventListener("change", refreshQueue);
 suggestionStatus.addEventListener("change", refreshSuggestions);
 deleteButton.addEventListener("click", deleteSubmission);
 form.querySelectorAll("[data-status]").forEach((button) => button.addEventListener("click", updateSubmission));
-refreshQueue();
-refreshSuggestions();
+
+loadAuthHints();
+if (sessionStorage.getItem(REVIEW_SECRET_KEY)) {
+  refreshQueue();
+  refreshSuggestions();
+} else {
+  showAuthGate();
+  loadQueue()
+    .then(() => refreshSuggestions())
+    .catch(() => {});
+}

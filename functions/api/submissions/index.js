@@ -100,7 +100,14 @@ export async function onRequestPost(context) {
     // messages are written to be read. Anything else is ours to fix, and
     // echoing it back would leak internals for no one's benefit.
     if (error instanceof TypeError) return json({ error: error.message }, 400);
+    const message = error instanceof Error ? error.message : String(error);
     console.error("functions/api/submissions/index.js:", error);
+    if (/no such column:\s*human_verified/i.test(message)) {
+      return json({
+        error: "The submission database is missing a required migration. "
+          + "Run npm run db:migrate:remote on production, or npm run db:migrate:local locally.",
+      }, 503);
+    }
     return json({ error: "Unable to submit the incident." }, 500);
   }
 }

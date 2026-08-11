@@ -316,6 +316,51 @@ def validate_collection(report: Report, cases: list[Any]) -> None:
         if missing:
             report.warn("ledger", f"case numbers are not contiguous; missing {missing}")
 
+    shipped = [case for case in cases if isinstance(case, dict) and is_shipped(case)]
+    _validate_display_order(report, shipped)
+
+
+def _case_id(case: dict[str, Any]) -> str:
+    case_id = case.get("id")
+    if isinstance(case_id, str) and case_id.strip():
+        return case_id.strip()
+    number = case.get("no")
+    return f"case-{number}" if isinstance(number, int) else ""
+
+
+def _validate_display_order(report: Report, cases: list[dict[str, Any]]) -> None:
+    """Display numbers on the site are assigned from sk (oldest = 1, newest = N).
+
+    The `no` field in the JSON file is the order cases were added and is not shown
+    on the ledger. This check catches date keys that would scramble public numbering.
+    """
+    dated: list[tuple[int, str, int, str]] = []
+    for case in cases:
+        sk = case.get("sk")
+        if not isinstance(sk, int):
+            continue
+        dated.append((sk, _case_id(case), case.get("no", 0), str(case.get("title", ""))[:48]))
+
+    dated.sort(key=lambda row: (row[0], row[1]))
+    for rank, (sk, case_id, legacy_no, title) in enumerate(dated, start=1):
+        if rank > 1 and sk == dated[rank - 2][0]:
+            report.warn(
+                f"{case_id or title}",
+                f"shares sk {sk} with another case; display order falls back to id",
+            )
+
+    if not dated:
+        return
+    newest = dated[-1]
+    oldest = dated[0]
+    if isinstance(newest[2], int) and isinstance(oldest[2], int) and newest[2] < oldest[2]:
+        report.warn(
+            "ledger",
+            "the JSON `no` field does not follow incident dates (legacy insertion order). "
+            "Public cards use date-based numbers instead; run with --renumber-json only if you "
+            "need `no` to match.",
+        )
+
 
 def totals(cases: list[dict[str, Any]]) -> tuple[float, float]:
     cost = deaths = 0.0
