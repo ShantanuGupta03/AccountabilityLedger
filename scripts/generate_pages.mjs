@@ -160,6 +160,7 @@ ${body}
   <script src="${up}assets/js/source-utils.js" defer></script>
   <script src="${up}assets/js/i18n.js" defer></script>
   <script src="${up}assets/js/clock.js" defer></script>
+  <script src="${up}assets/js/motion.js" defer></script>
   <script src="${up}assets/js/to-top.js" defer></script>
 </body>
 </html>`;
