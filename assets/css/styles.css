@@ -915,6 +915,13 @@
   .ui-swapping{opacity:.4;pointer-events:none;
     transition:opacity var(--t-fast) var(--ease)}
 
+  /* ---------- page enter ----------
+     One rise on the main column after same-origin tab navigation. Kept without
+     view transitions so the page does not load twice. */
+  body.page-enter main,
+  body.page-enter .dashboard-page,
+  body.page-enter .form-page{animation:rise-in var(--t-slow) var(--ease) both}
+
   /* ---------- native folds ----------
      Method block and minister CV sections: body copy fades up when opened.
      @starting-style fires only on the open transition, not on every paint. */

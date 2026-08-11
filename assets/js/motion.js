@@ -247,8 +247,8 @@
    Shared motion helpers.
 
    pulse() — one opacity beat when a panel re-renders (filter, dropdown, view).
-   Cross-page tab navigation is intentionally instant: no view transitions and
-   no post-load entrance animation, which read as a double load.
+   page-enter — one subtle rise on same-origin tab navigation (not paired with
+   view transitions, which caused a double-load feel).
    ========================================================================== */
 (() => {
   const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -259,5 +259,30 @@
     requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("ui-swapping")));
   }
 
+  function markInternalNav() {
+    try { sessionStorage.setItem("ledger:nav", "1"); } catch {}
+  }
+
+  function initPageEnter() {
+    if (reduced()) return;
+    try {
+      if (sessionStorage.getItem("ledger:nav") !== "1") return;
+      sessionStorage.removeItem("ledger:nav");
+      document.body.classList.add("page-enter");
+    } catch {}
+  }
+
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a[href]");
+    if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+    try {
+      if (new URL(link.href, location.href).origin === location.origin) markInternalNav();
+    } catch {}
+  }, { capture: true, passive: true });
+
+  initPageEnter();
   window.LedgerMotion = { pulse };
 })();

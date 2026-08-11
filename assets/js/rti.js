@@ -308,14 +308,34 @@
     if (!form.name.value.trim()) missing.push(t("rti_missing_name"));
     if (!form.address.value.trim()) missing.push(t("rti_missing_address"));
     // Two items at most, so "name and postal address" reads better than a list.
-    statusNode.textContent = missing.length
-      ? t("rti_missing", { fields: missing.join(t("rti_missing_join")) })
-      : "";
-    statusNode.classList.toggle("error", missing.length > 0);
+    if (missing.length) {
+      delete statusNode.dataset.copied;
+      statusNode.textContent = t("rti_missing", { fields: missing.join(t("rti_missing_join")) });
+      statusNode.classList.add("error");
+    } else if (!statusNode.dataset.copied) {
+      statusNode.textContent = "";
+      statusNode.classList.remove("error");
+    }
     requestAnimationFrame(() => requestAnimationFrame(() => letterNode.classList.remove("letter-swapping")));
   }
 
+  function showCopiedStatus() {
+    statusNode.dataset.copied = "1";
+    statusNode.classList.remove("error");
+    statusNode.replaceChildren();
+    const hi = window.LedgerI18n?.getLang?.() === "hi";
+    statusNode.append(document.createTextNode(hi ? "कॉपी हो गया। इसे " : "Copied. Paste it into "));
+    const link = document.createElement("a");
+    link.href = "https://rtionline.gov.in";
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "rtionline.gov.in";
+    statusNode.append(link);
+    statusNode.append(document.createTextNode(hi ? " पर या पत्र में चिपका दीजिए।" : " or into a letter."));
+  }
+
   function onCaseChange() {
+    delete statusNode.dataset.copied;
     window.LedgerMotion?.pulse(letterNode);
     const caseFile = findCase(caseSelect.value);
     if (caseFile) renderAuthorityOptions(caseFile);
@@ -374,8 +394,7 @@
     const text = letterNode.textContent;
     try {
       await navigator.clipboard.writeText(text);
-      statusNode.classList.remove("error");
-      statusNode.innerHTML = t("rti_copied");
+      showCopiedStatus();
     } catch {
       // Clipboard access is refused on insecure origins and in some in-app
       // browsers. Selecting the text is the honest fallback.
@@ -442,12 +461,14 @@
   caseSelect.addEventListener("change", onCaseChange);
   caseSearch?.addEventListener("input", () => { if (renderCaseOptions()) onCaseChange(); });
   authoritySelect.addEventListener("change", () => {
+    delete statusNode.dataset.copied;
     window.LedgerMotion?.pulse(letterNode);
     updateAuthorityNote();
     render();
   });
   form.addEventListener("input", (event) => {
     if (event.target === caseSearch) return;
+    delete statusNode.dataset.copied;
     if (event.target === authorityCustom) updateAuthorityNote();
     render();
   });
