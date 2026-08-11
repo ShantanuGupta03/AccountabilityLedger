@@ -90,6 +90,47 @@ function dashboard(cases) {
 
 const VISIBLE_CASES = 3;
 
+/**
+ * The party and government to show beside an office-holder.
+ *
+ * Two separate facts, and the distinction is the whole point. The government of
+ * the day comes from the case date and only applies where the office is a Union
+ * one — it says which coalition was in power, not which party the person
+ * belonged to. The party itself is shown only where a case already names it,
+ * because inferring one would eventually put a false affiliation against a real
+ * person's name, and on this site that is unforgivable rather than untidy.
+ */
+function affiliations(group) {
+  const parties = new Set();
+  const governments = new Set();
+  group.cases.forEach((caseFile) => {
+    (caseFile.ministers ?? []).forEach((minister) => {
+      if (!splitOfficeHolders(minister.n).some((name) => name.toLocaleLowerCase() === group.key)) return;
+      const stated = SU?.statedParty(minister.r);
+      if (stated) parties.add(stated);
+      // Union offices only. A state minister's party is not settled by the date.
+      if (!SU?.isStateAuthority(minister.n, minister.r)) {
+        const era = SU?.unionGovernment(caseFile.sk);
+        if (era) governments.add(era.label);
+      }
+    });
+  });
+  return { parties: [...parties], governments: [...governments].sort() };
+}
+
+function affiliationLine(group) {
+  const { parties, governments } = affiliations(group);
+  const chips = [];
+  parties.forEach((party) => chips.push(`<span class="party-chip">${escapeHTML(party)}</span>`));
+  governments.forEach((gov) => chips.push(
+    `<span class="party-chip gov" title="${escapeHTML(t("dash_gov_hint"))}">${escapeHTML(gov)}</span>`,
+  ));
+  if (!chips.length) {
+    return `<span class="party-chip none">${escapeHTML(t("dash_party_unknown"))}</span>`;
+  }
+  return chips.join("");
+}
+
 function caseLink(caseFile) {
   const id = caseFile.id ?? `case-${caseFile.no}`;
   return `<a href="../?case=${encodeURIComponent(id)}">${escapeHTML(caseField(caseFile, "title"))}</a>`;
@@ -110,7 +151,9 @@ function renderTable(groups) {
     const outcomes = [...new Set(group.cases.map((c) => caseField(c, "stamp")).filter(Boolean))]
       .slice(0, 2).map(escapeHTML).join(" · ");
     return `<tr>
-      <th scope="row"><span>${ministerLink(group.name)}</span><small>${links}${rest}</small></th>
+      <th scope="row"><span>${ministerLink(group.name)}</span>
+        <span class="party-line">${affiliationLine(group)}</span>
+        <small>${links}${rest}</small></th>
       <td data-label="${escapeHTML(t("th_cases"))}">${group.cases.length}</td>
       <td data-label="${escapeHTML(t("th_costs"))}">${formatCost(group.cost)}</td>
       <td data-label="${escapeHTML(t("th_deaths"))}">${formatDeaths(group.deaths)}</td>

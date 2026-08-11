@@ -59,6 +59,61 @@ function displayNumbers(cases) {
   return ranks;
 }
 
+/**
+ * The Union government in office on a given date. This is a matter of record and
+ * derivable from the date alone, which is why it is computed rather than typed
+ * into 143 minister entries by hand.
+ *
+ * It is deliberately labelled as the *government*, never as the office-holder's
+ * own party. A. Raja and Dayanidhi Maran were DMK ministers in a Congress-led
+ * UPA cabinet; George Fernandes was Samata Party in a BJP-led NDA one. Printing
+ * "Congress" beside A. Raja's name would be plainly false, and a false party
+ * beside a named person is the one error this ledger cannot afford.
+ */
+const UNION_GOVERNMENTS = [
+  { from: 19981019, to: 20040522, label: "NDA (BJP-led)", pm: "Vajpayee" },
+  { from: 20040522, to: 20140526, label: "UPA (Congress-led)", pm: "Manmohan Singh" },
+  { from: 20140526, to: 99999999, label: "NDA (BJP-led)", pm: "Modi" },
+];
+
+function unionGovernment(sk) {
+  const key = Number(sk);
+  if (!Number.isFinite(key)) return null;
+  return UNION_GOVERNMENTS.find((era) => key >= era.from && key < era.to) ?? null;
+}
+
+/** A party named in the role text, e.g. "Karnataka Chief Minister (BJP)". */
+function statedParty(role) {
+  const match = /\((BJP|Congress|INC|BSP|NCP|DMK|AIADMK|TMC|SP|RJD|Shiv Sena|AAP|Samata Party|JD\(U\))\b[^)]*\)/i
+    .exec(String(role ?? ""));
+  return match ? match[1] : null;
+}
+
+/**
+ * Everyone on this ledger who actually left office over something on it. Read
+ * straight off the resignations recorded against each case, so the page cannot
+ * disagree with the counter on the front page.
+ */
+function departures(cases) {
+  const rows = [];
+  for (const caseFile of cases) {
+    for (const entry of caseFile.resignations ?? []) {
+      if (!entry?.n) continue;
+      rows.push({
+        name: entry.n,
+        office: entry.office ?? "",
+        when: entry.when ?? "",
+        year: Number(entry.year) || 0,
+        level: entry.level ?? "official",
+        party: entry.party ?? null,
+        government: entry.level === "union" ? unionGovernment(caseFile.sk) : null,
+        caseFile,
+      });
+    }
+  }
+  return rows.sort((a, b) => a.year - b.year || a.name.localeCompare(b.name));
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -655,8 +710,91 @@ export async function generatePages(cases, outputDir) {
     "utf8",
   );
 
+  /* ---------- the ones who answered ----------
+     "See who" used to point at the whole minister dashboard, which answers a
+     different question: it lists everyone who held a file, not the handful who
+     actually left over one. This page is the answer to the counter on the front
+     page, built from the same resignation records so the two cannot disagree. */
+  const left = departures(cases);
+  const unionLeft = left.filter((row) => row.level === "union");
+  const since2014 = unionLeft.filter((row) => row.year >= 2014);
+  const answeredOg = "answered.svg";
+  await writeFile(
+    join(outputDir, "assets/og", answeredOg),
+    ogSvg({
+      title: "The ones who answered",
+      stamp: `${unionLeft.length} Union ministers left office over a case on this file in 25 years.`,
+      stat: `${since2014.length} of them since May 2014.`,
+      label: "Accountability Ledger",
+    }),
+    "utf8",
+  );
+
+  const LEVELS = [
+    { key: "union", heading: "Union ministers", note: "Ministers in the Union government who left office over a case on this file." },
+    { key: "state", heading: "State ministers and chief ministers", note: "State office-holders who left over a case on this file. A state resignation is not a Union one, and the front-page counter keeps them apart." },
+    { key: "official", heading: "Officials", note: "Career officials rather than elected politicians. No party is recorded for them, because recording one would be wrong." },
+  ];
+
+  const answeredRows = LEVELS.map(({ key, heading, note }) => {
+    const rows = left.filter((row) => row.level === key);
+    if (!rows.length) return "";
+    const items = rows.map((row) => `
+        <li class="answered-row">
+          <p class="answered-who"><span class="answered-name">${escapeHtml(row.name)}</span>
+            <span class="answered-when">${escapeHtml(row.when)}</span></p>
+          <p class="answered-office">${escapeHtml(row.office)}</p>
+          <p class="answered-tags">
+            ${row.party
+              ? `<span class="answered-party">${escapeHtml(row.party)}</span>`
+              : `<span class="answered-party answered-none">${row.level === "official"
+                  ? "Career official &middot; no party"
+                  : "Party not recorded"}</span>`}
+            ${row.government
+              ? `<span class="answered-gov">${escapeHtml(row.government.label)} &middot; ${escapeHtml(row.government.pm)} government</span>`
+              : ""}
+          </p>
+          <p class="answered-case"><a href="../case/${encodeURIComponent(caseId(row.caseFile))}/">${escapeHtml(row.caseFile.title)}</a>
+            <span class="answered-meta">${escapeHtml(row.caseFile.date)} &middot; ${escapeHtml(row.caseFile.cat)}</span></p>
+        </li>`).join("");
+    return `<section class="answered-group">
+        <h2 class="answered-heading">${escapeHtml(heading)} <span class="answered-count">${rows.length}</span></h2>
+        <p class="answered-note">${escapeHtml(note)}</p>
+        <ol class="answered-list">${items}</ol>
+      </section>`;
+  }).join("");
+
+  await mkdir(join(outputDir, "answered"), { recursive: true });
+  await writeFile(
+    join(outputDir, "answered/index.html"),
+    pageShell({
+      title: "The ones who answered · Accountability Ledger",
+      description: `Every office-holder who actually left office over a case on this ledger: ${unionLeft.length} Union ministers in twenty-five years, ${since2014.length} of them since May 2014.`,
+      path: "/answered/",
+      imagePath: `/assets/og/${answeredOg}`,
+      up: "../",
+      body: `  <main class="wrap answered-page">
+    <div class="hero">
+      <p class="eyebrow">The short list</p>
+      <h1 class="title">The ones who<br><span class="thin">answered.</span></h1>
+      <p class="standfirst">This ledger runs on one test: was anyone made to answer? Almost always the answer is no, and the pages here say so at length. This page is the other side of that ledger — every office-holder who actually left over something on this file, with the case, the date and the party. It is short. That is the point of it.</p>
+    </div>
+    <div class="answered-summary">
+      <div class="answered-stat"><span class="answered-stat-num" data-count-up>${unionLeft.length}</span><span class="answered-stat-lbl">Union ministers, in 25 years</span></div>
+      <div class="answered-stat"><span class="answered-stat-num" data-count-up>${since2014.length}</span><span class="answered-stat-lbl">of them since May 2014</span></div>
+      <div class="answered-stat"><span class="answered-stat-num" data-count-up>${left.length}</span><span class="answered-stat-lbl">departures on file in total, all levels</span></div>
+    </div>
+    <p class="queue-warning">Leaving office is not a confession, and several people on this page were later cleared. It is recorded here because it is the one outcome this ledger can measure: someone stopped holding the file. Where a court has since decided the matter, the case page says so.</p>
+    ${answeredRows}
+    <p class="form-note">Party is recorded per person, at the time they left. It is deliberately not the same field as the government of the day: a Union minister often belongs to an ally rather than to the party leading the coalition, and printing the coalition's party beside their name would be false.</p>
+  </main>`,
+    }),
+    "utf8",
+  );
+
   console.log(
     `Generated ${cases.length} case pages, ${groups.size} minister pages, `
-    + `1 claim-vs-record index (${contested.length} pairs)`,
+    + `1 claim-vs-record index (${contested.length} pairs), `
+    + `1 answered index (${left.length} departures, ${unionLeft.length} Union)`,
   );
 }

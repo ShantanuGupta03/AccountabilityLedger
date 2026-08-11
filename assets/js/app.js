@@ -162,9 +162,12 @@ function renderResignationRecord(){
   const {total,since2014,before}=resignationTally();
   if(total===0){ node.hidden=true; return; }
   node.hidden=false;
+  // Reads as a continuation of the docket cell above it, not as a rival figure.
+  // "1" beside a docket that says "8" looked like a contradiction; it is the
+  // split of that same 8, so the sentence now says so out loud.
   node.innerHTML=`<span class="standing-record-num">${since2014}</span>`
-    +`<span>${escapeHTML(t(since2014===1?"standing_resigned_one":"standing_resigned",{since:since2014,before}))}</span>`
-    +`<a href="./dashboard/">${escapeHTML(t("standing_resigned_cta"))}</a>`;
+    +`<span>${escapeHTML(t(since2014===1?"standing_resigned_one":"standing_resigned",{since:since2014,before,total}))}</span>`
+    +`<a href="./answered/">${escapeHTML(t("standing_resigned_cta",{total}))}</a>`;
 }
 
 function setupControls(){
@@ -173,6 +176,8 @@ function setupControls(){
   const estimates=totalEstimates();
   $("#stat-total").textContent=DATA.length;
   $("#stat-resigned").textContent=resignationTally().total;
+  // Tell assets/js/motion.js the docket now holds real numbers rather than "--".
+  document.dispatchEvent(new CustomEvent("ledger:stats"));
   renderResignationRecord();
   $("#stat-cost").innerHTML=docketFigure(SU?.formatCrore(estimates.costInrCrore),SU?.croreToUsd(estimates.costInrCrore));
   $("#stat-toll").innerHTML=docketFigure(SU?.formatPeople(estimates.deaths),SU?.peopleToInternational(estimates.deaths));
@@ -239,7 +244,7 @@ function card(d){
       <div class="metric"><div class="mk">${escapeHTML(t("card_ministers"))}</div><div class="mv">${escapeHTML(d.ministers.map(m=>m.n).join(" · "))}</div></div>
     </div>
     <div class="case-actions">
-      <button class="expandbar" type="button" aria-controls="${bodyId}" aria-expanded="false">${escapeHTML(t("card_open"))}</button>
+      <button class="expandbar" type="button" aria-controls="${bodyId}" aria-expanded="false"><span class="expand-label">${escapeHTML(t("card_open"))}</span><span class="expand-sign" aria-hidden="true">+</span></button>
       <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}" data-share-title="${escapeHTML(caseField(d,"title"))}">${escapeHTML(t("card_share"))}</button>
       <a class="case-share act" href="./rti/?case=${encodeURIComponent(caseId)}">${escapeHTML(t("card_rti"))}</a>
     </div>
@@ -281,6 +286,12 @@ function render(){
   emptyEl.hidden = rows.length>0;
   emptyEl.textContent = t("empty_msg");
 
+  // A filter or a re-sort swaps the whole list in one frame, which reads as
+  // "nothing happened" rather than "your filter applied". One short fade makes
+  // the change legible without delaying it.
+  timeline.classList.add("swapping");
+  requestAnimationFrame(()=>requestAnimationFrame(()=>timeline.classList.remove("swapping")));
+
   // Year dividers are only honest for a chronological sort. Bucketing a cost
   // ranking by year silently re-orders it — the second most expensive case in
   // the country ends up below every other case that shares a year with the
@@ -301,7 +312,8 @@ function render(){
   timeline.querySelectorAll(".file").forEach(f=>{
     const head=f.querySelector(".filehead"), bar=f.querySelector(".expandbar");
     const body=f.querySelector(".filebody");
-    const toggle=()=>{ const open=f.classList.toggle("open"); head.setAttribute("aria-expanded",open); bar.setAttribute("aria-expanded",open); body.setAttribute("aria-hidden",!open); bar.textContent= open ? t("card_close") : t("card_open"); syncUrl({caseId:open?f.dataset.caseId:null}); };
+    const label=bar.querySelector(".expand-label");
+    const toggle=()=>{ const open=f.classList.toggle("open"); head.setAttribute("aria-expanded",open); bar.setAttribute("aria-expanded",open); body.setAttribute("aria-hidden",!open); if(label) label.textContent= open ? t("card_close") : t("card_open"); syncUrl({caseId:open?f.dataset.caseId:null}); };
     head.addEventListener("click",toggle);
     head.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} });
     bar.addEventListener("click",toggle);
@@ -348,7 +360,23 @@ function observe(){
   if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){
     timeline.querySelectorAll(".file").forEach(f=>f.classList.add("in")); return;
   }
-  io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.1});
+  // The observer hands over a batch at a time; stepping them in gives the column
+  // a direction of travel instead of a wall of cards appearing at once. Capped so
+  // a large batch never leaves the last card waiting.
+  let lastReveal=0, offset=0;
+  io=new IntersectionObserver(es=>{
+    const now=performance.now();
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      // Cards arriving within 140ms of each other are one batch and step in
+      // sequence; a card arriving alone on a slow scroll appears immediately.
+      offset = now-lastReveal < 140 ? Math.min(offset+45,270) : 0;
+      lastReveal=now;
+      e.target.style.transitionDelay=`${offset}ms`;
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  },{threshold:.1});
   timeline.querySelectorAll(".file").forEach(f=>io.observe(f));
 }
 
