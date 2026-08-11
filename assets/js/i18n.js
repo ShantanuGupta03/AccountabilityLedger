@@ -33,8 +33,8 @@
     card_human: "Human cost",
     card_cost: "Financial cost",
     card_ministers: "Ministers responsible",
-    card_open: "Open the file  +",
-    card_close: "Close the file  -",
+    card_open: "Open the file",
+    card_close: "Close the file",
     card_copy: "Copy link",
     card_copied: "Link copied",
     // One share button, not three. It hands the case to the OS share sheet and
@@ -75,11 +75,15 @@
     count_ranked_deaths: "{n} of them carry a recorded death toll; the other {total} have no figure on file and sort last.",
 
     // Numbers come from the resignations recorded on the cases themselves.
-    standing_resigned_one: "Union minister has left office over anything on this file since 2014. In the years before that, {before} did. The failures did not stop. The resigning did.",
-    standing_resigned: "Union ministers have left office over anything on this file since 2014. In the years before that, {before} did. The failures did not stop. The resigning did.",
-    standing_resigned_cta: "See who \u2192",
+    standing_resigned_one: "of those {total} left office after May 2014. The other {before} went in the years before it. The failures did not stop. The resigning did.",
+    standing_resigned: "of those {total} left office after May 2014. The other {before} went in the years before it. The failures did not stop. The resigning did.",
+    standing_resigned_cta: "See all {total} \u2192",
 
     dash_count: "{n} office-holders shown",
+    // "Government" is the coalition in power on the case date. "Party" is only
+    // shown where a case names it, and the two are never merged.
+    dash_gov_hint: "The Union government in office when these cases happened, not this person's own party.",
+    dash_party_unknown: "Party not recorded",
     dash_empty: "No office-holder by that name is on file. Yet.",
     more_n: "+{n} more",
     show_fewer: "show fewer",
@@ -182,9 +186,9 @@
 
     standing_presser: "मई 2014 के बाद प्रधानमंत्री ने भारत में इतनी खुली प्रेस कॉन्फ़्रेंस की हैं। इंटरव्यू थोक में दिए जाते हैं — 2024 के पाँच महीनों में 64। जो कभी नहीं दिया जाता, वह है बिना-लिखा अगला सवाल — वही एक सवाल जिसे पहले से मंज़ूरी नहीं दिलाई जा सकी।",
     standing_presser_cta: "फ़ाइल खोलें →",
-    standing_resigned_one: "केंद्रीय मंत्री ने 2014 के बाद इस फ़ाइल की किसी बात पर पद छोड़ा है। उससे पहले के वर्षों में {before} ने छोड़ा था। नाकामियाँ नहीं रुकीं। इस्तीफ़े रुक गए।",
-    standing_resigned: "केंद्रीय मंत्रियों ने 2014 के बाद इस फ़ाइल की किसी बात पर पद छोड़ा है। उससे पहले के वर्षों में {before} ने छोड़ा था। नाकामियाँ नहीं रुकीं। इस्तीफ़े रुक गए।",
-    standing_resigned_cta: "देखिए कौन →",
+    standing_resigned_one: "उन {total} में से एक ने मई 2014 के बाद पद छोड़ा। बाक़ी {before} उससे पहले के वर्षों में गए। नाकामियाँ नहीं रुकीं। इस्तीफ़े रुक गए।",
+    standing_resigned: "उन {total} में से इतने मई 2014 के बाद पद छोड़कर गए। बाक़ी {before} उससे पहले के वर्षों में गए। नाकामियाँ नहीं रुकीं। इस्तीफ़े रुक गए।",
+    standing_resigned_cta: "सभी {total} देखें →",
 
     method_summary: "इस लेजर को कैसे पढ़ें। पद्धति, आँकड़े और सीमाएँ",
     legend_red: "कोई जवाबदेही नहीं / इनकार / रद्द",
@@ -211,8 +215,8 @@
     card_human: "मानवीय क़ीमत",
     card_cost: "आर्थिक क़ीमत",
     card_ministers: "ज़िम्मेदार मंत्री",
-    card_open: "फ़ाइल खोलें  +",
-    card_close: "फ़ाइल बंद करें  -",
+    card_open: "फ़ाइल खोलें",
+    card_close: "फ़ाइल बंद करें",
     card_copy: "लिंक कॉपी करें",
     card_copied: "लिंक कॉपी हो गया",
     card_share: "साझा करें",
@@ -270,6 +274,8 @@
     th_deaths: "इस विभाग के मामलों में मौतें",
     th_outcome: "दर्ज जवाबदेही परिणाम",
     dash_count: "{n} पदाधिकारी दिखाए जा रहे हैं",
+    dash_gov_hint: "इन मामलों के समय केंद्र में जो सरकार थी, न कि इस व्यक्ति की अपनी पार्टी।",
+    dash_party_unknown: "पार्टी दर्ज नहीं",
     dash_empty: "इस नाम का कोई पदाधिकारी फ़ाइल में नहीं है। अभी तक।",
     more_n: "+{n} और",
     show_fewer: "कम दिखाएँ",

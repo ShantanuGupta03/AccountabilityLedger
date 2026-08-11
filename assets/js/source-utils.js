@@ -193,6 +193,38 @@
     return parts.map((item) => item.trim()).filter(Boolean);
   }
 
+  /* ---------- party and government ----------
+     Two different facts, kept apart on purpose.
+
+     The government of the day is derivable from a date and is a matter of
+     record. An individual's party is not derivable from anything and is only
+     shown where the data states it, because a Union minister frequently belongs
+     to a coalition ally rather than to the party leading the coalition: A. Raja
+     and Dayanidhi Maran were DMK ministers in a Congress-led UPA cabinet, and
+     George Fernandes was Samata Party in a BJP-led NDA one. Printing the
+     coalition's party against their name would be false.
+
+     Mirrored in scripts/generate_pages.mjs, which cannot import this file. */
+
+  const UNION_GOVERNMENTS = [
+    { from: 19981019, to: 20040522, label: "NDA", full: "NDA (BJP-led)", pm: "Vajpayee" },
+    { from: 20040522, to: 20140526, label: "UPA", full: "UPA (Congress-led)", pm: "Manmohan Singh" },
+    { from: 20140526, to: 99999999, label: "NDA", full: "NDA (BJP-led)", pm: "Modi" },
+  ];
+
+  function unionGovernment(sk) {
+    const key = Number(sk);
+    if (!Number.isFinite(key)) return null;
+    return UNION_GOVERNMENTS.find((era) => key >= era.from && key < era.to) ?? null;
+  }
+
+  /** A party the role text already names, e.g. "Karnataka Chief Minister (BJP)". */
+  function statedParty(role) {
+    const match = /\((BJP|Congress|INC|BSP|NCP|DMK|AIADMK|TMC|SP|RJD|Shiv Sena|AAP|Samata Party|JD\(U\))\b[^)]*\)/i
+      .exec(String(role ?? ""));
+    return match ? match[1] : null;
+  }
+
   /* ---------- public authorities ----------
      Real, public, institutional addresses for the offices this ledger names.
      Used for the letterhead on a personnel file and for the addressee on a
@@ -327,6 +359,6 @@
   window.SourceUtils = {
     classify, tierMeta, host, slugify, TIER_META, escapeHTML,
     formatCrore, croreToUsd, formatPeople, peopleToInternational, figure, INR_PER_USD,
-    officeAddress, isStateAuthority, splitOfficeHolders,
+    officeAddress, isStateAuthority, splitOfficeHolders, unionGovernment, statedParty,
   };
 })();

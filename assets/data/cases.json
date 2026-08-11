@@ -1188,7 +1188,8 @@
     "office": "Manipur Chief Minister",
     "when": "Feb 2025",
     "year": 2025,
-    "level": "state"
+    "level": "state",
+    "party": "BJP"
    }
   ]
  },
@@ -3050,7 +3051,8 @@
     "office": "Union Defence Minister",
     "when": "Mar 2001",
     "year": 2001,
-    "level": "union"
+    "level": "union",
+    "party": "Samata Party"
    }
   ]
  },
@@ -3201,7 +3203,8 @@
     "office": "Union Telecom Minister",
     "when": "Nov 2010",
     "year": 2010,
-    "level": "union"
+    "level": "union",
+    "party": "DMK"
    }
   ]
  },
@@ -3306,7 +3309,8 @@
     "office": "Maharashtra Chief Minister",
     "when": "Nov 2010",
     "year": 2010,
-    "level": "state"
+    "level": "state",
+    "party": "Indian National Congress"
    }
   ]
  },
@@ -3365,14 +3369,16 @@
     "office": "Karnataka Chief Minister",
     "when": "Jul 2011",
     "year": 2011,
-    "level": "state"
+    "level": "state",
+    "party": "BJP"
    },
    {
     "n": "G. Janardhana Reddy",
     "office": "Karnataka Tourism Minister",
     "when": "2011",
     "year": 2011,
-    "level": "state"
+    "level": "state",
+    "party": "BJP"
    }
   ]
  },
@@ -3431,7 +3437,8 @@
     "office": "UP Family Welfare Minister",
     "when": "2011",
     "year": 2011,
-    "level": "state"
+    "level": "state",
+    "party": "BSP"
    }
   ]
  },
@@ -3568,7 +3575,8 @@
     "office": "Union External Affairs Minister",
     "when": "Nov 2005",
     "year": 2005,
-    "level": "union"
+    "level": "union",
+    "party": "Indian National Congress"
    }
   ],
   "sources": [
@@ -3672,7 +3680,8 @@
     "office": "Union Home Minister",
     "when": "Nov 2008",
     "year": 2008,
-    "level": "union"
+    "level": "union",
+    "party": "Indian National Congress"
    }
   ],
   "sources": [
@@ -3773,7 +3782,8 @@
     "office": "Union Minister of State for External Affairs",
     "when": "Apr 2010",
     "year": 2010,
-    "level": "union"
+    "level": "union",
+    "party": "Indian National Congress"
    }
   ],
   "sources": [
@@ -3870,7 +3880,8 @@
     "office": "Union Textiles Minister",
     "when": "Jul 2011",
     "year": 2011,
-    "level": "union"
+    "level": "union",
+    "party": "DMK"
    }
   ],
   "sources": [
@@ -4072,7 +4083,8 @@
     "office": "Union Law Minister",
     "when": "May 2013",
     "year": 2013,
-    "level": "union"
+    "level": "union",
+    "party": "Indian National Congress"
    }
   ],
   "sources": [
@@ -4124,7 +4136,8 @@
     "office": "Union Railway Minister",
     "when": "May 2013",
     "year": 2013,
-    "level": "union"
+    "level": "union",
+    "party": "Indian National Congress"
    }
   ],
   "sources": [
@@ -4269,7 +4282,8 @@
     "office": "Union Minister of State for External Affairs",
     "when": "Oct 2018",
     "year": 2018,
-    "level": "union"
+    "level": "union",
+    "party": "BJP"
    }
   ],
   "sources": [

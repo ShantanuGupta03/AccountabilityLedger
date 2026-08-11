@@ -74,3 +74,106 @@
     current = null;
   });
 })();
+
+/* ==========================================================================
+   Interface motion that carries meaning.
+
+   Each of these exists to answer a question the reader would otherwise have to
+   work out for themselves: how big is that number really, why is content
+   sliding under a bar, how far through this case am I. All of them are skipped
+   entirely under prefers-reduced-motion — that check is at the top of each
+   block rather than assumed, because this file's first guard also requires a
+   fine pointer and these are not pointer effects.
+   ========================================================================== */
+(() => {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- counting up ----------
+     A figure that ticks up to its value reads as measured rather than asserted,
+     and it draws the eye to the one part of the page that is pure evidence.
+     Only plain integers are animated: the cost and death figures carry a second
+     reading you can tap for, and rewriting their text would break that. */
+  function countUp(node, target) {
+    const DURATION = 900;
+    let start = 0;
+    const tick = (now) => {
+      if (!start) start = now;
+      const progress = Math.min(1, (now - start) / DURATION);
+      // Ease out, so it decelerates into the real number instead of stopping dead.
+      const eased = 1 - Math.pow(1 - progress, 3);
+      node.textContent = Math.round(target * eased).toLocaleString("en-IN");
+      if (progress < 1) requestAnimationFrame(tick);
+      else node.textContent = target.toLocaleString("en-IN");
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function watchCounters() {
+    const nodes = [...document.querySelectorAll("[data-count-up]")]
+      .filter((node) => /^[\d,]+$/.test(node.textContent.trim()));
+    if (!nodes.length) return;
+    if (reduced || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        const target = Number(entry.target.textContent.trim().replace(/,/g, ""));
+        if (!Number.isFinite(target) || target <= 0 || target > 1e7) return;
+        entry.target.textContent = "0";
+        countUp(entry.target, target);
+      });
+    }, { threshold: 0.6 });
+    nodes.forEach((node) => observer.observe(node));
+  }
+
+  /* ---------- the sticky filter bar ----------
+     It is position:sticky, so cases slide underneath it. Without a shadow at
+     that moment the bar looks like it is cutting the page rather than floating
+     over it, and the reader cannot tell which layer is which. */
+  function watchStickyBar() {
+    const bar = document.querySelector(".controls");
+    if (!bar || !("IntersectionObserver" in window)) return;
+    const sentinel = document.createElement("div");
+    sentinel.className = "controls-sentinel";
+    bar.parentNode.insertBefore(sentinel, bar);
+    new IntersectionObserver(
+      ([entry]) => bar.classList.toggle("stuck", !entry.isIntersecting),
+      { threshold: 1 },
+    ).observe(sentinel);
+  }
+
+  /* ---------- reading position ----------
+     Case pages are long and their length is not obvious from the top. A hairline
+     that fills as you read answers "how much of this is left" at a glance. */
+  function readingProgress() {
+    const article = document.querySelector(".casefile");
+    if (!article || reduced) return;
+    const bar = document.createElement("div");
+    bar.className = "read-progress";
+    bar.setAttribute("role", "presentation");
+    document.body.append(bar);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const box = article.getBoundingClientRect();
+      const total = box.height - window.innerHeight;
+      const done = total > 0 ? Math.min(1, Math.max(0, -box.top / total)) : 0;
+      bar.style.transform = `scaleX(${done})`;
+    };
+    addEventListener("scroll", () => { if (!frame) frame = requestAnimationFrame(update); }, { passive: true });
+    addEventListener("resize", () => { if (!frame) frame = requestAnimationFrame(update); }, { passive: true });
+    update();
+  }
+
+  const start = () => {
+    watchCounters();
+    watchStickyBar();
+    readingProgress();
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
+
+  // The front page fills its docket after fetching the ledger, so those figures
+  // read "--" at DOMContentLoaded. app.js says when they are real.
+  document.addEventListener("ledger:stats", watchCounters);
+})();
