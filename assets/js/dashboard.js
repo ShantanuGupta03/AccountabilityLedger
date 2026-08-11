@@ -137,6 +137,8 @@ function caseLink(caseFile) {
 }
 
 function renderTable(groups) {
+  dashboardView.hidden = false;
+  profileView.hidden = true;
   const query = search.value.trim().toLocaleLowerCase();
   const filtered = groups.filter((group) => group.name.toLocaleLowerCase().includes(query));
   count.textContent = t("dash_count", { n: filtered.length });
@@ -160,6 +162,7 @@ function renderTable(groups) {
       <td data-label="${escapeHTML(t("th_outcome"))}">${outcomes || "—"}</td>
     </tr>`;
   }).join("") || `<tr><td class="table-empty" colspan="5">${escapeHTML(t("dash_empty"))}</td></tr>`;
+  document.dispatchEvent(new CustomEvent("dashboard:rendered"));
 }
 
 /* ==========================================================================
@@ -285,6 +288,7 @@ function foldable(title, hint, body, { open = false } = {}) {
 }
 
 function renderProfile(group) {
+  if (!firstDraw) window.LedgerMotion?.pulse(document.querySelector(".dashboard-page"));
   const key = group.key;
   const cases = [...group.cases].sort((a, b) => b.sk - a.sk);
   const currentRole = roleForCase(cases[0], key);
@@ -399,14 +403,26 @@ rows.addEventListener("click", (event) => {
   if (!toggle) return;
   const extra = toggle.parentElement.querySelector(".more-cases");
   if (!extra) return;
-  const expanded = extra.hidden;
-  extra.hidden = !expanded;
-  toggle.setAttribute("aria-expanded", String(expanded));
-  toggle.textContent = expanded ? t("show_fewer") : t("more_n", { n: extra.dataset.count });
+  const willOpen = extra.hidden;
+  if (willOpen) {
+    extra.hidden = false;
+    requestAnimationFrame(() => extra.classList.add("is-open"));
+  } else {
+    extra.classList.remove("is-open");
+    const onEnd = (e) => {
+      if (e.propertyName !== "opacity") return;
+      extra.hidden = true;
+      extra.removeEventListener("transitionend", onEnd);
+    };
+    extra.addEventListener("transitionend", onEnd);
+  }
+  toggle.setAttribute("aria-expanded", String(willOpen));
+  toggle.textContent = willOpen ? t("show_fewer") : t("more_n", { n: extra.dataset.count });
 });
 
 let GROUPS = [];
 let PROFILE = null;
+let firstDraw = true;
 
 function draw() {
   try {
@@ -416,6 +432,8 @@ function draw() {
     count.textContent = t("dash_error");
     count.classList.add("error");
     console.error("Dashboard failed to render:", error);
+  } finally {
+    firstDraw = false;
   }
 }
 
@@ -437,6 +455,7 @@ loadCases()
       const url = new URL(location.href);
       search.value.trim() ? url.searchParams.set("minister", search.value.trim()) : url.searchParams.delete("minister");
       history.replaceState({}, "", url);
+      window.LedgerMotion?.pulse(document.querySelector(".table-wrap"));
       renderTable(GROUPS);
     });
   })

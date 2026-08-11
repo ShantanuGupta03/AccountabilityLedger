@@ -176,6 +176,7 @@ function setupControls(){
   const estimates=totalEstimates();
   $("#stat-total").textContent=DATA.length;
   $("#stat-resigned").textContent=resignationTally().total;
+  document.querySelectorAll(".docket .num").forEach((el)=>el.classList.remove("loading"));
   // Tell assets/js/motion.js the docket now holds real numbers rather than "--".
   document.dispatchEvent(new CustomEvent("ledger:stats"));
   renderResignationRecord();
@@ -313,7 +314,15 @@ function render(){
     const head=f.querySelector(".filehead"), bar=f.querySelector(".expandbar");
     const body=f.querySelector(".filebody");
     const label=bar.querySelector(".expand-label");
-    const toggle=()=>{ const open=f.classList.toggle("open"); head.setAttribute("aria-expanded",open); bar.setAttribute("aria-expanded",open); body.setAttribute("aria-hidden",!open); if(label) label.textContent= open ? t("card_close") : t("card_open"); syncUrl({caseId:open?f.dataset.caseId:null}); };
+    const toggle=()=>{
+      const open=f.classList.toggle("open");
+      head.setAttribute("aria-expanded",open);
+      bar.setAttribute("aria-expanded",open);
+      body.setAttribute("aria-hidden",!open);
+      if(label) label.textContent= open ? t("card_close") : t("card_open");
+      syncUrl({caseId:open?f.dataset.caseId:null});
+      document.dispatchEvent(new CustomEvent("ledger:case-toggle",{detail:{open,caseId:f.dataset.caseId,file:f}}));
+    };
     head.addEventListener("click",toggle);
     head.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} });
     bar.addEventListener("click",toggle);
@@ -352,6 +361,7 @@ function render(){
     }
   }
   observe();
+  document.dispatchEvent(new CustomEvent("ledger:rendered"));
 }
 
 let io;

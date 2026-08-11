@@ -87,6 +87,15 @@
    ========================================================================== */
 (() => {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const sameSiteReferrer = (() => {
+    try {
+      return Boolean(document.referrer && new URL(document.referrer).origin === location.origin);
+    } catch {
+      return false;
+    }
+  })();
+  // Hero entrance only on a cold landing — not when switching Ledger / Ministers / RTI.
+  if (!reduced && !sameSiteReferrer) document.body.classList.add("motion-ready");
 
   /* ---------- counting up ----------
      A figure that ticks up to its value reads as measured rather than asserted,
@@ -109,7 +118,7 @@
   }
 
   function watchCounters() {
-    const nodes = [...document.querySelectorAll("[data-count-up]")]
+    const nodes = [...document.querySelectorAll("[data-count-up]:not([data-count-done])")]
       .filter((node) => /^[\d,]+$/.test(node.textContent.trim()));
     if (!nodes.length) return;
     if (reduced || !("IntersectionObserver" in window)) return;
@@ -120,10 +129,36 @@
         const target = Number(entry.target.textContent.trim().replace(/,/g, ""));
         if (!Number.isFinite(target) || target <= 0 || target > 1e7) return;
         entry.target.textContent = "0";
+        entry.target.setAttribute("data-count-done", "");
         countUp(entry.target, target);
       });
     }, { threshold: 0.6 });
     nodes.forEach((node) => observer.observe(node));
+  }
+
+  /* ---------- year dividers ----------
+     Chronological sort inserts a yearmark before each batch. The rule draws in
+     once the divider enters the viewport so the timeline feels like it unfolds. */
+  let yearObserver;
+  function watchYearmarks() {
+    const marks = document.querySelectorAll(".yearmark");
+    if (!marks.length) return;
+    if (reduced || !("IntersectionObserver" in window)) {
+      marks.forEach((node) => node.classList.add("in-view"));
+      return;
+    }
+    if (!yearObserver) {
+      yearObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in-view");
+          yearObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.35, rootMargin: "0px 0px -8% 0px" });
+    }
+    marks.forEach((node) => {
+      if (!node.classList.contains("in-view")) yearObserver.observe(node);
+    });
   }
 
   /* ---------- the sticky filter bar ----------
@@ -169,6 +204,7 @@
     watchCounters();
     watchStickyBar();
     readingProgress();
+    watchYearmarks();
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
@@ -176,4 +212,52 @@
   // The front page fills its docket after fetching the ledger, so those figures
   // read "--" at DOMContentLoaded. app.js says when they are real.
   document.addEventListener("ledger:stats", watchCounters);
+  // Year dividers are rebuilt on every filter/sort; re-attach observers.
+  document.addEventListener("ledger:rendered", watchYearmarks);
+
+  /* ---------- minister table rows ----------
+     Rows step in as they enter the viewport, capped so a long table never
+     leaves the last entry waiting. */
+  function watchDashboardRows() {
+    const tbody = document.querySelector("#minister-rows");
+    if (!tbody) return;
+    if (reduced || !("IntersectionObserver" in window)) {
+      tbody.querySelectorAll("tr").forEach((row) => row.classList.add("in"));
+      return;
+    }
+    let lastReveal = 0;
+    let offset = 0;
+    const observer = new IntersectionObserver((entries) => {
+      const now = performance.now();
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        offset = now - lastReveal < 140 ? Math.min(offset + 35, 280) : 0;
+        lastReveal = now;
+        entry.target.style.transitionDelay = `${offset}ms`;
+        entry.target.classList.add("in");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.06 });
+    tbody.querySelectorAll("tr:not(.table-empty)").forEach((row) => observer.observe(row));
+  }
+  document.addEventListener("dashboard:rendered", watchDashboardRows);
+})();
+
+/* ==========================================================================
+   Shared motion helpers.
+
+   pulse() — one opacity beat when a panel re-renders (filter, dropdown, view).
+   Cross-page tab navigation is intentionally instant: no view transitions and
+   no post-load entrance animation, which read as a double load.
+   ========================================================================== */
+(() => {
+  const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function pulse(el) {
+    if (!el || reduced()) return;
+    el.classList.add("ui-swapping");
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("ui-swapping")));
+  }
+
+  window.LedgerMotion = { pulse };
 })();

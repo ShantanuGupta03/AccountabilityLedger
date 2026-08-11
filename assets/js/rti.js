@@ -297,11 +297,12 @@
 
     // The filing route and the fee are different for a state authority, so the
     // guidance under the letter has to move with the addressee.
-    if (helpFile) helpFile.textContent = t(authority?.state ? "rti_help_file_state" : "rti_help_file_union");
+    if (helpFile) helpFile.innerHTML = t(authority?.state ? "rti_help_file_state" : "rti_help_file_union");
     if (helpFee) helpFee.textContent = t(authority?.state ? "rti_help_fee_state" : "rti_help_fee_union");
   }
 
   function render() {
+    letterNode.classList.add("letter-swapping");
     letterNode.textContent = buildLetter();
     const missing = [];
     if (!form.name.value.trim()) missing.push(t("rti_missing_name"));
@@ -311,9 +312,11 @@
       ? t("rti_missing", { fields: missing.join(t("rti_missing_join")) })
       : "";
     statusNode.classList.toggle("error", missing.length > 0);
+    requestAnimationFrame(() => requestAnimationFrame(() => letterNode.classList.remove("letter-swapping")));
   }
 
   function onCaseChange() {
+    window.LedgerMotion?.pulse(letterNode);
     const caseFile = findCase(caseSelect.value);
     if (caseFile) renderAuthorityOptions(caseFile);
     render();
@@ -361,6 +364,7 @@
         : t("rti_case_none");
       caseCount.classList.toggle("blocked", shown.length === 0);
     }
+    window.LedgerMotion?.pulse(document.querySelector(".rti-case-picker"));
     return shown.length;
   }
 
@@ -371,7 +375,7 @@
     try {
       await navigator.clipboard.writeText(text);
       statusNode.classList.remove("error");
-      statusNode.textContent = t("rti_copied");
+      statusNode.innerHTML = t("rti_copied");
     } catch {
       // Clipboard access is refused on insecure origins and in some in-app
       // browsers. Selecting the text is the honest fallback.
@@ -437,7 +441,11 @@
 
   caseSelect.addEventListener("change", onCaseChange);
   caseSearch?.addEventListener("input", () => { if (renderCaseOptions()) onCaseChange(); });
-  authoritySelect.addEventListener("change", () => { updateAuthorityNote(); render(); });
+  authoritySelect.addEventListener("change", () => {
+    window.LedgerMotion?.pulse(letterNode);
+    updateAuthorityNote();
+    render();
+  });
   form.addEventListener("input", (event) => {
     if (event.target === caseSearch) return;
     if (event.target === authorityCustom) updateAuthorityNote();

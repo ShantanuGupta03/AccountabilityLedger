@@ -187,9 +187,12 @@
   .case-share{flex:0 0 auto;padding:6px 8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--constructive);background:transparent;border:1px solid var(--rule-strong);cursor:pointer}
   .case-share:hover{border-color:var(--constructive)}
 
-  .filebody{max-height:0;overflow:hidden;transition:max-height .45s ease}
-  .file.open .filebody{max-height:6000px}
-  .filebody-inner{padding:2px 24px 22px}
+  .filebody{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows var(--t-slow) var(--ease)}
+  .file.open .filebody{grid-template-rows:1fr}
+  .filebody-inner{min-height:0;overflow:hidden;padding:2px 24px 22px;
+    opacity:0;transform:translateY(-6px);
+    transition:opacity var(--t) var(--ease),transform var(--t) var(--ease)}
+  .file.open .filebody-inner{opacity:1;transform:none}
   .field{padding:18px 0;border-bottom:1px dashed var(--rule)}
   .field:last-child{border-bottom:none}
   .field .k{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--ink-faint);margin-bottom:8px;display:flex;align-items:center;gap:8px}
@@ -244,6 +247,8 @@
   .danger-action:disabled{opacity:.5;cursor:not-allowed}
   .danger-action[aria-busy="true"],.case-share[aria-busy="true"]{cursor:wait}
 
+  .more-cases{opacity:0;transition:opacity var(--t-slow) var(--ease)}
+  .more-cases.is-open{opacity:1}
   .more-cases[hidden]{display:none}
   .more-toggle{margin-left:6px;padding:0;border:0;background:none;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--redline);text-decoration:underline;cursor:pointer}
   .more-toggle:hover,.more-toggle:focus-visible{color:var(--ink)}
@@ -421,6 +426,8 @@
   .honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
   .meta-unverified{color:var(--redline)}
   .form-status{min-height:1.6em;margin:0;color:var(--constructive)}
+  .form-status a{color:var(--constructive);text-decoration:underline;text-underline-offset:2px}
+  .form-status a:hover,.form-status a:focus-visible{color:var(--redline)}
   .form-status.error{color:var(--redline)}
 
   /* ---------- RTI generator ---------- */
@@ -788,12 +795,13 @@
   /* ---------- press ---------- */
   /* Tactility, on every device. One pixel, on the way down only. */
   .chip:active,.case-share:active,.form-submit:active:not(:disabled),
-  .to-top:active,.more-toggle:active,.danger-action:active:not(:disabled){
+  .to-top:active,.more-toggle:active,.danger-action:active:not(:disabled),
+  .site-nav a:active,.minister-profile:active,.resume-back:active,
+  .resume-share-btn:active,.page-jump a:active,.expandbar:active{
     transform:translateY(1px);
   }
 
   /* ---------- folds ---------- */
-  .filebody{transition:max-height var(--t-slow) var(--ease)}
   .file{transition:opacity var(--t-slow) var(--ease),transform var(--t-slow) var(--ease),
     box-shadow var(--t) var(--ease),border-color var(--t-fast) var(--ease),--sheen var(--t) var(--ease)}
   .method summary .plus,.resume-fold-plus{transition:transform var(--t) var(--ease)}
@@ -856,3 +864,120 @@
   /* Counters start from zero, so reserve their width or the docket row jumps as
      the digits grow. */
   .docket .num[data-count-up],.answered-stat-num[data-count-up]{font-variant-numeric:tabular-nums}
+
+  /* ---------- entrance on load ----------
+     The masthead is the first thing a reader sees. A short staggered rise-in
+     gives the page a sense of arrival without delaying anything they need to
+     tap. motion.js adds body.motion-ready once reduced motion is ruled out. */
+  @keyframes rise-in{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:none}
+  }
+  body.motion-ready .masthead .flag{animation:rise-in var(--t-slow) var(--ease) both}
+  body.motion-ready .masthead .site-nav{animation:rise-in var(--t-slow) var(--ease) 60ms both}
+  body.motion-ready .masthead .hero .eyebrow{animation:rise-in var(--t-slow) var(--ease) 100ms both}
+  body.motion-ready .masthead .hero .title{animation:rise-in var(--t-slow) var(--ease) 160ms both}
+  body.motion-ready .masthead .hero .standfirst{animation:rise-in var(--t-slow) var(--ease) 220ms both}
+  body.motion-ready .masthead .docket .cell{animation:rise-in var(--t-slow) var(--ease) both}
+  body.motion-ready .masthead .docket .cell:nth-child(1){animation-delay:280ms}
+  body.motion-ready .masthead .docket .cell:nth-child(2){animation-delay:340ms}
+  body.motion-ready .masthead .docket .cell:nth-child(3){animation-delay:400ms}
+  body.motion-ready .masthead .docket .cell:nth-child(4){animation-delay:460ms}
+  body.motion-ready .masthead .standing-record{animation:rise-in var(--t-slow) var(--ease) 520ms both}
+
+  /* ---------- year dividers ----------
+     The rule beside each year draws itself in as the divider scrolls into view,
+     matching the left-to-right underline on related links. */
+  .yearmark .r{transform:scaleX(0);transform-origin:left center;transition:transform var(--t-slow) var(--ease)}
+  .yearmark.in-view .r{transform:scaleX(1)}
+  .yearmark .c{opacity:0;transition:opacity var(--t) var(--ease) 100ms}
+  .yearmark.in-view .c{opacity:1}
+
+  /* ---------- case open / close ----------
+     Height follows content via grid 0fr→1fr instead of max-height, so the
+     fold eases at the speed of the content rather than trailing off. Inner copy
+     fades up; fields step in slightly later so the eye reads top to bottom. */
+  .file.open{box-shadow:var(--shadow-lift);border-color:var(--ink-faint)}
+  .filebody-inner .field{opacity:0;transform:translateY(5px);
+    transition:opacity var(--t) var(--ease),transform var(--t) var(--ease)}
+  .file.open .filebody-inner .field{opacity:1;transform:none}
+  .file.open .filebody-inner .field:nth-child(1){transition-delay:40ms}
+  .file.open .filebody-inner .field:nth-child(2){transition-delay:70ms}
+  .file.open .filebody-inner .field:nth-child(3){transition-delay:100ms}
+  .file.open .filebody-inner .field:nth-child(4){transition-delay:130ms}
+  .file.open .filebody-inner .field:nth-child(5){transition-delay:160ms}
+  .file.open .filebody-inner .field:nth-child(6){transition-delay:190ms}
+  .file.open .filebody-inner .field:nth-child(n+7){transition-delay:210ms}
+
+  /* ---------- view swap ----------
+     One beat of opacity when a panel re-renders — filter, minister profile, RTI
+     case list — so the change registers without feeling like a page reload. */
+  .ui-swapping{opacity:.4;pointer-events:none;
+    transition:opacity var(--t-fast) var(--ease)}
+
+  /* ---------- native folds ----------
+     Method block and minister CV sections: body copy fades up when opened.
+     @starting-style fires only on the open transition, not on every paint. */
+  .method details[open] .body,
+  .resume-fold[open] .resume-fold-body{
+    opacity:1;transform:none;
+    transition:opacity var(--t-slow) var(--ease),transform var(--t-slow) var(--ease)}
+  @starting-style{
+    .method details[open] .body,
+    .resume-fold[open] .resume-fold-body{opacity:0;transform:translateY(-6px)}
+  }
+
+  /* ---------- controls ----------
+     Sort dropdown and RTI pickers: a soft focus ring instead of a hard snap. */
+  select.sort,.rti-case-picker select,#rti-authority{
+    transition:border-color var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease)}
+  select.sort:focus,#rti-authority:focus{
+    outline:none;border-color:var(--redline);
+    box-shadow:0 0 0 3px rgba(154,33,23,.1)}
+  .rti-case-picker input[type="search"]{
+    transition:border-color var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease)}
+  .rti-case-picker input[type="search"]:focus{
+    outline:none;border-color:var(--redline);
+    box-shadow:0 0 0 3px rgba(154,33,23,.1)}
+
+  /* Minister profile entrance: toolbar and header step in after the page rise. */
+  body.motion-ready #profile-view:not([hidden]) .resume-toolbar{animation:rise-in var(--t-slow) var(--ease) 120ms both}
+  body.motion-ready #profile-view:not([hidden]) .resume-head{animation:rise-in var(--t-slow) var(--ease) 180ms both}
+  body.motion-ready #profile-view:not([hidden]) .resume-section{animation:rise-in var(--t-slow) var(--ease) 240ms both}
+  body.motion-ready #profile-view:not([hidden]) .resume-folds{animation:rise-in var(--t-slow) var(--ease) 300ms both}
+
+  /* ---------- iOS-style polish ----------
+     Frosted sticky bar, loading skeletons, table row reveal, letter crossfade,
+     and cross-page view transitions where the browser supports them. */
+
+  /* Frosted glass on the filter bar once it sticks — content slides beneath. */
+  .controls.stuck{
+    background:rgba(233,234,228,.82);
+    -webkit-backdrop-filter:blur(14px) saturate(1.08);
+    backdrop-filter:blur(14px) saturate(1.08);
+  }
+
+  /* Docket figures shimmer while cases.json is in flight. */
+  @keyframes shimmer{
+    0%{background-position:200% 0}
+    100%{background-position:-200% 0}
+  }
+  .docket .num.loading{
+    color:transparent;user-select:none;position:relative;min-width:2.5ch;
+    border-radius:2px}
+  .docket .num.loading::after{
+    content:"";position:absolute;inset:2px 0;border-radius:2px;
+    background:linear-gradient(90deg,var(--paper-sunken) 0%,var(--paper-raised) 45%,var(--paper-sunken) 90%);
+    background-size:200% 100%;animation:shimmer 1.4s var(--ease) infinite}
+
+  /* Minister table rows step in on first paint, like iOS Mail. */
+  .minister-table tbody tr{opacity:0;transform:translateY(8px);
+    transition:opacity var(--t-slow) var(--ease),transform var(--t-slow) var(--ease)}
+  .minister-table tbody tr.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .minister-table tbody tr{opacity:1;transform:none}
+  }
+
+  /* RTI letter dips briefly while the draft is rewritten. */
+  .rti-letter{transition:opacity var(--t) var(--ease)}
+  .rti-letter.letter-swapping{opacity:.25}
