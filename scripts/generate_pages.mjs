@@ -163,6 +163,81 @@ function safeRich(value) {
   return escapeHtml(value).replace(/&lt;(\/?)(b|em|i|strong|br)&gt;/g, "<$1$2>");
 }
 
+/**
+ * The timeline. A case reads as a single moment, but the accountability failure
+ * is a sequence: the thing happens, an inquiry is announced, a report is due, the
+ * report is never published, the file closes. Printed as a thread, the burial
+ * becomes visible instead of asserted.
+ *
+ * Each entry is { on, what, kind?, source? } where `on` is the date as the record
+ * states it — a day, a month, or a year, because that is how these are actually
+ * documented — and `kind` tags the entry so the marker can carry meaning:
+ *
+ *   incident   the thing itself
+ *   promise    an inquiry ordered, a committee named, a deadline set
+ *   action     something actually happened: a report filed, an arrest, a verdict
+ *   answer     someone left office or was held to account
+ *   silence    a deadline passed, a report went unpublished, the file went quiet
+ *
+ * `sk` on each entry is optional and only used for ordering. Where it is absent
+ * the entries are shown in the order they are written, because a hand-authored
+ * sequence is more trustworthy than a guess at a sort key.
+ */
+const TIMELINE_KINDS = new Set(["incident", "promise", "action", "answer", "silence"]);
+
+function timelineBlock(caseFile) {
+  const entries = (caseFile.timeline ?? []).filter((entry) => entry?.on && entry?.what);
+  // One entry is not a sequence; it is the date already at the top of the page.
+  if (entries.length < 2) return "";
+  const ordered = entries.every((entry) => Number.isFinite(Number(entry.sk)))
+    ? [...entries].sort((a, b) => Number(a.sk) - Number(b.sk))
+    : entries;
+  const items = ordered.map((entry) => {
+    const kind = TIMELINE_KINDS.has(entry.kind) ? entry.kind : "action";
+    const source = entry.source
+      ? ` <a class="tl-src" href="${escapeHtml(entry.source)}" rel="noopener noreferrer">source &#8599;</a>`
+      : "";
+    return `<li class="tl-item tl-${kind}">
+          <p class="tl-when">${escapeHtml(entry.on)}</p>
+          <p class="tl-what">${safeRich(entry.what)}${source}</p>
+        </li>`;
+  }).join("");
+  return `<section class="timeline-block" aria-labelledby="tl-${escapeHtml(caseId(caseFile))}">
+      <h2 class="case-field-k" id="tl-${escapeHtml(caseId(caseFile))}" data-i18n="field_timeline">How it unfolded</h2>
+      <ol class="tl-list">${items}</ol>
+      <p class="tl-legend" data-i18n="timeline_legend">Dates are as the record states them, which is sometimes a month or a year rather than a day. Entries marked in red are the ones where nothing happened next.</p>
+    </section>`;
+}
+
+/**
+ * Cite and export, for the readers this ledger is actually built for.
+ *
+ * A journalist wants a line they can drop into copy; a researcher wants the row.
+ * Both are printed as selectable text rather than hidden behind a button, so the
+ * page works with no JavaScript and so what you copy is visibly what you get.
+ *
+ * The citation deliberately leads with the case id, not the display number: the
+ * id is frozen for the life of the case and the number shifts whenever an older
+ * case is inserted ahead of it.
+ */
+function citeBlock(caseFile) {
+  const id = caseId(caseFile);
+  const url = `${SITE}/case/${id}/`;
+  // "case case-63" reads as a stutter; the id already carries the word.
+  const citation = `Citizens' Accountability Ledger, "${caseFile.title}" (${caseFile.date}), ${id}. ${url}`;
+  return `<section class="cite" aria-labelledby="cite-${escapeHtml(id)}">
+      <h2 class="cite-title" id="cite-${escapeHtml(id)}" data-i18n="cite_heading">Cite or export this case</h2>
+      <p class="cite-line" id="cite-text-${escapeHtml(id)}">${escapeHtml(citation)}</p>
+      <p class="case-actions-row">
+        <button type="button" class="case-share" data-copy-target="cite-text-${escapeHtml(id)}" data-i18n="cite_copy">Copy the citation</button>
+        <button type="button" class="case-share" data-copy-text="${escapeHtml(url)}" data-i18n="cite_copy_url">Copy the link only</button>
+        <a class="case-share" href="../../data/${escapeHtml(id)}.json" download data-i18n="cite_json">JSON for this case</a>
+        <a class="case-share" href="../../data/" data-i18n="cite_all_data">The whole ledger as CSV</a>
+      </p>
+      <p class="form-note" data-i18n="cite_note">Quote the case id rather than the number on the card. The id never changes; the number shifts whenever an older case is added ahead of this one.</p>
+    </section>`;
+}
+
 /** Secondary nav under the minister dashboard: portfolio table vs resignations list. */
 function dashSubnav({ up = "../", current = "portfolio" } = {}) {
   const portfolio = current === "portfolio" ? ' aria-current="page"' : "";
@@ -184,6 +259,7 @@ function pageShell({ title, description, path, imagePath, body, up = "../../", e
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
   <link rel="canonical" href="${escapeHtml(url)}">
+  <link rel="alternate" type="application/atom+xml" title="Accountability Ledger, newest cases" href="${SITE}/feed.xml">
   <meta property="og:type" content="article">
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
@@ -225,6 +301,8 @@ ${body}
   <script src="${up}assets/js/source-utils.js" defer></script>
   <script src="${up}assets/js/i18n.js" defer></script>
   <script src="${up}assets/js/clock.js" defer></script>
+  <script src="${up}assets/js/cite.js" defer></script>
+  <script src="${up}assets/js/case-responses.js" defer></script>
   <script src="${up}assets/js/motion.js" defer></script>
   <script src="${up}assets/js/to-top.js" defer></script>
 </body>
@@ -395,6 +473,7 @@ function casePage(caseFile, { previous, next, related = [], number = 0 }) {
       </div>
 
       ${field("field_what", "What happened", caseFile.what)}
+      ${timelineBlock(caseFile)}
       ${headToHead(caseFile)}
       ${field("field_alleged", "Contested / alleged", caseFile.alleg, "alleg")}
       ${field("field_alt", "What accountability should have looked like", caseFile.alt, "alt")}
@@ -414,6 +493,8 @@ function casePage(caseFile, { previous, next, related = [], number = 0 }) {
           <a class="case-share" href="../../corrections/?case=${encodeURIComponent(id)}&amp;title=${encodeURIComponent(caseFile.title)}#sources">Know a better source? Add one</a>
         </p>
       </section>
+
+      ${citeBlock(caseFile)}
     </article>
 
     ${relatedBlock(related)}
@@ -722,6 +803,142 @@ export async function generatePages(cases, outputDir) {
       </section>`;
   }).join("");
 
+  /* ---------- /data/ ----------
+     A ledger nobody can cite in bulk is an argument, not a record. This page is
+     the machine-readable door: the same 84 cases as CSV and JSON, an explicit
+     licence, and the field definitions a researcher needs to use them without
+     guessing what "sev" or "sk" means.
+
+     The CSV flattens deliberately. Nested sources and office-holders become
+     pipe-joined columns rather than JSON-in-a-cell, because the people who
+     actually reach for CSV are opening it in a spreadsheet. Anyone who wants the
+     structure takes the JSON. */
+  const CSV_COLUMNS = [
+    ["id", (c) => caseId(c)],
+    ["display_no", (c) => numbers.get(caseId(c)) ?? ""],
+    ["date_text", (c) => c.date ?? ""],
+    ["sort_key", (c) => c.sk ?? ""],
+    ["year", (c) => c.year ?? ""],
+    ["category", (c) => c.cat ?? ""],
+    ["severity", (c) => c.sev ?? ""],
+    ["title", (c) => c.title ?? ""],
+    ["outcome_stamp", (c) => c.stamp ?? ""],
+    ["what_happened", (c) => stripHtml(c.what)],
+    ["accountability_failure", (c) => stripHtml(c.dodge)],
+    ["government_position", (c) => stripHtml(c.pos)],
+    ["contested_alleged", (c) => stripHtml(c.alleg)],
+    ["what_accountability_looked_like", (c) => stripHtml(c.alt)],
+    ["office_holders", (c) => (c.ministers ?? []).map((m) => `${m.n} (${m.r})`).join(" | ")],
+    ["cost_inr_crore_estimate", (c) => c.estimates?.costInrCrore ?? ""],
+    ["deaths_estimate", (c) => c.estimates?.deaths ?? ""],
+    ["departures", (c) => (c.resignations ?? [])
+      .map((r) => `${r.n} (${r.office}, ${r.when}, ${r.level}${r.party ? `, ${r.party}` : ""})`).join(" | ")],
+    ["source_count", (c) => (c.sources ?? []).length],
+    ["primary_source_count", (c) => (c.sources ?? []).filter((x) => x.tier === 1).length],
+    ["sources", (c) => (c.sources ?? []).map((x) => `T${x.tier ?? 2} ${x.label} <${x.url}>`).join(" | ")],
+    ["case_url", (c) => `${SITE}/case/${caseId(c)}/`],
+  ];
+
+  // RFC 4180: quote every field, double any internal quote. Newlines inside a
+  // quoted field are legal and every real parser handles them, so the prose
+  // columns are not mangled to suit a naive split(",").
+  const csvCell = (value) => `"${String(value ?? "").replace(/"/g, '""')}"`;
+  const csv = [
+    CSV_COLUMNS.map(([name]) => csvCell(name)).join(","),
+    ...[...cases].sort(byDateThenId).map((caseFile) =>
+      CSV_COLUMNS.map(([, read]) => csvCell(read(caseFile))).join(",")),
+  ].join("\r\n") + "\r\n";
+
+  await mkdir(join(outputDir, "data"), { recursive: true });
+  await writeFile(join(outputDir, "data/cases.csv"), csv, "utf8");
+  await writeFile(join(outputDir, "data/cases.json"), JSON.stringify(cases, null, 1), "utf8");
+  // One file per case as well, so the export button on a case page hands over
+  // exactly that record rather than making someone filter 84 of them.
+  for (const caseFile of cases) {
+    await writeFile(
+      join(outputDir, "data", `${caseId(caseFile)}.json`),
+      JSON.stringify({ ...caseFile, id: caseId(caseFile), caseUrl: `${SITE}/case/${caseId(caseFile)}/` }, null, 1),
+      "utf8",
+    );
+  }
+
+  const fieldRows = [
+    ["id", "Permanent identifier. Also the URL: /case/&lt;id&gt;/. Never reused, never renumbered."],
+    ["display_no", "Chronological position, oldest = 1. Derived at build time, so it changes when a case is inserted. Cite the id, not this."],
+    ["date_text", "The date as the record states it, which is sometimes a range or a report date rather than a day."],
+    ["sort_key", "YYYYMMDD integer used for ordering. Where only a month or year is known, the day is set to 01."],
+    ["severity", "red = no accountability recorded. amber = partial, reversed, contested or unresolved."],
+    ["cost_inr_crore_estimate", "Crore rupees, and an estimate. Present on 28 of 84 cases; absent means unmeasured, not zero."],
+    ["deaths_estimate", "Present on 25 of 84 cases. Same caveat: absent means unmeasured."],
+    ["primary_source_count", "Tier-1 citations: court, audit, gazette or official publication. This is the number to check before quoting a case."],
+    ["departures", "Office-holders who actually left over the case, with level (union / state / official) and party at the time."],
+  ].map(([field, meaning]) => `<tr><td><code>${escapeHtml(field)}</code></td><td>${meaning}</td></tr>`).join("");
+
+  const tier1 = cases.flatMap((c) => c.sources ?? []).filter((x) => x.tier === 1).length;
+  const allSources = cases.flatMap((c) => c.sources ?? []).length;
+  const withPrimary = cases.filter((c) => (c.sources ?? []).some((x) => x.tier === 1)).length;
+
+  await writeFile(
+    join(outputDir, "data/index.html"),
+    pageShell({
+      title: "Download the data · Accountability Ledger",
+      description: `The full ledger as CSV and JSON: ${cases.length} cases, ${allSources} sources, licensed CC BY 4.0 for anyone to reuse with attribution.`,
+      path: "/data/",
+      imagePath: "/assets/og/ledger.svg",
+      up: "../",
+      body: `  <main class="wrap data-page">
+    <div class="hero">
+      <p class="eyebrow">Take it and use it</p>
+      <h1 class="title">Download<br><span class="thin">the data.</span></h1>
+      <p class="standfirst">A ledger nobody can cite in bulk is an argument rather than a record. Everything on this site is here as two files, under a licence that lets you republish it, chart it, check it or argue with it. If you find an error in the data, that is a correction we want.</p>
+    </div>
+
+    <div class="data-grid">
+      <a class="data-download" href="./cases.csv" download>
+        <span class="data-fmt">CSV</span>
+        <span class="data-desc">${cases.length} rows, one per case, ${CSV_COLUMNS.length} columns. Nested fields are pipe-joined for spreadsheets.</span>
+      </a>
+      <a class="data-download" href="./cases.json" download>
+        <span class="data-fmt">JSON</span>
+        <span class="data-desc">The full structure: sources with tiers and archive links, office-holders, departures, estimates.</span>
+      </a>
+      <a class="data-download" href="../feed.xml">
+        <span class="data-fmt">Atom</span>
+        <span class="data-desc">The newest thirty cases, for following the ledger from a feed reader.</span>
+      </a>
+    </div>
+
+    <section class="data-section">
+      <h2>Licence</h2>
+      <p><strong>Creative Commons Attribution 4.0.</strong> Republish it, chart it, load it into a paper, build something else on it. The only condition is attribution: credit the Citizens' Accountability Ledger and link to <span class="mono">${SITE}</span> so a reader can check the record for themselves.</p>
+      <p>The sources are not ours to license. Each citation points at the publisher who holds it, and their terms are theirs.</p>
+    </section>
+
+    <section class="data-section">
+      <h2>What you are getting, and what you are not</h2>
+      <ul>
+        <li><strong>${allSources} sources across ${cases.length} cases, of which ${tier1} are tier-1 primary records.</strong> ${withPrimary} cases carry at least one primary citation; the remaining ${cases.length - withPrimary} rest on reporting alone. <code>primary_source_count</code> tells you which is which, per row, and you should check it before you quote one.</li>
+        <li><strong>Estimates are estimates.</strong> Cost and death figures are order-of-magnitude, often disputed ranges, and absent on most rows. An empty cell means unmeasured, never zero.</li>
+        <li><strong>Naming an office-holder is a record of who held the portfolio</strong>, not a finding of personal guilt. Several people named here were later cleared, and the case text says so.</li>
+        <li><strong>Three cases are held back as unsourced drafts</strong> and are not in these files.</li>
+      </ul>
+    </section>
+
+    <section class="data-section">
+      <h2>Field definitions</h2>
+      <div class="table-wrap">
+        <table class="data-fields">
+          <thead><tr><th>Field</th><th>What it means</th></tr></thead>
+          <tbody>${fieldRows}</tbody>
+        </table>
+      </div>
+      <p class="form-note">Cite the <code>id</code>, never the <code>display_no</code>. The id is frozen for the life of the case; the display number shifts whenever an older case is added.</p>
+    </section>
+  </main>`,
+    }),
+    "utf8",
+  );
+
   await mkdir(join(outputDir, "answered"), { recursive: true });
   await writeFile(
     join(outputDir, "answered/index.html"),
@@ -751,25 +968,92 @@ export async function generatePages(cases, outputDir) {
     "utf8",
   );
 
+  /* ---------- sitemap ----------
+     A case page's lastmod is the date of the incident, not the build time.
+     Stamping every one of 190 URLs with "today" on every deploy trains a crawler
+     to distrust the field, and then it stops using it to prioritise the pages
+     that genuinely changed. */
+  const isoFromSk = (sk) => {
+    const text = String(sk ?? "");
+     return /^\d{8}$/.test(text)
+      ? `${text.slice(0, 4)}-${text.slice(4, 6)}-${text.slice(6, 8)}`
+      : null;
+  };
+  const newestCaseIso = isoFromSk([...cases].sort(byDateThenId).at(-1)?.sk);
+
   const urls = [
-    "/",
-    "/dashboard/",
-    "/rti/",
-    "/submit/",
-    "/corrections/",
-    "/answered/",
-    ...cases.map((caseFile) => `/case/${encodeURIComponent(caseId(caseFile))}/`),
-    ...[...groups.keys()].map((slug) => `/minister/${encodeURIComponent(slug)}/`),
+    // Index pages change whenever a case is added, so they carry the newest
+    // case's date rather than their own.
+    { path: "/", lastmod: newestCaseIso, priority: "1.0" },
+    { path: "/dashboard/", lastmod: newestCaseIso, priority: "0.8" },
+    { path: "/answered/", lastmod: newestCaseIso, priority: "0.8" },
+    { path: "/rti/", priority: "0.7" },
+    { path: "/rti/responses/", priority: "0.7" },
+    { path: "/data/", priority: "0.6" },
+    { path: "/submit/", priority: "0.4" },
+    { path: "/corrections/", priority: "0.4" },
+    ...cases.map((caseFile) => ({
+      path: `/case/${encodeURIComponent(caseId(caseFile))}/`,
+      lastmod: isoFromSk(caseFile.sk),
+      priority: "0.9",
+    })),
+    // The keys of `groups` are lowercased names ("narendra modi"); the pages are
+    // written to slugify(name) ("narendra-modi"). Listing the keys pointed half
+    // the sitemap at URLs that do not exist, which is worse for discovery than
+    // listing nothing. Mirror the page-writing loop exactly, empty slugs and all.
+    ...[...groups.values()]
+      .map((group) => slugify(group.name))
+      .filter(Boolean)
+      .map((slug) => ({ path: `/minister/${slug}/`, priority: "0.5" })),
   ];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((path) => `  <url><loc>${SITE}${path}</loc></url>`).join("\n")}
+${urls.map(({ path, lastmod, priority }) => `  <url><loc>${SITE}${path}</loc>`
+  + (lastmod ? `<lastmod>${lastmod}</lastmod>` : "")
+  + (priority ? `<priority>${priority}</priority>` : "")
+  + `</url>`).join("\n")}
 </urlset>
 `;
   await writeFile(join(outputDir, "sitemap.xml"), sitemap, "utf8");
 
+  /* ---------- feed ----------
+     Atom rather than RSS: it requires an explicit updated timestamp and a
+     globally unique id per entry, which is exactly what a ledger of dated
+     records should be publishing. Newest thirty, because a feed is for
+     following what changed, not for mirroring the archive. */
+  const feedCases = [...cases].sort(byDateThenId).reverse().slice(0, 30);
+  const feedUpdated = new Date(Date.UTC(2000, 0, 1));
+  const atomDate = (sk) => {
+    const iso = isoFromSk(sk);
+    return iso ? `${iso}T00:00:00Z` : `${feedUpdated.toISOString().slice(0, 19)}Z`;
+  };
+  const atom = `<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Citizens' Accountability Ledger</title>
+  <subtitle>Sourced cases of scandal, disaster and policy failure in India since 2000, and who held the file.</subtitle>
+  <link rel="self" href="${SITE}/feed.xml"/>
+  <link href="${SITE}/"/>
+  <id>${SITE}/</id>
+  <updated>${atomDate(feedCases[0]?.sk)}</updated>
+${feedCases.map((caseFile) => {
+  const id = caseId(caseFile);
+  return `  <entry>
+    <title>${escapeHtml(caseFile.title)}</title>
+    <link href="${SITE}/case/${encodeURIComponent(id)}/"/>
+    <id>${SITE}/case/${encodeURIComponent(id)}/</id>
+    <updated>${atomDate(caseFile.sk)}</updated>
+    <category term="${escapeHtml(caseFile.cat)}"/>
+    <summary>${escapeHtml(`${caseFile.date}. ${stripHtml(caseFile.what).slice(0, 400)}`)}</summary>
+  </entry>`;
+}).join("\n")}
+</feed>
+`;
+  await writeFile(join(outputDir, "feed.xml"), atom, "utf8");
+
   console.log(
     `Generated ${cases.length} case pages, ${groups.size} minister pages, `
-    + `1 answered index (${left.length} departures, ${unionLeft.length} Union)`,
+    + `1 answered index (${left.length} departures, ${unionLeft.length} Union), `
+    + `sitemap (${urls.length} urls), feed (${feedCases.length} entries), `
+    + `data export (${cases.length} rows x ${CSV_COLUMNS.length} cols)`,
   );
 }

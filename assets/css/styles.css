@@ -185,7 +185,7 @@
   .expandbar:hover{color:var(--redline)}
   .case-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-right:14px}
   .case-actions .expandbar{flex:1}
-  .case-share{flex:0 0 auto;padding:6px 8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--constructive);background:transparent;border:1px solid var(--rule-strong);cursor:pointer}
+  .case-share{flex:0 0 auto;max-width:100%;padding:6px 8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--constructive);background:transparent;border:1px solid var(--rule-strong);cursor:pointer}
   .case-share:hover{border-color:var(--constructive)}
 
   .filebody{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows var(--t-slow) var(--ease)}
@@ -359,7 +359,7 @@
   /* The permalink out of an open ledger card. Deliberately quiet: the expander
      two buttons above it is the primary action, and two loud CTAs that both say
      "open" is the redundancy this replaced. */
-  .case-permalink{margin:0;padding:14px 24px 20px;text-align:right}
+  .case-permalink{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:flex-end;margin:0;padding:14px 24px 20px}
   .case-permalink a{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
   .case-permalink a:hover{color:var(--redline)}
   /* Jump links on the merged corrections desk. */
@@ -642,7 +642,8 @@
     .metric{border-right:none;border-bottom:1px dashed var(--rule);padding:12px 0}.metric:last-child{border-bottom:none}
     footer .grid{grid-template-columns:1fr}
     .form-grid{grid-template-columns:1fr}
-    .rti-help-grid,.desk-grid{grid-template-columns:1fr}
+    .rti-help-grid,.desk-grid,.data-grid{grid-template-columns:1fr}
+    .rtir-dates{margin-left:0;flex-basis:100%}
     .answered-summary{grid-template-columns:1fr}
     .answered-stat{border-right:none;border-bottom:1px dashed var(--rule)}
     .answered-stat:last-child{border-bottom:none}
@@ -1046,3 +1047,121 @@
   /* RTI letter dips briefly while the draft is rewritten. */
   .rti-letter{transition:opacity var(--t) var(--ease)}
   .rti-letter.letter-swapping{opacity:.25}
+
+  /* ---------- cite, export and the data page ----------
+     The citation is selectable text, not a tooltip, because the whole point is
+     that a journalist can see exactly what they are about to quote. */
+  .cite{max-width:1080px;margin:32px auto 0;padding:22px 24px;border:1px solid var(--rule-strong);
+    border-left:4px solid var(--constructive);background:var(--paper-raised)}
+  .cite-title{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--constructive)}
+  .cite-line{margin:0;padding:14px 16px;background:var(--paper-sunken);border:1px dashed var(--rule-strong);
+    font-family:var(--mono);font-size:12.5px;line-height:1.75;color:var(--ink);overflow-wrap:anywhere;
+    user-select:all}
+  .cite .case-actions-row{margin-top:14px}
+  .cite .form-note{margin-top:12px}
+  .case-share.copied{border-color:var(--constructive);color:var(--constructive);background:rgba(31,92,84,.1)}
+
+  .data-page{padding-bottom:64px}
+  .data-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:8px 0 34px}
+  .data-download{display:grid;gap:8px;align-content:start;padding:20px 22px;text-decoration:none;
+    border:1px solid var(--rule-strong);border-left:4px solid var(--redline);background:var(--paper-raised)}
+  .data-download:hover{border-color:var(--redline);box-shadow:var(--shadow)}
+  .data-fmt{font-family:var(--display);font-weight:900;font-size:26px;letter-spacing:-.02em;color:var(--ink)}
+  .data-download:hover .data-fmt{color:var(--redline)}
+  .data-desc{font-family:var(--serif);font-size:15px;line-height:1.5;color:var(--ink-soft)}
+  .data-section{max-width:78ch;margin-top:34px}
+  .data-section h2{margin:0 0 12px;font-family:var(--display);font-size:26px;letter-spacing:-.01em}
+  .data-section p,.data-section li{font-size:16px;line-height:1.65;color:var(--ink-soft)}
+  .data-section ul{margin:0;padding-left:20px;display:grid;gap:10px}
+  .data-section strong{color:var(--ink)}
+  .data-fields{width:100%;border-collapse:collapse;font-size:15px;background:var(--paper-raised)}
+  .data-fields th,.data-fields td{padding:11px 14px;border-bottom:1px solid var(--rule);text-align:left;
+    vertical-align:top}
+  .data-fields thead th{background:var(--paper-sunken);font-family:var(--mono);font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  .data-fields code{font-family:var(--mono);font-size:12.5px;color:var(--redline);white-space:nowrap}
+  .data-fields td:last-child{color:var(--ink-soft);line-height:1.55}
+
+  /* ---------- the timeline ----------
+     A thread down the left with a marker per entry. The marker carries the
+     meaning: an open ring is a promise, a filled square is something that
+     actually happened, a red bar is a deadline that passed with nothing. */
+  .timeline-block{padding:18px 0;border-bottom:1px dashed var(--rule)}
+  .tl-list{list-style:none;margin:14px 0 0;padding:0 0 0 26px;position:relative;display:grid;gap:0}
+  .tl-list::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--rule-strong)}
+  .tl-item{position:relative;padding:0 0 20px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:-25px;top:5px;width:11px;height:11px;
+    background:var(--paper-raised);border:2px solid var(--rule-strong);border-radius:50%}
+  .tl-when{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-faint)}
+  .tl-what{margin:5px 0 0;font-size:16.5px;line-height:1.6;color:var(--ink);max-width:66ch}
+  .tl-src{margin-left:6px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--constructive);white-space:nowrap}
+  /* The incident itself: solid, in the severity colour. */
+  .tl-incident::before{background:var(--ink);border-color:var(--ink);border-radius:0}
+  .tl-incident .tl-when{color:var(--ink)}
+  /* A promise: an open ring, because nothing has been delivered yet. */
+  .tl-promise::before{border-color:var(--amber-soft);background:var(--paper-raised)}
+  .tl-promise .tl-when{color:var(--amber)}
+  /* Something actually happened. */
+  .tl-action::before{background:var(--constructive);border-color:var(--constructive);border-radius:0}
+  .tl-action .tl-when{color:var(--constructive)}
+  /* Someone answered for it. The rarest marker on the site. */
+  .tl-answer::before{background:var(--constructive);border-color:var(--constructive);
+    box-shadow:0 0 0 3px rgba(31,92,84,.18)}
+  .tl-answer .tl-when{color:var(--constructive)}
+  .tl-answer .tl-what{font-weight:500}
+  /* A deadline that passed, a report never published, the file going quiet. */
+  .tl-silence::before{background:var(--redline);border-color:var(--redline);border-radius:0;
+    width:11px;height:3px;top:9px}
+  .tl-silence .tl-when{color:var(--redline)}
+  .tl-silence .tl-what{color:var(--ink-soft)}
+  .tl-legend{margin:16px 0 0;font-family:var(--mono);font-size:11px;line-height:1.7;letter-spacing:.04em;
+    color:var(--ink-faint);max-width:74ch}
+
+  /* ---------- the RTI response library ----------
+     Each card is one reply from a public authority. The left rule carries the
+     outcome, and a refusal is deliberately not styled as a failure: a government
+     naming the clause it hid behind is the most useful row on the page. */
+  .rtir-list{list-style:none;margin:14px 0 34px;padding:0;display:grid;gap:14px}
+  .rtir-item{padding:18px 22px;background:var(--paper-raised);border:1px solid var(--rule-strong);
+    border-left:4px solid var(--rule-strong)}
+  .rtir-answered{border-left-color:var(--constructive)}
+  .rtir-partial{border-left-color:var(--amber-soft)}
+  .rtir-refused{border-left-color:var(--redline)}
+  .rtir-silent{border-left-color:var(--ink)}
+  .rtir-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin:0}
+  .rtir-outcome{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    padding:2px 8px;border:1px solid currentColor}
+  .rtir-answered .rtir-outcome{color:var(--constructive)}
+  .rtir-partial .rtir-outcome{color:var(--amber)}
+  .rtir-refused .rtir-outcome{color:var(--redline)}
+  .rtir-silent .rtir-outcome{color:var(--ink)}
+  .rtir-clause{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--redline)}
+  .rtir-dates{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);margin-left:auto}
+  .rtir-authority{margin:10px 0 0;font-family:var(--display);font-weight:600;font-size:17px;
+    line-height:1.35;letter-spacing:-.01em}
+  .rtir-summary{margin:8px 0 0;font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:70ch}
+  .rtir-text{margin:12px 0 0}
+  .rtir-text summary{cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--constructive)}
+  .rtir-text pre{margin:10px 0 0;padding:14px 16px;background:var(--paper-sunken);
+    border:1px dashed var(--rule-strong);font-family:var(--mono);font-size:12.5px;line-height:1.8;
+    white-space:pre-wrap;overflow-wrap:anywhere;max-height:40vh;overflow-y:auto}
+  .rtir-item .case-actions-row{margin-top:14px;min-width:0}
+  /* A case title is prose, not a label. `.case-share` is flex:0 0 auto so that
+     short buttons never shrink, which meant a 525px title pushed the whole page
+     wider than the viewport and let every other flex row lay out inside that
+     extra width — the subnav appeared to overflow when it was only obeying a
+     container the title had stretched. Here alone, let it wrap. */
+  .rtir-item .case-share,.rtir-on-case .case-share{flex:0 1 auto;max-width:100%;
+    white-space:normal;text-align:left;overflow-wrap:anywhere}
+  .suggestion-authority{margin:8px 0 0;font-family:var(--display);font-weight:600;font-size:16px}
+  .suggestion-meta{margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-faint)}
+  .rtir-review-text{margin:10px 0 0;padding:12px 14px;background:var(--paper-sunken);
+    border:1px dashed var(--rule-strong);font-family:var(--mono);font-size:12px;line-height:1.75;
+    white-space:pre-wrap;overflow-wrap:anywhere;max-height:34vh;overflow-y:auto}

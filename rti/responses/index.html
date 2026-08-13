@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responses received · RTI · Accountability Ledger</title>
+  <meta name="description" content="What public authorities actually sent back when readers filed the Right to Information applications generated here. Answers, partial answers, refusals with the clause they hid behind, and the silences.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="What they said back. RTI responses">
+  <meta property="og:description" content="A reply on a ministry's letterhead is a primary record, and a refusal naming its own clause is the story. This is the library of both.">
+  <meta property="og:image" content="https://whoisresponsible.xyz/assets/og/ledger.svg">
+  <meta property="og:url" content="https://whoisresponsible.xyz/rti/responses/">
+  <link rel="canonical" href="https://whoisresponsible.xyz/rti/responses/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="alternate" type="application/atom+xml" title="Accountability Ledger, newest cases" href="https://whoisresponsible.xyz/feed.xml">
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body>
+  <header class="masthead compact-masthead">
+    <div class="wrap">
+      <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="rti_flag_tag">Right to Information desk</span></div>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../../" data-i18n="nav_ledger">Ledger</a>
+        <a href="../../dashboard/" data-i18n="nav_dashboard">Ministers</a>
+        <a href="../" aria-current="page" data-i18n="nav_rti">File an RTI</a>
+        <a href="../../submit/" data-i18n="nav_submit">Submit a case</a>
+        <a href="../../corrections/" data-i18n="nav_corrections">Corrections &amp; sources</a>
+        <span class="lang-switch" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="hi" aria-pressed="false">हि</button>
+        </span>
+      </nav>
+      <p class="lang-notice" data-lang-notice data-i18n="notice_case_lang" hidden></p>
+      <div class="hero">
+        <div class="eyebrow" data-i18n="rtir_eyebrow">The other half of the letter</div>
+        <h1 class="title"><span data-i18n="rtir_title_main">What they said</span><br><span class="thin" data-i18n="rtir_title_thin">back.</span></h1>
+        <p class="standfirst" data-i18n="rtir_standfirst">Generating an application is the easy half. This is the half that changes the record. A reply on a ministry's letterhead is a primary document, and it is one that exists nowhere else on the internet until somebody puts it here. A refusal counts too: "denied under Section 8(1)(a)" is not a dead end, it is a government telling you in writing which door it has locked. If you filed one of these, bring back what you got.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap form-page rti-page">
+    <nav class="dash-subnav" aria-label="Right to Information sections">
+      <a href="../" data-i18n="rti_subnav_generate">Generate an application</a>
+      <a href="./" aria-current="page" data-i18n="rti_subnav_responses">Responses received</a>
+    </nav>
+
+    <div class="answered-summary" id="rtir-summary" hidden>
+      <div class="answered-stat"><span class="answered-stat-num" id="rtir-total">0</span><span class="answered-stat-lbl" data-i18n="rtir_stat_total">Replies on file</span></div>
+      <div class="answered-stat"><span class="answered-stat-num" id="rtir-refused">0</span><span class="answered-stat-lbl" data-i18n="rtir_stat_refused">Refused, with a clause named</span></div>
+      <div class="answered-stat"><span class="answered-stat-num" id="rtir-silent">0</span><span class="answered-stat-lbl" data-i18n="rtir_stat_silent">Never answered at all</span></div>
+    </div>
+
+    <p class="dashboard-count" id="rtir-count" data-i18n="rtir_loading">Loading the library…</p>
+    <ul class="rtir-list" id="rtir-list"></ul>
+
+    <section class="submission-guidance" id="add" aria-labelledby="rtir-form-title">
+      <h2 id="rtir-form-title" data-i18n="rtir_form_title">Add a response you received</h2>
+      <p data-i18n="rtir_form_lead">Filed one and heard back? This is the most useful thing anyone can give this ledger. Sixty-six of its eighty-four cases rest on reporting alone, which is exactly the flank a government uses to call a case media narrative. One official reply changes that.</p>
+      <ul>
+        <li data-i18n="rtir_form_rule_1"><strong>Remove your own name and address first.</strong> An RTI reply is addressed to you personally, at your home. Cover those lines before you photograph or link anything. We will not publish a document that still carries them.</li>
+        <li data-i18n="rtir_form_rule_2">Record a refusal or a silence exactly as readily as an answer. They are the more useful outcomes, not the failures.</li>
+        <li data-i18n="rtir_form_rule_3">An editor reads every one of these before it appears against a case. Nothing here publishes itself.</li>
+      </ul>
+
+      <form id="rtir-form" class="submission-form" novalidate>
+        <div class="rti-case-picker">
+          <label>
+            <span data-i18n="rtir_field_case">Which case did you ask about?</span>
+            <input id="rtir-case-search" type="search" autocomplete="off" placeholder="Search by title, minister or year" data-i18n-placeholder="rtir_case_search" aria-describedby="rtir-case-count">
+          </label>
+          <p class="form-note" id="rtir-case-count" role="status"></p>
+          <label>
+            <span class="visually-hidden" data-i18n="rtir_field_case_select">Matching cases</span>
+            <select id="rtir-case" size="6" required></select>
+          </label>
+        </div>
+
+        <label>
+          <span data-i18n="rtir_field_authority">Which public authority did you ask?</span>
+          <input name="authority" maxlength="300" required placeholder="Ministry of Road Transport and Highways, Transport Bhawan, New Delhi" data-i18n-placeholder="rtir_authority_placeholder">
+        </label>
+
+        <div class="form-grid">
+          <label>
+            <span><span data-i18n="rtir_field_applied">Date you applied</span> <span class="optional" data-i18n="rti_optional">(optional)</span></span>
+            <input name="appliedOn" type="date">
+          </label>
+          <label>
+            <span><span data-i18n="rtir_field_replied">Date of the reply</span> <span class="optional" data-i18n="rti_optional">(optional)</span></span>
+            <input name="repliedOn" type="date">
+          </label>
+        </div>
+
+        <label>
+          <span data-i18n="rtir_field_outcome">What came back?</span>
+          <select name="outcome" required>
+            <option value="" data-i18n="rtir_outcome_pick">Choose one</option>
+            <option value="answered" data-i18n="rtir_outcome_answered">They answered it</option>
+            <option value="partial" data-i18n="rtir_outcome_partial">They answered part of it</option>
+            <option value="refused" data-i18n="rtir_outcome_refused">They refused, citing a section</option>
+            <option value="no_reply" data-i18n="rtir_outcome_none">Nothing came back at all</option>
+          </select>
+        </label>
+
+        <label id="rtir-section-wrap" hidden>
+          <span data-i18n="rtir_field_section">Which section did they refuse under?</span>
+          <input name="refusalSection" maxlength="60" placeholder="8(1)(a)">
+        </label>
+
+        <label>
+          <span data-i18n="rtir_field_summary">What did the reply say, in your own words?</span>
+          <textarea name="summary" rows="4" maxlength="4000" required></textarea>
+        </label>
+
+        <label>
+          <span><span data-i18n="rtir_field_text">The reply itself, typed out</span> <span class="optional" data-i18n="rtir_field_text_hint">(optional, and worth more than any summary)</span></span>
+          <textarea name="replyText" rows="6" maxlength="20000"></textarea>
+        </label>
+
+        <label>
+          <span><span data-i18n="rtir_field_doc">Link to a scan or photo</span> <span class="optional" data-i18n="rtir_field_doc_hint">(optional; redacted, and reachable without a login)</span></span>
+          <input name="documentUrl" type="url" maxlength="2000" placeholder="https://…">
+        </label>
+
+        <label>
+          <span><span data-i18n="rtir_field_email">Email for follow-up</span> <span class="optional" data-i18n="rtir_field_email_hint">(optional; never published)</span></span>
+          <input name="submitterEmail" type="email" maxlength="254" autocomplete="email">
+        </label>
+
+        <label class="rti-check">
+          <input type="checkbox" name="redactionConfirmed" id="rtir-redaction" required>
+          <span data-i18n="rtir_field_redaction">I have removed my own name, address and phone number from anything I am linking to or typing above.</span>
+        </label>
+
+        <div class="honeypot" aria-hidden="true">
+          <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <div id="turnstile" aria-live="polite"></div>
+        <button class="form-submit" type="submit" data-i18n="rtir_submit">Send it to the editor</button>
+        <p class="form-note" id="form-note" hidden></p>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Every published claim sourced. <a href="../../corrections/">Corrections and right of reply</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/source-utils.js" defer></script>
+  <script src="../../assets/js/i18n.js" defer></script>
+  <script src="../../assets/js/rti-responses.js" defer></script>
+  <script src="../../assets/js/motion.js" defer></script>
+  <script src="../../assets/js/to-top.js" defer></script>
+</body>
+</html>

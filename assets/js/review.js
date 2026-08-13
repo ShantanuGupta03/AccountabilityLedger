@@ -560,6 +560,192 @@ function refreshSuggestions() {
   });
 }
 
+/* ==========================================================================
+   RTI responses
+   --------------------------------------------------------------------------
+   The queue that closes the loop the generator opens. A published response is
+   a primary document on a case page, which is exactly what most of these cases
+   are missing, so the value here is high and so is the care required: an RTI
+   reply is addressed to a named private person at their home address.
+
+   Publishing is deliberately a separate step from approving. Approving says the
+   account looks genuine; publishing says a human opened the document and
+   satisfied themselves it carries nobody's home address.
+   ========================================================================== */
+
+const rtirList = document.querySelector("#rtir-review-list");
+const rtirCount = document.querySelector("#rtir-review-count");
+const rtirStatus = document.querySelector("#rtir-review-status");
+
+const RTIR_OUTCOME_LABEL = {
+  answered: "Answered",
+  partial: "Partly answered",
+  refused: "Refused",
+  no_reply: "No reply at all",
+};
+
+function rtirCard(row) {
+  const item = document.createElement("li");
+  item.className = "suggestion";
+
+  const heading = document.createElement("h3");
+  const caseLink = document.createElement("a");
+  caseLink.href = `../case/${encodeURIComponent(row.case_id)}/`;
+  caseLink.target = "_blank";
+  caseLink.rel = "noopener noreferrer";
+  caseLink.textContent = row.case_title || row.case_id;
+  heading.append("For: ", caseLink);
+
+  const meta = document.createElement("p");
+  meta.className = "suggestion-meta";
+  const bits = [
+    RTIR_OUTCOME_LABEL[row.outcome] ?? row.outcome,
+    row.refusal_section ? `Section ${row.refusal_section}` : "",
+    row.applied_on ? `applied ${row.applied_on}` : "",
+    row.replied_on ? `replied ${row.replied_on}` : "",
+    Number(row.human_verified) === 1 ? "" : "NOT HUMAN-VERIFIED",
+  ].filter(Boolean);
+  meta.textContent = bits.join(" · ");
+  if (Number(row.human_verified) !== 1) meta.classList.add("meta-unverified");
+
+  const authority = document.createElement("p");
+  authority.className = "suggestion-authority";
+  authority.textContent = row.authority;
+
+  const summary = document.createElement("p");
+  summary.textContent = row.summary;
+
+  const nodes = [heading, meta, authority, summary];
+
+  if (row.reply_text) {
+    const details = document.createElement("details");
+    const label = document.createElement("summary");
+    label.textContent = "The reply as typed by the sender";
+    const pre = document.createElement("pre");
+    pre.className = "rtir-review-text";
+    pre.textContent = row.reply_text;
+    details.append(label, pre);
+    nodes.push(details);
+  }
+
+  if (row.document_url) {
+    const docLine = document.createElement("p");
+    const docLink = document.createElement("a");
+    docLink.className = "suggestion-url";
+    docLink.href = row.document_url;
+    docLink.target = "_blank";
+    docLink.rel = "nofollow noopener noreferrer";
+    docLink.textContent = row.document_url;
+    docLine.append("Document: ", docLink);
+    nodes.push(docLine);
+  } else {
+    const noDoc = document.createElement("p");
+    noDoc.className = "form-note";
+    noDoc.textContent = "No document linked. The text above is all there is; weigh it accordingly.";
+    nodes.push(noDoc);
+  }
+
+  const notesField = document.createElement("label");
+  notesField.textContent = "Review notes";
+  const notesInput = document.createElement("input");
+  notesInput.maxLength = 4000;
+  notesInput.value = row.review_notes ?? "";
+  notesField.append(notesInput);
+
+  const actions = document.createElement("div");
+  actions.className = "case-actions";
+  const result = document.createElement("p");
+  result.className = "form-status";
+
+  const send = async (button, request, failure) => {
+    actions.querySelectorAll("button").forEach((element) => {
+      element.disabled = true;
+      element.setAttribute("aria-busy", "true");
+    });
+    result.classList.remove("error");
+    result.textContent = "Saving…";
+    try {
+      const response = await request();
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error ?? failure);
+      item.remove();
+      updateRtirCount();
+    } catch (error) {
+      result.classList.add("error");
+      result.textContent = error.message || failure;
+      actions.querySelectorAll("button").forEach((element) => {
+        element.disabled = false;
+        element.removeAttribute("aria-busy");
+      });
+    }
+  };
+
+  const decide = (label, status, className) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = className;
+    button.textContent = label;
+    button.addEventListener("click", () => send(
+      button,
+      () => adminFetch(`/api/admin/rti-responses/${encodeURIComponent(row.id)}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status, reviewNotes: notesInput.value }),
+      }),
+      "Unable to update the response.",
+    ));
+    return button;
+  };
+
+  if (rtirStatus.value !== "published") actions.append(decide("Publish on the case", "published", "form-submit"));
+  if (rtirStatus.value !== "approved") actions.append(decide("Approve, hold back", "approved", "case-share"));
+  if (rtirStatus.value !== "rejected") actions.append(decide("Reject", "rejected", "case-share"));
+
+  const erase = document.createElement("button");
+  erase.type = "button";
+  erase.className = "danger-action";
+  erase.textContent = "Erase";
+  erase.addEventListener("click", () => {
+    if (!window.confirm("Erase this response and its stored text? This cannot be undone.")) return;
+    send(
+      erase,
+      () => adminFetch(`/api/admin/rti-responses/${encodeURIComponent(row.id)}`, { method: "DELETE" }),
+      "Unable to erase the response.",
+    );
+  });
+  actions.append(erase);
+
+  item.append(...nodes, notesField, actions, result);
+  return item;
+}
+
+function updateRtirCount() {
+  const remaining = rtirList.childElementCount;
+  const state = rtirStatus.value === "published" ? "published on the ledger" : rtirStatus.value;
+  rtirCount.textContent = remaining
+    ? `${remaining} RTI response${remaining > 1 ? "s" : ""} ${state}`
+    : `No RTI responses ${state}.`;
+}
+
+async function loadRtirResponses() {
+  rtirCount.classList.remove("error");
+  const response = await adminFetch(`/api/admin/rti-responses?status=${rtirStatus.value}`, { cache: "no-store" });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error ?? "Unable to load RTI responses.");
+  rtirList.replaceChildren(...(data.responses ?? []).map(rtirCard));
+  updateRtirCount();
+}
+
+function refreshRtirResponses() {
+  loadRtirResponses().catch((error) => {
+    if (String(error.message).includes("Reviewer access")) return;
+    rtirCount.textContent = error.message || "Unable to load RTI responses.";
+    rtirCount.classList.add("error");
+  });
+}
+
+rtirStatus?.addEventListener("change", refreshRtirResponses);
+
 function refreshQueue() {
   loadQueue().catch((error) => {
     if (error.message.includes("Reviewer access")) return;
@@ -576,6 +762,8 @@ reviewAuthForm?.addEventListener("submit", (event) => {
   reviewAuthStatus.textContent = "Checking…";
   reviewAuthStatus.classList.remove("error");
   refreshQueue();
+  refreshSuggestions();
+  refreshRtirResponses();
 });
 
 document.querySelector("#export-published-overlay")?.addEventListener("click", async () => {
@@ -619,9 +807,10 @@ loadAuthHints();
 if (sessionStorage.getItem(REVIEW_SECRET_KEY)) {
   refreshQueue();
   refreshSuggestions();
+  refreshRtirResponses();
 } else {
   showAuthGate();
   loadQueue()
-    .then(() => refreshSuggestions())
+    .then(() => { refreshSuggestions(); refreshRtirResponses(); })
     .catch(() => {});
 }

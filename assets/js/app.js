@@ -253,7 +253,7 @@ function card(d){
     </div>
     <div class="case-actions">
       <button class="expandbar" type="button" aria-controls="${bodyId}" aria-expanded="false"><span class="expand-label">${escapeHTML(t("card_open"))}</span><span class="expand-sign" aria-hidden="true">+</span></button>
-      <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}" data-share-title="${escapeHTML(caseField(d,"title"))}">${escapeHTML(t("card_share"))}</button>
+      <button class="case-share" type="button" data-share-case="${escapeHTML(caseId)}">${escapeHTML(t("card_share"))}</button>
       <a class="case-share act" href="./rti/?case=${encodeURIComponent(caseId)}">${escapeHTML(t("card_rti"))}</a>
     </div>
     <div class="filebody" id="${bodyId}" aria-hidden="true"><div class="filebody-inner">
@@ -267,7 +267,7 @@ function card(d){
       </div></div>
       ${d.liveOnly
     ? `<p class="case-permalink"><span class="live-badge inline">${escapeHTML(t("card_live_only"))}</span></p>`
-    : `<p class="case-permalink"><a href="./case/${encodeURIComponent(caseId)}/">${escapeHTML(t("card_permalink"))}</a></p>`}
+    : `<p class="case-permalink"><a href="./case/${encodeURIComponent(caseId)}/#cite-${encodeURIComponent(caseId)}">${escapeHTML(t("card_cite"))}</a> <a href="./case/${encodeURIComponent(caseId)}/">${escapeHTML(t("card_permalink"))}</a></p>`}
     </div></div>
   </article>`;
 }
@@ -343,10 +343,14 @@ function render(){
   // to the OS share sheet and fall back to the clipboard where there is none.
   timeline.querySelectorAll(".case-share[data-share-case]").forEach(button=>button.addEventListener("click",async()=>{
     const shareUrl=new URL(`./case/${encodeURIComponent(button.dataset.shareCase)}/`,location.href);
-    const title=button.dataset.shareTitle||"";
     if(navigator.share){
       try{
-        await navigator.share({title,text:title,url:shareUrl.href});
+        // URL only, deliberately. The share sheet's Copy action concatenates
+        // `text` and `url` into one string, so passing a title produced
+        // "https://…/case/case-39/ Ram Mandir donation theft…" on the clipboard.
+        // A citation has to be a bare resolvable link, and share targets that
+        // want a headline read it from the page's own OG tags anyway.
+        await navigator.share({url:shareUrl.href});
         return;
       }catch(error){
         // AbortError is the reader dismissing the sheet, not a failure.

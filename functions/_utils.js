@@ -253,6 +253,83 @@ export function isLoopbackRequest(request) {
   }
 }
 
+/**
+ * The floor for the solo-admin secret, and the length actually worth using.
+ *
+ * The floor stays at 16 deliberately: raising it would silently stop accepting a
+ * secret that is already live and lock the operator out of their own console.
+ * The recommendation is separate and advisory, surfaced in the review console so
+ * a short secret gets nagged about rather than rejected. Sixteen characters of
+ * anything is not sixteen characters of entropy either way, which is why the
+ * throttle below exists rather than trusting length alone.
+ */
+export const MIN_ADMIN_SECRET_LENGTH = 16;
+export const RECOMMENDED_ADMIN_SECRET_LENGTH = 24;
+
+/**
+ * Compares two secrets without leaking their common prefix through timing.
+ *
+ * `a === b` on strings returns as soon as two characters differ, so the time it
+ * takes reveals how much of the secret an attacker has guessed. Over the public
+ * internet that signal is buried in jitter and this is close to paranoia, but a
+ * digest comparison costs one hash and removes the question entirely.
+ *
+ * Hashing both sides also makes the comparison fixed-length, so a wrong guess of
+ * the wrong *length* is indistinguishable from a wrong guess of the right one.
+ */
+async function secretsMatch(provided, expected) {
+  const digest = async (value) => new Uint8Array(
+    await crypto.subtle.digest("SHA-256", new TextEncoder().encode(String(value))),
+  );
+  const [a, b] = await Promise.all([digest(provided), digest(expected)]);
+  let diff = 0;
+  for (let index = 0; index < a.length; index += 1) diff |= a[index] ^ b[index];
+  return diff === 0;
+}
+
+/**
+ * A brute-force throttle for the review console, keyed on the hashed client IP.
+ *
+ * The shared secret is the one credential on this site that is not a signed
+ * token, so it is the one thing worth guessing at. D1 already holds a
+ * rate-limiting table pattern for submissions; this reuses the same idea for
+ * admin attempts and fails closed only for the caller, never for the site.
+ *
+ * Returns true when the caller has spent its budget. Any database trouble is
+ * treated as "not throttled": a broken counter must not lock the operator out
+ * of their own console, and Access remains the real gate in production.
+ */
+export async function adminAttemptsExhausted(context, { limit = 10, windowMinutes = 15 } = {}) {
+  if (!context.env.DB || !context.env.SUBMISSION_HASH_SALT) return false;
+  try {
+    const ipHash = await clientIpHash(context);
+    const row = await context.env.DB
+      .prepare(
+        `SELECT COUNT(*) AS count FROM admin_attempts
+         WHERE ip_hash = ? AND created_at > datetime('now', ?)`,
+      )
+      .bind(ipHash, `-${windowMinutes} minutes`)
+      .first();
+    return Number(row?.count ?? 0) >= limit;
+  } catch {
+    return false;
+  }
+}
+
+/** Records one failed unlock attempt. Successes are not logged; only guesses are. */
+export async function recordAdminAttempt(context) {
+  if (!context.env.DB || !context.env.SUBMISSION_HASH_SALT) return;
+  try {
+    const ipHash = await clientIpHash(context);
+    await context.env.DB
+      .prepare("INSERT INTO admin_attempts (id, ip_hash) VALUES (?, ?)")
+      .bind(crypto.randomUUID(), ipHash)
+      .run();
+  } catch {
+    // A missing table must not break the console. Run the migrations.
+  }
+}
+
 export async function requireReviewer(context) {
   // Cloudflare Access cannot issue a JWT to a local dev server, so there would
   // otherwise be no way to rehearse the review flow before going live. Requires
@@ -266,12 +343,18 @@ export async function requireReviewer(context) {
   // one-time prompt on /review/. Prefer Access once it is configured.
   const expectedSecret = String(context.env.ADMIN_REVIEW_SECRET ?? "");
   const providedSecret = context.request.headers.get("X-Review-Secret") ?? "";
-  if (expectedSecret.length >= 16 && providedSecret === expectedSecret) {
-    const allowed = (context.env.REVIEWER_EMAILS ?? "")
-      .split(",")
-      .map((value) => value.trim().toLowerCase())
-      .filter(Boolean);
-    return allowed[0] ?? "reviewer";
+  if (providedSecret && expectedSecret.length >= MIN_ADMIN_SECRET_LENGTH) {
+    // Throttled only when a secret was actually presented. A reader who opens
+    // /review/ without one must not spend the operator's budget for them.
+    if (await adminAttemptsExhausted(context)) return null;
+    if (await secretsMatch(providedSecret, expectedSecret)) {
+      const allowed = (context.env.REVIEWER_EMAILS ?? "")
+        .split(",")
+        .map((value) => value.trim().toLowerCase())
+        .filter(Boolean);
+      return allowed[0] ?? "reviewer";
+    }
+    await recordAdminAttempt(context);
   }
 
   const accessAssertion = context.request.headers.get("CF-Access-Jwt-Assertion");

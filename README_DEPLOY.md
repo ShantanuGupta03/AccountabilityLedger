@@ -106,7 +106,14 @@ Optional later, for Cloudflare Access:
 | --- | --- |
 | `TURNSTILE_SECRET_KEY` | Turnstile server verification |
 | `SUBMISSION_HASH_SALT` | Rate-limit IP hashing |
-| `ADMIN_REVIEW_SECRET` | 16+ characters; enter once on `/review/` to unlock the console |
+| `ADMIN_REVIEW_SECRET` | 16 characters minimum, **24+ strongly preferred**; enter once on `/review/` to unlock the console |
+
+Generate it rather than inventing it — `openssl rand -base64 32` — because the
+length check cannot tell entropy from sixteen repeated letters. Failed unlock
+attempts are throttled to 10 per 15 minutes per IP (`admin_attempts` table, see
+`migrations/0004_admin_attempts.sql`), so run the migrations after deploying:
+`npm run db:migrate:remote`. Cloudflare Access is still the real gate; this
+fallback exists so the console is reachable while Access is being set up.
 
 Never commit `.dev.vars`. After changing either `wrangler.jsonc` vars or dashboard secrets, run `npm run deploy` so Production picks them up.
 

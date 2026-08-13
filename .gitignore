@@ -8,3 +8,7 @@ dist/
 # Dependencies and operating-system files
 node_modules/
 .DS_Store
+
+# Python bytecode from scripts/validate_cases.py
+__pycache__/
+*.pyc
