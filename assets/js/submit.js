@@ -33,6 +33,38 @@ function setStatus(message, error = false) {
   status.classList.toggle("error", error);
 }
 
+function showSuccessDialog(message, { unverified = false } = {}) {
+  document.querySelector(".toast-overlay")?.remove();
+  const overlay = document.createElement("div");
+  overlay.className = "toast-overlay";
+  const dialog = document.createElement("div");
+  dialog.className = `toast-dialog ${unverified ? "unverified" : "verified"}`;
+  dialog.setAttribute("role", "alertdialog");
+  dialog.setAttribute("aria-modal", "true");
+  const title = document.createElement("h2");
+  title.className = "toast-title";
+  title.textContent = unverified ? "Submitted — manual review" : "Submitted for review";
+  const body = document.createElement("p");
+  body.className = "toast-body";
+  body.textContent = message;
+  const dismiss = document.createElement("button");
+  dismiss.type = "button";
+  dismiss.className = "form-submit toast-dismiss";
+  dismiss.textContent = "OK";
+  const close = () => overlay.remove();
+  dismiss.addEventListener("click", close);
+  overlay.addEventListener("click", (event) => { if (event.target === overlay) close(); });
+  document.addEventListener("keydown", function onKey(event) {
+    if (event.key !== "Escape") return;
+    close();
+    document.removeEventListener("keydown", onKey);
+  });
+  dialog.append(title, body, dismiss);
+  overlay.append(dialog);
+  document.body.append(overlay);
+  dismiss.focus();
+}
+
 function setNote(message, blocked = false) {
   if (!note) return;
   note.textContent = message ?? "";
@@ -226,7 +258,10 @@ form.addEventListener("submit", async (event) => {
     if (!response.ok) throw new Error(result.error ?? "Submission failed.");
     form.reset();
     if (!localBypass && !degraded) window.turnstile.reset(turnstileWidget);
-    setStatus(result.message || "Submitted. An editor will review the evidence before any publication decision.");
+    const message = result.message || "Submitted. An editor will review the evidence before any publication decision.";
+    const unverified = /unverified/i.test(message);
+    showSuccessDialog(message, { unverified });
+    setStatus("");
   } catch (error) {
     setStatus(error.message || "Unable to submit the incident.", true);
   } finally {

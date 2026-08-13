@@ -14,6 +14,7 @@ const reviewAuth = document.querySelector("#review-auth");
 const reviewConsole = document.querySelector("#review-console");
 const reviewAuthForm = document.querySelector("#review-auth-form");
 const reviewSecretInput = document.querySelector("#review-secret");
+const reviewSecretToggle = document.querySelector("#review-secret-toggle");
 const reviewAuthStatus = document.querySelector("#review-auth-status");
 const reviewAuthLead = document.querySelector("#review-auth-lead");
 let submissions = [];
@@ -55,31 +56,20 @@ async function loadAuthHints() {
   try {
     const response = await fetch("/api/public-config", { cache: "no-store" });
     if (!response.ok) {
-      reviewAuthLead.textContent = `Could not load /api/public-config (HTTP ${response.status}). Use the apex domain https://whoisresponsible.xyz/review/ — not www.`;
-      return;
+      reviewAuthLead.textContent = "Could not reach the server. Check your connection and try again.";
     }
-    const config = await response.json();
-    const hints = [];
-    if (config.reviewAuth?.localBypass) {
-      hints.push("Local dev: set DEV_REVIEWER_EMAIL in .dev.vars and use http://localhost:8788/review/.");
-    }
-    if (config.reviewAuth?.access) hints.push("Cloudflare Access is configured for this site.");
-    const secretStatus = config.reviewAuth?.secretStatus ?? "missing";
-    if (secretStatus === "ready") {
-      hints.push("Enter the ADMIN_REVIEW_SECRET you set on the Pages project.");
-    } else if (secretStatus === "too-short") {
-      hints.push("ADMIN_REVIEW_SECRET is set but shorter than 16 characters — lengthen it in Pages → Settings → Variables, then redeploy Production.");
-    } else {
-      hints.push("The server does not see ADMIN_REVIEW_SECRET yet. Add it as an encrypted secret in the Pages dashboard, then redeploy Production.");
-    }
-    if (!config.reviewAuth?.reviewerAllowlist) {
-      hints.push("Set REVIEWER_EMAILS in wrangler.jsonc vars (plain text is managed there when the project uses Wrangler config).");
-    }
-    reviewAuthLead.textContent = hints.join(" ");
   } catch {
-    reviewAuthLead.textContent = "Could not reach /api/public-config. Deploy with npm run deploy and use the apex domain (not www).";
+    reviewAuthLead.textContent = "Could not reach the server. Check your connection and try again.";
   }
 }
+
+reviewSecretToggle?.addEventListener("click", () => {
+  const show = reviewSecretInput.type === "password";
+  reviewSecretInput.type = show ? "text" : "password";
+  reviewSecretToggle.textContent = show ? "Hide" : "Show";
+  reviewSecretToggle.setAttribute("aria-pressed", String(show));
+  reviewSecretToggle.setAttribute("aria-label", show ? "Hide password" : "Show password");
+});
 
 /* What each decision means depends on which queue you are looking at: from the
    published queue, "approved" and "rejected" both retract the live case. */
@@ -396,8 +386,8 @@ async function loadQueue() {
   const data = await response.json();
   if (response.status === 403) {
     sessionStorage.removeItem(REVIEW_SECRET_KEY);
-    showAuthGate(data.error ?? "Reviewer access required.");
-    throw new Error(data.error ?? "Reviewer access required.");
+    showAuthGate("Incorrect password. Try again.");
+    throw new Error("Reviewer access required.");
   }
   if (!response.ok) throw new Error(data.error ?? "Unable to load review queue.");
   submissions = data.submissions;

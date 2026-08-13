@@ -24,13 +24,15 @@
   <main class="wrap form-page">
     <section id="review-auth" class="submission-guidance" hidden>
       <h2>Reviewer sign-in</h2>
-      <p id="review-auth-lead">This console is private. Sign in to load the queues.</p>
+      <p id="review-auth-lead">Enter the review password to continue.</p>
       <form id="review-auth-form" class="submission-form">
-        <label>Review secret
-          <input id="review-secret" type="password" autocomplete="current-password" maxlength="256" required>
+        <label>Password
+          <span class="password-field">
+            <input id="review-secret" type="password" autocomplete="current-password" maxlength="256" required>
+            <button type="button" class="password-toggle" id="review-secret-toggle" aria-pressed="false" aria-label="Show password">Show</button>
+          </span>
         </label>
         <button class="form-submit" type="submit">Unlock review console</button>
-        <p class="form-note" id="review-auth-note">Set <code>ADMIN_REVIEW_SECRET</code> (16+ characters) on the Cloudflare Pages project, or configure Cloudflare Access for this path.</p>
         <p class="form-status" id="review-auth-status" role="status"></p>
       </form>
     </section>
