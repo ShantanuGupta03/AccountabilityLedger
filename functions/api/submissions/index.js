@@ -3,6 +3,7 @@ import {
   humanCheck,
   humanCheckError,
   isNonEmptyString,
+  isValidCategory,
   json,
   parseHttpUrls,
   parseOfficeHolders,
@@ -40,6 +41,7 @@ export async function onRequestPost(context) {
     if (!isNonEmptyString(title, 240)) throw new TypeError("Title is required and must be 240 characters or fewer.");
     if (!/^\d{4}-\d{2}-\d{2}$/.test(incidentDate ?? "")) throw new TypeError("Use a valid incident date.");
     if (!isNonEmptyString(category, 100)) throw new TypeError("Choose a category.");
+  if (!isValidCategory(category)) throw new TypeError("Choose a category from the list provided.");
     if (!isNonEmptyString(summary, 8_000)) throw new TypeError("Provide a concise incident summary.");
     if (!isNonEmptyString(accountabilityConcern, 5_000)) throw new TypeError("Explain the accountability concern.");
     if (submitterEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submitterEmail)) {

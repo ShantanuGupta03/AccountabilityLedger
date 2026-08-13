@@ -24,6 +24,7 @@ from source_tiers import classify, domain  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CASES_PATH = REPO_ROOT / "assets" / "data" / "cases.json"
+CATEGORIES_PATH = REPO_ROOT / "assets" / "data" / "categories.json"
 
 REQUIRED_FIELDS = (
     "no", "sk", "year", "date", "cat", "sev", "title", "stamp",
@@ -34,12 +35,14 @@ OPTIONAL_FIELDS = ("alleg", "estimates", "id", "status", "resignations")
 # Cases default to published; drafts are withheld from the build until sourced.
 STATUSES = {"draft", "published"}
 
-CATEGORIES = {
-    "Consumer harm", "Crony capital (alleged)", "Data denial",
-    "Democratic institutions", "Economic shock", "Environment",
-    "Exam integrity", "Fund opacity", "National security", "Policy misfire",
-    "Public money", "Public safety", "Rights and dissent",
-}
+def load_categories() -> set[str]:
+    with CATEGORIES_PATH.open(encoding="utf-8") as handle:
+        values = json.load(handle)
+    if not isinstance(values, list) or not values:
+        raise SystemExit(f"{CATEGORIES_PATH} must be a non-empty JSON array of category names.")
+    return set(values)
+
+CATEGORIES = load_categories()
 SEVERITIES = {"amber", "red"}
 
 # app.js renders these fields as rich text, so only inline emphasis is allowed.

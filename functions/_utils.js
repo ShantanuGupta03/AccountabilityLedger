@@ -3,6 +3,28 @@ const JSON_HEADERS = {
   "cache-control": "no-store",
   "x-content-type-options": "nosniff",
 };
+
+/** Must match assets/data/categories.json and scripts/validate_cases.py. */
+export const CASE_CATEGORIES = new Set([
+  "Consumer harm",
+  "Crony capital (alleged)",
+  "Data denial",
+  "Democratic institutions",
+  "Economic shock",
+  "Environment",
+  "Exam integrity",
+  "Fund opacity",
+  "National security",
+  "Policy misfire",
+  "Public money",
+  "Public safety",
+  "Rights and dissent",
+]);
+
+export function isValidCategory(category) {
+  return CASE_CATEGORIES.has(String(category ?? "").trim());
+}
+
 let accessJwks;
 
 function base64UrlBytes(value) {
@@ -277,6 +299,7 @@ export function publicCase(caseData, id) {
     }
   }
   if (!["red", "amber"].includes(caseData.sev)) throw new TypeError("Severity must be red or amber.");
+  if (!isValidCategory(caseData.cat)) throw new TypeError("Published case category must be one of the ledger categories.");
   if (!Number.isInteger(caseData.sk) || !Number.isInteger(caseData.year)) {
     throw new TypeError("Published case requires integer sk and year fields.");
   }

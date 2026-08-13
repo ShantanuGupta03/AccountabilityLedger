@@ -2,3 +2,5 @@
 # ?case= and ?title=, which Pages preserves across a redirect.
 /suggest    /corrections/#sources    301
 /suggest/   /corrections/#sources    301
+/claims     /    301
+/claims/    /    301

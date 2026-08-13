@@ -167,7 +167,7 @@ function renderResignationRecord(){
   // split of that same 8, so the sentence now says so out loud.
   node.innerHTML=`<span class="standing-record-num">${since2014}</span>`
     +`<span>${escapeHTML(t(since2014===1?"standing_resigned_one":"standing_resigned",{since:since2014,before,total}))}</span>`
-    +`<a href="./answered/">${escapeHTML(t("standing_resigned_cta",{total}))}</a>`;
+    +`<a href="./dashboard/">${escapeHTML(t("standing_resigned_cta",{total}))}</a>`;
 }
 
 function setupControls(){
@@ -238,11 +238,12 @@ function card(d){
         <div class="h2h-side h2h-said"><p class="h2h-label">${escapeHTML(t("h2h_said"))}</p><p class="h2h-body">${safeRichText(d.pos)}</p></div>
         <div class="h2h-side h2h-record"><p class="h2h-label">${escapeHTML(t("h2h_record"))}</p><p class="h2h-verdict">${escapeHTML(caseField(d,"stamp"))}</p><p class="h2h-body">${safeRichText(d.dodge)}</p></div>
       </div></div></div>`:"";
+  const liveBadge=d.liveOnly?` <span class="live-badge">${escapeHTML(t("card_live_only"))}</span>`:"";
   return `
   <article class="file sev-${severity}" id="case-${caseId}" data-case-id="${escapeHTML(caseId)}" data-cat="${escapeHTML(d.cat)}">
     <div class="filehead" role="button" tabindex="0" aria-controls="${bodyId}" aria-expanded="false">
       <div class="caseno">No.<span class="n">${escapeHTML(String(number).padStart(2,"0"))}</span></div>
-      <div class="headmid"><div class="cat">${escapeHTML(category(d.cat))}</div><h3>${escapeHTML(caseField(d,"title"))}</h3><div class="date">${escapeHTML(d.date)}</div></div>
+      <div class="headmid"><div class="cat">${escapeHTML(category(d.cat))}${liveBadge}</div><h3>${escapeHTML(caseField(d,"title"))}</h3><div class="date">${escapeHTML(d.date)}</div></div>
       <div class="stamp ${severity==="amber"?"amber":""}">${escapeHTML(caseField(d,"stamp"))}</div>
     </div>
     <div class="metrics">
@@ -264,7 +265,9 @@ function card(d){
       <div class="field"><div class="k">${escapeHTML(t("field_sources"))}${readerNote}</div><div class="v"><p class="source-legend"><span class="tier-badge tier-1">T1</span> ${escapeHTML(t("tier_legend_1"))} · <span class="tier-badge tier-2">T2</span> ${escapeHTML(t("tier_legend_2"))} · <span class="tier-badge tier-3">T3</span> ${escapeHTML(t("tier_legend_3"))}</p><div class="sources">${srcs}</div>
         <a class="suggest-source" href="${suggestHref}">${escapeHTML(t("suggest_source_cta"))}</a>
       </div></div>
-      <p class="case-permalink"><a href="./case/${encodeURIComponent(caseId)}/">${escapeHTML(t("card_permalink"))}</a></p>
+      ${d.liveOnly
+    ? `<p class="case-permalink"><span class="live-badge inline">${escapeHTML(t("card_live_only"))}</span></p>`
+    : `<p class="case-permalink"><a href="./case/${encodeURIComponent(caseId)}/">${escapeHTML(t("card_permalink"))}</a></p>`}
     </div></div>
   </article>`;
 }
@@ -397,11 +400,20 @@ function observe(){
 }
 
 function normalizeCases(staticCases,publishedCases){
+  const staticIds=new Set(staticCases.map(caseFile=>caseFile.id??`case-${caseFile.no}`));
   const base=staticCases.map(caseFile=>({...caseFile,id:caseFile.id??`case-${caseFile.no}`}));
   let nextNo=Math.max(0,...base.map(caseFile=>Number(caseFile.no)||0));
   const published=publishedCases
     .filter(caseFile=>caseFile&&typeof caseFile==="object")
-    .map(caseFile=>({...caseFile,id:caseFile.id??crypto.randomUUID(),no:caseFile.no??++nextNo}));
+    .map(caseFile=>{
+      const id=caseFile.id??crypto.randomUUID();
+      return {
+        ...caseFile,
+        id,
+        no:caseFile.no??++nextNo,
+        liveOnly:!staticIds.has(id),
+      };
+    });
   return [...base,...published];
 }
 

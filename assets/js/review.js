@@ -578,6 +578,37 @@ reviewAuthForm?.addEventListener("submit", (event) => {
   refreshQueue();
 });
 
+document.querySelector("#export-published-overlay")?.addEventListener("click", async () => {
+  const button = document.querySelector("#export-published-overlay");
+  try {
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    const response = await adminFetch("/api/admin/submissions?status=published", { cache: "no-store" });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error ?? "Unable to export published cases.");
+    const cases = data.submissions.map((item) => item.published_case).filter(Boolean);
+    const blob = new Blob([`${JSON.stringify(cases, null, 2)}\n`], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "published-overlay.json";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    status.textContent = cases.length
+      ? `Downloaded ${cases.length} case(s). Save as assets/data/published-overlay.json and redeploy.`
+      : "No published submission cases to export yet.";
+    status.classList.remove("error");
+  } catch (error) {
+    status.textContent = error.message || "Export failed.";
+    status.classList.add("error");
+  } finally {
+    button.disabled = false;
+    button.removeAttribute("aria-busy");
+  }
+});
+
 list.addEventListener("change", showSubmission);
 queueStatus.addEventListener("change", refreshQueue);
 suggestionStatus.addEventListener("change", refreshSuggestions);

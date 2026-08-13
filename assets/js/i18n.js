@@ -40,6 +40,7 @@
     // One share button, not three. It hands the case to the OS share sheet and
     // falls back to the clipboard; the OG card is a crawler asset, not a page.
     card_share: "Share",
+    card_live_only: "Live on ledger · permanent page after next deploy",
     card_rti: "File an RTI",
     card_permalink: "Permanent page for citing this case →",
     h2h_heading: "Claim against record",
@@ -80,6 +81,7 @@
     standing_resigned_cta: "See all {total} \u2192",
 
     dash_count: "{n} office-holders shown",
+    dash_subnav_portfolio: "Portfolio table",
     // "Government" is the coalition in power on the case date. "Party" is only
     // shown where a case names it, and the two are never merged.
     dash_gov_hint: "The Union government in office when these cases happened, not this person's own party.",
@@ -167,6 +169,8 @@
   const HI = {
     nav_ledger: "लेजर",
     nav_dashboard: "मंत्री",
+    nav_claims: "दावा बनाम रिकॉर्ड",
+    nav_answered: "इस्तीफ़े",
     nav_submit: "मामला भेजें",
     nav_suggest: "स्रोत सुझाएँ",
     nav_corrections: "सुधार और स्रोत",
@@ -220,6 +224,7 @@
     card_copy: "लिंक कॉपी करें",
     card_copied: "लिंक कॉपी हो गया",
     card_share: "साझा करें",
+    card_live_only: "लेजर पर लाइव · स्थायी पृष्ठ अगली तैनाती के बाद",
     card_rti: "आरटीआई लगाएँ",
     card_permalink: "इस मामले को उद्धृत करने के लिए स्थायी पृष्ठ →",
     related_heading: "वही पैटर्न, फ़ाइल में और जगह",
@@ -274,6 +279,7 @@
     th_deaths: "इस विभाग के मामलों में मौतें",
     th_outcome: "दर्ज जवाबदेही परिणाम",
     dash_count: "{n} पदाधिकारी दिखाए जा रहे हैं",
+    dash_subnav_portfolio: "पोर्टफ़ोलियो तालिका",
     dash_gov_hint: "इन मामलों के समय केंद्र में जो सरकार थी, न कि इस व्यक्ति की अपनी पार्टी।",
     dash_party_unknown: "पार्टी दर्ज नहीं",
     dash_empty: "इस नाम का कोई पदाधिकारी फ़ाइल में नहीं है। अभी तक।",

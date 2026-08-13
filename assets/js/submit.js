@@ -33,7 +33,7 @@ function setStatus(message, error = false) {
   status.classList.toggle("error", error);
 }
 
-function showSuccessDialog(message, { unverified = false } = {}) {
+function showSuccessDialog(message, { unverified = false, referenceId = null } = {}) {
   document.querySelector(".toast-overlay")?.remove();
   const overlay = document.createElement("div");
   overlay.className = "toast-overlay";
@@ -59,11 +59,41 @@ function showSuccessDialog(message, { unverified = false } = {}) {
     close();
     document.removeEventListener("keydown", onKey);
   });
-  dialog.append(title, body, dismiss);
+  dialog.append(title, body);
+  if (referenceId) {
+    const ref = document.createElement("p");
+    ref.className = "toast-ref";
+    const code = document.createElement("code");
+    code.textContent = referenceId;
+    ref.append("Reference: ", code, " — cite this if you email us about this submission.");
+    dialog.append(ref);
+  }
+  dialog.append(dismiss);
   overlay.append(dialog);
   document.body.append(overlay);
   dismiss.focus();
 }
+
+async function loadCategories() {
+  const select = document.querySelector("#submit-category");
+  if (!select) return;
+  try {
+    const response = await fetch("../assets/data/categories.json", { cache: "no-cache" });
+    if (!response.ok) throw new Error("categories unavailable");
+    const categories = await response.json();
+    if (!Array.isArray(categories)) throw new Error("invalid categories");
+    categories.forEach((name) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      select.append(option);
+    });
+  } catch {
+    setNote("Could not load categories. Reload the page and try again.", true);
+    block("Category list unavailable.");
+  }
+}
+loadCategories();
 
 function setNote(message, blocked = false) {
   if (!note) return;
@@ -260,7 +290,7 @@ form.addEventListener("submit", async (event) => {
     if (!localBypass && !degraded) window.turnstile.reset(turnstileWidget);
     const message = result.message || "Submitted. An editor will review the evidence before any publication decision.";
     const unverified = /unverified/i.test(message);
-    showSuccessDialog(message, { unverified });
+    showSuccessDialog(message, { unverified, referenceId: result.id });
     setStatus("");
   } catch (error) {
     setStatus(error.message || "Unable to submit the incident.", true);

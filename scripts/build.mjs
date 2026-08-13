@@ -12,6 +12,7 @@ const publicPaths = [
   "corrections", "dashboard", "review", "rti", "submit",
 ];
 const casesPath = "assets/data/cases.json";
+const overlayPath = "assets/data/published-overlay.json";
 const archivesPath = "assets/data/archives.json";
 
 await rm(output, { recursive: true, force: true });
@@ -29,7 +30,22 @@ try {
 }
 
 const allCases = JSON.parse(await readFile(casesPath, "utf8"));
-const drafts = allCases.filter((caseFile) => caseFile.status === "draft");
+let overlayCases = [];
+try {
+  overlayCases = JSON.parse(await readFile(overlayPath, "utf8"));
+  if (!Array.isArray(overlayCases)) overlayCases = [];
+} catch {
+  overlayCases = [];
+}
+const staticIds = new Set(allCases.map((caseFile) => caseFile.id ?? `case-${caseFile.no}`));
+const mergedCases = [
+  ...allCases,
+  ...overlayCases.filter((caseFile) => {
+    const id = caseFile?.id ?? (caseFile?.no ? `case-${caseFile.no}` : null);
+    return id && !staticIds.has(id);
+  }),
+];
+const drafts = mergedCases.filter((caseFile) => caseFile.status === "draft");
 const unsourced = [];
 
 const enrichSource = (source) => {
@@ -38,7 +54,7 @@ const enrichSource = (source) => {
   return { ...source, archiveUrl: entry.archiveUrl };
 };
 
-const published = allCases
+const published = mergedCases
   .filter((caseFile) => caseFile.status !== "draft")
   .map(({ status, ...caseFile }) => {
     const sources = (caseFile.sources ?? [])
@@ -57,7 +73,15 @@ if (unsourced.length > 0) {
 
 await writeFile(`${output}/${casesPath}`, JSON.stringify(published), "utf8");
 await writeFile(`${output}/${archivesPath}`, JSON.stringify(archives), "utf8");
+await writeFile(`${output}/${overlayPath}`, JSON.stringify(overlayCases), "utf8");
 await generatePages(published, output);
+
+const robots = `User-agent: *
+Allow: /
+
+Sitemap: ${(process.env.SITE_URL ?? "https://whoisresponsible.xyz").replace(/\/$/, "")}/sitemap.xml
+`;
+await writeFile(`${output}/robots.txt`, robots, "utf8");
 
 const home = await readFile(`${output}/index.html`, "utf8");
 await writeFile(
@@ -70,11 +94,12 @@ await writeFile(
 
 const archived = published.flatMap((c) => c.sources ?? []).filter((s) => s.archiveUrl).length;
 const totalSources = published.flatMap((c) => c.sources ?? []).length;
-const droppedSources = allCases.reduce((total, caseFile) => total
+const droppedSources = mergedCases.reduce((total, caseFile) => total
   + (caseFile.status === "draft" ? 0 : (caseFile.sources ?? []).filter((source) => source.todo).length), 0);
 
 console.log(
   `Built ${published.length} cases (${drafts.length} draft(s) held back, `
+  + `${overlayCases.length ? `${overlayCases.length} from published overlay, ` : ""}`
   + `${droppedSources} unlinked source(s) dropped, ${archived}/${totalSources} with archive links)`,
 );
 

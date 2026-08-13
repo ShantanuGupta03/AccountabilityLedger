@@ -42,7 +42,11 @@
       <div class="form-grid">
         <label>Incident title<input name="title" maxlength="240" required></label>
         <label>Incident date<input name="incidentDate" type="date" required></label>
-        <label>Category<input name="category" maxlength="100" placeholder="For example: Public safety" required></label>
+        <label>Category
+          <select name="category" id="submit-category" required>
+            <option value="">Choose a category</option>
+          </select>
+        </label>
         <label>Office-holders involved <span class="optional">(optional, one per line)</span><textarea name="officeHolders" rows="3" maxlength="1900"></textarea></label>
       </div>
       <label>What happened?<textarea name="summary" rows="7" maxlength="8000" required></textarea></label>

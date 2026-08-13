@@ -163,6 +163,16 @@ function safeRich(value) {
   return escapeHtml(value).replace(/&lt;(\/?)(b|em|i|strong|br)&gt;/g, "<$1$2>");
 }
 
+/** Secondary nav under the minister dashboard: portfolio table vs resignations list. */
+function dashSubnav({ up = "../", current = "portfolio" } = {}) {
+  const portfolio = current === "portfolio" ? ' aria-current="page"' : "";
+  const resignations = current === "resignations" ? ' aria-current="page"' : "";
+  return `<nav class="dash-subnav" aria-label="Minister dashboard sections">
+      <a href="${up}dashboard/"${portfolio} data-i18n="dash_subnav_portfolio">Portfolio table</a>
+      <a href="${up}answered/"${resignations} data-i18n="nav_answered">Resignations</a>
+    </nav>`;
+}
+
 /** Site chrome, so a case page is part of the ledger rather than a loose leaf. */
 function pageShell({ title, description, path, imagePath, body, up = "../../", extraHead = "" }) {
   const url = `${SITE}${path}`;
@@ -258,7 +268,7 @@ function clockBlock(caseFile) {
 function headToHead(caseFile) {
   if (!caseFile.pos) return "";
   return `<section class="headtohead" aria-labelledby="h2h-${escapeHtml(caseId(caseFile))}">
-      <h2 class="h2h-title" id="h2h-${escapeHtml(caseId(caseFile))}"><span data-i18n="h2h_heading">Claim against record</span> <a class="h2h-all" href="../../claims/" data-i18n="h2h_all">See every case this way &rarr;</a></h2>
+      <h2 class="h2h-title" id="h2h-${escapeHtml(caseId(caseFile))}"><span data-i18n="h2h_heading">Claim against record</span></h2>
       <div class="h2h-grid">
         <div class="h2h-side h2h-said">
           <p class="h2h-label" data-i18n="h2h_said">What the government said</p>
@@ -658,58 +668,6 @@ export async function generatePages(cases, outputDir) {
     "utf8",
   );
 
-  // Claim against record: every case that has a recorded government defence.
-  const contested = byDate.filter((c) => c.pos).reverse();
-  const claimsOg = "claims-index.svg";
-  await writeFile(
-    join(outputDir, "assets/og", claimsOg),
-    ogSvg({
-      title: "Claim against record",
-      stamp: `${contested.length} cases where the government answered, set against what followed.`,
-      stat: "Read both columns.",
-      label: "Accountability Ledger",
-    }),
-    "utf8",
-  );
-
-  const claimRows = contested.map((c) => `<li class="claim-row">
-        <p class="claim-case"><a href="../case/${encodeURIComponent(caseId(c))}/">${escapeHtml(c.title)}</a>
-          <span class="claim-meta">${escapeHtml(c.date)} &middot; ${escapeHtml(c.cat)}</span></p>
-        <div class="h2h-grid">
-          <div class="h2h-side h2h-said">
-            <p class="h2h-label">They said</p>
-            <p class="h2h-body">${safeRich(c.pos)}</p>
-          </div>
-          <div class="h2h-side h2h-record">
-            <p class="h2h-label">The record says</p>
-            <p class="h2h-verdict">${escapeHtml(c.stamp ?? "")}</p>
-            <p class="h2h-body">${safeRich(c.dodge ?? "")}</p>
-          </div>
-        </div>
-      </li>`).join("");
-
-  await mkdir(join(outputDir, "claims"), { recursive: true });
-  await writeFile(
-    join(outputDir, "claims/index.html"),
-    pageShell({
-      title: "Claim against record · Accountability Ledger",
-      description: `For ${contested.length} cases on this ledger, what the government said set directly against what the record shows happened next.`,
-      path: "/claims/",
-      imagePath: `/assets/og/${claimsOg}`,
-      up: "../",
-      body: `  <main class="wrap claims-page">
-    <div class="hero">
-      <p class="eyebrow">Two columns</p>
-      <h1 class="title">Claim against<br><span class="thin">record.</span></h1>
-      <p class="standfirst">Every case on this ledger records the government's own answer, in its own terms. This page sets that answer beside what the record shows happened next, and lets you read both. Where the government turned out to be right, that is on this page too.</p>
-    </div>
-    <p class="queue-warning">The left column is the government's stated position, not a straw man. Several of these defences were vindicated: charges collapsed, presumptive figures went untested, ministers were cleared. Those outcomes are in the right column in the same words as everything else.</p>
-    <ul class="claim-list">${claimRows}</ul>
-  </main>`,
-    }),
-    "utf8",
-  );
-
   /* ---------- the ones who answered ----------
      "See who" used to point at the whole minister dashboard, which answers a
      different question: it lists everyone who held a file, not the handful who
@@ -774,6 +732,7 @@ export async function generatePages(cases, outputDir) {
       imagePath: `/assets/og/${answeredOg}`,
       up: "../",
       body: `  <main class="wrap answered-page">
+    ${dashSubnav({ up: "../", current: "resignations" })}
     <div class="hero">
       <p class="eyebrow">The short list</p>
       <h1 class="title">The ones who<br><span class="thin">answered.</span></h1>
@@ -792,9 +751,25 @@ export async function generatePages(cases, outputDir) {
     "utf8",
   );
 
+  const urls = [
+    "/",
+    "/dashboard/",
+    "/rti/",
+    "/submit/",
+    "/corrections/",
+    "/answered/",
+    ...cases.map((caseFile) => `/case/${encodeURIComponent(caseId(caseFile))}/`),
+    ...[...groups.keys()].map((slug) => `/minister/${encodeURIComponent(slug)}/`),
+  ];
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((path) => `  <url><loc>${SITE}${path}</loc></url>`).join("\n")}
+</urlset>
+`;
+  await writeFile(join(outputDir, "sitemap.xml"), sitemap, "utf8");
+
   console.log(
     `Generated ${cases.length} case pages, ${groups.size} minister pages, `
-    + `1 claim-vs-record index (${contested.length} pairs), `
     + `1 answered index (${left.length} departures, ${unionLeft.length} Union)`,
   );
 }
