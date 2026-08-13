@@ -76,8 +76,12 @@ await writeFile(`${output}/${archivesPath}`, JSON.stringify(archives), "utf8");
 await writeFile(`${output}/${overlayPath}`, JSON.stringify(overlayCases), "utf8");
 await generatePages(published, output);
 
+// The editor console is behind Cloudflare Access, but it has no business in a
+// search index either — a login wall in results is noise, and advertising the
+// door is a courtesy nobody asked us to extend.
 const robots = `User-agent: *
 Allow: /
+Disallow: /review/
 
 Sitemap: ${(process.env.SITE_URL ?? "https://whoisresponsible.xyz").replace(/\/$/, "")}/sitemap.xml
 `;
@@ -116,6 +120,8 @@ const requiredFunctions = [
   "functions/api/cases.js",
   "functions/api/submissions/index.js",
   "functions/api/admin/submissions/index.js",
+  "functions/api/rti-responses.js",
+  "functions/api/admin/rti-responses/index.js",
 ];
 for (const path of requiredFunctions) {
   try {

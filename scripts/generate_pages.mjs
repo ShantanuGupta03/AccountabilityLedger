@@ -302,6 +302,7 @@ ${body}
   <script src="${up}assets/js/i18n.js" defer></script>
   <script src="${up}assets/js/clock.js" defer></script>
   <script src="${up}assets/js/cite.js" defer></script>
+  <script src="${up}assets/js/case-responses.js" defer></script>
   <script src="${up}assets/js/motion.js" defer></script>
   <script src="${up}assets/js/to-top.js" defer></script>
 </body>
@@ -986,8 +987,8 @@ export async function generatePages(cases, outputDir) {
     { path: "/", lastmod: newestCaseIso, priority: "1.0" },
     { path: "/dashboard/", lastmod: newestCaseIso, priority: "0.8" },
     { path: "/answered/", lastmod: newestCaseIso, priority: "0.8" },
-    { path: "/claims/", lastmod: newestCaseIso, priority: "0.7" },
     { path: "/rti/", priority: "0.7" },
+    { path: "/rti/responses/", priority: "0.7" },
     { path: "/data/", priority: "0.6" },
     { path: "/submit/", priority: "0.4" },
     { path: "/corrections/", priority: "0.4" },
@@ -996,10 +997,14 @@ export async function generatePages(cases, outputDir) {
       lastmod: isoFromSk(caseFile.sk),
       priority: "0.9",
     })),
-    ...[...groups.keys()].map((slug) => ({
-      path: `/minister/${encodeURIComponent(slug)}/`,
-      priority: "0.5",
-    })),
+    // The keys of `groups` are lowercased names ("narendra modi"); the pages are
+    // written to slugify(name) ("narendra-modi"). Listing the keys pointed half
+    // the sitemap at URLs that do not exist, which is worse for discovery than
+    // listing nothing. Mirror the page-writing loop exactly, empty slugs and all.
+    ...[...groups.values()]
+      .map((group) => slugify(group.name))
+      .filter(Boolean)
+      .map((slug) => ({ path: `/minister/${slug}/`, priority: "0.5" })),
   ];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

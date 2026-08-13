@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review queue · Accountability Ledger</title>
+  <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -76,6 +77,19 @@
       </select></label>
       <p class="dashboard-count" id="suggestion-count">Loading suggested sources…</p>
       <ul class="suggestion-list" id="suggestion-list"></ul>
+    </section>
+
+    <section class="review-section" aria-labelledby="rtir-review-title">
+      <h2 id="rtir-review-title">RTI responses</h2>
+      <p class="queue-warning">Publishing one of these puts a government document on a case page under this site's name. Open the link, read it, and satisfy yourself the applicant's own name, address and phone number are not in it. The sender confirmed they redacted it; that confirmation is not the same as you having looked.</p>
+      <label class="queue-controls">Queue<select id="rtir-review-status">
+        <option value="pending">Pending review</option>
+        <option value="approved">Approved, not yet published</option>
+        <option value="published">Published on the ledger</option>
+        <option value="rejected">Rejected</option>
+      </select></label>
+      <p class="dashboard-count" id="rtir-review-count">Loading RTI responses…</p>
+      <ul class="suggestion-list" id="rtir-review-list"></ul>
     </section>
     </div>
   </main>

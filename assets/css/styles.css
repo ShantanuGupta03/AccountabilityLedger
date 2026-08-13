@@ -185,7 +185,7 @@
   .expandbar:hover{color:var(--redline)}
   .case-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-right:14px}
   .case-actions .expandbar{flex:1}
-  .case-share{flex:0 0 auto;padding:6px 8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--constructive);background:transparent;border:1px solid var(--rule-strong);cursor:pointer}
+  .case-share{flex:0 0 auto;max-width:100%;padding:6px 8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--constructive);background:transparent;border:1px solid var(--rule-strong);cursor:pointer}
   .case-share:hover{border-color:var(--constructive)}
 
   .filebody{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows var(--t-slow) var(--ease)}
@@ -643,6 +643,7 @@
     footer .grid{grid-template-columns:1fr}
     .form-grid{grid-template-columns:1fr}
     .rti-help-grid,.desk-grid,.data-grid{grid-template-columns:1fr}
+    .rtir-dates{margin-left:0;flex-basis:100%}
     .answered-summary{grid-template-columns:1fr}
     .answered-stat{border-right:none;border-bottom:1px dashed var(--rule)}
     .answered-stat:last-child{border-bottom:none}
@@ -1119,3 +1120,48 @@
   .tl-silence .tl-what{color:var(--ink-soft)}
   .tl-legend{margin:16px 0 0;font-family:var(--mono);font-size:11px;line-height:1.7;letter-spacing:.04em;
     color:var(--ink-faint);max-width:74ch}
+
+  /* ---------- the RTI response library ----------
+     Each card is one reply from a public authority. The left rule carries the
+     outcome, and a refusal is deliberately not styled as a failure: a government
+     naming the clause it hid behind is the most useful row on the page. */
+  .rtir-list{list-style:none;margin:14px 0 34px;padding:0;display:grid;gap:14px}
+  .rtir-item{padding:18px 22px;background:var(--paper-raised);border:1px solid var(--rule-strong);
+    border-left:4px solid var(--rule-strong)}
+  .rtir-answered{border-left-color:var(--constructive)}
+  .rtir-partial{border-left-color:var(--amber-soft)}
+  .rtir-refused{border-left-color:var(--redline)}
+  .rtir-silent{border-left-color:var(--ink)}
+  .rtir-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin:0}
+  .rtir-outcome{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    padding:2px 8px;border:1px solid currentColor}
+  .rtir-answered .rtir-outcome{color:var(--constructive)}
+  .rtir-partial .rtir-outcome{color:var(--amber)}
+  .rtir-refused .rtir-outcome{color:var(--redline)}
+  .rtir-silent .rtir-outcome{color:var(--ink)}
+  .rtir-clause{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--redline)}
+  .rtir-dates{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);margin-left:auto}
+  .rtir-authority{margin:10px 0 0;font-family:var(--display);font-weight:600;font-size:17px;
+    line-height:1.35;letter-spacing:-.01em}
+  .rtir-summary{margin:8px 0 0;font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:70ch}
+  .rtir-text{margin:12px 0 0}
+  .rtir-text summary{cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--constructive)}
+  .rtir-text pre{margin:10px 0 0;padding:14px 16px;background:var(--paper-sunken);
+    border:1px dashed var(--rule-strong);font-family:var(--mono);font-size:12.5px;line-height:1.8;
+    white-space:pre-wrap;overflow-wrap:anywhere;max-height:40vh;overflow-y:auto}
+  .rtir-item .case-actions-row{margin-top:14px;min-width:0}
+  /* A case title is prose, not a label. `.case-share` is flex:0 0 auto so that
+     short buttons never shrink, which meant a 525px title pushed the whole page
+     wider than the viewport and let every other flex row lay out inside that
+     extra width — the subnav appeared to overflow when it was only obeying a
+     container the title had stretched. Here alone, let it wrap. */
+  .rtir-item .case-share,.rtir-on-case .case-share{flex:0 1 auto;max-width:100%;
+    white-space:normal;text-align:left;overflow-wrap:anywhere}
+  .suggestion-authority{margin:8px 0 0;font-family:var(--display);font-weight:600;font-size:16px}
+  .suggestion-meta{margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-faint)}
+  .rtir-review-text{margin:10px 0 0;padding:12px 14px;background:var(--paper-sunken);
+    border:1px dashed var(--rule-strong);font-family:var(--mono);font-size:12px;line-height:1.75;
+    white-space:pre-wrap;overflow-wrap:anywhere;max-height:34vh;overflow-y:auto}
