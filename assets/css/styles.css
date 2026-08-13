@@ -890,7 +890,8 @@
 
   /* Counters start from zero, so reserve their width or the docket row jumps as
      the digits grow. */
-  .docket .num[data-count-up],.answered-stat-num[data-count-up]{font-variant-numeric:tabular-nums}
+  .docket .num[data-count-up],.docket .num[data-count-figure],.answered-stat-num[data-count-up]{font-variant-numeric:tabular-nums}
+  .docket .num .fig{font-variant-numeric:tabular-nums}
 
   /* ---------- entrance on load ----------
      The masthead is the first thing a reader sees. A short staggered rise-in

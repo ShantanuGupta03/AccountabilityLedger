@@ -98,10 +98,16 @@
   if (!reduced && !sameSiteReferrer) document.body.classList.add("motion-ready");
 
   /* ---------- counting up ----------
-     A figure that ticks up to its value reads as measured rather than asserted,
-     and it draws the eye to the one part of the page that is pure evidence.
-     Only plain integers are animated: the cost and death figures carry a second
-     reading you can tap for, and rewriting their text would break that. */
+     Integers tick up in plain text; cost and death totals tick up through the
+     same Indian-unit formatting the docket uses, then the hover/tap alternate
+     reading appears at the end. */
+  function docketFigureHtml(primary, alternate) {
+    const SU = window.SourceUtils;
+    if (!primary) return "--";
+    const lead = primary.startsWith("≈") ? primary : `≈${primary}`;
+    return SU?.figure ? SU.figure(lead, alternate) : lead;
+  }
+
   function countUp(node, target) {
     const DURATION = 900;
     let start = 0;
@@ -134,6 +140,85 @@
       });
     }, { threshold: 0.6 });
     nodes.forEach((node) => observer.observe(node));
+  }
+
+  function finalizeCost(node, targetCrore) {
+    const SU = window.SourceUtils;
+    if (!SU) return;
+    node.innerHTML = docketFigureHtml(SU.formatCrore(targetCrore), SU.croreToUsd(targetCrore));
+    node.dataset.countDone = "";
+  }
+
+  function finalizeDeaths(node, targetDeaths) {
+    const SU = window.SourceUtils;
+    if (!SU) return;
+    node.innerHTML = docketFigureHtml(SU.formatPeople(targetDeaths), SU.peopleToInternational(targetDeaths));
+    node.dataset.countDone = "";
+  }
+
+  function countUpCost(node, targetCrore) {
+    const SU = window.SourceUtils;
+    if (!SU || !Number.isFinite(targetCrore) || targetCrore <= 0) return;
+    const DURATION = 1000;
+    let start = 0;
+    const tick = (now) => {
+      if (!start) start = now;
+      const progress = Math.min(1, (now - start) / DURATION);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = targetCrore * eased;
+      const primary = SU.formatCrore(Math.max(current, targetCrore * 0.002));
+      const done = progress >= 1;
+      node.innerHTML = docketFigureHtml(primary, done ? SU.croreToUsd(targetCrore) : null);
+      if (!done) requestAnimationFrame(tick);
+      else finalizeCost(node, targetCrore);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function countUpDeaths(node, targetDeaths) {
+    const SU = window.SourceUtils;
+    if (!SU || !Number.isFinite(targetDeaths) || targetDeaths <= 0) return;
+    const DURATION = 1000;
+    let start = 0;
+    const tick = (now) => {
+      if (!start) start = now;
+      const progress = Math.min(1, (now - start) / DURATION);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = targetDeaths * eased;
+      const primary = SU.formatPeople(Math.max(current, targetDeaths * 0.002));
+      const done = progress >= 1;
+      node.innerHTML = docketFigureHtml(primary, done ? SU.peopleToInternational(targetDeaths) : null);
+      if (!done) requestAnimationFrame(tick);
+      else finalizeDeaths(node, targetDeaths);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function watchFigureCounters() {
+    const specs = [
+      { id: "stat-cost", key: "countCrore", animate: countUpCost, finalize: finalizeCost },
+      { id: "stat-toll", key: "countDeaths", animate: countUpDeaths, finalize: finalizeDeaths },
+    ];
+    const pending = specs.map(({ id, key, animate, finalize }) => {
+      const node = document.getElementById(id);
+      const value = Number(node?.dataset[key]);
+      if (!node || !Number.isFinite(value) || value <= 0 || node.dataset.countDone) return null;
+      return { node, value, animate, finalize };
+    }).filter(Boolean);
+    if (!pending.length) return;
+    if (reduced || !("IntersectionObserver" in window)) {
+      pending.forEach(({ node, value, finalize }) => finalize(node, value));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        const item = pending.find((spec) => spec.node === entry.target);
+        if (item) item.animate(item.node, item.value);
+      });
+    }, { threshold: 0.6 });
+    pending.forEach(({ node }) => observer.observe(node));
   }
 
   /* ---------- year dividers ----------
@@ -202,6 +287,7 @@
 
   const start = () => {
     watchCounters();
+    watchFigureCounters();
     watchStickyBar();
     readingProgress();
     watchYearmarks();
@@ -211,7 +297,10 @@
 
   // The front page fills its docket after fetching the ledger, so those figures
   // read "--" at DOMContentLoaded. app.js says when they are real.
-  document.addEventListener("ledger:stats", watchCounters);
+  document.addEventListener("ledger:stats", () => {
+    watchCounters();
+    watchFigureCounters();
+  });
   // Year dividers are rebuilt on every filter/sort; re-attach observers.
   document.addEventListener("ledger:rendered", watchYearmarks);
 

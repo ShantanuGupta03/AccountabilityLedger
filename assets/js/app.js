@@ -177,11 +177,17 @@ function setupControls(){
   $("#stat-total").textContent=DATA.length;
   $("#stat-resigned").textContent=resignationTally().total;
   document.querySelectorAll(".docket .num").forEach((el)=>el.classList.remove("loading"));
+  const costEl = $("#stat-cost");
+  const tollEl = $("#stat-toll");
+  costEl.dataset.countCrore = String(estimates.costInrCrore);
+  tollEl.dataset.countDeaths = String(estimates.deaths);
+  if (costEl.dataset.countDone) {
+    costEl.innerHTML = docketFigure(SU?.formatCrore(estimates.costInrCrore), SU?.croreToUsd(estimates.costInrCrore));
+    tollEl.innerHTML = docketFigure(SU?.formatPeople(estimates.deaths), SU?.peopleToInternational(estimates.deaths));
+  }
   // Tell assets/js/motion.js the docket now holds real numbers rather than "--".
   document.dispatchEvent(new CustomEvent("ledger:stats"));
   renderResignationRecord();
-  $("#stat-cost").innerHTML=docketFigure(SU?.formatCrore(estimates.costInrCrore),SU?.croreToUsd(estimates.costInrCrore));
-  $("#stat-toll").innerHTML=docketFigure(SU?.formatPeople(estimates.deaths),SU?.peopleToInternational(estimates.deaths));
   catchips.replaceChildren();
   CATS.forEach(c=>{
     const b=document.createElement("button");
