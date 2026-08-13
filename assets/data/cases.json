@@ -63,6 +63,32 @@
    "est": true
   },
   "what": "₹500 and ₹1,000 notes, about 86 percent of cash in circulation, were voided with four hours of notice to kill black money, counterfeits and terror funding.",
+  "timeline": [
+   {
+    "sk": 20161108,
+    "on": "8 Nov 2016",
+    "kind": "incident",
+    "what": "₹500 and ₹1,000 notes, about 86 per cent of the cash in circulation, are voided with four hours of notice, to kill black money, counterfeits and terror funding."
+   },
+   {
+    "sk": 20161201,
+    "on": "Nov to Dec 2016",
+    "kind": "silence",
+    "what": "The cash-poor queue for weeks. The stated aim shifts from black money to digitisation once the first claim starts to look unsupportable."
+   },
+   {
+    "sk": 20180829,
+    "on": "Aug 2018",
+    "kind": "action",
+    "what": "The RBI reports that almost all of the voided cash came back, so almost no unaccounted wealth was destroyed."
+   },
+   {
+    "sk": 20180901,
+    "on": "2018 onward",
+    "kind": "silence",
+    "what": "Nobody resigns. No review admits error. The suffering was inflicted on the cash-poor; the reckoning was inflicted on nobody."
+   }
+  ],
   "dodge": "The RBI later reported almost all the cash returned, so almost no unaccounted wealth was destroyed. No one resigned. No review admitted error. The stated aim simply shifted from black money to digitisation once the first claim collapsed. The suffering was inflicted on the cash-poor; the reckoning was inflicted on nobody.",
   "ministers": [
    {
@@ -1059,6 +1085,38 @@
    "est": true
   },
   "what": "A colonial-era suspension bridge, reopened after repairs with no fitness certificate and no load test, snapped over the Machchhu river days later and dropped a festival crowd into the water.",
+  "timeline": [
+   {
+    "sk": 20221026,
+    "on": "Oct 2022",
+    "kind": "promise",
+    "what": "A colonial-era suspension bridge is reopened after repairs, with no fitness certificate and no load test."
+   },
+   {
+    "sk": 20221030,
+    "on": "30 Oct 2022",
+    "kind": "incident",
+    "what": "The bridge snaps over the Machchhu river days later and drops a festival crowd into the water. More than 135 people are killed."
+   },
+   {
+    "sk": 20221101,
+    "on": "Oct to Nov 2022",
+    "kind": "action",
+    "what": "The private operator's managing director is arrested and a municipal official is suspended."
+   },
+   {
+    "sk": 20230101,
+    "on": "2023",
+    "kind": "action",
+    "what": "An SIT holds the private operator and municipal officials responsible."
+   },
+   {
+    "sk": 20230601,
+    "on": "2023 onward",
+    "kind": "silence",
+    "what": "Not one minister in the state government that oversaw the civic body resigns or is held to account. Victims are still fighting for compensation years later."
+   }
+  ],
   "dodge": "An SIT held the private operator and municipal officials responsible; the operator's MD was arrested and an official suspended. But not one BJP minister in the state government that oversaw the civic body resigned or was held to account, and victims were still fighting for compensation years later.",
   "ministers": [
    {
@@ -3015,6 +3073,44 @@
    "est": false
   },
   "what": "Reporters posing as arms dealers for a fictitious London firm, West End International, spent months offering bribes to secure an army contract for thermal imagers that did not exist. The tapes, aired in March 2001, showed BJP president Bangaru Laxman accepting one lakh rupees at the party office. Defence Minister George Fernandes resigned; Samata Party president Jaya Jaitly was also implicated.",
+  "timeline": [
+   {
+    "sk": 20010313,
+    "on": "13 Mar 2001",
+    "kind": "incident",
+    "what": "Tapes from a months-long sting are aired. The BJP president is shown accepting one lakh rupees at the party office; the Defence Minister's party is shown taking money for an army contract that did not exist."
+   },
+   {
+    "sk": 20010315,
+    "on": "Mar 2001",
+    "kind": "answer",
+    "what": "Bangaru Laxman resigns as BJP president. George Fernandes resigns as Defence Minister."
+   },
+   {
+    "sk": 20010401,
+    "on": "2001",
+    "kind": "promise",
+    "what": "A commission of inquiry is appointed to examine the affair. It is later reconstituted after its chairman steps down."
+   },
+   {
+    "sk": 20011001,
+    "on": "2001",
+    "kind": "silence",
+    "what": "Fernandes returns to the cabinet in under a year."
+   },
+   {
+    "sk": 20040101,
+    "on": "2004",
+    "kind": "silence",
+    "what": "The Phukan Commission gives Fernandes a clean chit. The succeeding government then disowns the report."
+   },
+   {
+    "sk": 20120401,
+    "on": "Apr 2012",
+    "kind": "action",
+    "what": "Bangaru Laxman is convicted, eleven years after the broadcast, and sentenced to four years."
+   }
+  ],
   "dodge": "Laxman was convicted only in April 2012, eleven years later, and sentenced to four years. Fernandes returned to the cabinet in under a year. The Phukan Commission set up to examine the affair gave him a clean chit, its report was then disowned by the succeeding government, and the judge himself later disputed how his findings were being characterised. The procurement system the sting exposed was not rebuilt.",
   "ministers": [
    {
@@ -3163,6 +3259,38 @@
    "est": true
   },
   "what": "In January 2008 the Department of Telecommunications issued 122 telecom licences with spectrum at 2001 prices, on a first-come-first-served basis whose cut-off was moved at short notice. The CAG report tabled in November 2010 found the Telecom Minister had overridden the advice of the Law and Finance Ministries. In February 2012 the Supreme Court cancelled all 122 licences as unconstitutional and arbitrary.",
+  "timeline": [
+   {
+    "sk": 20080110,
+    "on": "Jan 2008",
+    "kind": "incident",
+    "what": "The Department of Telecommunications issues 122 telecom licences with spectrum at 2001 prices, first-come-first-served, with the cut-off moved at short notice."
+   },
+   {
+    "sk": 20101116,
+    "on": "Nov 2010",
+    "kind": "action",
+    "what": "The CAG report is tabled. It finds the Telecom Minister overrode the advice of the Law and Finance ministries, and puts a presumptive loss of ₹1.76 lakh crore on the allocations."
+   },
+   {
+    "sk": 20101120,
+    "on": "Nov 2010",
+    "kind": "answer",
+    "what": "A. Raja resigns as Telecom Minister."
+   },
+   {
+    "sk": 20120202,
+    "on": "Feb 2012",
+    "kind": "action",
+    "what": "The Supreme Court quashes all 122 licences."
+   },
+   {
+    "sk": 20171221,
+    "on": "Dec 2017",
+    "kind": "silence",
+    "what": "A special CBI court acquits all 18 accused, holding that the prosecution failed to prove anything. The ₹1.76 lakh crore figure is never tested in court and remains presumptive."
+   }
+  ],
   "dodge": "The Supreme Court struck down the licences, but the criminal case collapsed: in December 2017 a special CBI court acquitted all 18 accused, holding the prosecution had failed to prove anything. The ₹1.76 lakh crore figure was never tested and remains a presumptive estimate. Nobody was punished, and nobody was cleared in a way that settled the matter either.",
   "ministers": [
    {
@@ -3227,6 +3355,32 @@
    "est": true
   },
   "what": "The CAG's report on the 2010 Delhi Commonwealth Games set out systematic overpricing, favouritism in contracts and mismanagement across the preparations. Nineteen FIRs followed. Organising Committee chairman Suresh Kalmadi was arrested and spent months in custody.",
+  "timeline": [
+   {
+    "sk": 20101003,
+    "on": "Oct 2010",
+    "kind": "incident",
+    "what": "The Commonwealth Games are held in Delhi."
+   },
+   {
+    "sk": 20110401,
+    "on": "2011",
+    "kind": "action",
+    "what": "The CAG reports systematic overpricing, favouritism in contracts and mismanagement across the preparations. Nineteen FIRs follow, and the Organising Committee chairman is arrested and spends months in custody."
+   },
+   {
+    "sk": 20130101,
+    "on": "2011 onward",
+    "kind": "silence",
+    "what": "The prosecutions go nowhere. Officials are acquitted in several of the cases."
+   },
+   {
+    "sk": 20250101,
+    "on": "2025",
+    "kind": "silence",
+    "what": "A Delhi court accepts the Enforcement Directorate's closure report on the money-laundering investigation, ending the matter without a finding. Fifteen years, nineteen FIRs, and no political accountability."
+   }
+  ],
   "dodge": "The prosecutions went nowhere. Officials were acquitted in several cases; a Delhi court accepted the Enforcement Directorate's closure report on the money-laundering investigation, ending the matter without a finding. Fifteen years, nineteen FIRs, and no political or official accountability at the end of it.",
   "ministers": [
    {
@@ -3461,6 +3615,44 @@
    "est": true
   },
   "what": "The CAG report tabled in August 2012 found that coal blocks had been allocated without competitive bidding, transferring a large windfall to allottees, and that companies had submitted inflated claims of net worth and experience. In 2014 the Supreme Court held all allocations made since 1993 illegal and arbitrary, and cancelled 204 of 218 blocks.",
+  "timeline": [
+   {
+    "sk": 19930101,
+    "on": "1993 onward",
+    "kind": "incident",
+    "what": "Coal blocks are allocated without competitive bidding, transferring a large windfall to allottees. Companies submit inflated claims of net worth and experience."
+   },
+   {
+    "sk": 20120817,
+    "on": "17 Aug 2012",
+    "kind": "action",
+    "what": "The CAG report is tabled."
+   },
+   {
+    "sk": 20140825,
+    "on": "Aug 2014",
+    "kind": "action",
+    "what": "The Supreme Court holds every allocation made since 1993 illegal."
+   },
+   {
+    "sk": 20140924,
+    "on": "Sep 2014",
+    "kind": "action",
+    "what": "204 allocations are cancelled."
+   },
+   {
+    "sk": 20141001,
+    "on": "2014 onward",
+    "kind": "silence",
+    "what": "Some officials and businessmen are prosecuted; the political level is never reached. The coal portfolio was held by the Prime Minister for part of the period under audit."
+   },
+   {
+    "sk": 20260101,
+    "on": "2026",
+    "kind": "silence",
+    "what": "The oldest of the cases finally ends, in acquittal."
+   }
+  ],
   "dodge": "The allocations were quashed and some officials and businessmen were prosecuted, but the political level was not reached. The coal portfolio was held by the Prime Minister for part of the period under audit. The oldest case took until 2026 to end, in acquittal.",
   "ministers": [
    {

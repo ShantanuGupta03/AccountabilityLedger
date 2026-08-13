@@ -30,7 +30,7 @@ REQUIRED_FIELDS = (
     "no", "sk", "year", "date", "cat", "sev", "title", "stamp",
     "human", "cost", "what", "dodge", "ministers", "pos", "alt", "sources",
 )
-OPTIONAL_FIELDS = ("alleg", "estimates", "id", "status", "resignations")
+OPTIONAL_FIELDS = ("alleg", "estimates", "id", "status", "resignations", "timeline")
 
 # Cases default to published; drafts are withheld from the build until sourced.
 STATUSES = {"draft", "published"}
@@ -211,6 +211,62 @@ def _check_resignations(report: Report, where: str, case: dict[str, Any]) -> Non
             report.error(at, "year must be a plausible integer")
 
 
+TIMELINE_KINDS = {"incident", "promise", "action", "answer", "silence"}
+
+
+def _check_timeline(report: Report, where: str, case: dict[str, Any]) -> None:
+    """The sequence a case unfolded in.
+
+    Two rules matter here and both are about honesty rather than tidiness.
+
+    A one-entry timeline is not a sequence, it is the date already printed at the
+    top of the page, so it is rejected rather than rendered as a stub. And `sk`
+    is optional per entry but all-or-nothing per case: a half-sorted timeline
+    would silently reorder itself when a build sorted it, which is how a
+    chronology starts telling a story the record does not support.
+    """
+    entries = case.get("timeline")
+    if entries is None:
+        return
+    if not isinstance(entries, list):
+        report.error(where, "timeline must be a list when present")
+        return
+    if len(entries) < 2:
+        report.error(where, "timeline needs at least two entries, or leave it out")
+        return
+
+    sort_keys: list[Any] = []
+    for position, entry in enumerate(entries, start=1):
+        at = f"{where} timeline {position}"
+        if not isinstance(entry, dict):
+            report.error(at, "must be an object")
+            continue
+        for key, description in (("on", "date text"), ("what", "description")):
+            if not isinstance(entry.get(key), str) or not entry[key].strip():
+                report.error(at, f"needs a non-empty {description} ({key!r})")
+        kind = entry.get("kind")
+        if kind is not None and kind not in TIMELINE_KINDS:
+            report.error(at, f"kind must be one of {sorted(TIMELINE_KINDS)}")
+        if "source" in entry and not str(entry["source"]).startswith(("http://", "https://")):
+            report.error(at, "source must be an http(s) url when present")
+        sort_keys.append(entry.get("sk"))
+        _check_tags(report, at, "what", str(entry.get("what", "")))
+
+    present = [key for key in sort_keys if key is not None]
+    if present and len(present) != len(sort_keys):
+        report.error(where, "timeline sk must be set on every entry or on none")
+    for key in present:
+        if not isinstance(key, int) or not 19000101 <= key <= 21001231:
+            report.error(where, f"timeline sk {key!r} is not a plausible YYYYMMDD integer")
+    if present and present != sorted(present):
+        report.error(where, "timeline entries must be written in chronological order")
+
+    # A sequence that never reaches the incident is describing something else.
+    kinds = {entry.get("kind") for entry in entries if isinstance(entry, dict)}
+    if "incident" not in kinds:
+        report.warn(where, "timeline has no entry marked kind='incident'")
+
+
 def _check_estimates(report: Report, where: str, case: dict[str, Any], strict: bool, shipped: bool) -> None:
     estimates = case.get("estimates")
     if estimates is None:
@@ -292,6 +348,7 @@ def validate_case(report: Report, case: Any, index: int, strict: bool) -> None:
     _check_dates(report, where, case)
     _check_sources(report, where, case, strict, shipped)
     _check_resignations(report, where, case)
+    _check_timeline(report, where, case)
     _check_estimates(report, where, case, strict, shipped)
 
 

@@ -370,10 +370,12 @@ function renderProfile(group) {
 }
 
 async function shareProfile(url, { copyOnly = false } = {}) {
-  const title = document.querySelector(".resume-heading .title")?.textContent?.trim() ?? "Accountability Ledger";
   if (!copyOnly && navigator.share) {
     try {
-      await navigator.share({ title, url });
+      // URL only. See assets/js/app.js: a share sheet's Copy action flattens
+      // every field it was given into one string, which ruins the link as a
+      // citation. The page's OG tags supply the headline to targets that want one.
+      await navigator.share({ url });
       return null;
     } catch {
       // Cancelled or unsupported. Fall through to copying.

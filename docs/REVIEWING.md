@@ -133,3 +133,41 @@ and the line says why:
 
 A **wait** cursor means one thing only: a request is in flight right now. If you
 see a wait cursor before you have clicked anything, that is a bug — report it.
+
+## Unlock throttle
+
+Failed `/review/` unlock attempts are counted per hashed IP in the
+`admin_attempts` table and capped at 10 per 15 minutes. A correct unlock is
+never recorded — only guesses are, so the table holds no log of when you were
+working. If you lock yourself out with typos, wait it out or unlock through
+Cloudflare Access, which is not throttled because it presents a signed token.
+
+## Adding a timeline to a case
+
+A case reads as a single moment; the accountability failure is a sequence. The
+optional `timeline` array on a case renders as a thread on its page.
+
+```json
+"timeline": [
+  {"sk": 20161108, "on": "8 Nov 2016", "kind": "incident", "what": "What happened."},
+  {"sk": 20180829, "on": "Aug 2018", "kind": "action",   "what": "What followed.",
+   "source": "https://example.gov.in/report"}
+]
+```
+
+- `on` is the date **as the record states it** — a day, a month or a year.
+  Never invent a day you are not sure of; a wrong date is a free excuse to
+  dismiss the whole ledger.
+- `kind` drives the marker: `incident` (the thing itself), `promise` (an inquiry
+  ordered, a deadline set), `action` (a report filed, an arrest, a verdict),
+  `answer` (someone actually left office), `silence` (a deadline passed and
+  nothing happened). `silence` is red, and it is the point of the feature.
+- `sk` is optional but **all-or-nothing per case**. Set it on every entry or on
+  none; the validator rejects a half-sorted timeline because it would silently
+  reorder itself.
+- Fewer than two entries is rejected. One entry is just the date already at the
+  top of the page.
+- Everything is checked by `npm run validate`.
+
+Six cases carry timelines so far. Adding them to the rest is authoring work, not
+code: only add a date you can point at a source for.
