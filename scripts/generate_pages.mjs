@@ -279,16 +279,18 @@ ${extraHead}</head>
     <div class="wrap">
       <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="flag_tag">Who owned the mess? 25 years, every party, on the record</span></div>
       <nav class="site-nav" aria-label="Primary navigation">
+      <div class="nav-links">
         <a href="${up}" data-i18n="nav_ledger">Ledger</a>
         <a href="${up}dashboard/" data-i18n="nav_dashboard">Ministers</a>
         <a href="${up}rti/" data-i18n="nav_rti">File an RTI</a>
         <a href="${up}submit/" data-i18n="nav_submit">Submit a case</a>
         <a href="${up}corrections/" data-i18n="nav_corrections">Corrections &amp; sources</a>
-        <span class="lang-switch" aria-label="Language">
+      </div>
+      <span class="lang-switch" aria-label="Language">
           <button type="button" data-lang="en" aria-pressed="true">EN</button>
           <button type="button" data-lang="hi" aria-pressed="false">हि</button>
         </span>
-      </nav>
+    </nav>
       <p class="lang-notice" data-lang-notice data-i18n="notice_case_lang" hidden></p>
     </div>
   </header>
