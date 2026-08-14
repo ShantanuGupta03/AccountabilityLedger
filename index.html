@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://whoisresponsible.xyz/#website","url":"https://whoisresponsible.xyz/","name":"Citizens' Accountability Ledger","inLanguage":["en","hi"],"description":"A sourced accountability ledger of scandals, disasters and policy failures in India since 2000, across every party that has held power."},{"@type":"Dataset","@id":"https://whoisresponsible.xyz/#dataset","name":"Citizens' Accountability Ledger: cases 2000 onward","description":"One record per scandal, disaster or policy failure in India since 2000: what happened, who held the portfolio, the recorded cost in money and lives, the government's own stated defence, the accountability outcome, and at least one citable source per case.","url":"https://whoisresponsible.xyz/","isAccessibleForFree":true,"license":"https://creativecommons.org/licenses/by/4.0/","creator":{"@type":"Organization","name":"Citizens' Accountability Ledger"},"temporalCoverage":"2000/..","spatialCoverage":{"@type":"Country","name":"India"},"keywords":["accountability","India","public spending","governance","Right to Information"],"distribution":[{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://whoisresponsible.xyz/assets/data/cases.json"},{"@type":"DataDownload","encodingFormat":"text/csv","contentUrl":"https://whoisresponsible.xyz/data/cases.csv"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://whoisresponsible.xyz/#website","url":"https://whoisresponsible.xyz/","name":"Citizens' Accountability Ledger","inLanguage":["en","hi"],"description":"A sourced accountability ledger of scandals, disasters and policy failures in India since 2000, across every party that has held power.","publishingPrinciples":"https://whoisresponsible.xyz/about/","correction":"https://whoisresponsible.xyz/corrections/","isAccessibleForFree":true,"publisher":{"@type":"Organization","@id":"https://whoisresponsible.xyz/#org"}},{"@type":"Dataset","@id":"https://whoisresponsible.xyz/#dataset","name":"Citizens' Accountability Ledger: cases 2000 onward","description":"One record per scandal, disaster or policy failure in India since 2000: what happened, who held the portfolio, the recorded cost in money and lives, the government's own stated defence, the accountability outcome, and at least one citable source per case.","url":"https://whoisresponsible.xyz/","isAccessibleForFree":true,"license":"https://creativecommons.org/licenses/by/4.0/","creator":{"@type":"Organization","name":"Citizens' Accountability Ledger"},"temporalCoverage":"2000/..","spatialCoverage":{"@type":"Country","name":"India"},"keywords":["accountability","India","public spending","governance","Right to Information"],"distribution":[{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://whoisresponsible.xyz/assets/data/cases.json"},{"@type":"DataDownload","encodingFormat":"text/csv","contentUrl":"https://whoisresponsible.xyz/data/cases.csv"}]},{"@type":"Organization","@id":"https://whoisresponsible.xyz/#org","name":"Citizens' Accountability Ledger","url":"https://whoisresponsible.xyz/","publishingPrinciples":"https://whoisresponsible.xyz/about/","correction":"https://whoisresponsible.xyz/corrections/","ethicsPolicy":"https://whoisresponsible.xyz/about/","description":"Published in the public interest: a sourced record of the public conduct of public office in India since 2000, across every party that has held power."},{"@type":"WebPage","@id":"https://whoisresponsible.xyz/about/#webpage","url":"https://whoisresponsible.xyz/about/","name":"Why this exists, and the rules it follows","description":"Purpose, scope, sourcing tiers, what this ledger does not claim, and the standing right of reply.","isPartOf":{"@id":"https://whoisresponsible.xyz/#website"}}]}</script>
 </head>
 <body>
 
@@ -25,16 +25,18 @@
   <div class="wrap">
     <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="flag_tag">Who owned the mess? 25 years, every party, on the record</span></div>
     <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-links">
       <a href="./" aria-current="page" data-i18n="nav_ledger">Ledger</a>
       <a href="./dashboard/" data-i18n="nav_dashboard">Ministers</a>
       <a href="./rti/" data-i18n="nav_rti">File an RTI</a>
       <a href="./submit/" data-i18n="nav_submit">Submit a case</a>
       <a href="./corrections/" data-i18n="nav_corrections">Corrections &amp; sources</a>
-      <span class="lang-switch" aria-label="Language">
+    </div>
+    <span class="lang-switch" aria-label="Language">
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="hi" aria-pressed="false">हि</button>
       </span>
-    </nav>
+  </nav>
     <p class="lang-notice" data-lang-notice data-i18n="notice_case_lang" hidden></p>
     <div class="hero">
       <h1 class="title"><span data-i18n="home_title_main">Accountability Ledger</span><br><span class="thin" data-i18n="home_title_thin">Of the people. By the people. For the people.</span></h1>
@@ -61,7 +63,8 @@
   <details>
     <summary><span class="plus">+</span> <span data-i18n="method_summary">How to read this ledger. Method, figures and limits</span></summary>
     <div class="body">
-      <p>This is an <strong>opinion and analysis resource that makes the accountability case</strong>. Holding the ruling party to account is the right of every citizen of a democracy, and this document exercises that right without apology. Read it as an indictment, not as a neutral encyclopedia.</p>
+      <p><strong>Why this is published.</strong> This ledger exists so that any citizen can see how public office was exercised, what it cost, and whether anyone was ever made to answer for it. It concerns the public conduct of people who held public power. It does not concern their private lives, and it never will. It is published in the public interest, which in a democracy is the entire reason a citizen is permitted to ask in the first place. The same test is applied to every government in scope, with no party affiliation and no money from any of them: <em>was anyone made to answer?</em> A government that finds that question intolerable has told you something about itself, not about the question.</p>
+      <p>This is an <strong>opinion and analysis resource that makes the accountability case</strong>. Holding power to account is the right of every citizen of a democracy, and this document exercises that right without apology. Read it as an argument built from the public record, not as a neutral encyclopedia.</p>
       <p><strong>Its force is its accuracy, so fact and allegation are kept strictly apart.</strong> Court verdicts, official audits, government admissions and documented death tolls are stated as fact. Where a scam or personal wrongdoing is <em>alleged</em>, it sits in a marked "Contested / alleged" field, attributed to the opposition, to reporting, or to a court process, and never asserted here as proven. Some matters remain in court. Each case also records the government's own defence, because an indictment that survives the counter-argument is the one that cannot be waved away.</p>
       <p><strong>"Ministers responsible" names who held the portfolio</strong>. That is a matter of record, not by itself a charge of personal guilt. Several failures belong to <em>state</em> governments and are labelled as such rather than pinned on the Union. The dashboard sums deaths and costs <em>recorded in cases under a portfolio</em>; it never attributes those figures to an individual.</p>
       <p><strong>Sources carry a tier badge.</strong> <span class="tier-badge tier-1">T1</span> primary record (court, audit, gazette, official publication). <span class="tier-badge tier-2">T2</span> independent reporting or documented research. <span class="tier-badge tier-3">T3</span> partisan or advocacy; useful as a pointer, never as the only proof. Where an archived copy exists, it is linked alongside the live URL.</p>
@@ -120,7 +123,7 @@
         <p>Found an error, or named on this page and want to answer it? Use the <a href="./corrections/">corrections and right-of-reply desk</a>. Corrections are made in the open.</p>
         <h4 data-i18n="footer_funding">Who pays for this</h4>
         <p>Nobody. This ledger is self-funded and run by a private citizen. It takes no money from any political party, campaign, company, foreign government, foundation or donor, carries no advertising, sells no data and has no institutional backer. There is nothing to disclose because there is nothing to declare, and that is a deliberate choice: the only thing this site has to defend is its sources.</p>
-        <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Every published claim sourced.</p>
+        <p class="fine">Published in the public interest, about the public conduct of public office. Fact and allegation separated. Estimates flagged. Every published claim sourced. <a href="./about/">Why this exists</a>.</p>
       </div>
     </div>
   </div>
@@ -129,6 +132,7 @@
 <script src="./assets/js/source-utils.js" defer></script>
 <script src="./assets/js/i18n.js" defer></script>
 <script src="./assets/js/app.js" defer></script>
+<script src="./assets/js/public-good.js" defer></script>
 <script src="./assets/js/motion.js" defer></script>
 <script src="./assets/js/to-top.js" defer></script>
 </body>
