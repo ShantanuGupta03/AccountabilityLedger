@@ -633,7 +633,11 @@
     .controls .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
     .search{min-width:0}
     select.sort{max-width:150px}
-    .chips{grid-column:1 / -1;flex-wrap:nowrap;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;padding:2px 0 5px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+    /* min-width:0 is load-bearing: a flex scroller inside a grid item still
+       takes its min-content width from the chips, so at 320px the row stretched
+       the page to 344px instead of scrolling inside itself. max-width:100% does
+       not help once the track has already grown. */
+    .chips{grid-column:1 / -1;min-width:0;flex-wrap:nowrap;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;padding:2px 0 5px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
     .chip{flex:0 0 auto;white-space:nowrap;font-size:11px;padding:11px 14px;min-height:44px;display:inline-flex;align-items:center}
     .filehead{grid-template-columns:1fr;gap:12px}
     .caseno{display:flex;align-items:baseline;gap:10px;padding-top:0}.caseno .n{display:inline}
@@ -652,6 +656,12 @@
     .rti-output-head .case-share{flex:1 1 auto;text-align:center}
     .dashboard-controls{align-items:stretch;flex-direction:column}
     .table-wrap{border:none;background:none;overflow-x:visible}
+    /* That override exists for .minister-table, which restacks into cards at this
+       width. The field-definition table does not restack, so it must keep its own
+       scroller or it stretches the whole page sideways on a 320px screen. */
+    .table-wrap.data-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+      border:1px solid var(--rule-strong);background:var(--paper-raised)}
+    .table-wrap.data-wrap .data-fields{min-width:420px}
     .minister-table{display:block;min-width:0;font-size:15px}
     .minister-table thead{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
     .minister-table tbody,.minister-table tr,.minister-table tbody th,.minister-table td{display:block;width:100%}
@@ -1165,3 +1175,44 @@
   .rtir-review-text{margin:10px 0 0;padding:12px 14px;background:var(--paper-sunken);
     border:1px dashed var(--rule-strong);font-family:var(--mono);font-size:12px;line-height:1.75;
     white-space:pre-wrap;overflow-wrap:anywhere;max-height:34vh;overflow-y:auto}
+
+  /* ---------- first-visit public-interest notice ---------- */
+  /* A slim bar, not a modal. It states the purpose, links the page that sets out
+     the rules in full, and gets out of the way for good once dismissed. */
+  .pg-notice{position:fixed;left:0;right:0;bottom:0;z-index:60;
+    display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;
+    padding:12px max(18px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));
+    background:var(--paper-raised);border-top:2px solid var(--redline);
+    box-shadow:0 -10px 26px -18px rgba(25,27,31,.5);
+    opacity:0;transform:translateY(100%);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+  .pg-notice.pg-in{opacity:1;transform:none}
+  .pg-notice.pg-leaving{opacity:0;transform:translateY(100%)}
+  .pg-notice p{margin:0;flex:1 1 380px;min-width:0;font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
+  .pg-link{color:var(--redline);text-underline-offset:3px;white-space:nowrap}
+  .pg-dismiss{flex:0 0 auto;padding:10px 16px;min-height:44px;
+    border:1px solid var(--rule-strong);background:var(--paper);color:var(--ink);
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+    transition:border-color .18s,color .18s}
+  .pg-dismiss:hover,.pg-dismiss:focus-visible{border-color:var(--redline);color:var(--redline)}
+  /* The to-top button lives in the same corner; lift it clear while the bar is up. */
+  body.has-pg-notice .to-top{bottom:calc(96px + env(safe-area-inset-bottom))}
+  @media (max-width:760px){
+    .pg-notice{gap:10px;padding-top:14px}
+    .pg-notice p{flex:1 1 100%;font-size:13px}
+    .pg-dismiss{width:100%;text-align:center;justify-content:center}
+    body.has-pg-notice .to-top{bottom:calc(140px + env(safe-area-inset-bottom))}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .pg-notice{transition:none;opacity:1;transform:none}
+  }
+  @media print{.pg-notice{display:none !important}}
+
+  /* Below 360px the hero title was the only thing pushing the page sideways:
+     clamp()'s 42px floor makes "Accountability" 328px wide inside a 288px
+     content box, and every flex row on the page then laid out inside that extra
+     width. Lower the floor for genuinely narrow screens only — 390px keeps the
+     size it was designed at. */
+  @media (max-width:359px){
+    h1.title{font-size:clamp(30px,10vw,42px)}
+    html[lang="hi"] h1.title{font-size:clamp(26px,8.4vw,38px)}
+  }

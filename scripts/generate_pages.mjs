@@ -295,11 +295,12 @@ ${extraHead}</head>
 ${body}
   <footer>
     <div class="wrap">
-      <p class="fine">Opinion and analysis. The accountability case. Fact and allegation separated. Estimates flagged. Every published claim sourced. <a href="${up}corrections/">Corrections and right of reply</a>.</p>
+      <p class="fine">Published in the public interest, about the public conduct of public office. Fact and allegation separated. Estimates flagged. Every published claim sourced. <a href="${up}about/">Why this exists</a> &middot; <a href="${up}corrections/">Corrections and right of reply</a>.</p>
     </div>
   </footer>
   <script src="${up}assets/js/source-utils.js" defer></script>
   <script src="${up}assets/js/i18n.js" defer></script>
+  <script src="${up}assets/js/public-good.js" defer></script>
   <script src="${up}assets/js/clock.js" defer></script>
   <script src="${up}assets/js/cite.js" defer></script>
   <script src="${up}assets/js/case-responses.js" defer></script>
@@ -926,7 +927,7 @@ export async function generatePages(cases, outputDir) {
 
     <section class="data-section">
       <h2>Field definitions</h2>
-      <div class="table-wrap">
+      <div class="table-wrap data-wrap">
         <table class="data-fields">
           <thead><tr><th>Field</th><th>What it means</th></tr></thead>
           <tbody>${fieldRows}</tbody>
@@ -989,6 +990,7 @@ export async function generatePages(cases, outputDir) {
     { path: "/answered/", lastmod: newestCaseIso, priority: "0.8" },
     { path: "/rti/", priority: "0.7" },
     { path: "/rti/responses/", priority: "0.7" },
+    { path: "/about/", priority: "0.7" },
     { path: "/data/", priority: "0.6" },
     { path: "/submit/", priority: "0.4" },
     { path: "/corrections/", priority: "0.4" },
