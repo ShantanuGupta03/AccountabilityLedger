@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Accountability Ledger">
+  <title>Accountability Ledger</title>
+  <style>
+    .paper{fill:#F4F4EF}.rule{fill:#54574F}.redact{fill:#191B1F}
+    /* The site itself is light-only, but a browser tab is not the site: in a
+       dark-themed browser a paper-white square glares. Invert for that case. */
+    @media (prefers-color-scheme:dark){
+      .paper{fill:#20232A}.rule{fill:#9BA096}.redact{fill:#F4F4EF}
+    }
+  </style>
+  <rect class="paper" width="64" height="64"/>
+  <rect width="12" height="64" fill="#9A2117"/>
+  <rect class="rule" x="22" y="18" width="32" height="6"/>
+  <rect class="redact" x="22" y="32" width="32" height="14"/>
+</svg>

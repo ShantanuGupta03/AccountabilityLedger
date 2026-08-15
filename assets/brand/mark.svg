@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Accountability Ledger">
+  <title>Accountability Ledger</title>
+  <!--
+    The mark quotes the ledger's own case card: a paper file with a red spine
+    down its left edge. Inside, one line of record and one line blacked out.
+    A public document, and the part of it somebody decided you should not read.
+
+    Two bars, not three, because three stopped being legible at 16px — tested
+    at tab size before it was chosen, not after.
+  -->
+  <rect width="64" height="64" fill="#F4F4EF"/>
+  <rect width="12" height="64" fill="#9A2117"/>
+  <rect x="22" y="18" width="32" height="6" fill="#54574F"/>
+  <rect x="22" y="32" width="32" height="14" fill="#191B1F"/>
+</svg>

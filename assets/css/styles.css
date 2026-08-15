@@ -644,8 +644,8 @@
       background:
         linear-gradient(to right,var(--paper) 40%,rgba(233,233,228,0)) left center/26px 100% no-repeat local,
         linear-gradient(to left,var(--paper) 40%,rgba(233,233,228,0)) right center/26px 100% no-repeat local,
-        radial-gradient(farthest-side at 0 50%,rgba(25,27,31,.22),rgba(25,27,31,0)) left center/13px 100% no-repeat scroll,
-        radial-gradient(farthest-side at 100% 50%,rgba(25,27,31,.22),rgba(25,27,31,0)) right center/13px 100% no-repeat scroll}
+        radial-gradient(farthest-side at 0 50%,rgba(25,27,31,.13),rgba(25,27,31,0)) left center/9px 100% no-repeat scroll,
+        radial-gradient(farthest-side at 100% 50%,rgba(25,27,31,.13),rgba(25,27,31,0)) right center/9px 100% no-repeat scroll}
     .nav-links::-webkit-scrollbar{display:none}
     .site-nav a,.site-nav .lang-switch button{flex:0 0 auto;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;padding:10px 12px}
     .site-nav .lang-switch{flex:0 0 auto;white-space:nowrap}
@@ -1241,4 +1241,19 @@
   @media (max-width:359px){
     h1.title{font-size:clamp(30px,10vw,42px)}
     html[lang="hi"] h1.title{font-size:clamp(26px,8.4vw,38px)}
+  }
+
+  /* ---------- masthead mark ---------- */
+  /* The mark sits beside the flag text, not inside it: the flag's spans are
+     data-i18n nodes and apply() rewrites their textContent, which would delete
+     any element placed within them. */
+  .flag{flex-wrap:wrap}
+  .flag-mark{flex:0 0 auto;align-self:center;width:28px;height:28px;
+    box-shadow:0 1px 0 var(--rule-strong);margin-right:2px}
+  @media (max-width:760px){
+    /* Two columns rather than three stacked rows, so the mark costs no height:
+       it sits to the left of both lines of the flag instead of above them. */
+    .flag{display:grid;grid-template-columns:auto minmax(0,1fr);
+      align-items:center;column-gap:11px;row-gap:2px}
+    .flag-mark{grid-row:1 / span 2;width:34px;height:34px;margin-right:0}
   }
