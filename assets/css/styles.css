@@ -1247,13 +1247,20 @@
   /* The mark sits beside the flag text, not inside it: the flag's spans are
      data-i18n nodes and apply() rewrites their textContent, which would delete
      any element placed within them. */
-  .flag{flex-wrap:wrap}
+  /* .flag was written as justify-content:space-between for exactly two children:
+     the title at the left edge, the tagline at the right. The mark made it three,
+     and space-between duly pushed the title into the middle of the masthead with
+     a hole where it used to start. Pack from the left instead and let the tagline
+     claim the right edge on its own. */
+  .flag{flex-wrap:wrap;justify-content:flex-start;gap:11px}
+  .flag .redtag{margin-left:auto}
   .flag-mark{flex:0 0 auto;align-self:center;width:28px;height:28px;
-    box-shadow:0 1px 0 var(--rule-strong);margin-right:2px}
+    box-shadow:0 1px 0 var(--rule-strong)}
   @media (max-width:760px){
     /* Two columns rather than three stacked rows, so the mark costs no height:
        it sits to the left of both lines of the flag instead of above them. */
     .flag{display:grid;grid-template-columns:auto minmax(0,1fr);
       align-items:center;column-gap:11px;row-gap:2px}
+    .flag .redtag{margin-left:0}
     .flag-mark{grid-row:1 / span 2;width:34px;height:34px;margin-right:0}
   }
