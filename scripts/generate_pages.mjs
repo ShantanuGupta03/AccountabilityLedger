@@ -147,6 +147,11 @@ function shareShell({ title, description, path, imagePath, redirect, cssHref, bo
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${escapeHtml(image)}">
   <meta http-equiv="refresh" content="0;url=${escapeHtml(redirect)}">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/brand/icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#E9EAE4">
   <link rel="stylesheet" href="${escapeHtml(cssHref)}">
 </head>
 <body class="share-landing">
@@ -272,12 +277,17 @@ function pageShell({ title, description, path, imagePath, body, up = "../../", e
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/brand/icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#E9EAE4">
   <link rel="stylesheet" href="${up}assets/css/styles.css">
 ${extraHead}</head>
 <body>
   <header class="masthead compact-masthead bare-masthead">
     <div class="wrap">
-      <div class="flag"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="flag_tag">Who owned the mess? 25 years, every party, on the record</span></div>
+      <div class="flag"><img class="flag-mark" src="/favicon.svg" alt="" width="28" height="28" decoding="async"><span data-i18n="flag_title">Citizens' Accountability Ledger</span><span class="redtag" data-i18n="flag_tag">Who owned the mess? 25 years, every party, on the record</span></div>
       <nav class="site-nav" aria-label="Primary navigation">
       <div class="nav-links">
         <a href="${up}" data-i18n="nav_ledger">Ledger</a>
